@@ -1,12 +1,11 @@
 import React     from "react"
 import ReactDOM  from "react-dom"
-
-import App from "components/App"
-import "styles/rechords"
+import App from "../components/App"
+import "../styles/rechords.sass"
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
-    <App name="Hello World!" />,
+    <App />,
     document.body.appendChild(document.createElement("div")),
   )
 })

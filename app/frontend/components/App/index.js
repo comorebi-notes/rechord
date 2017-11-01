@@ -1,11 +1,20 @@
 import React, { Component } from "react"
+import * as sound from "../../utils/sound"
 
 export default class App extends Component {
-  render () {
-    const { name } = this.props
+  constructor() {
+    super()
+    this.sound = this.sound.bind(this)
+  }
+  sound() {
+    sound.basicSound()
+  }
+  render() {
     return (
       <div>
-        {name}!
+        <button onClick={this.sound} className="button is-primary">
+          click to play!
+        </button>
       </div>
     )
   }

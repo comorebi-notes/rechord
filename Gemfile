@@ -37,6 +37,7 @@ gem 'webpacker', '~> 3.0'
 gem 'font-awesome-rails'
 gem 'rails-i18n'
 gem 'slim-rails'
+gem 'bulma-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

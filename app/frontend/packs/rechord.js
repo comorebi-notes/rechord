@@ -1,11 +1,11 @@
 import React     from "react"
 import ReactDOM  from "react-dom"
 import App from "../components/App"
-import "../styles/rechords.sass"
+import "../styles/rechord.sass"
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
     <App />,
-    document.body.appendChild(document.createElement("div")),
+    document.getElementById("rechord").appendChild(document.createElement("div"))
   )
 })

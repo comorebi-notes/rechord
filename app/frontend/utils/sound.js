@@ -4,12 +4,24 @@ import { Chord } from "tonal"
 let synth
 const baseKey = 3
 const defaultBpm = 120
+// const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
+// const reverb = new Tone.Freeverb(0.5).toMaster()
+const polySynthOptions = {
+  oscillator: {
+    type: "triangle24"
+  },
+  envelope: {
+    attack:  0.005,
+    decay:   8,
+    sustain: 0.05,
+    release: 1
+  }
+}
 
 Tone.Transport.bpm.value = defaultBpm
-Tone.Transport.start()
 
 const setPlay = (time, value) => (
-  synth.triggerAttackRelease(value.note, value.duration, time)
+  synth.triggerAttackRelease(value.notes, value.duration, time)
 )
 
 const setBeats = (length) => {
@@ -21,7 +33,14 @@ const setBeats = (length) => {
   }
 }
 
+const fixNote = (notes) => (
+  notes.map(note => note.replace(/##/, "#"))
+)
+
 export const start = (parsedText) => {
+  synth = new Tone.PolySynth({ polyphony: 6, voice: Tone.Synth }).toMaster()
+  synth.set(polySynthOptions)
+
   const progression = []
   let bar = 0
 
@@ -30,18 +49,18 @@ export const start = (parsedText) => {
       const beats = setBeats(chords.length)
 
       chords.forEach((chord, index) => {
-        const time = `${bar}:${beats[index]}:0`
-        const note = Chord.notes(`${chord[0]}${baseKey}`, chord[1])
+        const time     = `${bar}:${beats[index]}:0`
+        const notes    = Chord.notes(`${chord[0]}${baseKey}`, chord[1])
         const duration = chords.length === 1 ? "1m" : `${chords.length}n`
 
-        progression.push({ time, note, duration })
+        progression.push({ time, duration, notes: fixNote(notes) })
       })
 
       bar += 1
     })
   ))
 
-  synth = new Tone.PolySynth(6, Tone.Synth).toMaster()
+  Tone.Transport.start()
   new Tone.Part(setPlay, progression).start()
 }
 export const stop = () => Tone.Transport.cancel()

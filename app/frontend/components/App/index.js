@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import Textarea             from "react-textarea-autosize"
 import Button               from "../shared/button"
-import Control              from "../shared/control"
+import ControlField         from "../shared/controlField"
 import Progression          from "../Progression"
 import * as sound           from "../../utils/sound"
 import * as utils           from "../../utils"
@@ -26,35 +26,35 @@ export default class App extends Component {
     const parsedText = utils.parseChordProgression(inputText)
     return (
       <div>
-        <Control label="chord progression">
+        <ControlField label="chord progression">
           <Textarea
             className="textarea"
             placeholder="e.g. D69 | Aadd9 | E | F#m7add11"
             value={inputText}
             onChange={this.onChangeText}
           />
-        </Control>
+        </ControlField>
 
         <div className="content">
           <Progression text={parsedText} />
         </div>
 
-        <Control label="BPM">
+        <ControlField label="BPM">
           <input
             type="number"
             className="input"
             value={bpm}
             onChange={this.onChangeBpm}
           />
-        </Control>
+        </ControlField>
 
         <div className="field is-grouped">
           <div className="control">
             <Button
               onClick={() => sound.start(parsedText)}
-              color="primary"
+              color="info"
               icon="play"
-              text="click to play!"
+              text="play"
             />
           </div>
           <div className="control">
@@ -62,7 +62,7 @@ export default class App extends Component {
               onClick={sound.stop}
               color="danger"
               icon="stop"
-              text="stop!"
+              text="stop"
             />
           </div>
         </div>

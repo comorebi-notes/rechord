@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react"
 
-export default class Control extends PureComponent {
+export default class ControlField extends PureComponent {
   render() {
     const { label, children } = this.props
     return (

@@ -1,2 +1,8 @@
-p
-  font-weight: bold
+.progression
+  .chords
+    display: inline-block
+    &:not(:last-child):after
+      content: "|"
+      margin: 0 1em
+  .chord:not(:last-child)
+    margin-right: 1em

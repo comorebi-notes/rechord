@@ -37,7 +37,24 @@ export default class App extends Component {
         </div>
 
         <div className="content">
-          <p>{JSON.stringify(utils.parseChordProgression(inputText))}</p>
+          <div className="progression">
+            {utils.parseChordProgression(inputText).map(line => (
+              <div>
+                {line.map(chords => (
+                  <div className="chords">
+                    {chords.map(chord => (
+                      <span className="chord">
+                        <strong className="root">
+                          {chord[0]}
+                        </strong>
+                        {chord[1]}
+                      </span>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
           {false && <p>Chord.notes() : {Chord.notes(inputText).join(", ")}</p>}
           {false && <p>Scale.notes() : {Scale.notes(inputText).join(", ")}</p>}
         </div>

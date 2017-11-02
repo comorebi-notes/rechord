@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Chord, Scale } from "tonal"
 import * as sound from "../../utils/sound"
+import * as utils from "../../utils"
 
 export default class App extends Component {
   constructor() {
@@ -36,9 +37,9 @@ export default class App extends Component {
         </div>
 
         <div className="content">
-          <p>{inputText}</p>
-          <p>Chord.notes() : {Chord.notes(inputText).join(", ")}</p>
-          <p>Scale.notes() : {Scale.notes(inputText).join(", ")}</p>
+          <p>{JSON.stringify(utils.parseChordProgression(inputText))}</p>
+          {false && <p>Chord.notes() : {Chord.notes(inputText).join(", ")}</p>}
+          {false && <p>Scale.notes() : {Scale.notes(inputText).join(", ")}</p>}
         </div>
 
         <div className="control">

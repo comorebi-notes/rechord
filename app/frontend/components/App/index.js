@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import { Chord, Scale } from "tonal"
 import classNames from "classnames"
+import Textarea from "react-textarea-autosize"
 import * as sound from "../../utils/sound"
 import * as utils from "../../utils"
 
@@ -8,29 +8,38 @@ export default class App extends Component {
   constructor() {
     super()
     this.onChangeText = this.onChangeText.bind(this)
-    this.sound = this.sound.bind(this)
+    this.onChangeBpm = this.onChangeBpm.bind(this)
     this.state = {
-      inputText: ""
+      bpm: 120,
+      inputText: [
+        "# e.g.",
+        "C | G | Am7 | Em7",
+        "F | Em7 Am7 | Dm7 | G7",
+        "FM7 | G7 | E7 | Am7",
+        "F C | Dm7 G7sus4 | C"
+      ].join("\n")
     }
   }
   onChangeText(e) {
     this.setState({ inputText: e.target.value })
   }
-  sound() {
-    sound.basicSound()
+  onChangeBpm(e) {
+    this.setState({ bpm: e.target.value })
+    sound.setBpm(e.target.value)
   }
   render() {
-    const { inputText } = this.state
+    const { inputText, bpm } = this.state
+    const parsedText = utils.parseChordProgression(inputText)
     return (
       <div>
         <div className="field">
           <label className="label">
-            Please input chord progression.
+            chord progression
           </label>
           <div className="control">
-            <textarea
+            <Textarea
               className="textarea"
-              placeholder="e.g. D6(9) | Aadd9 | E | F#m7(11)"
+              placeholder="e.g. D69 | Aadd9 | E | F#m7add11"
               value={inputText}
               onChange={this.onChangeText}
             />
@@ -39,12 +48,12 @@ export default class App extends Component {
 
         <div className="content">
           <div className="progression">
-            {utils.parseChordProgression(inputText).map(line => (
-              <div>
-                {line.map(chords => (
-                  <div className="chords">
-                    {chords.map(chord => (
-                      <span className="chord">
+            {parsedText.map((line, i) => (
+              <div key={`${line}${i}`}>
+                {line.map((chords, j) => (
+                  <div className="chords" key={`${chords}${j}`}>
+                    {chords.map((chord, k) => (
+                      <span className="chord" key={`${chord}${k}`}>
                         <span className={classNames("root", chord[0])}>
                           {chord[0]}
                         </span>
@@ -58,14 +67,49 @@ export default class App extends Component {
               </div>
             ))}
           </div>
-          {false && <p>Chord.notes() : {Chord.notes(inputText).join(", ")}</p>}
-          {false && <p>Scale.notes() : {Scale.notes(inputText).join(", ")}</p>}
         </div>
 
-        <div className="control">
-          <button onClick={this.sound} className="button is-primary">
-            click to play!
-          </button>
+        <div className="field">
+          <label className="label">
+            BPM
+          </label>
+          <div className="control">
+            <input
+              type="number"
+              className="input"
+              value={bpm}
+              onChange={this.onChangeBpm}
+            />
+          </div>
+        </div>
+
+        <div className="field is-grouped">
+          <div className="control">
+            <button
+              onClick={() => sound.start(parsedText)}
+              className="button is-primary"
+            >
+              <span className="icon is-small">
+                <i className="fa fa-play" />
+              </span>
+              <span>
+                click to play!
+              </span>
+            </button>
+          </div>
+          <div className="control">
+            <button
+              onClick={sound.stop}
+              className="button is-danger"
+            >
+              <span className="icon is-small">
+                <i className="fa fa-stop" />
+              </span>
+              <span>
+                stop!
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     )

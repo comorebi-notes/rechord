@@ -5,6 +5,7 @@
     "@rails/webpacker": "^3.0.2",
     "babel-eslint": "^8.0.1",
     "babel-preset-react": "^6.24.1",
+    "classnames": "^2.2.5",
     "coffeescript": "1.12.7",
     "eslint": "^4.10.0",
     "eslint-config-airbnb": "^16.1.0",

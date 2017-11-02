@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Chord, Scale } from "tonal"
+import classNames from "classnames"
 import * as sound from "../../utils/sound"
 import * as utils from "../../utils"
 
@@ -44,10 +45,12 @@ export default class App extends Component {
                   <div className="chords">
                     {chords.map(chord => (
                       <span className="chord">
-                        <strong className="root">
+                        <span className={classNames("root", chord[0])}>
                           {chord[0]}
-                        </strong>
-                        {chord[1]}
+                        </span>
+                        <span className="type">
+                          {chord[1]}
+                        </span>
                       </span>
                     ))}
                   </div>

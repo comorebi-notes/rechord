@@ -4,5 +4,28 @@
     &:not(:last-child):after
       content: "|"
       margin: 0 1em
-  .chord:not(:last-child)
-    margin-right: 1em
+  .chord
+    .root, .type
+      font-weight: bold
+    .root
+      font-size: 1.4em
+      &.C
+        color: #a92
+      &.D
+        color: #d51
+      &.E
+        color: #7c3
+      &.F
+        color: #84a
+      &.G
+        color: #278
+      &.A
+        color: #b57
+      &.B
+        color: #25c
+    .type
+      font-size: 1.1em
+      margin-left: 1px
+      color: #666
+    &:not(:last-child)
+      margin-right: 1em

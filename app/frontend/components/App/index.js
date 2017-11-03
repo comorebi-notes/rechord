@@ -13,6 +13,7 @@ export default class App extends Component {
     this.onChangeText = this.onChangeText.bind(this)
     this.onChangeBpm  = this.onChangeBpm.bind(this)
     this.state = { bpm: 120, inputText: defaultProgression }
+    sound.initialize()
   }
   onChangeText(e) {
     this.setState({ inputText: e.target.value })

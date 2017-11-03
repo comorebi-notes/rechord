@@ -18,11 +18,10 @@ const polySynthOptions = {
   }
 }
 
-Tone.Transport.bpm.value = defaultBpm
-
-const setPlay = (time, value) => (
-  synth.triggerAttackRelease(value.notes, value.duration, time)
-)
+const setSynth = () => {
+  synth = new Tone.PolySynth({ polyphony: 6, voice: Tone.Synth }).toMaster()
+  synth.set(polySynthOptions)
+}
 
 const setBeats = (length) => {
   switch (length) {
@@ -33,18 +32,12 @@ const setBeats = (length) => {
   }
 }
 
-const fixNote = (notes) => (
-  notes.map(note => note.replace(/##/, "#"))
-)
-
-export const start = (parsedText) => {
-  synth = new Tone.PolySynth({ polyphony: 6, voice: Tone.Synth }).toMaster()
-  synth.set(polySynthOptions)
-
+const makeProgression = (text) => {
   const progression = []
+  const fixNote = (notes) => notes.map(note => note.replace(/##/, "#"))
   let bar = 0
 
-  parsedText.forEach(line => (
+  text.forEach(line => (
     line.forEach(chords => {
       const beats = setBeats(chords.length)
 
@@ -60,11 +53,29 @@ export const start = (parsedText) => {
     })
   ))
 
-  Tone.Transport.start()
-  new Tone.Part(setPlay, progression).start()
+  return progression
 }
-export const stop = () => Tone.Transport.cancel()
+
+const setPlay = (time, value) => (
+  synth.triggerAttackRelease(value.notes, value.duration, time)
+)
+
+export const start = (parsedText) => {
+  setSynth()
+  const startTime = Tone.context.currentTime + 0.1
+  const progression = makeProgression(parsedText)
+  new Tone.Part(setPlay, progression).start(startTime)
+  Tone.Transport.start(0)
+}
+
+export const stop = () => (
+  Tone.Transport.cancel()
+)
 
 export const setBpm = (bpm) => {
   Tone.Transport.bpm.value = bpm
+}
+
+export const initialize = () => {
+  setBpm(defaultBpm)
 }

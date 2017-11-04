@@ -1,12 +1,12 @@
 import React, { PureComponent } from "react"
 import classNames               from "classnames"
 
-export default class Progression extends PureComponent {
+export default class Score extends PureComponent {
   render() {
     const { text } = this.props
     const chordClass = (chord) => chord.replace(/#/, "s")
     return (
-      <div className="progression">
+      <div className="score">
         {text.map((line, i) => (
           <div key={`${line}${i}`}>
             {line.map((chords, j) => (

@@ -1,19 +1,19 @@
-import React, { Component } from "react"
-import Textarea             from "react-textarea-autosize"
-import Button               from "../shared/button"
-import Slider               from "../shared/slider"
-import ControlField         from "../shared/controlField"
-import Progression          from "../Progression"
-import * as sound           from "../../utils/sound"
-import * as utils           from "../../utils"
-import defaultProgression   from "../../constants/defaultProgression"
+import React, { Component }    from "react"
+import Textarea                from "react-textarea-autosize"
+import Button                  from "../shared/button"
+import Slider                  from "../shared/slider"
+import ControlField            from "../shared/controlField"
+import Score                   from "../Score"
+import * as sound              from "../../utils/sound"
+import * as utils              from "../../utils"
+import defaultChordProgression from "../../constants/defaultChordProgression"
 
 export default class App extends Component {
   constructor() {
     super()
     this.onChangeText = this.onChangeText.bind(this)
     this.onChangeBpm  = this.onChangeBpm.bind(this)
-    this.state = { bpm: 120, inputText: defaultProgression }
+    this.state = { bpm: 120, inputText: defaultChordProgression }
     sound.initialize()
   }
   onChangeText(e) {
@@ -38,7 +38,7 @@ export default class App extends Component {
         </ControlField>
 
         <div className="content">
-          <Progression text={parsedText} />
+          <Score text={parsedText} />
         </div>
 
         <ControlField label="BPM">

@@ -1,12 +1,12 @@
 import * as Chord from "tonal-chord"
 
 export const parseChordProgression = (text) => {
-  let progression = []
+  let score = []
 
-  progression = text.split("\n")
-  progression = progression.filter(line => line[0] !== "#")
-  progression = progression.map(line => line.split("|"))
-  progression = progression.map(line => (
+  score = text.split("\n")
+  score = score.filter(line => line[0] !== "#")
+  score = score.map(line => line.split("|"))
+  score = score.map(line => (
     line
       .map(chords => chords.trim())
       .filter(chords => chords !== "")
@@ -14,7 +14,7 @@ export const parseChordProgression = (text) => {
       .map(chords => chords.map(chord => Chord.tokenize(chord)))
   ))
 
-  return progression
+  return score
 }
 
 export default parseChordProgression

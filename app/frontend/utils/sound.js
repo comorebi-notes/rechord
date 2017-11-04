@@ -4,6 +4,8 @@ import { Chord } from "tonal"
 let synth
 const baseKey = 3
 const defaultBpm = 120
+const minBpm = 60
+const maxBpm = 600
 // const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
 // const reverb = new Tone.Freeverb(0.5).toMaster()
 const polySynthOptions = {
@@ -52,28 +54,40 @@ const makeProgression = (text) => {
       bar += 1
     })
   ))
-
+  progression.push({ notes: "end" })
   return progression
 }
 
-const setPlay = (time, value) => (
-  synth.triggerAttackRelease(value.notes, value.duration, time)
-)
+export const stop = () => {
+  Tone.Transport.stop()
+  Tone.Transport.cancel()
+}
+
+const setPlay = (time, value) => {
+  if (value.notes === "end") {
+    stop()
+  } else {
+    synth.triggerAttackRelease(value.notes, value.duration, time)
+  }
+}
 
 export const start = (parsedText) => {
   setSynth()
-  const startTime = Tone.context.currentTime + 0.1
   const progression = makeProgression(parsedText)
-  new Tone.Part(setPlay, progression).start(startTime)
-  Tone.Transport.start(0)
+  new Tone.Part(setPlay, progression).start()
+  Tone.Transport.start("+0.1")
 }
 
-export const stop = () => (
-  Tone.Transport.cancel()
-)
-
 export const setBpm = (bpm) => {
-  Tone.Transport.bpm.value = bpm
+  let targetBpm = 120
+  if (bpm < minBpm) {
+    targetBpm = minBpm
+  } else if (bpm > maxBpm) {
+    targetBpm = maxBpm
+  } else {
+    targetBpm = bpm
+  }
+  Tone.Transport.bpm.value = targetBpm
 }
 
 export const initialize = () => {

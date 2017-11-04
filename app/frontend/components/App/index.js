@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Textarea             from "react-textarea-autosize"
 import Button               from "../shared/button"
+import Slider               from "../shared/slider"
 import ControlField         from "../shared/controlField"
 import Progression          from "../Progression"
 import * as sound           from "../../utils/sound"
@@ -43,13 +44,21 @@ export default class App extends Component {
         <ControlField label="BPM">
           <input
             type="number"
+            min="60"
+            max="600"
             className="input"
+            value={bpm}
+            onChange={this.onChangeBpm}
+          />
+          <Slider
+            min="60"
+            max="600"
             value={bpm}
             onChange={this.onChangeBpm}
           />
         </ControlField>
 
-        <div className="field is-grouped">
+        <div className="field is-grouped is-grouped-centered">
           <div className="control">
             <Button
               onClick={() => sound.start(parsedText)}

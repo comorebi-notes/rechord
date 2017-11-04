@@ -11,9 +11,10 @@ import defaultChordProgression from "../../constants/defaultChordProgression"
 export default class App extends Component {
   constructor() {
     super()
-    this.onChangeText = this.onChangeText.bind(this)
-    this.onChangeBpm  = this.onChangeBpm.bind(this)
-    this.state = { bpm: 120, inputText: defaultChordProgression }
+    this.onChangeText   = this.onChangeText.bind(this)
+    this.onChangeBpm    = this.onChangeBpm.bind(this)
+    this.onChangeVolume = this.onChangeVolume.bind(this)
+    this.state = { bpm: 120, volume: 10, inputText: defaultChordProgression }
     sound.initialize()
   }
   onChangeText(e) {
@@ -23,8 +24,12 @@ export default class App extends Component {
     this.setState({ bpm: e.target.value })
     sound.setBpm(e.target.value)
   }
+  onChangeVolume(e) {
+    this.setState({ volume: e.target.value })
+    sound.setVolume(e.target.value)
+  }
   render() {
-    const { inputText, bpm } = this.state
+    const { inputText, bpm, volume } = this.state
     const parsedText = utils.parseChordProgression(inputText)
     return (
       <div>
@@ -55,6 +60,23 @@ export default class App extends Component {
             max="600"
             value={bpm}
             onChange={this.onChangeBpm}
+          />
+        </ControlField>
+
+        <ControlField label="volume">
+          <input
+            type="number"
+            min="1"
+            max="10"
+            className="input"
+            value={volume}
+            onChange={this.onChangeVolume}
+          />
+          <Slider
+            min="1"
+            max="10"
+            value={volume}
+            onChange={this.onChangeVolume}
           />
         </ControlField>
 

@@ -1,4 +1,4 @@
-import * as Chord from "tonal-chord"
+import { Chord } from "tonal"
 
 export const parseChordProgression = (text) => {
   let score = []
@@ -17,4 +17,35 @@ export const parseChordProgression = (text) => {
   return score
 }
 
-export default parseChordProgression
+const setBeats = (length) => {
+  switch (length) {
+    case 1:  return [0]
+    case 2:  return [0, 2]
+    case 4:  return [0, 1, 2, 3]
+    default: return [0]
+  }
+}
+
+export const makeScore = (text) => {
+  const score = []
+  const fixNote = (notes) => notes.map(note => note.replace(/##/, "#"))
+  const baseKey = 3
+  let bar = 0
+
+  text.forEach(line => (
+    line.forEach(chords => {
+      const beats = setBeats(chords.length)
+
+      chords.forEach((chord, index) => {
+        const time     = `${bar}:${beats[index]}:0`
+        const notes    = Chord.notes(`${chord[0]}${baseKey}`, chord[1])
+        const duration = chords.length === 1 ? "1m" : `${chords.length}n`
+
+        score.push({ time, duration, notes: fixNote(notes) })
+      })
+
+      bar += 1
+    })
+  ))
+  return score
+}

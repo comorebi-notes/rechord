@@ -1,12 +1,14 @@
 import Tone from "tone"
-import { Chord } from "tonal"
+import * as utils from "./"
 
 let synth
 let click
-const baseKey = 3
+
 const defaultBpm = 120
-const minBpm = 60
-const maxBpm = 600
+const minBpm     = 60
+const maxBpm     = 600
+const minVolume  = 1
+const maxVolume  = 10
 // const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
 // const reverb = new Tone.Freeverb(0.5).toMaster()
 const polySynthOptions = {
@@ -49,36 +51,19 @@ const setClick = () => {
   click = new Tone.MonoSynth(clickOptions).toMaster()
 }
 
-const setBeats = (length) => {
-  switch (length) {
-    case 1:  return [0]
-    case 2:  return [0, 2]
-    case 4:  return [0, 1, 2, 3]
-    default: return [0]
-  }
+const valueInRange = (value, min, max) => {
+  if (value < min) return min
+  if (max < value) return max
+  return value
 }
 
-const makeScore = (text) => {
-  const score = []
-  const fixNote = (notes) => notes.map(note => note.replace(/##/, "#"))
-  let bar = 0
+export const setBpm = (bpm) => {
+  Tone.Transport.bpm.value = valueInRange(bpm, minBpm, maxBpm)
+}
 
-  text.forEach(line => (
-    line.forEach(chords => {
-      const beats = setBeats(chords.length)
-
-      chords.forEach((chord, index) => {
-        const time     = `${bar}:${beats[index]}:0`
-        const notes    = Chord.notes(`${chord[0]}${baseKey}`, chord[1])
-        const duration = chords.length === 1 ? "1m" : `${chords.length}n`
-
-        score.push({ time, duration, notes: fixNote(notes) })
-      })
-
-      bar += 1
-    })
-  ))
-  return score
+export const setVolume = (volume) => {
+  const newVolume = (valueInRange(volume, minVolume, maxVolume) - maxVolume) * 3
+  Tone.Master.volume.value = newVolume
 }
 
 const triggerSynth = (time, value) => {
@@ -86,7 +71,7 @@ const triggerSynth = (time, value) => {
 }
 
 const triggerClick = (time) => {
-  click.triggerAttackRelease("A6", "32n", time, 0.25)
+  click.triggerAttackRelease("A6", "32n", time, 0.1)
 }
 
 const setClickSchedule = (barLength) => {
@@ -105,25 +90,14 @@ export const stop = () => {
 export const start = (parsedText) => {
   stop()
   setSynth()
-  const score = makeScore(parsedText)
-  new Tone.Part(triggerSynth, score).start()
-
   setClick()
+
+  const score = utils.makeScore(parsedText)
+  new Tone.Part(triggerSynth, score).start()
   const barLength = parseInt(score[score.length - 1].time.split(":")[0], 10)
   setClickSchedule(barLength)
-  Tone.Transport.start("+0.2")
-}
 
-export const setBpm = (bpm) => {
-  let targetBpm = 120
-  if (bpm < minBpm) {
-    targetBpm = minBpm
-  } else if (bpm > maxBpm) {
-    targetBpm = maxBpm
-  } else {
-    targetBpm = bpm
-  }
-  Tone.Transport.bpm.value = targetBpm
+  Tone.Transport.start("+0.2")
 }
 
 export const initialize = () => {

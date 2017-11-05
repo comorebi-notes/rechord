@@ -49,3 +49,11 @@ export const makeScore = (text) => {
   ))
   return score
 }
+
+export const valueInRange = (value, min, max) => {
+  if (value < min) return min
+  if (max < value) return max
+  return value
+}
+
+export const synthVelocity = (length) => 3.0 / length

@@ -135,8 +135,8 @@ export default class App extends Component {
 
         <SoundControl
           bpm={bpm}
-          parsedText={parsedText}
           volume={volume}
+          parsedText={parsedText}
           isPlaying={isPlaying}
           onChangePlaying={this.handleChangePlaying}
         />

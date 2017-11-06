@@ -19,8 +19,7 @@ export default class SoundControl extends Component {
     this.handleStart = this.handleStart.bind(this)
     this.state = { curretNotes: [] }
   }
-  componentWillReceiveProps() {
-    const { bpm, volume } = this.props
+  componentWillReceiveProps({ bpm, volume }) {
     this.setBpm(bpm)
     this.setVolume(volume)
   }

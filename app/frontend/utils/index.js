@@ -59,6 +59,8 @@ const fixNotes = (notes) => {
 export const makeScore = (text) => {
   const score = []
   const baseKey = 3
+  const resumeNote = "%"
+  // const stopNote = "-"
   let bar = 0
 
   text.forEach(line => {
@@ -67,10 +69,11 @@ export const makeScore = (text) => {
     line.forEach(chords => {
       const beats = setBeats(chords.length)
       chords.forEach((chord, index) => {
-        const time     = `${bar}:${beats[index]}:0`
-        const notes    = Chord.notes(`${chord[0]}${baseKey}`, translate(chord[1]))
-        const duration = chords.length === 1 ? "1m" : `${chords.length}n`
-        score.push({ time, duration, notes: fixNotes(notes) })
+        const time  = `${bar}:${beats[index]}:0`
+        const notes = chord[1][0] === resumeNote ? resumeNote : (
+          fixNotes(Chord.notes(`${chord[0]}${baseKey}`, translate(chord[1])))
+        )
+        score.push({ time, notes })
       })
       bar += 1
     })

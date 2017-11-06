@@ -20,6 +20,7 @@ export default class SoundControl extends Component {
     this.setVolume   = this.setVolume.bind(this)
     this.handleStop  = this.handleStop.bind(this)
     this.handleStart = this.handleStart.bind(this)
+    this.state = { curretNotes: [] }
   }
   componentWillReceiveProps() {
     const { bpm, volume } = this.props
@@ -27,19 +28,21 @@ export default class SoundControl extends Component {
     this.setVolume(volume)
   }
   setSynth(score) {
-    const synth = new Tone.PolySynth({ polyphony: 6, voice: Tone.Synth }).toMaster()
+    // const synth = new Tone.Synth(soundOptions.synths[0]).toMaster()
+    const synth = new Tone.Sampler(...soundOptions.piano).toMaster()
     const triggerSynth = (time, value) => {
-      const { notes, duration } = value
-      if (notes === "fin") {
-        this.handleStop()
-      } else {
-        synth.triggerAttackRelease(notes, duration, time)
+      const { notes } = value
+      if (notes[0] !== "%") {
+        this.state.curretNotes.forEach(note => synth.triggerRelease(note))
+        if (notes === "fin") {
+          this.handleStop()
+        } else {
+          notes.forEach(note => synth.triggerAttack(note))
+          this.setState({ curretNotes: notes })
+        }
       }
     }
-    const setSchedule = () => new Tone.Part(triggerSynth, score).start()
-
-    synth.set(soundOptions.synths[0])
-    setSchedule(score)
+    new Tone.Part(triggerSynth, score).start()
   }
   setClick(score) {
     const click = new Tone.MonoSynth(soundOptions.clicks[0]).toMaster()

@@ -1,12 +1,12 @@
-import React, { Component }    from "react"
-import Textarea                from "react-textarea-autosize"
-import Button                  from "../shared/button"
-import Slider                  from "../shared/slider"
-import ControlField            from "../shared/controlField"
-import Score                   from "../Score"
-import SoundControl            from "../SoundControl"
-import * as utils              from "../../utils"
-import defaultChordProgression from "../../constants/defaultChordProgression"
+import React, { Component }   from "react"
+import Textarea               from "react-textarea-autosize"
+import Button                 from "../shared/button"
+import Slider                 from "../shared/slider"
+import ControlField           from "../shared/controlField"
+import Score                  from "../Score"
+import SoundControl           from "../SoundControl"
+import * as utils             from "../../utils"
+import sampleChordProgression from "../../constants/sampleChordProgression"
 
 const defaultBpm = 120
 const defaultVolume = 10
@@ -22,7 +22,7 @@ export default class App extends Component {
     this.handleKeyChange     = this.handleKeyChange.bind(this)
     this.handleChangePlaying = this.handleChangePlaying.bind(this)
     this.state = {
-      inputText: defaultChordProgression,
+      inputText: sampleChordProgression,
       isPlaying: false,
       bpm:       defaultBpm,
       volume:    defaultVolume
@@ -41,7 +41,7 @@ export default class App extends Component {
     this.setState({ inputText: "" })
   }
   handleSetSample() {
-    this.setState({ inputText: defaultChordProgression })
+    this.setState({ inputText: sampleChordProgression })
   }
   handleKeyChange(operation) {
     this.setState({ inputText: utils.keyChange(this.state.inputText, operation) })

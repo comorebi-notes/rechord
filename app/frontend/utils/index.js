@@ -1,4 +1,5 @@
 import { Chord } from "tonal"
+import translate from "./translate"
 
 export const parseChordProgression = (text) => {
   let score = []
@@ -38,7 +39,7 @@ export const makeScore = (text) => {
 
       chords.forEach((chord, index) => {
         const time     = `${bar}:${beats[index]}:0`
-        const notes    = Chord.notes(`${chord[0]}${baseKey}`, chord[1])
+        const notes    = Chord.notes(`${chord[0]}${baseKey}`, translate(chord[1]))
         const duration = chords.length === 1 ? "1m" : `${chords.length}n`
 
         score.push({ time, duration, notes: fixNote(notes) })

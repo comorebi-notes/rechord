@@ -4,36 +4,41 @@ import Button                  from "../shared/button"
 import Slider                  from "../shared/slider"
 import ControlField            from "../shared/controlField"
 import Score                   from "../Score"
-import * as sound              from "../../utils/sound"
+import SoundControl            from "../SoundControl"
 import * as utils              from "../../utils"
 import defaultChordProgression from "../../constants/defaultChordProgression"
+
+const defaultBpm = 120
+const defaultVolume = 10
 
 export default class App extends Component {
   constructor() {
     super()
-    this.handleChangeText   = this.handleChangeText.bind(this)
-    this.handleChangeBpm    = this.handleChangeBpm.bind(this)
-    this.handleChangeVolume = this.handleChangeVolume.bind(this)
-    this.handleClearText    = this.handleClearText.bind(this)
-    this.handleSetSample    = this.handleSetSample.bind(this)
-    this.handleKeyChange    = this.handleKeyChange.bind(this)
-    this.state = { bpm: 120, volume: 10, inputText: defaultChordProgression }
-    sound.initialize()
+    this.handleChangeText    = this.handleChangeText.bind(this)
+    this.handleChangeBpm     = this.handleChangeBpm.bind(this)
+    this.handleChangeVolume  = this.handleChangeVolume.bind(this)
+    this.handleClearText     = this.handleClearText.bind(this)
+    this.handleSetSample     = this.handleSetSample.bind(this)
+    this.handleKeyChange     = this.handleKeyChange.bind(this)
+    this.handleChangePlaying = this.handleChangePlaying.bind(this)
+    this.state = {
+      inputText: defaultChordProgression,
+      isPlaying: false,
+      bpm:       defaultBpm,
+      volume:    defaultVolume
+    }
   }
   handleChangeText(e) {
     this.setState({ inputText: e.target.value })
   }
   handleChangeBpm(e) {
     this.setState({ bpm: e.target.value })
-    sound.setBpm(e.target.value)
   }
   handleChangeVolume(e) {
     this.setState({ volume: e.target.value })
-    sound.setVolume(e.target.value)
   }
   handleClearText() {
     this.setState({ inputText: "" })
-    sound.stop()
   }
   handleSetSample() {
     this.setState({ inputText: defaultChordProgression })
@@ -41,8 +46,11 @@ export default class App extends Component {
   handleKeyChange(operation) {
     this.setState({ inputText: utils.keyChange(this.state.inputText, operation) })
   }
+  handleChangePlaying(state) {
+    this.setState({ isPlaying: state })
+  }
   render() {
-    const { inputText, bpm, volume } = this.state
+    const { inputText, bpm, volume, isPlaying } = this.state
     const parsedText = utils.parseChordProgression(inputText)
     return (
       <div>
@@ -126,24 +134,13 @@ export default class App extends Component {
           />
         </ControlField>
 
-        <div className="field is-grouped is-grouped-centered">
-          <div className="control">
-            <Button
-              onClick={() => sound.start(parsedText)}
-              color="info"
-              icon="play"
-              text="play"
-            />
-          </div>
-          <div className="control">
-            <Button
-              onClick={sound.stop}
-              color="danger"
-              icon="stop"
-              text="stop"
-            />
-          </div>
-        </div>
+        <SoundControl
+          bpm={bpm}
+          parsedText={parsedText}
+          volume={volume}
+          isPlaying={isPlaying}
+          onChangePlaying={this.handleChangePlaying}
+        />
       </div>
     )
   }

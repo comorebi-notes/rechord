@@ -71,10 +71,10 @@ export const makeScore = (text) => {
 
         score.push({ time, duration, notes: fixNotes(notes) })
       })
-
       bar += 1
     })
   ))
+  score.push({ time: `${bar}:0:0`, notes: "fin" })
   return score
 }
 

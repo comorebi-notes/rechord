@@ -1,13 +1,10 @@
-import React, { Component }    from "react"
-import Tone                    from "tone"
-import Button                  from "../shared/button"
-import * as soundOptions       from "../../constants/soundOptions"
-import * as utils              from "../../utils"
+import React, { Component } from "react"
+import Tone                 from "tone"
+import Button               from "../shared/button"
+import * as soundOptions    from "../../constants/soundOptions"
+import * as utils           from "../../utils"
+import { MIN_BPM, MAX_BPM, MIN_VOLUME, MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
 
-const minBpm     = 60
-const maxBpm     = 600
-const minVolume  = 1
-const maxVolume  = 10
 // const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
 // const reverb = new Tone.Freeverb(0.5).toMaster()
 
@@ -30,12 +27,16 @@ export default class SoundControl extends Component {
   setSynth(score) {
     // const synth = new Tone.Synth(soundOptions.synths[0]).toMaster()
     const synth = new Tone.Sampler(...soundOptions.piano).toMaster()
+
     const triggerSynth = (time, value) => {
       const { notes } = value
-      if (notes[0] !== "%") {
-        this.state.curretNotes.forEach(note => synth.triggerRelease(note))
+      const { curretNotes } = this.state
+      if (notes[0] !== RESUME_NOTE) {
+        curretNotes.forEach(note => synth.triggerRelease(note))
         if (notes === "fin") {
           this.handleStop()
+        } else if (notes[0] === STREAK_NOTE) {
+          curretNotes.forEach(note => synth.triggerAttack(note))
         } else {
           notes.forEach(note => synth.triggerAttack(note))
           this.setState({ curretNotes: notes })
@@ -58,10 +59,10 @@ export default class SoundControl extends Component {
     setSchedule(score)
   }
   setBpm(bpm) {
-    Tone.Transport.bpm.value = utils.valueInRange(bpm, minBpm, maxBpm)
+    Tone.Transport.bpm.value = utils.valueInRange(bpm, MIN_BPM, MAX_BPM)
   }
   setVolume(volume) {
-    const newVolume = (utils.valueInRange(volume, minVolume, maxVolume) - maxVolume) * 3
+    const newVolume = (utils.valueInRange(volume, MIN_VOLUME, MAX_VOLUME) - MAX_VOLUME) * 3
     Tone.Master.volume.value = newVolume
   }
   handleStop() {

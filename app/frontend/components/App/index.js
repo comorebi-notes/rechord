@@ -1,15 +1,13 @@
-import React, { Component }   from "react"
-import Textarea               from "react-textarea-autosize"
-import Button                 from "../shared/button"
-import Slider                 from "../shared/slider"
-import ControlField           from "../shared/controlField"
-import Score                  from "../Score"
-import SoundControl           from "../SoundControl"
-import * as utils             from "../../utils"
-import sampleChordProgression from "../../constants/sampleChordProgression"
-
-const defaultBpm = 120
-const defaultVolume = 10
+import React, { Component }            from "react"
+import Textarea                        from "react-textarea-autosize"
+import Button                          from "../shared/button"
+import Slider                          from "../shared/slider"
+import ControlField                    from "../shared/controlField"
+import Score                           from "../Score"
+import SoundControl                    from "../SoundControl"
+import * as utils                      from "../../utils"
+import sampleChordProgression          from "../../constants/sampleChordProgression"
+import { DEFAULT_BPM, DEFAULT_VOLUME } from "../../constants"
 
 export default class App extends Component {
   constructor() {
@@ -24,8 +22,8 @@ export default class App extends Component {
     this.state = {
       inputText: sampleChordProgression,
       isPlaying: false,
-      bpm:       defaultBpm,
-      volume:    defaultVolume
+      bpm:       DEFAULT_BPM,
+      volume:    DEFAULT_VOLUME
     }
   }
   handleChangeText(e) {

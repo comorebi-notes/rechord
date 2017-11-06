@@ -1,5 +1,6 @@
-import { Chord, Note, Distance } from "tonal"
-import translate           from "./translate"
+import { Chord, Note, Distance }    from "tonal"
+import translate                    from "./translate"
+import { STREAK_NOTE, RESUME_NOTE } from "../constants"
 
 export const parseChordProgression = (text) => {
   let score = []
@@ -59,8 +60,6 @@ const fixNotes = (notes) => {
 export const makeScore = (text) => {
   const score = []
   const baseKey = 3
-  const resumeNote = "%"
-  // const stopNote = "-"
   let bar = 0
 
   text.forEach(line => {
@@ -70,10 +69,16 @@ export const makeScore = (text) => {
       const beats = setBeats(chords.length)
       chords.forEach((chord, index) => {
         const time  = `${bar}:${beats[index]}:0`
-        const notes = chord[1][0] === resumeNote ? resumeNote : (
-          fixNotes(Chord.notes(`${chord[0]}${baseKey}`, translate(chord[1])))
-        )
-        score.push({ time, notes })
+        const notes = () => {
+          switch (chord[1][0]) {
+            case STREAK_NOTE: return STREAK_NOTE
+            case RESUME_NOTE: return RESUME_NOTE
+            default: {
+              return fixNotes(Chord.notes(`${chord[0]}${baseKey}`, translate(chord[1])))
+            }
+          }
+        }
+        score.push({ time, notes: notes() })
       })
       bar += 1
     })

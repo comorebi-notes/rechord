@@ -16,7 +16,7 @@ const maxVolume  = 10
 const setSynth = (score) => {
   const triggerSynth = (time, value) => {
     const { notes, duration } = value
-    synth.triggerAttackRelease(notes, duration, time, utils.synthVelocity(notes.length))
+    synth.triggerAttackRelease(notes, duration, time)
   }
   const setSchedule = () => new Tone.Part(triggerSynth, score).start()
 

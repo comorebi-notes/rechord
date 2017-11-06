@@ -1,5 +1,5 @@
-import { Chord } from "tonal"
-import translate from "./translate"
+import { Chord, Note, Distance } from "tonal"
+import translate           from "./translate"
 
 export const parseChordProgression = (text) => {
   let score = []
@@ -11,11 +11,29 @@ export const parseChordProgression = (text) => {
     line
       .map(chords => chords.trim())
       .filter(chords => chords !== "")
-      .map(chords => chords.split(" "))
+      .map(chords => chords.split(/\s+/))
       .map(chords => chords.map(chord => Chord.tokenize(chord)))
   ))
-
   return score
+}
+
+export const keyChange = (progression, operation) => {
+  const newProgression = []
+  const lines = progression.split(/\n/)
+  lines.forEach(line => {
+    if (line[0] === "#") {
+      newProgression.push(line)
+    } else {
+      const notesRegExp = /(^|\||\n)?\s*(C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g
+      const transposeNote = (note, p1, p2) => {
+        const interval = operation === "up" ? "2m" : "-2m"
+        const newNote = Note.simplify(Distance.transpose(p2, interval), false)
+        return note.replace(p2, `___${newNote}`)
+      }
+      newProgression.push(line.replace(notesRegExp, transposeNote).replace(/___/g, ""))
+    }
+  })
+  return newProgression.join("\n")
 }
 
 const setBeats = (length) => {
@@ -27,9 +45,18 @@ const setBeats = (length) => {
   }
 }
 
+const fixNotes = (notes) => {
+  const newNotes = notes.concat()
+  const maxNotes = 6
+  const minNotes = 3
+  for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
+    newNotes.push(Distance.transpose(notes[i], "8M"))
+  }
+  return newNotes.map(Note.simplify)
+}
+
 export const makeScore = (text) => {
   const score = []
-  const fixNote = (notes) => notes.map(note => note.replace(/##/, "#"))
   const baseKey = 3
   let bar = 0
 
@@ -42,7 +69,7 @@ export const makeScore = (text) => {
         const notes    = Chord.notes(`${chord[0]}${baseKey}`, translate(chord[1]))
         const duration = chords.length === 1 ? "1m" : `${chords.length}n`
 
-        score.push({ time, duration, notes: fixNote(notes) })
+        score.push({ time, duration, notes: fixNotes(notes) })
       })
 
       bar += 1
@@ -56,5 +83,3 @@ export const valueInRange = (value, min, max) => {
   if (max < value) return max
   return value
 }
-
-export const synthVelocity = (length) => 3.0 / length

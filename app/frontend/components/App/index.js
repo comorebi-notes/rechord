@@ -11,22 +11,35 @@ import defaultChordProgression from "../../constants/defaultChordProgression"
 export default class App extends Component {
   constructor() {
     super()
-    this.onChangeText   = this.onChangeText.bind(this)
-    this.onChangeBpm    = this.onChangeBpm.bind(this)
-    this.onChangeVolume = this.onChangeVolume.bind(this)
+    this.handleChangeText   = this.handleChangeText.bind(this)
+    this.handleChangeBpm    = this.handleChangeBpm.bind(this)
+    this.handleChangeVolume = this.handleChangeVolume.bind(this)
+    this.handleClearText    = this.handleClearText.bind(this)
+    this.handleSetSample    = this.handleSetSample.bind(this)
+    this.handleKeyChange    = this.handleKeyChange.bind(this)
     this.state = { bpm: 120, volume: 10, inputText: defaultChordProgression }
     sound.initialize()
   }
-  onChangeText(e) {
+  handleChangeText(e) {
     this.setState({ inputText: e.target.value })
   }
-  onChangeBpm(e) {
+  handleChangeBpm(e) {
     this.setState({ bpm: e.target.value })
     sound.setBpm(e.target.value)
   }
-  onChangeVolume(e) {
+  handleChangeVolume(e) {
     this.setState({ volume: e.target.value })
     sound.setVolume(e.target.value)
+  }
+  handleClearText() {
+    this.setState({ inputText: "" })
+    sound.stop()
+  }
+  handleSetSample() {
+    this.setState({ inputText: defaultChordProgression })
+  }
+  handleKeyChange(operation) {
+    this.setState({ inputText: utils.keyChange(this.state.inputText, operation) })
   }
   render() {
     const { inputText, bpm, volume } = this.state
@@ -38,9 +51,42 @@ export default class App extends Component {
             className="textarea"
             placeholder="e.g. D69 | Aadd9 | E | F#m7add11"
             value={inputText}
-            onChange={this.onChangeText}
+            onChange={this.handleChangeText}
           />
         </ControlField>
+
+        <div className="field is-grouped">
+          <div className="control">
+            <Button
+              onClick={this.handleClearText}
+              icon="trash"
+              text="clear"
+            />
+          </div>
+          <div className="field has-addons">
+            <div className="control">
+              <Button
+                onClick={() => this.handleKeyChange("up")}
+                icon="arrow-up"
+                text="key"
+              />
+            </div>
+            <div className="control">
+              <Button
+                onClick={() => this.handleKeyChange("down")}
+                icon="arrow-down"
+                text="key"
+              />
+            </div>
+          </div>
+          <div className="control" style={{ flexGrow: 1, textAlign: "right" }}>
+            <Button
+              onClick={this.handleSetSample}
+              icon="tasks"
+              text="sample"
+            />
+          </div>
+        </div>
 
         <div className="content">
           <Score text={parsedText} />
@@ -53,13 +99,13 @@ export default class App extends Component {
             max="600"
             className="input"
             value={bpm}
-            onChange={this.onChangeBpm}
+            onChange={this.handleChangeBpm}
           />
           <Slider
             min="60"
             max="600"
             value={bpm}
-            onChange={this.onChangeBpm}
+            onChange={this.handleChangeBpm}
           />
         </ControlField>
 
@@ -70,13 +116,13 @@ export default class App extends Component {
             max="10"
             className="input"
             value={volume}
-            onChange={this.onChangeVolume}
+            onChange={this.handleChangeVolume}
           />
           <Slider
             min="1"
             max="10"
             value={volume}
-            onChange={this.onChangeVolume}
+            onChange={this.handleChangeVolume}
           />
         </ControlField>
 

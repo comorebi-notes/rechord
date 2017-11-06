@@ -47,7 +47,7 @@ const setBeats = (length) => {
 
 const fixNotes = (notes) => {
   const newNotes = notes.concat()
-  const maxNotes = 6
+  const maxNotes = 5
   const minNotes = 3
   for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
     newNotes.push(Distance.transpose(notes[i], "8M"))

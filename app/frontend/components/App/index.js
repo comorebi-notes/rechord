@@ -52,12 +52,13 @@ export default class App extends Component {
   render() {
     const { inputText, bpm, volume, isPlaying } = this.state
     const parsedText = utils.parseChordProgression(inputText)
+    const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
     return (
       <div>
         <ControlField label="chord progression">
           <Textarea
             className="textarea"
-            placeholder="e.g. D69 | Aadd9 | E | F#m7add11"
+            placeholder={placeholder}
             value={inputText}
             onChange={this.handleChangeText}
           />

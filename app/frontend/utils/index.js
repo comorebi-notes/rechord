@@ -5,14 +5,15 @@ export const parseChordProgression = (text) => {
   let score = []
 
   score = text.split("\n")
-  score = score.filter(line => line[0] !== "#")
   score = score.map(line => line.split("|"))
   score = score.map(line => (
-    line
-      .map(chords => chords.trim())
-      .filter(chords => chords !== "")
-      .map(chords => chords.split(/\s+/))
-      .map(chords => chords.map(chord => Chord.tokenize(chord)))
+    line[0][0] === "#" ? line : (
+      line
+        .map(chords => chords.trim())
+        .filter(chords => chords !== "")
+        .map(chords => chords.split(/\s+/))
+        .map(chords => chords.map(chord => Chord.tokenize(chord)))
+    )
   ))
   return score
 }
@@ -60,20 +61,21 @@ export const makeScore = (text) => {
   const baseKey = 3
   let bar = 0
 
-  text.forEach(line => (
+  text.forEach(line => {
+    if (typeof line[0][0] === "string") return false
+
     line.forEach(chords => {
       const beats = setBeats(chords.length)
-
       chords.forEach((chord, index) => {
         const time     = `${bar}:${beats[index]}:0`
         const notes    = Chord.notes(`${chord[0]}${baseKey}`, translate(chord[1]))
         const duration = chords.length === 1 ? "1m" : `${chords.length}n`
-
         score.push({ time, duration, notes: fixNotes(notes) })
       })
       bar += 1
     })
-  ))
+    return true
+  })
   score.push({ time: `${bar}:0:0`, notes: "fin" })
   return score
 }

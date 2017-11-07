@@ -11,13 +11,6 @@ import { DEFAULT_BPM, DEFAULT_VOLUME } from "../../constants"
 export default class App extends Component {
   constructor() {
     super()
-    this.handleChangeText    = this.handleChangeText.bind(this)
-    this.handleChangeBpm     = this.handleChangeBpm.bind(this)
-    this.handleChangeVolume  = this.handleChangeVolume.bind(this)
-    this.handleClearText     = this.handleClearText.bind(this)
-    this.handleSetSample     = this.handleSetSample.bind(this)
-    this.handleKeyChange     = this.handleKeyChange.bind(this)
-    this.handleChangePlaying = this.handleChangePlaying.bind(this)
     this.state = {
       inputText: sampleChordProgression,
       isPlaying: false,
@@ -25,27 +18,13 @@ export default class App extends Component {
       volume:    DEFAULT_VOLUME
     }
   }
-  handleChangeText(e) {
-    this.setState({ inputText: e.target.value })
-  }
-  handleChangeBpm(e) {
-    this.setState({ bpm: e.target.value })
-  }
-  handleChangeVolume(e) {
-    this.setState({ volume: e.target.value })
-  }
-  handleClearText() {
-    this.setState({ inputText: "" })
-  }
-  handleSetSample() {
-    this.setState({ inputText: sampleChordProgression })
-  }
-  handleKeyChange(operation) {
-    this.setState({ inputText: utils.keyChange(this.state.inputText, operation) })
-  }
-  handleChangePlaying(state) {
-    this.setState({ isPlaying: state })
-  }
+  handleChangeText        = (e) => this.setState({ inputText: e.target.value })
+  handleChangeBpm         = (e) => this.setState({ bpm: e.target.value })
+  handleChangeVolume      = (e) => this.setState({ volume: e.target.value })
+  handleClearText          = () => this.setState({ inputText: "" })
+  handleSetSample          = () => this.setState({ inputText: sampleChordProgression })
+  handleKeyChange = (operation) => this.setState({ inputText: utils.keyChange(this.state.inputText, operation) })
+  handleChangePlaying = (state) => this.setState({ isPlaying: state })
   render() {
     const { inputText, bpm, volume, isPlaying } = this.state
     const parsedText = utils.parseChordProgression(inputText)

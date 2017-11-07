@@ -11,19 +11,13 @@ import { MIN_BPM, MAX_BPM, MIN_VOLUME, MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } fr
 export default class SoundControl extends Component {
   constructor() {
     super()
-    this.setSynth    = this.setSynth.bind(this)
-    this.setClick    = this.setClick.bind(this)
-    this.setBpm      = this.setBpm.bind(this)
-    this.setVolume   = this.setVolume.bind(this)
-    this.handleStop  = this.handleStop.bind(this)
-    this.handleStart = this.handleStart.bind(this)
     this.state = { curretNotes: [] }
   }
   componentWillReceiveProps({ bpm, volume }) {
     this.setBpm(bpm)
     this.setVolume(volume)
   }
-  setSynth(score) {
+  setSynth = (score) => {
     // const synth = new Tone.Synth(soundOptions.synths[0]).toMaster()
     const synth = new Tone.Sampler(...soundOptions.piano).toMaster()
 
@@ -44,7 +38,7 @@ export default class SoundControl extends Component {
     }
     new Tone.Part(triggerSynth, score).start()
   }
-  setClick(score) {
+  setClick = (score) => {
     const click = new Tone.MonoSynth(soundOptions.clicks[0]).toMaster()
     const triggerClick = (time) => click.triggerAttackRelease("A6", "32n", time, 0.1)
     const setSchedule = () => {
@@ -57,19 +51,19 @@ export default class SoundControl extends Component {
     }
     setSchedule(score)
   }
-  setBpm(bpm) {
+  setBpm = (bpm) => {
     Tone.Transport.bpm.value = utils.valueInRange(bpm, MIN_BPM, MAX_BPM)
   }
-  setVolume(volume) {
+  setVolume = (volume) => {
     const newVolume = (utils.valueInRange(volume, MIN_VOLUME, MAX_VOLUME) - MAX_VOLUME) * 3
     Tone.Master.volume.value = newVolume
   }
-  handleStop() {
+  handleStop = () => {
     Tone.Transport.stop()
     Tone.Transport.cancel()
     this.props.onChangePlaying(false)
   }
-  handleStart() {
+  handleStart = () => {
     const score = utils.makeScore(this.props.parsedText)
     this.handleStop()
     this.setSynth(score)

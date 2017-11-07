@@ -3,7 +3,7 @@ import Tone                 from "tone"
 import Button               from "../shared/button"
 import * as soundOptions    from "../../constants/soundOptions"
 import * as utils           from "../../utils"
-import { MIN_BPM, MAX_BPM, MIN_VOLUME, MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
+import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
 
 // const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
 // const reverb = new Tone.Freeverb(0.5).toMaster()
@@ -11,35 +11,40 @@ import { MIN_BPM, MAX_BPM, MIN_VOLUME, MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } fr
 export default class SoundControl extends Component {
   constructor() {
     super()
-    this.state = { curretNotes: [] }
+    this.state = {
+      curretNotes: [],
+      instrument:  new Tone.Sampler(...soundOptions.piano).toMaster(),
+      click:       new Tone.MonoSynth(soundOptions.clicks[0]).toMaster()
+    }
   }
-  componentWillReceiveProps({ bpm, volume }) {
+  componentWillReceiveProps({ bpm, volume, beatClick }) {
     this.setBpm(bpm)
     this.setVolume(volume)
+    this.state.click.volume.value = beatClick ? 0 : -100
   }
-  setSynth = (score) => {
-    // const synth = new Tone.Synth(soundOptions.synths[0]).toMaster()
-    const synth = new Tone.Sampler(...soundOptions.piano).toMaster()
-
-    const triggerSynth = (time, value) => {
+  setInstrumentSchedule = (score) => {
+    // const instrument = new Tone.Synth(soundOptions.synths[0]).toMaster()
+    // const instrument = new Tone.Sampler(...soundOptions.piano).toMaster()
+    const { instrument } = this.state
+    const triggerInstrument = (time, value) => {
       const { notes } = value
       const { curretNotes } = this.state
       if (notes[0] !== RESUME_NOTE) {
-        curretNotes.forEach(note => synth.triggerRelease(note))
+        curretNotes.forEach(note => instrument.triggerRelease(note))
         if (notes === "fin") {
           this.handleStop()
         } else if (notes[0] === STREAK_NOTE) {
-          curretNotes.forEach(note => synth.triggerAttack(note))
+          curretNotes.forEach(note => instrument.triggerAttack(note))
         } else {
-          notes.forEach(note => synth.triggerAttack(note))
+          notes.forEach(note => instrument.triggerAttack(note))
           this.setState({ curretNotes: notes })
         }
       }
     }
-    new Tone.Part(triggerSynth, score).start()
+    new Tone.Part(triggerInstrument, score).start()
   }
-  setClick = (score) => {
-    const click = new Tone.MonoSynth(soundOptions.clicks[0]).toMaster()
+  setClickSchedule = (score) => {
+    const { click } = this.state
     const triggerClick = (time) => click.triggerAttackRelease("A6", "32n", time, 0.1)
     const setSchedule = () => {
       const barLength = parseInt(score[score.length - 2].time.split(":")[0], 10)
@@ -52,10 +57,10 @@ export default class SoundControl extends Component {
     setSchedule(score)
   }
   setBpm = (bpm) => {
-    Tone.Transport.bpm.value = utils.valueInRange(bpm, MIN_BPM, MAX_BPM)
+    Tone.Transport.bpm.value = bpm
   }
   setVolume = (volume) => {
-    const newVolume = (utils.valueInRange(volume, MIN_VOLUME, MAX_VOLUME) - MAX_VOLUME) * 3
+    const newVolume = (volume - MAX_VOLUME) * 3
     Tone.Master.volume.value = newVolume
   }
   handleStop = () => {
@@ -66,8 +71,8 @@ export default class SoundControl extends Component {
   handleStart = () => {
     const score = utils.makeScore(this.props.parsedText)
     this.handleStop()
-    this.setSynth(score)
-    this.setClick(score)
+    this.setInstrumentSchedule(score)
+    this.setClickSchedule(score)
     Tone.Transport.start("+0.2")
     this.props.onChangePlaying(true)
   }

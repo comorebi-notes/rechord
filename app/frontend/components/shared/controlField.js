@@ -2,9 +2,9 @@ import React, { PureComponent } from "react"
 
 export default class ControlField extends PureComponent {
   render() {
-    const { label, children } = this.props
+    const { label, customClass, customStyle, children } = this.props
     return (
-      <div className="field">
+      <div className={`field ${customClass}`} style={{ customStyle }}>
         <label className="label">
           {label}
         </label>

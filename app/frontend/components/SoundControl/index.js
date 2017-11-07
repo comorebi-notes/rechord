@@ -81,25 +81,30 @@ export default class SoundControl extends Component {
     const { isPlaying, parsedText } = this.props
     const cannotPlay = isPlaying || (parsedText.length === 1 && !parsedText[0][0])
     return (
-      <div className="field is-grouped is-grouped-centered">
-        <div className="control">
-          <Button
-            onClick={this.handleStart}
-            color="info"
-            icon="play"
-            text="play"
-            disabled={cannotPlay}
-          />
-        </div>
-        <div className="control">
-          <Button
-            onClick={this.handleStop}
-            color="danger"
-            icon="stop"
-            text="stop"
-            disabled={!isPlaying}
-          />
-        </div>
+      <div className="field">
+        {isPlaying ? (
+          <div className="control">
+            <Button
+              onClick={this.handleStop}
+              color="danger"
+              size="medium"
+              icon="stop"
+              text="stop"
+              disabled={!isPlaying}
+            />
+          </div>
+        ) : (
+          <div className="control">
+            <Button
+              onClick={this.handleStart}
+              color="info"
+              size="medium"
+              icon="play"
+              text="play"
+              disabled={cannotPlay}
+            />
+          </div>
+        )}
       </div>
     )
   }

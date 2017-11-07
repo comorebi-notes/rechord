@@ -1,5 +1,4 @@
 import React, { Component }            from "react"
-import Textarea                        from "react-textarea-autosize"
 import Button                          from "../shared/button"
 import Slider                          from "../shared/slider"
 import ControlField                    from "../shared/controlField"
@@ -53,44 +52,58 @@ export default class App extends Component {
     const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
     return (
       <div>
-        <ControlField label="chord progression">
-          <Textarea
-            className="textarea"
-            placeholder={placeholder}
-            value={inputText}
-            onChange={this.handleChangeText}
-          />
-        </ControlField>
-
-        <div className="field is-grouped">
-          <div className="control">
-            <Button
-              onClick={this.handleClearText}
-              icon="trash"
-              text="clear"
+        <div className="columns">
+          <div className="column control">
+            <textarea
+              className="textarea chord-progression"
+              placeholder={placeholder}
+              value={inputText}
+              onChange={this.handleChangeText}
             />
           </div>
-          <div className="field has-addons">
-            <div className="control">
-              <Button
-                onClick={() => this.handleKeyChange("up")}
-                icon="arrow-up"
-                text="key"
-              />
+
+          <div className="column control-ui" style={{ flexGrow: 0, width: 240 }}>
+            <div className="field">
+              <div className="control">
+                <Button
+                  onClick={this.handleClearText}
+                  icon="trash"
+                  text="clear"
+                />
+              </div>
             </div>
-            <div className="control">
-              <Button
-                onClick={() => this.handleKeyChange("down")}
-                icon="arrow-down"
-                text="key"
-              />
+            <div className="field has-addons">
+              <div className="control">
+                <Button
+                  onClick={() => this.handleKeyChange("up")}
+                  icon="arrow-up"
+                  text="key"
+                />
+              </div>
+              <div className="control">
+                <Button
+                  onClick={() => this.handleKeyChange("down")}
+                  icon="arrow-down"
+                  text="key"
+                />
+              </div>
             </div>
-          </div>
-          <div className="control" style={{ flexGrow: 1, textAlign: "right" }}>
-            <Button
-              onClick={this.handleSetSample}
-              icon="tasks"
-              text="sample"
+            <div className="field">
+              <div className="control">
+                <Button
+                  onClick={this.handleSetSample}
+                  icon="tasks"
+                  text="sample"
+                />
+              </div>
+            </div>
+
+            <SoundControl
+              bpm={bpm}
+              volume={volume}
+              parsedText={parsedText}
+              isPlaying={isPlaying}
+              onChangePlaying={this.handleChangePlaying}
             />
           </div>
         </div>
@@ -132,14 +145,6 @@ export default class App extends Component {
             onChange={this.handleChangeVolume}
           />
         </ControlField>
-
-        <SoundControl
-          bpm={bpm}
-          volume={volume}
-          parsedText={parsedText}
-          isPlaying={isPlaying}
-          onChangePlaying={this.handleChangePlaying}
-        />
       </div>
     )
   }

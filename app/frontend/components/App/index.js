@@ -41,7 +41,7 @@ export default class App extends Component {
             />
           </div>
 
-          <div className="column control-ui" style={{ flexGrow: 0, width: 240 }}>
+          <div className="column control-ui">
             <div className="field">
               <div className="control">
                 <Button

@@ -105,6 +105,7 @@ export default class App extends Component {
                   </div>
                 </div>
               </div>
+
               <div className="column">
                 <div className="field is-horizontal">
                   <div className="field-label is-normal">
@@ -169,6 +170,20 @@ export default class App extends Component {
                           <label htmlFor="beatClick" />
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="field instrument-control">
+                  <div className="control has-icons-left">
+                    <div className="select">
+                      <select>
+                        <option selected>Piano</option>
+                        <option>Guitar</option>
+                        <option>Strings</option>
+                      </select>
+                    </div>
+                    <div className="icon is-small is-left">
+                      <i className="fa fa-music" />
                     </div>
                   </div>
                 </div>

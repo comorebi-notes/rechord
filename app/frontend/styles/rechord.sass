@@ -1,76 +1,81 @@
-.score
-  font-family: "Roboto"
-  line-height: 1.8
-  .chords
-    display: inline-block
-    &:not(:last-child):after
-      content: "|"
-      margin: 0 1em
-  .chord
-    .root, .type
-      font-weight: bold
-    .root
-      font-size: 1.4em
-      &.A
-        color: #f65022
-      &.As, &.Bb
-        color: #f37800
-      &.B, &.Cb
-        color: #feb140
-      &.C, &.Bs
-        color: #8fc31f
-      &.Cs, &.Db
-        color: #49a944
-      &.D
-        color: #009eca
-      &.Ds, &.Eb
-        color: #206ada
-      &.E, &.Fb
-        color: #5020f7
-      &.F, &.Es
-        color: #8020c8
-      &.Fs, &.Gb
-        color: #b21793
-      &.G
-        color: #da008f
-      &.Gs, &.Ab
-        color: #ea305a
-    .type
-      font-size: 1.1em
-      margin-left: 1px
-      color: #777
-    &:not(:last-child)
-      margin-right: 1em
-  .comment
-    color: #bbb
-    line-height: 2.5
-    min-height: 1.5em
-    margin-bottom: 0 !important
-
-.chord-progression.textarea
-  height: 100%
-
-.control-ui
-  flex-grow: 0
-  button
-    width: 100%
-  .field-label .label
-    font-size: .9em
-  .key-control
-    > div
-      flex-grow: 1
-      button
+#rechord
+  .score
+    font-family: "Roboto"
+    line-height: 1.8
+    .chords
+      display: inline-block
+      &:not(:last-child):after
+        content: "|"
+        margin: 0 1em
+    .chord
+      .root, .type
         font-weight: bold
-  .click-control
-    .field-body
-      margin-top: 6px
-      min-width: 70px
-      .control
-        text-align: center
-  .field.is-horizontal
-    .field-label
-      margin-right: .8em
-    .field-body
-      flex-grow: 1
-      input
-        min-width: 70px
+      .root
+        font-size: 1.4em
+        &.A
+          color: #f65022
+        &.As, &.Bb
+          color: #f37800
+        &.B, &.Cb
+          color: #feb140
+        &.C, &.Bs
+          color: #8fc31f
+        &.Cs, &.Db
+          color: #49a944
+        &.D
+          color: #009eca
+        &.Ds, &.Eb
+          color: #206ada
+        &.E, &.Fb
+          color: #5020f7
+        &.F, &.Es
+          color: #8020c8
+        &.Fs, &.Gb
+          color: #b21793
+        &.G
+          color: #da008f
+        &.Gs, &.Ab
+          color: #ea305a
+      .type
+        font-size: 1.1em
+        margin-left: 1px
+        color: #777
+      &:not(:last-child)
+        margin-right: 1em
+    .comment
+      color: #bbb
+      line-height: 2.5
+      min-height: 1.5em
+      margin-bottom: 0 !important
+
+  .chord-progression.textarea
+    height: 100%
+
+  .control-ui
+    flex-grow: 0
+    button
+      width: 100%
+    .field-label .label
+      font-size: .9em
+    .key-control
+      > div
+        flex-grow: 1
+        button
+          font-weight: bold
+    .click-control
+      .field-body
+        margin-top: .3em
+        min-width: 72px
+        .control
+          height: calc(2.25em - .3em)
+          text-align: center
+    .instrument-control
+      .select, select
+        width: 100%
+    .field.is-horizontal
+      .field-label
+        margin-right: 1em
+      .field-body
+        flex-grow: 1
+        input
+          min-width: 72px

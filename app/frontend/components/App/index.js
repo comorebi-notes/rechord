@@ -1,9 +1,9 @@
-import React, { Component }            from "react"
-import Button                          from "../shared/button"
-import Score                           from "../Score"
-import SoundControl                    from "../SoundControl"
-import * as utils                      from "../../utils"
-import sampleChordProgression          from "../../constants/sampleChordProgression"
+import React, { Component }    from "react"
+import Button                  from "../shared/button"
+import Score                   from "../Score"
+import SoundControl            from "../SoundControl"
+import * as utils              from "../../utils"
+import sampleChordProgression  from "../../constants/sampleChordProgression"
 import { MIN_BPM, MAX_BPM, MIN_VOLUME, MAX_VOLUME, DEFAULT_BPM, DEFAULT_VOLUME } from "../../constants"
 
 export default class App extends Component {

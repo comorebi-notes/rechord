@@ -1,4 +1,8 @@
 import React, { Component }    from "react"
+import Field                   from "../shared/Field"
+import HasAddonsField          from "../shared/HasAddonsField"
+import HorizontalField         from "../shared/HorizontalField"
+import SelectField             from "../shared/SelectField"
 import Button                  from "../shared/button"
 import Score                   from "../Score"
 import SoundControl            from "../SoundControl"
@@ -62,17 +66,15 @@ export default class App extends Component {
           <div className="column control-ui">
             <div className="columns">
               <div className="column">
-                <div className="field">
-                  <div className="control">
-                    <Button
-                      onClick={this.handleUndo}
-                      icon={undid ? "repeat" : "undo"}
-                      text={undid ? "redo" : "undo"}
-                      disabled={!oldInputText}
-                    />
-                  </div>
-                </div>
-                <div className="field has-addons key-control">
+                <Field>
+                  <Button
+                    onClick={this.handleUndo}
+                    icon={undid ? "repeat" : "undo"}
+                    text={undid ? "redo" : "undo"}
+                    disabled={!oldInputText}
+                  />
+                </Field>
+                <HasAddonsField customClass="key-control">
                   <div className="control">
                     <Button
                       onClick={() => this.handleKeyChange("up")}
@@ -85,108 +87,62 @@ export default class App extends Component {
                       text="b"
                     />
                   </div>
-                </div>
-                <div className="field">
-                  <div className="control">
-                    <Button
-                      onClick={this.handleClearText}
-                      icon="trash"
-                      text="clear"
-                    />
-                  </div>
-                </div>
-                <div className="field">
-                  <div className="control">
-                    <Button
-                      onClick={this.handleSetSample}
-                      icon="tasks"
-                      text="sample"
-                    />
-                  </div>
-                </div>
+                </HasAddonsField>
+                <Field>
+                  <Button
+                    onClick={this.handleClearText}
+                    icon="trash"
+                    text="clear"
+                  />
+                </Field>
+                <Field>
+                  <Button
+                    onClick={this.handleSetSample}
+                    icon="tasks"
+                    text="sample"
+                  />
+                </Field>
               </div>
 
               <div className="column">
-                <div className="field is-horizontal">
-                  <div className="field-label is-normal">
-                    <label className="label">
-                      BPM
-                    </label>
-                  </div>
-                  <div className="field-body">
-                    <div className="field">
-                      <div className="control">
-                        <input
-                          type="number"
-                          min="60"
-                          max="600"
-                          className="input"
-                          value={bpm}
-                          onChange={this.handleChangeBpm}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="field is-horizontal">
-                  <div className="field-label is-normal">
-                    <label className="label">
-                      Volume
-                    </label>
-                  </div>
-                  <div className="field-body">
-                    <div className="field">
-                      <div className="control">
-                        <input
-                          type="number"
-                          min="1"
-                          max="10"
-                          className="input"
-                          value={volume}
-                          onChange={this.handleChangeVolume}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="field is-horizontal click-control">
-                  <div className="field-label is-normal">
-                    <label className="label">
-                      Click
-                    </label>
-                  </div>
-                  <div className="field-body">
-                    <div className="field">
-                      <div className="control">
-                        <div className="field">
-                          <input
-                            type="checkbox"
-                            id="beatClick"
-                            name="beatClick"
-                            className="switch is-rounded is-info is-medium"
-                            checked={beatClick}
-                            onChange={this.handleToggleClick}
-                          />
-                          <label htmlFor="beatClick" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="field instrument-control">
-                  <div className="control has-icons-left">
-                    <div className="select">
-                      <select>
-                        <option selected>Piano</option>
-                        <option>Guitar</option>
-                        <option>Strings</option>
-                      </select>
-                    </div>
-                    <div className="icon is-small is-left">
-                      <i className="fa fa-music" />
-                    </div>
-                  </div>
-                </div>
+                <HorizontalField label="BPM">
+                  <input
+                    type="number"
+                    min="60"
+                    max="600"
+                    className="input"
+                    value={bpm}
+                    onChange={this.handleChangeBpm}
+                  />
+                </HorizontalField>
+                <HorizontalField label="Volume">
+                  <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    className="input"
+                    value={volume}
+                    onChange={this.handleChangeVolume}
+                  />
+                </HorizontalField>
+                <HorizontalField label="Click" customClass="click-control">
+                  <input
+                    type="checkbox"
+                    id="beatClick"
+                    name="beatClick"
+                    className="switch is-rounded is-info is-medium"
+                    checked={beatClick}
+                    onChange={this.handleToggleClick}
+                  />
+                  <label htmlFor="beatClick" />
+                </HorizontalField>
+                <SelectField icon="music" customClass="instrument-control">
+                  <select>
+                    <option selected>Piano</option>
+                    <option>Guitar</option>
+                    <option>Strings</option>
+                  </select>
+                </SelectField>
               </div>
             </div>
             <SoundControl

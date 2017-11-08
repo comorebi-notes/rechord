@@ -1,20 +1,23 @@
 import React, { Component } from "react"
 import Tone                 from "tone"
 import Button               from "../shared/button"
-import * as soundOptions    from "../../constants/soundOptions"
+import * as instruments     from "../../constants/instruments"
 import * as utils           from "../../utils"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
 
 // const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
 // const reverb = new Tone.Freeverb(0.5).toMaster()
 
+const setInstrument = (type) => new Tone.Sampler(...instruments.types[type]).toMaster()
+const setClick = () => new Tone.MonoSynth(instruments.click).toMaster()
+
 export default class SoundControl extends Component {
   constructor() {
     super()
     this.state = {
       curretNotes: [],
-      instrument:  new Tone.Sampler(...soundOptions.piano).toMaster(),
-      click:       new Tone.MonoSynth(soundOptions.clicks[0]).toMaster()
+      instrument:  setInstrument("Piano"),
+      click:       setClick()
     }
   }
   componentWillReceiveProps({ bpm, volume, beatClick }) {
@@ -23,9 +26,8 @@ export default class SoundControl extends Component {
     this.state.click.volume.value = beatClick ? 0 : -100
   }
   setInstrumentSchedule = (score) => {
-    // const instrument = new Tone.Synth(soundOptions.synths[0]).toMaster()
-    // const instrument = new Tone.Sampler(...soundOptions.piano).toMaster()
-    const { instrument } = this.state
+    const instrument = setInstrument(this.props.instrument)
+    this.setState({ instrument })
     const triggerInstrument = (time, value) => {
       const { notes } = value
       const { curretNotes } = this.state
@@ -44,7 +46,8 @@ export default class SoundControl extends Component {
     new Tone.Part(triggerInstrument, score).start()
   }
   setClickSchedule = (score) => {
-    const { click } = this.state
+    const click = setClick()
+    this.setState({ click })
     const triggerClick = (time) => click.triggerAttackRelease("A6", "32n", time, 0.1)
     const setSchedule = () => {
       const barLength = parseInt(score[score.length - 2].time.split(":")[0], 10)
@@ -64,6 +67,8 @@ export default class SoundControl extends Component {
     Tone.Master.volume.value = newVolume
   }
   handleStop = () => {
+    const { curretNotes, instrument } = this.state
+    curretNotes.forEach(note => instrument.triggerRelease(note))
     Tone.Transport.stop()
     Tone.Transport.cancel()
     this.props.onChangePlaying(false)

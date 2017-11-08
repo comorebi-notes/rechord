@@ -8,18 +8,20 @@ import Score                   from "../Score"
 import SoundControl            from "../SoundControl"
 import * as utils              from "../../utils"
 import sampleChordProgression  from "../../constants/sampleChordProgression"
+import * as instruments        from "../../constants/instruments"
 import { MIN_BPM, MAX_BPM, MIN_VOLUME, MAX_VOLUME, DEFAULT_BPM, DEFAULT_VOLUME } from "../../constants"
 
 export default class App extends Component {
   constructor() {
     super()
     this.state = {
-      inputText: sampleChordProgression,
-      undid:     false,
-      isPlaying: false,
-      beatClick: false,
-      bpm:       DEFAULT_BPM,
-      volume:    DEFAULT_VOLUME
+      inputText:  sampleChordProgression,
+      undid:      false,
+      isPlaying:  false,
+      beatClick:  false,
+      bpm:        DEFAULT_BPM,
+      volume:     DEFAULT_VOLUME,
+      instrument: "Piano"
     }
   }
   setInputText = (nextInputText) => {
@@ -47,8 +49,9 @@ export default class App extends Component {
   handleChangeVolume      = (e) => this.setState({ volume: utils.valueInRange(e.target.value, MIN_VOLUME, MAX_VOLUME) })
   handleChangePlaying = (state) => this.setState({ isPlaying: state })
   handleToggleClick       = (e) => this.setState({ beatClick: e.target.checked })
+  handleChangeInstrument  = (e) => this.setState({ instrument: e.target.value })
   render() {
-    const { inputText, oldInputText, undid, bpm, volume, isPlaying, beatClick } = this.state
+    const { inputText, oldInputText, undid, bpm, volume, instrument, isPlaying, beatClick } = this.state
     const parsedText = utils.parseChordProgression(inputText)
     const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
     return (
@@ -138,17 +141,21 @@ export default class App extends Component {
                   <label htmlFor="beatClick" />
                 </HorizontalField>
                 <SelectField icon="music" customClass="instrument-control">
-                  <select>
-                    <option selected>Piano</option>
-                    <option>Guitar</option>
-                    <option>Strings</option>
+                  <select onChange={this.handleChangeInstrument}>
+                    {Object.keys(instruments.types).map(type => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
                   </select>
                 </SelectField>
               </div>
             </div>
+
             <SoundControl
               bpm={bpm}
               volume={volume}
+              instrument={instrument}
               beatClick={beatClick}
               parsedText={parsedText}
               isPlaying={isPlaying}

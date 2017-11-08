@@ -12,24 +12,33 @@
 
 export const types = {
   Piano: [{
-    C4: "c4.mp3"
+    E2: "e2.mp3",
+    E3: "e3.mp3",
+    E4: "e4.mp3",
+    E5: "e5.mp3"
   }, {
     release: 0.5,
     baseUrl: "/assets/audios/piano/",
     onload:  () => console.log("Piano")
   }],
   Guitar: [{
-    C4: "c4.mp3"
+    E2: "e2.mp3",
+    E3: "e3.mp3",
+    E4: "e4.mp3",
+    E5: "e5.mp3"
   }, {
     release: 0.5,
-    baseUrl: "/assets/audios/piano/",
+    baseUrl: "/assets/audios/guitar/",
     onload:  () => console.log("Guitar")
   }],
   Strings: [{
-    C4: "c4.mp3"
+    E2: "e2.mp3",
+    E3: "e3.mp3",
+    E4: "e4.mp3",
+    E5: "e5.mp3"
   }, {
-    release: 0.5,
-    baseUrl: "/assets/audios/piano/",
+    release: 1,
+    baseUrl: "/assets/audios/strings/",
     onload:  () => console.log("Strings")
   }]
 }

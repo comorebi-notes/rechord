@@ -23,6 +23,7 @@ export default class SoundControl extends Component {
     if (bpm !== this.props.bpm) this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
     if (instrument !== this.props.instrument) {
+      this.handleStop()
       this.setState({ instrument: setInstrument(instrument) })
     }
   }

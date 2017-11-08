@@ -16,14 +16,15 @@ export default class SoundControl extends Component {
     super()
     this.state = {
       curretNotes: [],
-      instrument:  setInstrument("Piano"),
-      click:       setClick()
+      instrument:  setInstrument("Piano")
     }
   }
-  componentWillReceiveProps({ bpm, volume, beatClick }) {
-    this.setBpm(bpm)
-    this.setVolume(volume)
-    this.state.click.volume.value = beatClick ? 0 : -100
+  componentWillReceiveProps({ bpm, volume, instrument }) {
+    if (bpm !== this.props.bpm) this.setBpm(bpm)
+    if (volume !== this.props.volume) this.setVolume(volume)
+    if (instrument !== this.props.instrument) {
+      this.setState({ instrument: setInstrument(instrument) })
+    }
   }
   setInstrumentSchedule = (score) => {
     const instrument = setInstrument(this.props.instrument)
@@ -47,8 +48,10 @@ export default class SoundControl extends Component {
   }
   setClickSchedule = (score) => {
     const click = setClick()
-    this.setState({ click })
-    const triggerClick = (time) => click.triggerAttackRelease("A6", "32n", time, 0.1)
+    const triggerClick = (time) => {
+      click.volume.value = this.props.beatClick ? 0 : -100
+      click.triggerAttackRelease("A6", "32n", time, 0.1)
+    }
     const setSchedule = () => {
       const barLength = parseInt(score[score.length - 2].time.split(":")[0], 10)
       for (let bar = 0; bar <= barLength; bar += 1) {

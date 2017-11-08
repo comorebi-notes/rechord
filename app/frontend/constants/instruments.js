@@ -15,19 +15,22 @@ export const types = {
     C4: "c4.mp3"
   }, {
     release: 0.5,
-    baseUrl: "/assets/audios/piano/"
+    baseUrl: "/assets/audios/piano/",
+    onload:  () => console.log("Piano")
   }],
   Guitar: [{
     C4: "c4.mp3"
   }, {
     release: 0.5,
-    baseUrl: "/assets/audios/piano/"
+    baseUrl: "/assets/audios/piano/",
+    onload:  () => console.log("Guitar")
   }],
   Strings: [{
     C4: "c4.mp3"
   }, {
     release: 0.5,
-    baseUrl: "/assets/audios/piano/"
+    baseUrl: "/assets/audios/piano/",
+    onload:  () => console.log("Strings")
   }]
 }
 

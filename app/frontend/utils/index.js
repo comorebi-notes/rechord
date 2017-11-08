@@ -1,6 +1,7 @@
 import { Chord, Note, Distance }    from "tonal"
 import translate                    from "./translate"
 import { STREAK_NOTE, RESUME_NOTE } from "../constants"
+import { times }                    from "../constants/times"
 
 export const parseChordProgression = (text) => {
   let score = []
@@ -38,13 +39,22 @@ export const keyChange = (progression, operation) => {
   return newProgression.join("\n")
 }
 
-const setBeats = (length) => {
-  switch (length) {
-    case 1:  return [0]
-    case 2:  return [0, 2]
-    case 4:  return [0, 1, 2, 3]
-    default: return [0]
+const setBeats = (length, selectedTime) => {
+  if (length === 1) return [0]
+
+  const beat = times[selectedTime][0]
+  const beats = []
+
+  if (beat / length >= 2) {
+    for (let i = 0; i < beat; i += 1) {
+      if (i % length === 0) beats.push(i)
+    }
+  } else {
+    for (let i = 0; i < beat; i += 1) {
+      beats.push(i)
+    }
   }
+  return beats
 }
 
 const fixNotes = (notes) => {
@@ -57,7 +67,7 @@ const fixNotes = (notes) => {
   return newNotes.map(Note.simplify)
 }
 
-export const makeScore = (text) => {
+export const makeScore = (text, selectedTime) => {
   const score = []
   const baseKey = 3
   let bar = 0
@@ -66,9 +76,11 @@ export const makeScore = (text) => {
     if (typeof line[0][0] === "string") return false
 
     line.forEach(chords => {
-      const beats = setBeats(chords.length)
+      const beats = setBeats(chords.length, selectedTime)
       chords.forEach((chord, index) => {
-        const time  = `${bar}:${beats[index]}:0`
+        if (beats.length <= index) return false
+
+        const time = `${bar}:${beats[index]}:0`
         const notes = () => {
           switch (chord[1][0]) {
             case STREAK_NOTE: return STREAK_NOTE
@@ -78,7 +90,7 @@ export const makeScore = (text) => {
             }
           }
         }
-        score.push({ time, notes: notes() })
+        return score.push({ time, notes: notes() })
       })
       bar += 1
     })

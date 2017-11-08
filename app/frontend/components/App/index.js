@@ -9,8 +9,12 @@ import Score                   from "../Score"
 import SoundControl            from "../SoundControl"
 import * as utils              from "../../utils"
 import * as instruments        from "../../constants/instruments"
+import { times }               from "../../constants/times"
 import sampleChordProgression  from "../../constants/sampleChordProgression"
-import { MIN_BPM, MAX_BPM, MIN_VOLUME, MAX_VOLUME, DEFAULT_BPM, DEFAULT_VOLUME } from "../../constants"
+import {
+  MIN_BPM, MAX_BPM, MIN_VOLUME, MAX_VOLUME,
+  DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_TIME
+} from "../../constants"
 
 export default class App extends Component {
   constructor() {
@@ -22,6 +26,7 @@ export default class App extends Component {
       beatClick:  false,
       bpm:        DEFAULT_BPM,
       volume:     DEFAULT_VOLUME,
+      time:       DEFAULT_TIME,
       instrument: "Piano"
     }
   }
@@ -51,8 +56,12 @@ export default class App extends Component {
   handleChangePlaying = (state) => this.setState({ isPlaying: state })
   handleToggleClick       = (e) => this.setState({ beatClick: e.target.checked })
   handleChangeInstrument  = (e) => this.setState({ instrument: e.target.value })
+  handleChangeTime        = (e) => this.setState({ time: e.target.value })
   render() {
-    const { inputText, oldInputText, undid, bpm, volume, instrument, isPlaying, beatClick } = this.state
+    const {
+      inputText, oldInputText, undid, time,
+      bpm, volume, instrument, isPlaying, beatClick
+    } = this.state
     const parsedText = utils.parseChordProgression(inputText)
     const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
     return (
@@ -111,7 +120,7 @@ export default class App extends Component {
 
               <div className="column">
                 <SelectField icon="music" customClass="instrument-control">
-                  <select onChange={this.handleChangeInstrument}>
+                  <select value={instrument} onChange={this.handleChangeInstrument}>
                     {Object.keys(instruments.types()).map(type => (
                       <option key={type} value={type}>
                         {type}
@@ -119,6 +128,17 @@ export default class App extends Component {
                     ))}
                   </select>
                 </SelectField>
+                <HorizontalField label="Time">
+                  <SelectField customClass="time-control">
+                    <select value={time} onChange={this.handleChangeTime}>
+                      {Object.keys(times).map(timeKey => (
+                        <option key={timeKey} value={timeKey}>
+                          {timeKey}
+                        </option>
+                      ))}
+                    </select>
+                  </SelectField>
+                </HorizontalField>
                 <HorizontalField label="BPM">
                   <input
                     type="number"
@@ -159,9 +179,10 @@ export default class App extends Component {
             </div>
 
             <SoundControl
+              instrument={instrument}
+              time={time}
               bpm={bpm}
               volume={volume}
-              instrument={instrument}
               beatClick={beatClick}
               parsedText={parsedText}
               isPlaying={isPlaying}

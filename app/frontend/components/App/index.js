@@ -11,22 +11,40 @@ export default class App extends Component {
     super()
     this.state = {
       inputText: sampleChordProgression,
+      undid:     false,
       isPlaying: false,
       beatClick: false,
       bpm:       DEFAULT_BPM,
       volume:    DEFAULT_VOLUME
     }
   }
-  handleChangeText        = (e) => this.setState({ inputText: e.target.value })
+  setInputText = (nextInputText) => {
+    const { inputText, oldInputText } = this.state
+    const nextOldInputText = inputText === nextInputText ? oldInputText : inputText
+    this.setState({
+      oldInputText: nextOldInputText,
+      inputText:    nextInputText,
+      undid:        false
+    })
+  }
+  handleUndo = () => {
+    const { inputText, oldInputText, undid } = this.state
+    this.setState({
+      inputText:    oldInputText,
+      oldInputText: inputText,
+      undid:        !undid
+    })
+  }
+  handleChangeText        = (e) => this.setInputText(e.target.value)
+  handleClearText          = () => this.setInputText("")
+  handleSetSample          = () => this.setInputText(sampleChordProgression)
+  handleKeyChange = (operation) => this.setInputText(utils.keyChange(this.state.inputText, operation))
   handleChangeBpm         = (e) => this.setState({ bpm: utils.valueInRange(e.target.value, MIN_BPM, MAX_BPM) })
   handleChangeVolume      = (e) => this.setState({ volume: utils.valueInRange(e.target.value, MIN_VOLUME, MAX_VOLUME) })
-  handleClearText          = () => this.setState({ inputText: "" })
-  handleSetSample          = () => this.setState({ inputText: sampleChordProgression })
-  handleKeyChange = (operation) => this.setState({ inputText: utils.keyChange(this.state.inputText, operation) })
   handleChangePlaying = (state) => this.setState({ isPlaying: state })
   handleToggleClick       = (e) => this.setState({ beatClick: e.target.checked })
   render() {
-    const { inputText, bpm, volume, isPlaying, beatClick } = this.state
+    const { inputText, oldInputText, undid, bpm, volume, isPlaying, beatClick } = this.state
     const parsedText = utils.parseChordProgression(inputText)
     const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
     return (
@@ -47,9 +65,10 @@ export default class App extends Component {
                 <div className="field">
                   <div className="control">
                     <Button
-                      onClick={this.handleClearText}
-                      icon="trash"
-                      text="clear"
+                      onClick={this.handleUndo}
+                      icon={undid ? "repeat" : "undo"}
+                      text={undid ? "redo" : "undo"}
+                      disabled={!oldInputText}
                     />
                   </div>
                 </div>
@@ -64,6 +83,15 @@ export default class App extends Component {
                     <Button
                       onClick={() => this.handleKeyChange("down")}
                       text="b"
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <div className="control">
+                    <Button
+                      onClick={this.handleClearText}
+                      icon="trash"
+                      text="clear"
                     />
                   </div>
                 </div>

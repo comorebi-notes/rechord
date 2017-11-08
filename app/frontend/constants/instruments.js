@@ -10,7 +10,7 @@
 //   }
 // }]
 
-export const types = {
+export const types = (onload) => ({
   Piano: [{
     E2: "e2.mp3",
     E3: "e3.mp3",
@@ -19,7 +19,7 @@ export const types = {
   }, {
     release: 0.5,
     baseUrl: "/assets/audios/piano/",
-    onload:  () => console.log("Piano")
+    onload
   }],
   Guitar: [{
     E2: "e2.mp3",
@@ -29,7 +29,7 @@ export const types = {
   }, {
     release: 0.5,
     baseUrl: "/assets/audios/guitar/",
-    onload:  () => console.log("Guitar")
+    onload
   }],
   Strings: [{
     E2: "e2.mp3",
@@ -39,9 +39,9 @@ export const types = {
   }, {
     release: 1,
     baseUrl: "/assets/audios/strings/",
-    onload:  () => console.log("Strings")
+    onload
   }]
-}
+})
 
 export const click = {
   oscillator: {
@@ -51,13 +51,13 @@ export const click = {
     attack:  0.005,
     decay:   0.2,
     sustain: 0.4,
-    release: 1.4,
+    release: 0.4,
   },
   filterEnvelope: {
     attack:  0.005,
     decay:   0.1,
     sustain: 0.05,
-    release: 0.8,
+    release: 0.4,
     baseFrequency: 300,
     octaves: 4
   }

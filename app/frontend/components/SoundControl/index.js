@@ -8,15 +8,13 @@ import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
 // const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
 // const reverb = new Tone.Freeverb(0.5).toMaster()
 
-const setInstrument = (type) => new Tone.Sampler(...instruments.types[type]).toMaster()
-const setClick = () => new Tone.MonoSynth(instruments.click).toMaster()
-
 export default class SoundControl extends Component {
   constructor() {
     super()
     this.state = {
       curretNotes: [],
-      instrument:  setInstrument("Piano")
+      instrument:  this.setInstrument("Piano", true),
+      loading:     true
     }
   }
   componentWillReceiveProps({ bpm, volume, instrument }) {
@@ -24,11 +22,17 @@ export default class SoundControl extends Component {
     if (volume !== this.props.volume) this.setVolume(volume)
     if (instrument !== this.props.instrument) {
       this.handleStop()
-      this.setState({ instrument: setInstrument(instrument) })
+      this.setState({ instrument: this.setInstrument(instrument) })
     }
   }
+  setInstrument = (type, isInitialize) => {
+    if (!isInitialize) this.setState({ loading: true })
+    const onLoadComplete = () => this.setState({ loading: false })
+    return new Tone.Sampler(...instruments.types(onLoadComplete)[type]).toMaster()
+  }
+  setClick = () => new Tone.MonoSynth(instruments.click).toMaster()
   setInstrumentSchedule = (score) => {
-    const instrument = setInstrument(this.props.instrument)
+    const instrument = this.setInstrument(this.props.instrument)
     this.setState({ instrument })
     const triggerInstrument = (time, value) => {
       const { notes } = value
@@ -48,7 +52,7 @@ export default class SoundControl extends Component {
     new Tone.Part(triggerInstrument, score).start()
   }
   setClickSchedule = (score) => {
-    const click = setClick()
+    const click = this.setClick()
     const triggerClick = (time) => {
       click.volume.value = this.props.beatClick ? 0 : -100
       click.triggerAttackRelease("A6", "32n", time, 0.1)
@@ -78,6 +82,7 @@ export default class SoundControl extends Component {
     this.props.onChangePlaying(false)
   }
   handleStart = () => {
+    // Tone.Transport.timeSignature = [4, 4]
     const score = utils.makeScore(this.props.parsedText)
     this.handleStop()
     this.setInstrumentSchedule(score)
@@ -87,9 +92,10 @@ export default class SoundControl extends Component {
   }
   render() {
     const { isPlaying, parsedText } = this.props
-    const cannotPlay = isPlaying || (parsedText.length === 1 && !parsedText[0][0])
+    const { loading } = this.state
+    const cannotPlay = loading || isPlaying || (parsedText.length === 1 && !parsedText[0][0])
     return (
-      <div className="field">
+      <div className="field sound-control">
         {isPlaying ? (
           <div className="control">
             <Button

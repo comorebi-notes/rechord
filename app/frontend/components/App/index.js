@@ -109,6 +109,15 @@ export default class App extends Component {
               </div>
 
               <div className="column">
+                <SelectField icon="music" customClass="instrument-control">
+                  <select onChange={this.handleChangeInstrument}>
+                    {Object.keys(instruments.types()).map(type => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </SelectField>
                 <HorizontalField label="BPM">
                   <input
                     type="number"
@@ -140,15 +149,6 @@ export default class App extends Component {
                   />
                   <label htmlFor="beatClick" />
                 </HorizontalField>
-                <SelectField icon="music" customClass="instrument-control">
-                  <select onChange={this.handleChangeInstrument}>
-                    {Object.keys(instruments.types).map(type => (
-                      <option key={type} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </select>
-                </SelectField>
               </div>
             </div>
 

@@ -60,6 +60,7 @@ export default class App extends Component {
               placeholder={placeholder}
               value={inputText}
               onChange={this.handleChangeText}
+              spellCheck="false"
             />
           </div>
 

@@ -4,6 +4,7 @@ import HasAddonsField          from "../shared/HasAddonsField"
 import HorizontalField         from "../shared/HorizontalField"
 import SelectField             from "../shared/SelectField"
 import Button                  from "../shared/button"
+import Slider                  from "../shared/slider"
 import Score                   from "../Score"
 import SoundControl            from "../SoundControl"
 import * as utils              from "../../utils"
@@ -121,21 +122,11 @@ export default class App extends Component {
                 <HorizontalField label="BPM">
                   <input
                     type="number"
-                    min="60"
-                    max="600"
+                    min={MIN_BPM}
+                    max={MAX_BPM}
                     className="input"
                     value={bpm}
                     onChange={this.handleChangeBpm}
-                  />
-                </HorizontalField>
-                <HorizontalField label="Volume">
-                  <input
-                    type="number"
-                    min="1"
-                    max="10"
-                    className="input"
-                    value={volume}
-                    onChange={this.handleChangeVolume}
                   />
                 </HorizontalField>
                 <HorizontalField label="Click" customClass="click-control">
@@ -150,6 +141,21 @@ export default class App extends Component {
                   <label htmlFor="beatClick" />
                 </HorizontalField>
               </div>
+            </div>
+            <div className="volume-control">
+              <span className="icon">
+                <i className="fa fa-volume-off" />
+              </span>
+              <Slider
+                min={MIN_VOLUME}
+                max={MAX_VOLUME}
+                isFullwidth
+                value={volume}
+                onChange={this.handleChangeVolume}
+              />
+              <span className="icon">
+                <i className="fa fa-volume-up" />
+              </span>
             </div>
 
             <SoundControl

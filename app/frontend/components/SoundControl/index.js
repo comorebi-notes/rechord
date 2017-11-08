@@ -71,7 +71,7 @@ export default class SoundControl extends Component {
     Tone.Transport.bpm.value = bpm
   }
   setVolume = (volume) => {
-    const newVolume = (volume - MAX_VOLUME) * 3
+    const newVolume = volume - MAX_VOLUME
     Tone.Master.volume.value = newVolume
   }
   handleStop = () => {

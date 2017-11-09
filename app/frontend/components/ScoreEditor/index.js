@@ -9,11 +9,11 @@ export default class ScoreEditor extends Component {
       editorState: this.setInputText(this.props.inputText)
     }
   }
-  // componentWillReceiveProps({ inputText }) {
-  //   if (inputText !== this.props.inputText) {
-  //     this.setState({ editorState: this.setInputText(inputText) })
-  //   }
-  // }
+  componentWillReceiveProps({ inputText }) {
+    if (inputText !== this.props.inputText) {
+      this.setState({ editorState: this.setInputText(inputText) })
+    }
+  }
   onChange = (editorState) => {
     this.setState({ editorState })
     this.props.handleChangeText(editorState.getCurrentContent().getPlainText())

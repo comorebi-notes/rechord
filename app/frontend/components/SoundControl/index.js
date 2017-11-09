@@ -10,8 +10,9 @@ import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
 // const reverb = new Tone.Freeverb(0.5).toMaster()
 
 export default class SoundControl extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    this.setVolume(props.volume)
     this.state = {
       curretNotes: [],
       instrument:  this.setInstrument("Piano", true),

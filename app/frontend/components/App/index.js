@@ -66,7 +66,8 @@ export default class App extends Component {
     const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
     return (
       <div>
-        draft.js でコード譜をそのまま編集できるよう開発中...
+        draft.js でコード譜をそのまま編集できるよう開発中...<br />
+        現在、一部のボタンが動作しません。
         <div className="columns">
           <div className="column control">
             <ScoreEditor

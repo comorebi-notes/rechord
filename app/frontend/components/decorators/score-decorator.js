@@ -9,7 +9,6 @@ const baseDecorator = (regex, block) => ({
     let start
     let end
     while (matchArr !== null) {
-      console.log(matchArr)
       start = matchArr.index
       end = start + matchArr[0].length
       callback(start, end)
@@ -21,9 +20,20 @@ const baseDecorator = (regex, block) => ({
   }
 })
 
-const ROOT_REGEX = /(^|\||\s+)(C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g
+const ROOT_REGEX      = /C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B|%|-|_/g
 const SEPARATOR_REGEX = /\|/g
-const rootClass = (root) => classNames("root", root.replace("#", "s"))
+const SPACE_REGEX     = /\s+/g
+
+const rootClass = (root) => (
+  classNames(
+    "root",
+    root
+      .replace("#", "s")
+      .replace("%", "streak")
+      .replace("-", "resume")
+      .replace("_", "stop")
+  )
+)
 
 const ScoreDecorator = new CompositeDecorator([
   baseDecorator(SEPARATOR_REGEX, (props) => (
@@ -35,6 +45,9 @@ const ScoreDecorator = new CompositeDecorator([
     <span className={rootClass(props.decoratedText)}>
       {props.children}
     </span>
+  )),
+  baseDecorator(SPACE_REGEX, () => (
+    <span className="space">&nbsp;</span>
   )),
 ])
 

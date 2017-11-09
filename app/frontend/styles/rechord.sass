@@ -8,7 +8,9 @@
     margin: 1em 0
     .separator
       font-weight: normal
-      margin: 0 1em
+      margin-left: 1em
+    .space
+      display: none
     .root
       font-size: 1.3em
       &.A
@@ -35,6 +37,8 @@
         color: #da008f
       &.Gs, &.Ab
         color: #ea305a
+      &.streak, &.resume, &.stop
+        color: #aaa
       &:not(:last-child)
         margin-right: 2px
       &:not(:first-child)

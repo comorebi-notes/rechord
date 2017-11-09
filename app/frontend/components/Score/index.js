@@ -11,7 +11,7 @@ export default class Score extends PureComponent {
           line[0] ? (
             <div key={`${line}${i}`}>
               {line.map((chords, j) => (
-                <div className="chords" key={`${chords}${j}`}>
+                <span className="chords" key={`${chords}${j}`}>
                   {chords.map((chord, k) => (
                     <span className="chord" key={`${chord}${k}`}>
                       <span className={classNames("root", chordClass(chord[0]))}>
@@ -22,7 +22,7 @@ export default class Score extends PureComponent {
                       </span>
                     </span>
                   ))}
-                </div>
+                </span>
               ))}
             </div>
           ) : (

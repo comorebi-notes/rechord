@@ -26,7 +26,7 @@ export default class SoundControl extends Component {
       this.handleStop()
       this.setState({ instrument: this.setInstrument(instrument) })
     }
-    if (beatClick !== this.props.beatClick) {
+    if (this.state.click && (beatClick !== this.props.beatClick)) {
       this.state.click.volume.value = beatClick ? 0 : -100
     }
   }

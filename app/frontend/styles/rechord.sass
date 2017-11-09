@@ -1,48 +1,44 @@
 #rechord
   .score
     font-family: "Roboto"
+    font-weight: bold
+    font-size: 1.1em
+    color: #777
     line-height: 1.8
-    margin-top: 1em
-    .chords
-      display: inline-block
-      &:not(:last-child):after
-        content: "|"
-        margin: 0 1em
-    .chord
-      .root, .type
-        font-weight: bold
-      .root
-        font-size: 1.4em
-        &.A
-          color: #f65022
-        &.As, &.Bb
-          color: #f37800
-        &.B, &.Cb
-          color: #feb140
-        &.C, &.Bs
-          color: #8fc31f
-        &.Cs, &.Db
-          color: #49a944
-        &.D
-          color: #009eca
-        &.Ds, &.Eb
-          color: #206ada
-        &.E, &.Fb
-          color: #5020f7
-        &.F, &.Es
-          color: #8020c8
-        &.Fs, &.Gb
-          color: #b21793
-        &.G
-          color: #da008f
-        &.Gs, &.Ab
-          color: #ea305a
-      .type
-        font-size: 1.1em
-        margin-left: 1px
-        color: #777
+    margin: 1em 0
+    .separator
+      font-weight: normal
+      margin: 0 1em
+    .root
+      font-size: 1.3em
+      &.A
+        color: #f65022
+      &.As, &.Bb
+        color: #f37800
+      &.B, &.Cb
+        color: #feb140
+      &.C, &.Bs
+        color: #8fc31f
+      &.Cs, &.Db
+        color: #49a944
+      &.D
+        color: #009eca
+      &.Ds, &.Eb
+        color: #206ada
+      &.E, &.Fb
+        color: #5020f7
+      &.F, &.Es
+        color: #8020c8
+      &.Fs, &.Gb
+        color: #b21793
+      &.G
+        color: #da008f
+      &.Gs, &.Ab
+        color: #ea305a
       &:not(:last-child)
-        margin-right: 1em
+        margin-right: 2px
+      &:not(:first-child)
+        margin-left: 1em
     .comment
       color: #bbb
       line-height: 2.5

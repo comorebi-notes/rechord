@@ -6,6 +6,7 @@ import SelectField             from "../shared/SelectField"
 import Button                  from "../shared/Button"
 import Slider                  from "../shared/Slider"
 import Score                   from "../Score"
+import ScoreEditor             from "../ScoreEditor"
 import SoundControl            from "../SoundControl"
 import * as utils              from "../../utils"
 import * as instruments        from "../../constants/instruments"
@@ -66,6 +67,8 @@ export default class App extends Component {
     const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
     return (
       <div>
+        draft.js でコード譜をそのまま編集できるよう開発中...
+        <ScoreEditor />
         <div className="columns">
           <div className="column control">
             <textarea

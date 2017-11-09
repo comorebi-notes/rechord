@@ -5,8 +5,5 @@ import { document } from "../utils/browser-dependencies"
 import "../styles/rechord.sass"
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(
-    <App />,
-    document.getElementById("rechord").appendChild(document.createElement("div"))
-  )
+  ReactDOM.render(<App />, document.getElementById("rechord"))
 })

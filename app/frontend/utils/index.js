@@ -73,7 +73,7 @@ export const makeScore = (text, selectedTime) => {
   let bar = 0
 
   text.forEach(line => {
-    if (typeof line[0][0] === "string") return false
+    if (!line) return false
 
     line.forEach(chords => {
       const beats = setBeats(chords.length, selectedTime)

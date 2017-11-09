@@ -4,14 +4,15 @@
     font-weight: bold
     font-size: 1.1em
     color: #777
-    line-height: 1.8
-    margin: 1em 0
+    height: auto
+    padding: .625em 1.2em
     .separator
       font-weight: normal
       margin-left: 1em
     .space
       display: none
     .root
+      line-height: 1.8
       font-size: 1.3em
       &.A
         color: #f65022
@@ -43,11 +44,8 @@
         margin-right: 2px
       &:not(:first-child)
         margin-left: 1em
-    .comment
-      color: #bbb
-      line-height: 2.5
-      min-height: 1.5em
-      margin-bottom: 0 !important
+    .public-DraftEditor-content
+      min-height: 225px
 
   .chord-progression.textarea
     height: 100%
@@ -84,14 +82,13 @@
       .select, select
         width: 100%
     .sound-control
+      margin-bottom: 0
       button
         transition: opacity .3s ease-in-out
     .volume-control
       display: flex
-      position: absolute
-      bottom: -38px
       width: 100%
-      padding-right: 1.5rem
+      margin-top: -4px
       .icon
         opacity: .8
         margin: 1rem 0

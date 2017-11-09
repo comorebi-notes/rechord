@@ -1,6 +1,7 @@
 import React                  from "react"
 import { CompositeDecorator } from "draft-js"
 import classNames             from "classnames"
+import * as constantRegex     from "../../constants/regex"
 
 const baseDecorator = (regex, block) => ({
   strategy(contentBlock, callback) {
@@ -20,10 +21,6 @@ const baseDecorator = (regex, block) => ({
   }
 })
 
-const ROOT_REGEX      = /C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B|%|-|_/g
-const SEPARATOR_REGEX = /\|/g
-const SPACE_REGEX     = /\s+/g
-
 const rootClass = (root) => (
   classNames(
     "root",
@@ -36,17 +33,17 @@ const rootClass = (root) => (
 )
 
 const ScoreDecorator = new CompositeDecorator([
-  baseDecorator(SEPARATOR_REGEX, (props) => (
+  baseDecorator(constantRegex.separator, (props) => (
     <span className="separator">
       {props.children}
     </span>
   )),
-  baseDecorator(ROOT_REGEX, (props) => (
+  baseDecorator(constantRegex.rootChord, (props) => (
     <span className={rootClass(props.decoratedText)}>
       {props.children}
     </span>
   )),
-  baseDecorator(SPACE_REGEX, () => (
+  baseDecorator(constantRegex.whiteSpaces, () => (
     <span className="space">&nbsp;</span>
   )),
 ])

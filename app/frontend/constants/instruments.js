@@ -1,15 +1,3 @@
-// export const synths = [{
-//   oscillator: {
-//     type: "triangle12"
-//   },
-//   envelope: {
-//     attack:  0.005,
-//     decay:   8,
-//     sustain: 0.01,
-//     release: 1
-//   }
-// }]
-
 export const types = (onload) => {
   const baseInstrument = ({ name, attack, release }) => (
     [{

@@ -2,11 +2,13 @@ import { Chord, Note, Distance }    from "tonal"
 import translate                    from "./translate"
 import { STREAK_NOTE, RESUME_NOTE } from "../constants"
 import { times }                    from "../constants/times"
+import * as regex                   from "../constants/regex"
 
 export const parseChordProgression = (text) => {
   let score = []
 
-  score = text.split("\n")
+  score = text.replace(regex.rootChord, ` $&`)
+  score = score.split("\n")
   score = score.map(line => line.split("|"))
   score = score.map(line => (
     line[0][0] === "\n" ? line : (

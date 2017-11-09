@@ -5,7 +5,6 @@ import HorizontalField         from "../shared/HorizontalField"
 import SelectField             from "../shared/SelectField"
 import Button                  from "../shared/Button"
 import Slider                  from "../shared/Slider"
-import Score                   from "../Score"
 import ScoreEditor             from "../ScoreEditor"
 import SoundControl            from "../SoundControl"
 import * as utils              from "../../utils"
@@ -48,7 +47,7 @@ export default class App extends Component {
       undid:        !undid
     })
   }
-  handleChangeText        = (e) => this.setInputText(e.target.value)
+  handleChangeText     = (text) => this.setInputText(text)
   handleClearText          = () => this.setInputText("")
   handleSetSample          = () => this.setInputText(sampleChordProgression)
   handleKeyChange = (operation) => this.setInputText(utils.keyChange(this.state.inputText, operation))
@@ -68,15 +67,12 @@ export default class App extends Component {
     return (
       <div>
         draft.js でコード譜をそのまま編集できるよう開発中...
-        <ScoreEditor />
         <div className="columns">
           <div className="column control">
-            <textarea
-              className="textarea chord-progression"
+            <ScoreEditor
+              inputText={inputText}
               placeholder={placeholder}
-              value={inputText}
-              onChange={this.handleChangeText}
-              spellCheck="false"
+              handleChangeText={this.handleChangeText}
             />
           </div>
 
@@ -165,6 +161,16 @@ export default class App extends Component {
                 </HorizontalField>
               </div>
             </div>
+            <SoundControl
+              instrument={instrument}
+              time={time}
+              bpm={bpm}
+              volume={volume}
+              beatClick={beatClick}
+              parsedText={parsedText}
+              isPlaying={isPlaying}
+              onChangePlaying={this.handleChangePlaying}
+            />
             <div className="volume-control">
               <span className="icon">
                 <i className="fa fa-volume-off" />
@@ -180,22 +186,7 @@ export default class App extends Component {
                 <i className="fa fa-volume-up" />
               </span>
             </div>
-
-            <SoundControl
-              instrument={instrument}
-              time={time}
-              bpm={bpm}
-              volume={volume}
-              beatClick={beatClick}
-              parsedText={parsedText}
-              isPlaying={isPlaying}
-              onChangePlaying={this.handleChangePlaying}
-            />
           </div>
-        </div>
-
-        <div className="content">
-          <Score text={parsedText} />
         </div>
       </div>
     )

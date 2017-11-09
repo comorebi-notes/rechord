@@ -9,7 +9,7 @@ export const parseChordProgression = (text) => {
   score = text.split("\n")
   score = score.map(line => line.split("|"))
   score = score.map(line => (
-    line[0][0] === "#" ? line : (
+    line[0][0] === "\n" ? line : (
       line
         .map(chords => chords.trim())
         .filter(chords => chords !== "")
@@ -24,7 +24,7 @@ export const keyChange = (progression, operation) => {
   const newProgression = []
   const lines = progression.split(/\n/)
   lines.forEach(line => {
-    if (line[0] === "#") {
+    if (line[0] === "\n") {
       newProgression.push(line)
     } else {
       const notesRegExp = /(^|\||\n)?\s*(C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g

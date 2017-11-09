@@ -133,8 +133,8 @@ export default class SoundControl extends Component {
               onClick={this.handleStart}
               color="info"
               size="medium"
-              icon="play"
-              text="play"
+              icon={loading ? "circle-o-notch fa-spin" : "play"}
+              text={loading ? "loading..." : "play"}
               disabled={cannotPlay}
             />
           </div>

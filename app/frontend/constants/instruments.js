@@ -10,38 +10,26 @@
 //   }
 // }]
 
-export const types = (onload) => ({
-  Piano: [{
-    E2: "e2.mp3",
-    E3: "e3.mp3",
-    E4: "e4.mp3",
-    E5: "e5.mp3"
-  }, {
-    release: 0.5,
-    baseUrl: "/assets/audios/piano/",
-    onload
-  }],
-  Guitar: [{
-    E2: "e2.mp3",
-    E3: "e3.mp3",
-    E4: "e4.mp3",
-    E5: "e5.mp3"
-  }, {
-    release: 0.5,
-    baseUrl: "/assets/audios/guitar/",
-    onload
-  }],
-  Strings: [{
-    E2: "e2.mp3",
-    E3: "e3.mp3",
-    E4: "e4.mp3",
-    E5: "e5.mp3"
-  }, {
-    release: 1,
-    baseUrl: "/assets/audios/strings/",
-    onload
-  }]
-})
+export const types = (onload) => {
+  const baseInstrument = ({ name, attack, release }) => (
+    [{
+      E2: "e2.mp3",
+      E3: "e3.mp3",
+      E4: "e4.mp3",
+      E5: "e5.mp3"
+    }, {
+      attack: attack || 0,
+      release: release || 0.5,
+      baseUrl: `/assets/audios/${name}/`,
+      onload
+    }]
+  )
+  return {
+    Piano:   baseInstrument({ name: "piano" }),
+    Guitar:  baseInstrument({ name: "guitar" }),
+    Strings: baseInstrument({ name: "strings", release: 1 })
+  }
+}
 
 export const click = {
   oscillator: {

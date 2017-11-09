@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Tone                 from "tone"
-import Button               from "../shared/button"
+import Button               from "../shared/Button"
 import { times }            from "../../constants/times"
 import * as instruments     from "../../constants/instruments"
 import * as utils           from "../../utils"

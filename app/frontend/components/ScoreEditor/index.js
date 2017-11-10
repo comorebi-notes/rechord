@@ -6,11 +6,12 @@ export default class ScoreEditor extends Component {
     this.props.handleChangeEditorState(editorState)
   }
   render() {
-    const { editorState } = this.props
+    const { editorState, placeholder } = this.props
     return (
       <div className="textarea score">
         <Editor
           editorState={editorState}
+          placeholder={placeholder}
           onChange={this.handleChange}
         />
       </div>

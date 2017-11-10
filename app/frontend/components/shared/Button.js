@@ -17,7 +17,9 @@ export default class Button extends PureComponent {
             <i className={iconClass} />
           </span>
         )}
-        <span>{text}</span>
+        {text && (
+          <span>{text}</span>
+        )}
       </button>
     )
   }

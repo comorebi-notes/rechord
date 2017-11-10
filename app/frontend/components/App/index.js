@@ -22,10 +22,10 @@ import {
 export default class App extends Component {
   constructor() {
     super()
+    const contentState = ContentState.createFromText(sampleChordProgression)
     this.state = {
       inputText:   sampleChordProgression,
-      editorState: this.setEditorState(sampleChordProgression),
-      undid:       false,
+      editorState: EditorState.createWithContent(contentState, scoreDecorator),
       isPlaying:   false,
       beatClick:   false,
       bpm:         DEFAULT_BPM,
@@ -35,34 +35,31 @@ export default class App extends Component {
     }
   }
   setInputText = (nextInputText, setEditorState = true) => {
-    const { inputText, oldInputText } = this.state
-    const nextOldInputText = inputText === nextInputText ? oldInputText : inputText
-    this.setState({
-      oldInputText: nextOldInputText,
-      inputText:    nextInputText,
-      undid:        false
-    })
+    this.setState({ inputText: nextInputText })
     if (setEditorState) {
-      this.setState({
-        editorState: this.setEditorState(nextInputText)
-      })
+      this.setState({ editorState: this.setEditorState(nextInputText) })
     }
   }
   setEditorState = (inputText) => {
     const contentState = ContentState.createFromText(inputText)
-    return EditorState.createWithContent(contentState, scoreDecorator)
+    return EditorState.push(this.state.editorState, contentState)
   }
   handleChangeEditorState = (editorState) => {
     this.setState({ editorState })
     this.handleChangeText(editorState.getCurrentContent().getPlainText())
   }
   handleUndo = () => {
-    const { inputText, oldInputText, undid } = this.state
+    const prevEditorState = EditorState.undo(this.state.editorState)
     this.setState({
-      inputText:    oldInputText,
-      oldInputText: inputText,
-      undid:        !undid,
-      editorState:  this.setEditorState(oldInputText)
+      inputText:   prevEditorState.getCurrentContent().getPlainText(),
+      editorState: prevEditorState
+    })
+  }
+  handleRedo = () => {
+    const nextEditorState = EditorState.redo(this.state.editorState)
+    this.setState({
+      inputText:   nextEditorState.getCurrentContent().getPlainText(),
+      editorState: nextEditorState
     })
   }
   handleChangeText     = (text) => this.setInputText(text, false)
@@ -77,7 +74,7 @@ export default class App extends Component {
   handleChangeTime        = (e) => this.setState({ time: e.target.value })
   render() {
     const {
-      inputText, oldInputText, undid, editorState,
+      inputText, editorState,
       time, bpm, volume, instrument, isPlaying, beatClick
     } = this.state
     const parsedText = utils.parseChordProgression(inputText)
@@ -97,14 +94,22 @@ export default class App extends Component {
           <div className="column control-ui">
             <div className="columns">
               <div className="column">
-                <Field>
-                  <Button
-                    onClick={this.handleUndo}
-                    icon={undid ? "repeat" : "undo"}
-                    text={undid ? "redo" : "undo"}
-                    disabled={!oldInputText}
-                  />
-                </Field>
+                <HasAddonsField customClass="key-control">
+                  <div className="control">
+                    <Button
+                      onClick={this.handleUndo}
+                      icon="undo"
+                      disabled={editorState.getUndoStack().size === 0}
+                    />
+                  </div>
+                  <div className="control">
+                    <Button
+                      onClick={this.handleRedo}
+                      icon="repeat"
+                      disabled={editorState.getRedoStack().size === 0}
+                    />
+                  </div>
+                </HasAddonsField>
                 <HasAddonsField customClass="key-control">
                   <div className="control">
                     <Button

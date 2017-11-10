@@ -93,7 +93,7 @@ export default class App extends Component {
 
           <div className="column control-ui">
             <div className="columns">
-              <div className="column">
+              <div className="column editor-control">
                 <HasAddonsField customClass="key-control">
                   <div className="control">
                     <Button

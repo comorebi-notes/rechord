@@ -4,8 +4,10 @@
     font-weight: bold
     font-size: 1.1em
     color: #777
+    max-width: 320px
     height: auto
     padding: .625em 1.2em
+    overflow: scroll
     .separator
       font-weight: normal
       margin-left: 1em
@@ -56,6 +58,9 @@
       z-index: 1
     .public-DraftEditor-content
       min-height: 225px
+    .public-DraftStyleDefault-block
+      display: flex
+      align-items: baseline
 
   .chord-progression.textarea
     height: 100%
@@ -64,6 +69,7 @@
     flex-grow: 0
     position: relative
     button
+      display: inline-block
       width: 100%
     .field-label .label
       font-size: .9em
@@ -73,6 +79,8 @@
       .field-body
         input[type=number]
           min-width: 72px
+    .editor-control
+      min-width: 140px
     .key-control
       > div
         flex-grow: 1

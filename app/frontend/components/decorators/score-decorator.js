@@ -4,7 +4,7 @@ import classNames             from "classnames"
 import * as constantRegex     from "../../constants/regex"
 
 const baseDecorator = (regex, block) => ({
-  strategy(contentBlock, callback) {
+  strategy: (contentBlock, callback) => {
     const text = contentBlock.getText()
     let matchArr = regex.exec(text)
     let start
@@ -16,9 +16,7 @@ const baseDecorator = (regex, block) => ({
       matchArr = regex.exec(text)
     }
   },
-  component(props) {
-    return block(props)
-  }
+  component: (props) => block(props)
 })
 
 const rootChordClass = (root) => (
@@ -32,7 +30,12 @@ const rootChordClass = (root) => (
   )
 )
 const onChordClass = (onChord) => (
-  classNames("on-chord", onChord.replace("/", ""))
+  classNames(
+    "on-chord",
+    onChord
+      .replace("/", "")
+      .replace("#", "s")
+  )
 )
 const separatorComponent = (props) => (
   <span className="separator">

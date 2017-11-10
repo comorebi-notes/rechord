@@ -19,7 +19,6 @@ export default class SoundControl extends Component {
       loading:     true
     }
   }
-
   componentWillReceiveProps({ bpm, volume, instrument, beatClick }) {
     if (bpm !== this.props.bpm) this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
@@ -37,7 +36,6 @@ export default class SoundControl extends Component {
     const onLoadComplete = () => this.setState({ loading: false })
     return new Sampler(...instruments.types(onLoadComplete)[type]).toMaster()
   }
-
   setClick = () => new MonoSynth(instruments.click).toMaster()
 
   setInstrumentSchedule = (score) => {
@@ -62,7 +60,6 @@ export default class SoundControl extends Component {
     }
     new Part(triggerInstrument, score).start()
   }
-
   setClickSchedule = (score) => {
     const { time: selectedTime, beatClick } = this.props
     const click = this.setClick()
@@ -86,7 +83,6 @@ export default class SoundControl extends Component {
   setBpm = (bpm) => {
     Transport.bpm.value = bpm
   }
-
   setVolume = (volume) => {
     const newVolume = volume - MAX_VOLUME
     Master.volume.value = newVolume
@@ -99,7 +95,6 @@ export default class SoundControl extends Component {
     Transport.cancel()
     this.props.onChangePlaying(false)
   }
-
   handleStart = () => {
     const { time, parsedText } = this.props
     const score = utils.makeScore(parsedText, time)

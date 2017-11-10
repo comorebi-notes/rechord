@@ -61,9 +61,9 @@ const setBeats = (length, selectedTime) => {
 }
 
 const fixNotes = (chord, baseKey) => {
-  const root    = chord[0]
-  const type    = chord[1].split("/")[0]
-  const onChord = chord[1].split("/")[1]
+  const root        = chord[0]
+  const denominator = chord[1].split("/")[1]
+  const type        = chord[1].split("/")[0]
 
   let notes = Chord.notes(`${root}${baseKey}`, type)
 
@@ -72,8 +72,15 @@ const fixNotes = (chord, baseKey) => {
   for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
     notes.push(Distance.transpose(notes[i], "8M"))
   }
-  if (onChord.length > 0) {
-    notes[0] = `${onChord}${baseKey - 1}`
+  if (denominator && denominator.length > 0 && denominator !== root) {
+    const distance = Distance.semitones(`${root}${baseKey}`, `${denominator}${baseKey}`)
+    const denominatorKey = distance < 0 ? baseKey : baseKey - 1
+    notes.unshift(`${denominator}${denominatorKey}`)
+    if (distance > -3 && distance < 0) {
+      notes.splice(1, 1) // 1度の構成音を削除
+    } else {
+      notes.splice(2, 1) // 3度の構成音を削除
+    }
   }
   console.log(notes)
   return notes.map(Note.simplify)

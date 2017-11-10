@@ -60,29 +60,35 @@ const setBeats = (length, selectedTime) => {
   return beats
 }
 
+const upOctave = (note) => Distance.transpose(note, "8M")
 const fixNotes = (chord, baseKey) => {
   const root        = chord[0]
   const denominator = chord[1].split("/")[1]
   const type        = chord[1].split("/")[0]
-
-  let notes = Chord.notes(`${root}${baseKey}`, type)
+  const notes       = Chord.notes(`${root}${baseKey}`, translate(type))
 
   const maxNotes = 5
   const minNotes = 3
   for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
-    notes.push(Distance.transpose(notes[i], "8M"))
+    notes.push(upOctave(notes[i]))
   }
   if (denominator && denominator.length > 0 && denominator !== root) {
     const distance = Distance.semitones(`${root}${baseKey}`, `${denominator}${baseKey}`)
-    const denominatorKey = distance < 0 ? baseKey : baseKey - 1
-    notes.unshift(`${denominator}${denominatorKey}`)
-    if (distance > -3 && distance < 0) {
-      notes.splice(1, 1) // 1度の構成音を削除
+
+    if (distance < 5 && distance >= 0) {
+      // 1度の構成音を削除して5度の構成音のオクターブ上を足す
+      notes.splice(0, 1)
+      notes.push(upOctave(notes[1]))
+    } else if (distance < 0) {
+      // 1度の構成音を削除して一番下に分母の音を足す
+      notes.unshift(`${denominator}${baseKey}`)
+      notes.splice(1, 1)
     } else {
-      notes.splice(2, 1) // 3度の構成音を削除
+      // 3度の構成音を削除して一番下に分母の音を足す
+      notes.unshift(`${denominator}${baseKey - 1}`)
+      notes.splice(2, 1)
     }
   }
-  console.log(notes)
   return notes.map(Note.simplify)
 }
 
@@ -104,7 +110,7 @@ export const makeScore = (text, selectedTime) => {
           switch (chord[1][0]) {
             case STREAK_NOTE: return STREAK_NOTE
             case RESUME_NOTE: return RESUME_NOTE
-            case STOP_NOTE:   return STOP_NOTE
+            case STOP_NOTE:   return []
             default: {
               return fixNotes(chord, baseKey)
             }

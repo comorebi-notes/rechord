@@ -1,10 +1,11 @@
-import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 import React, { Component } from "react"
+import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
+
 import Button               from "../shared/Button"
 import { times }            from "../../constants/times"
 import * as instruments     from "../../constants/instruments"
 import * as utils           from "../../utils"
-import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
+import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE, STOP_NOTE } from "../../constants"
 
 // const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
 // const reverb = new Tone.Freeverb(0.5).toMaster()

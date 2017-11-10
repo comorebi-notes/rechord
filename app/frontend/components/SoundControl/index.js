@@ -24,7 +24,7 @@ export default class SoundControl extends Component {
   componentWillReceiveProps({ bpm, volume, instrument, beatClick }) {
     if (bpm !== this.props.bpm) this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
-    if (instrument !== this.props.instrument) {
+    if (!this.state.hasLoaded || instrument !== this.props.instrument) {
       this.setState({
         instrument: this.setInstrument(instrument),
         hasLoaded:  true

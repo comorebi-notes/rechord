@@ -1,3 +1,10 @@
+// breakpoints
+$gap: 32px
+$tablet: 769px
+$desktop: 960px + (2 * $gap)
+$widescreen: 1152px + (2 * $gap)
+$fullhd: 1344px + (2 * $gap)  !default
+
 #rechord
   .score
     font-family: "Roboto"
@@ -8,6 +15,12 @@
     height: auto
     padding: .625em 1.2em
     overflow: scroll
+    transition: all .1s ease-in-out
+    &.read-only
+      background-color: #fdfdfd
+      border: 1px solid #fdfdfd
+      box-shadow: none
+      resize: none
     .separator
       font-weight: normal
       margin-left: 1em
@@ -53,14 +66,15 @@
       z-index: 1
     .public-DraftEditorPlaceholder-root
       position: absolute
+      top: .8em
       font-weight: normal
       opacity: .5
       z-index: 1
     .public-DraftEditor-content
       min-height: 225px
+      word-wrap: normal !important
     .public-DraftStyleDefault-block
-      display: flex
-      align-items: baseline
+      display: inline-block
 
   .chord-progression.textarea
     height: 100%
@@ -80,7 +94,6 @@
         input[type=number]
           min-width: 72px
     .editor-control
-      min-width: 140px
     .key-control
       > div
         flex-grow: 1
@@ -115,3 +128,22 @@
           margin-left: -.3rem
         &:last-of-type
           margin-left: .5rem
+
+@media screen and (max-width: $tablet - 1px)
+  #rechord
+    .score
+      font-size: 1em
+      .public-DraftStyleDefault-block
+        display: block
+    .control-ui
+      > .columns
+        display: flex
+      .instrument-control
+        .select, select
+          width: 100%
+      .is-horizontal
+        display: flex
+        .field-label.is-normal
+          padding-top: .375em
+        .field-body
+          width: 100%

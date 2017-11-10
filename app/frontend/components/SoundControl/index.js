@@ -1,5 +1,5 @@
+import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 import React, { Component } from "react"
-import Tone                 from "tone"
 import Button               from "../shared/Button"
 import { times }            from "../../constants/times"
 import * as instruments     from "../../constants/instruments"
@@ -35,10 +35,10 @@ export default class SoundControl extends Component {
   setInstrument = (type, isInitialize) => {
     if (!isInitialize) this.setState({ loading: true })
     const onLoadComplete = () => this.setState({ loading: false })
-    return new Tone.Sampler(...instruments.types(onLoadComplete)[type]).toMaster()
+    return new Sampler(...instruments.types(onLoadComplete)[type]).toMaster()
   }
 
-  setClick = () => new Tone.MonoSynth(instruments.click).toMaster()
+  setClick = () => new MonoSynth(instruments.click).toMaster()
 
   setInstrumentSchedule = (score) => {
     const instrument = this.setInstrument(this.props.instrument)
@@ -60,7 +60,7 @@ export default class SoundControl extends Component {
         }
       }
     }
-    new Tone.Part(triggerInstrument, score).start()
+    new Part(triggerInstrument, score).start()
   }
 
   setClickSchedule = (score) => {
@@ -76,7 +76,7 @@ export default class SoundControl extends Component {
       const barLength = parseInt(score[score.length - 2].time.split(":")[0], 10)
       for (let bar = 0; bar <= barLength; bar += 1) {
         for (let beat = 0; beat < times[selectedTime][0]; beat += 1) {
-          Tone.Transport.schedule(triggerClick, `${bar}:${beat}:0`)
+          Transport.schedule(triggerClick, `${bar}:${beat}:0`)
         }
       }
     }
@@ -84,30 +84,30 @@ export default class SoundControl extends Component {
   }
 
   setBpm = (bpm) => {
-    Tone.Transport.bpm.value = bpm
+    Transport.bpm.value = bpm
   }
 
   setVolume = (volume) => {
     const newVolume = volume - MAX_VOLUME
-    Tone.Master.volume.value = newVolume
+    Master.volume.value = newVolume
   }
 
   handleStop = () => {
     const { curretNotes, instrument } = this.state
     curretNotes.forEach(note => instrument.triggerRelease(note))
-    Tone.Transport.stop()
-    Tone.Transport.cancel()
+    Transport.stop()
+    Transport.cancel()
     this.props.onChangePlaying(false)
   }
 
   handleStart = () => {
     const { time, parsedText } = this.props
     const score = utils.makeScore(parsedText, time)
-    Tone.Transport.timeSignature = times[time]
+    Transport.timeSignature = times[time]
     this.handleStop()
     this.setInstrumentSchedule(score)
     this.setClickSchedule(score)
-    Tone.Transport.start("+0.5")
+    Transport.start("+0.5")
     this.props.onChangePlaying(true)
   }
 

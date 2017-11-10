@@ -1,4 +1,6 @@
-import React, { Component }    from "react"
+import React, { Component }          from "react"
+import { EditorState, ContentState } from "draft-js"
+
 import Field                   from "../shared/Field"
 import HasAddonsField          from "../shared/HasAddonsField"
 import HorizontalField         from "../shared/HorizontalField"
@@ -7,6 +9,7 @@ import Button                  from "../shared/Button"
 import Slider                  from "../shared/Slider"
 import ScoreEditor             from "../ScoreEditor"
 import SoundControl            from "../SoundControl"
+import scoreDecorator          from "../decorators/score-decorator"
 import * as utils              from "../../utils"
 import * as instruments        from "../../constants/instruments"
 import { times }               from "../../constants/times"
@@ -20,17 +23,18 @@ export default class App extends Component {
   constructor() {
     super()
     this.state = {
-      inputText:  sampleChordProgression,
-      undid:      false,
-      isPlaying:  false,
-      beatClick:  false,
-      bpm:        DEFAULT_BPM,
-      volume:     DEFAULT_VOLUME,
-      time:       DEFAULT_TIME,
-      instrument: "Piano"
+      inputText:   sampleChordProgression,
+      editorState: this.setEditorState(sampleChordProgression),
+      undid:       false,
+      isPlaying:   false,
+      beatClick:   false,
+      bpm:         DEFAULT_BPM,
+      volume:      DEFAULT_VOLUME,
+      time:        DEFAULT_TIME,
+      instrument:  "Piano"
     }
   }
-  setInputText = (nextInputText) => {
+  setInputText = (nextInputText, setEditorState = true) => {
     const { inputText, oldInputText } = this.state
     const nextOldInputText = inputText === nextInputText ? oldInputText : inputText
     this.setState({
@@ -38,16 +42,30 @@ export default class App extends Component {
       inputText:    nextInputText,
       undid:        false
     })
+    if (setEditorState) {
+      this.setState({
+        editorState: this.setEditorState(nextInputText)
+      })
+    }
+  }
+  setEditorState = (inputText) => {
+    const contentState = ContentState.createFromText(inputText)
+    return EditorState.createWithContent(contentState, scoreDecorator)
+  }
+  handleChangeEditorState = (editorState) => {
+    this.setState({ editorState })
+    this.handleChangeText(editorState.getCurrentContent().getPlainText())
   }
   handleUndo = () => {
     const { inputText, oldInputText, undid } = this.state
     this.setState({
       inputText:    oldInputText,
       oldInputText: inputText,
-      undid:        !undid
+      undid:        !undid,
+      editorState:  this.setEditorState(oldInputText)
     })
   }
-  handleChangeText     = (text) => this.setInputText(text)
+  handleChangeText     = (text) => this.setInputText(text, false)
   handleClearText          = () => this.setInputText("")
   handleSetSample          = () => this.setInputText(sampleChordProgression)
   handleKeyChange = (operation) => this.setInputText(utils.keyChange(this.state.inputText, operation))
@@ -59,21 +77,20 @@ export default class App extends Component {
   handleChangeTime        = (e) => this.setState({ time: e.target.value })
   render() {
     const {
-      inputText, oldInputText, undid, time,
-      bpm, volume, instrument, isPlaying, beatClick
+      inputText, oldInputText, undid, editorState,
+      time, bpm, volume, instrument, isPlaying, beatClick
     } = this.state
     const parsedText = utils.parseChordProgression(inputText)
     const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
     return (
       <div>
-        draft.js でコード譜をそのまま編集できるよう開発中...<br />
-        現在、一部のボタンが動作しません。
         <div className="columns">
           <div className="column control">
             <ScoreEditor
               inputText={inputText}
+              editorState={editorState}
               placeholder={placeholder}
-              handleChangeText={this.handleChangeText}
+              handleChangeEditorState={this.handleChangeEditorState}
             />
           </div>
 

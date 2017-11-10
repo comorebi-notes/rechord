@@ -21,7 +21,7 @@ const baseDecorator = (regex, block) => ({
   }
 })
 
-const rootClass = (root) => (
+const rootChordClass = (root) => (
   classNames(
     "root",
     root
@@ -31,21 +31,33 @@ const rootClass = (root) => (
       .replace("_", "stop")
   )
 )
+const onChordClass = (onChord) => (
+  classNames("on-chord", onChord.replace("/", ""))
+)
+const separatorComponent = (props) => (
+  <span className="separator">
+    {props.children}
+  </span>
+)
+const onChordComponent = (props) => (
+  <span className={onChordClass(props.decoratedText)}>
+    {props.children}
+  </span>
+)
+const rootChordComponent = (props) => (
+  <span className={rootChordClass(props.decoratedText)}>
+    {props.children}
+  </span>
+)
+const whiteSpacesComponent = () => (
+  <span className="space">&nbsp;</span>
+)
 
 const ScoreDecorator = new CompositeDecorator([
-  baseDecorator(constantRegex.separator, (props) => (
-    <span className="separator">
-      {props.children}
-    </span>
-  )),
-  baseDecorator(constantRegex.rootChord, (props) => (
-    <span className={rootClass(props.decoratedText)}>
-      {props.children}
-    </span>
-  )),
-  baseDecorator(constantRegex.whiteSpaces, () => (
-    <span className="space">&nbsp;</span>
-  )),
+  baseDecorator(constantRegex.separator,   separatorComponent),
+  baseDecorator(constantRegex.onChord,     onChordComponent),
+  baseDecorator(constantRegex.rootChord,   rootChordComponent),
+  baseDecorator(constantRegex.whiteSpaces, whiteSpacesComponent),
 ])
 
 export default ScoreDecorator

@@ -88,6 +88,7 @@ export default class App extends Component {
               editorState={editorState}
               placeholder={placeholder}
               handleChangeEditorState={this.handleChangeEditorState}
+              readOnly={isPlaying}
             />
           </div>
 
@@ -99,14 +100,14 @@ export default class App extends Component {
                     <Button
                       onClick={this.handleUndo}
                       icon="undo"
-                      disabled={editorState.getUndoStack().size === 0}
+                      disabled={isPlaying || editorState.getUndoStack().size === 0}
                     />
                   </div>
                   <div className="control">
                     <Button
                       onClick={this.handleRedo}
                       icon="repeat"
-                      disabled={editorState.getRedoStack().size === 0}
+                      disabled={isPlaying || editorState.getRedoStack().size === 0}
                     />
                   </div>
                 </HasAddonsField>
@@ -115,12 +116,14 @@ export default class App extends Component {
                     <Button
                       onClick={() => this.handleKeyChange("up")}
                       text="#"
+                      disabled={isPlaying}
                     />
                   </div>
                   <div className="control">
                     <Button
                       onClick={() => this.handleKeyChange("down")}
                       text="b"
+                      disabled={isPlaying}
                     />
                   </div>
                 </HasAddonsField>
@@ -129,6 +132,7 @@ export default class App extends Component {
                     onClick={this.handleClearText}
                     icon="trash"
                     text="clear"
+                    disabled={isPlaying}
                   />
                 </Field>
                 <Field>
@@ -136,13 +140,18 @@ export default class App extends Component {
                     onClick={this.handleSetSample}
                     icon="tasks"
                     text="sample"
+                    disabled={isPlaying}
                   />
                 </Field>
               </div>
 
               <div className="column">
                 <SelectField icon="music" customClass="instrument-control">
-                  <select value={instrument} onChange={this.handleChangeInstrument}>
+                  <select
+                    value={instrument}
+                    onChange={this.handleChangeInstrument}
+                    disabled={isPlaying}
+                  >
                     {Object.keys(instruments.types()).map(type => (
                       <option key={type} value={type}>
                         {type}

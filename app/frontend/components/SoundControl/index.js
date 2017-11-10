@@ -5,7 +5,7 @@ import Button               from "../shared/Button"
 import { times }            from "../../constants/times"
 import * as instruments     from "../../constants/instruments"
 import * as utils           from "../../utils"
-import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE, STOP_NOTE } from "../../constants"
+import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
 
 // const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
 // const reverb = new Tone.Freeverb(0.5).toMaster()
@@ -16,32 +16,34 @@ export default class SoundControl extends Component {
     this.setVolume(props.volume)
     this.state = {
       curretNotes: [],
-      instrument:  this.setInstrument("Piano", true),
-      loading:     true
+      instrument:  this.setInstrument("Piano"),
+      loading:     true,
+      hasLoaded:   false
     }
   }
   componentWillReceiveProps({ bpm, volume, instrument, beatClick }) {
     if (bpm !== this.props.bpm) this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
     if (instrument !== this.props.instrument) {
-      this.handleStop()
-      this.setState({ instrument: this.setInstrument(instrument) })
+      this.setState({
+        instrument: this.setInstrument(instrument),
+        hasLoaded:  true
+      })
     }
     if (this.state.click && (beatClick !== this.props.beatClick)) {
       this.state.click.volume.value = beatClick ? 0 : -100
     }
   }
 
-  setInstrument = (type, isInitialize) => {
-    if (!isInitialize) this.setState({ loading: true })
-    const onLoadComplete = () => this.setState({ loading: false })
-    return new Sampler(...instruments.types(onLoadComplete)[type]).toMaster()
+  setInstrument = (type, cutomOnLoad) => {
+    if (this.state && this.state.loading === false) this.setState({ loading: true })
+    const onLoad = () => this.setState({ loading: false })
+    return new Sampler(...instruments.types(cutomOnLoad || onLoad)[type]).toMaster()
   }
   setClick = () => new MonoSynth(instruments.click).toMaster()
 
   setInstrumentSchedule = (score) => {
-    const instrument = this.setInstrument(this.props.instrument)
-    this.setState({ instrument })
+    const { instrument } = this.state
 
     const triggerInstrument = (time, value) => {
       const { notes } = value
@@ -97,14 +99,27 @@ export default class SoundControl extends Component {
     this.props.onChangePlaying(false)
   }
   handleStart = () => {
-    const { time, parsedText } = this.props
-    const score = utils.makeScore(parsedText, time)
-    Transport.timeSignature = times[time]
-    this.handleStop()
-    this.setInstrumentSchedule(score)
-    this.setClickSchedule(score)
-    Transport.start("+0.5")
-    this.props.onChangePlaying(true)
+    const start = () => {
+      const { time, parsedText } = this.props
+      const score = utils.makeScore(parsedText, time)
+      Transport.timeSignature = times[time]
+      this.handleStop()
+      this.setInstrumentSchedule(score)
+      this.setClickSchedule(score)
+      Transport.start("+0.1")
+      this.props.onChangePlaying(true)
+    }
+    // iOS対策で、一度も手動で音源がロードされていない場合はここでロードする
+    if (this.state.hasLoaded) {
+      start()
+    } else {
+      const instrument = this.setInstrument(this.props.instrument, start)
+      this.setState({
+        instrument,
+        loading: false,
+        hasLoaded: true
+      })
+    }
   }
 
   render() {

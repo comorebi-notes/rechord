@@ -161,7 +161,11 @@ export default class App extends Component {
                 </SelectField>
                 <HorizontalField label="Time">
                   <SelectField customClass="time-control">
-                    <select value={time} onChange={this.handleChangeTime}>
+                    <select
+                      value={time}
+                      onChange={this.handleChangeTime}
+                      disabled={isPlaying}
+                    >
                       {Object.keys(times).map(timeKey => (
                         <option key={timeKey} value={timeKey}>
                           {timeKey}

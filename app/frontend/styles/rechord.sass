@@ -14,7 +14,7 @@ $fullhd: 1344px + (2 * $gap)  !default
     max-width: 320px
     height: auto
     padding: .625em 1.2em
-    overflow: scroll
+    overflow: auto
     transition: all .1s ease-in-out
     &.read-only
       background-color: #fdfdfd
@@ -23,7 +23,10 @@ $fullhd: 1344px + (2 * $gap)  !default
       resize: none
     .separator
       font-weight: normal
-      padding-left: 1em
+      letter-spacing: .65em
+      margin-right: .4em
+      & + .root
+        padding-left: 0 !important
     .space
       display: none
     .root
@@ -32,7 +35,7 @@ $fullhd: 1344px + (2 * $gap)  !default
       &:not(:last-child)
         padding-right: 2px
       &:not(:first-child)
-        padding-left: 1em
+        padding-left: .75em
     .on-chord
       padding-left: .2em
     .A
@@ -61,6 +64,7 @@ $fullhd: 1344px + (2 * $gap)  !default
       color: #ea305a
     .streak, .resume, .stop
       color: #aaa
+      white-space: nowrap
     .DraftEditor-editorContainer
       position: relative
       z-index: 1
@@ -132,10 +136,11 @@ $fullhd: 1344px + (2 * $gap)  !default
 @media screen and (max-width: $tablet - 1px)
   #rechord
     .score
-      font-size: 1em
+      font-size: .95em
+      .public-DraftEditor-content
+        word-wrap: break-word !important
       .public-DraftStyleDefault-block
         display: block
-        word-break: break-word
     .control-ui
       > .columns
         display: flex

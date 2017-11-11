@@ -39,7 +39,7 @@ const onChordClass = (onChord) => (
 )
 const separatorComponent = (props) => (
   <span className="separator">
-    {props.children}
+    &nbsp;{props.children}
   </span>
 )
 const onChordComponent = (props) => (

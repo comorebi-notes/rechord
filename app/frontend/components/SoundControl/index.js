@@ -43,11 +43,16 @@ export default class SoundControl extends Component {
   setClick = () => new MonoSynth(instruments.click).toMaster()
 
   setInstrumentSchedule = (score) => {
-    const { instrument } = this.state
+    if (!this.state.hasLoaded) {
+      this.setState({
+        instrument: this.setInstrument(this.props.instrument),
+        hasLoaded: true
+      })
+    }
 
     const triggerInstrument = (time, value) => {
       const { notes } = value
-      const { curretNotes } = this.state
+      const { instrument, curretNotes } = this.state
 
       if (notes[0] !== RESUME_NOTE) {
         curretNotes.forEach(note => instrument.triggerRelease(note))
@@ -99,27 +104,14 @@ export default class SoundControl extends Component {
     this.props.onChangePlaying(false)
   }
   handleStart = () => {
-    const start = () => {
-      const { time, parsedText } = this.props
-      const score = utils.makeScore(parsedText, time)
-      Transport.timeSignature = times[time]
-      this.handleStop()
-      this.setInstrumentSchedule(score)
-      this.setClickSchedule(score)
-      Transport.start("+0.1")
-      this.props.onChangePlaying(true)
-    }
-    // iOS対策で、一度も手動で音源がロードされていない場合はここでロードする
-    if (this.state.hasLoaded) {
-      start()
-    } else {
-      const instrument = this.setInstrument(this.props.instrument, start)
-      this.setState({
-        instrument,
-        loading: false,
-        hasLoaded: true
-      })
-    }
+    const { time, parsedText } = this.props
+    const score = utils.makeScore(parsedText, time)
+    Transport.timeSignature = times[time]
+    this.handleStop()
+    this.setInstrumentSchedule(score)
+    this.setClickSchedule(score)
+    Transport.start("+0.5")
+    this.props.onChangePlaying(true)
   }
 
   render() {

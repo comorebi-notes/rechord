@@ -46,7 +46,7 @@ export default class SoundControl extends Component {
     if (!this.state.hasLoaded) {
       this.setState({
         instrument: this.setInstrument(this.props.instrument),
-        hasLoaded: true
+        hasLoaded:  true
       })
     }
 

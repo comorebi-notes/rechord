@@ -1,6 +1,7 @@
 import React                  from "react"
 import { CompositeDecorator } from "draft-js"
 import classNames             from "classnames"
+import * as constants         from "../../constants"
 import * as constantRegex     from "../../constants/regex"
 
 const baseDecorator = (regex, block) => ({
@@ -24,9 +25,9 @@ const rootChordClass = (root) => (
     "root",
     root
       .replace("#", "s")
-      .replace("%", "streak")
-      .replace("-", "resume")
-      .replace("_", "stop")
+      .replace(constants.STREAK_NOTE, "streak")
+      .replace(constants.RESUME_NOTE, "resume")
+      .replace(constants.STOP_NOTE,   "stop")
   )
 )
 const onChordClass = (onChord) => (

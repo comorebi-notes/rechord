@@ -24,14 +24,14 @@ export default class App extends Component {
     super()
     const contentState = ContentState.createFromText(sampleChordProgression)
     this.state = {
-      inputText:   sampleChordProgression,
-      editorState: EditorState.createWithContent(contentState, scoreDecorator),
-      isPlaying:   false,
-      beatClick:   false,
-      bpm:         DEFAULT_BPM,
-      volume:      DEFAULT_VOLUME,
-      time:        DEFAULT_TIME,
-      instrument:  "Piano"
+      inputText:      sampleChordProgression,
+      editorState:    EditorState.createWithContent(contentState, scoreDecorator),
+      isPlaying:      false,
+      beatClick:      false,
+      bpm:            DEFAULT_BPM,
+      volume:         DEFAULT_VOLUME,
+      time:           DEFAULT_TIME,
+      instrumentType: "Piano"
     }
   }
   setInputText = (nextInputText, setEditorState = true) => {
@@ -70,12 +70,12 @@ export default class App extends Component {
   handleChangeVolume      = (e) => this.setState({ volume: utils.valueInRange(e.target.value, MIN_VOLUME, MAX_VOLUME) })
   handleChangePlaying = (state) => this.setState({ isPlaying: state })
   handleToggleClick       = (e) => this.setState({ beatClick: e.target.checked })
-  handleChangeInstrument  = (e) => this.setState({ instrument: e.target.value })
+  handleChangeInstrument  = (e) => this.setState({ instrumentType: e.target.value })
   handleChangeTime        = (e) => this.setState({ time: e.target.value })
   render() {
     const {
       inputText, editorState,
-      time, bpm, volume, instrument, isPlaying, beatClick
+      time, bpm, volume, instrumentType, isPlaying, beatClick
     } = this.state
     const parsedText = utils.parseChordProgression(inputText)
     const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
@@ -165,7 +165,7 @@ export default class App extends Component {
                   <div className="column">
                     <SelectField icon="music" customClass="instrument-control">
                       <select
-                        value={instrument}
+                        value={instrumentType}
                         onChange={this.handleChangeInstrument}
                         disabled={isPlaying}
                       >
@@ -215,7 +215,7 @@ export default class App extends Component {
                   </div>
                 </div>
                 <SoundControl
-                  instrument={instrument}
+                  instrumentType={instrumentType}
                   time={time}
                   bpm={bpm}
                   volume={volume}

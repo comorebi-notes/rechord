@@ -1,4 +1,4 @@
-const sampleChordProgression = [
+const sampleScore = [
   "C|G|Am7|Em7",
   "F|Em7Am7|Dm7|G7",
   "",
@@ -8,4 +8,4 @@ const sampleChordProgression = [
   "Cadd9"
 ].join("\n")
 
-export default sampleChordProgression
+export default sampleScore

@@ -1,4 +1,4 @@
-import { document } from "../../utils/browser-dependencies"
+import { document } from "../../../utils/browser-dependencies"
 
 let currentScrollWidth
 let currentClientHeight

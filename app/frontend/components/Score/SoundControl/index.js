@@ -1,12 +1,12 @@
 import React, { Component } from "react"
 import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 
-import Button                from "../shared/Button"
-import { times }             from "../../constants/times"
-import * as instruments      from "../../constants/instruments"
-import * as utils            from "../../utils"
-import { window, navigator } from "../../utils/browser-dependencies"
-import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
+import Button                from "../../shared/Button"
+import { times }             from "../../../constants/times"
+import * as instruments      from "../../../constants/instruments"
+import * as utils            from "../../../utils"
+import { window, navigator } from "../../../utils/browser-dependencies"
+import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../../constants"
 
 export default class SoundControl extends Component {
   constructor(props) {
@@ -38,7 +38,7 @@ export default class SoundControl extends Component {
     if (bpm !== this.props.bpm) this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
     if (!this.state.hasLoaded || instrumentType !== this.props.instrumentType) {
-      this.setLoaded()
+      this.setLoaded(instrumentType, true)
     }
     if (this.state.click && (beatClick !== this.props.beatClick)) {
       this.state.click.volume.value = beatClick ? 0 : -100
@@ -46,14 +46,13 @@ export default class SoundControl extends Component {
   }
 
   onMount = (callback) => callback()
-
   setInstrumentForIOS = () => {
-    if (!this.state.hasLoaded) this.setLoaded()
+    if (!this.state.hasLoaded) this.setLoaded(this.props.instrumentType)
     window.removeEventListener("scroll", this.setInstrumentForIOS)
   }
-  setLoaded = () => (
+  setLoaded = (instrumentType, setLoading = false) => (
     this.setState({
-      instrument: this.setInstrument(this.props.instrumentType, false),
+      instrument: this.setInstrument(instrumentType, setLoading),
       hasLoaded:  true
     })
   )

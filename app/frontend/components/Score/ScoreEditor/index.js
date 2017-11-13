@@ -13,7 +13,8 @@ export default class ScoreEditor extends Component {
     this.props.handleChangeEditorState(editorState)
   }
   render() {
-    const { editorState, placeholder, readOnly } = this.props
+    const { editorState, readOnly } = this.props
+    const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
     const textAreaClass = classNames("textarea", "score", { "read-only": readOnly })
     return (
       <div id="score-editor" className={textAreaClass}>

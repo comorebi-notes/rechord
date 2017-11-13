@@ -81,19 +81,12 @@ export default class App extends Component {
     const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
     return (
       <div>
-        <div className="field">
-          <label className="label">Title</label>
-          <div className="control">
-            <input className="input" type="text" placeholder="title" style={{ width: "50%" }} />
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Comment</label>
-          <div className="control">
-            <input className="input" type="text" placeholder="comment" />
-          </div>
-        </div>
+        <Field label="Title">
+          <input className="input" type="text" placeholder="title" style={{ width: "50%" }} />
+        </Field>
+        <Field label="Comment">
+          <input className="input" type="text" placeholder="comment" />
+        </Field>
 
         <div className="field">
           <label className="label">Score</label>

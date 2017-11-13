@@ -34,8 +34,10 @@ $fullhd: 1344px + (2 * $gap)  !default
       font-size: 1.3em
       &:not(:last-child)
         padding-right: 2px
-      &:not(:first-child)
-        padding-left: .75em
+    span:not(.separator) + .root
+      .space
+        letter-spacing: .65em
+        display: inline
     .on-chord
       padding-left: .2em
     .A

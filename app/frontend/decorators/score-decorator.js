@@ -1,8 +1,8 @@
 import React                  from "react"
 import { CompositeDecorator } from "draft-js"
 import classNames             from "classnames"
-import * as constants         from "../../constants"
-import * as constantRegex     from "../../constants/regex"
+import * as constants         from "../constants"
+import * as constantRegex     from "../constants/regex"
 
 const baseDecorator = (regex, block) => ({
   strategy: (contentBlock, callback) => {
@@ -51,6 +51,7 @@ const onChordComponent = (props) => (
 )
 const rootChordComponent = (props) => (
   <span className={rootChordClass(props.decoratedText)}>
+    <span className="space">&nbsp;</span>
     <wbr />
     {props.children}
   </span>

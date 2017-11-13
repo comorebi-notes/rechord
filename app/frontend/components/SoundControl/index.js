@@ -1,11 +1,11 @@
 import React, { Component } from "react"
 import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 
-import Button           from "../shared/Button"
-import { times }        from "../../constants/times"
-import * as instruments from "../../constants/instruments"
-import * as utils       from "../../utils"
-import { window }       from "../../utils/browser-dependencies"
+import Button                from "../shared/Button"
+import { times }             from "../../constants/times"
+import * as instruments      from "../../constants/instruments"
+import * as utils            from "../../utils"
+import { window, navigator } from "../../utils/browser-dependencies"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
 
 export default class SoundControl extends Component {
@@ -15,25 +15,10 @@ export default class SoundControl extends Component {
     this.setInstrument(props.instrumentType)
     this.state = {
       instrument:  this.setInstrument(props.instrumentType),
+      click:       this.setClick(),
       curretNotes: [],
       loading:     true,
       hasLoaded:   false
-    }
-  }
-  componentDidMount() {
-    window.addEventListener("scroll", this.setInstrumentForIos)
-  }
-  componentWillReceiveProps({ bpm, volume, instrumentType, beatClick }) {
-    if (bpm !== this.props.bpm) this.setBpm(bpm)
-    if (volume !== this.props.volume) this.setVolume(volume)
-    if (!this.state.hasLoaded || instrumentType !== this.props.instrumentType) {
-      this.setState({
-        instrument: this.setInstrument(instrumentType, false),
-        hasLoaded:  true
-      })
-    }
-    if (this.state.click && (beatClick !== this.props.beatClick)) {
-      this.state.click.volume.value = beatClick ? 0 : -100
     }
   }
 
@@ -41,23 +26,43 @@ export default class SoundControl extends Component {
   // iOS では必ずユーザ操作によって音源がロードされる必要がある。
   // 初回スクロール時に hasLoaded でなければ音源をロードし、イベントを外す。
   // https://qiita.com/yohei-qiita/items/78805185ab218468215e
-  setInstrumentForIos = () => {
-    if (!this.state.hasLoaded) {
-      this.setState({
-        instrument: this.setInstrument(this.props.instrumentType),
-        hasLoaded:  true
-      })
+  componentDidMount() {
+    const isIOS = /[ (]iP/.test(navigator.userAgent)
+    if (isIOS) {
+      window.addEventListener("scroll", this.setInstrumentForIOS)
+    } else {
+      this.onMount(() => this.setState({ hasLoaded: true }))
     }
-    window.removeEventListener("scroll", this.setInstrumentForIos)
+  }
+  componentWillReceiveProps({ bpm, volume, instrumentType, beatClick }) {
+    if (bpm !== this.props.bpm) this.setBpm(bpm)
+    if (volume !== this.props.volume) this.setVolume(volume)
+    if (!this.state.hasLoaded || instrumentType !== this.props.instrumentType) {
+      this.setLoaded()
+    }
+    if (this.state.click && (beatClick !== this.props.beatClick)) {
+      this.state.click.volume.value = beatClick ? 0 : -100
+    }
   }
 
+  onMount = (callback) => callback()
+
+  setInstrumentForIOS = () => {
+    if (!this.state.hasLoaded) this.setLoaded()
+    window.removeEventListener("scroll", this.setInstrumentForIOS)
+  }
+  setLoaded = () => (
+    this.setState({
+      instrument: this.setInstrument(this.props.instrumentType, false),
+      hasLoaded:  true
+    })
+  )
   setInstrument = (type, setLoading = true) => {
     if (setLoading && this.state && this.state.loading === false) this.setState({ loading: true })
     const onLoad = () => this.setState({ loading: false })
     return new Sampler(...instruments.types(onLoad)[type]).toMaster()
   }
   setClick = () => new MonoSynth(instruments.click).toMaster()
-
   setInstrumentSchedule = (score) => {
     const { instrument } = this.state
     const triggerInstrument = (time, value) => {
@@ -94,7 +99,6 @@ export default class SoundControl extends Component {
     }
     setSchedule(score)
   }
-
   setBpm = (bpm) => { Transport.bpm.value = bpm }
   setVolume = (volume) => { Master.volume.value = volume - MAX_VOLUME }
 

@@ -40,7 +40,7 @@ const onChordClass = (onChord) => (
 )
 const separatorComponent = (props) => (
   <span className="separator">
-    &nbsp;{props.children}
+    {props.children}
     <wbr />
   </span>
 )
@@ -51,7 +51,6 @@ const onChordComponent = (props) => (
 )
 const rootChordComponent = (props) => (
   <span className={rootChordClass(props.decoratedText)}>
-    <span className="space">&nbsp;</span>
     <wbr />
     {props.children}
   </span>

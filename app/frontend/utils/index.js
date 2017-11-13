@@ -144,6 +144,6 @@ export const valueInRange = (value, min, max) => {
   return value
 }
 
-export const barLength = (score) => {
+export const barLength = (score) => (
   parseInt(score[score.length - 2].time.split(":")[0], 10) // fin の直前の小節
-}
+)

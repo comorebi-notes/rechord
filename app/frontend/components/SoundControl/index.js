@@ -1,15 +1,12 @@
 import React, { Component } from "react"
 import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 
-import Button               from "../shared/Button"
-import { times }            from "../../constants/times"
-import * as instruments     from "../../constants/instruments"
-import * as utils           from "../../utils"
-import { window }           from "../../utils/browser-dependencies"
+import Button           from "../shared/Button"
+import { times }        from "../../constants/times"
+import * as instruments from "../../constants/instruments"
+import * as utils       from "../../utils"
+import { window }       from "../../utils/browser-dependencies"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
-
-// const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
-// const reverb = new Tone.Freeverb(0.5).toMaster()
 
 export default class SoundControl extends Component {
   constructor(props) {
@@ -87,12 +84,9 @@ export default class SoundControl extends Component {
     this.setState({ click })
     click.volume.value = beatClick ? 0 : -100
 
-    const triggerClick = (time) => {
-      click.triggerAttackRelease("A6", "32n", time, 0.1)
-    }
+    const triggerClick = (time) => click.triggerAttackRelease("A6", "32n", time, 0.1)
     const setSchedule = () => {
-      const barLength = parseInt(score[score.length - 2].time.split(":")[0], 10)
-      for (let bar = 0; bar <= barLength; bar += 1) {
+      for (let bar = 0; bar <= utils.barLength(score); bar += 1) {
         for (let beat = 0; beat < times[selectedTime][0]; beat += 1) {
           Transport.schedule(triggerClick, `${bar}:${beat}:0`)
         }
@@ -101,12 +95,8 @@ export default class SoundControl extends Component {
     setSchedule(score)
   }
 
-  setBpm = (bpm) => {
-    Transport.bpm.value = bpm
-  }
-  setVolume = (volume) => {
-    Master.volume.value = volume - MAX_VOLUME
-  }
+  setBpm = (bpm) => { Transport.bpm.value = bpm }
+  setVolume = (volume) => { Master.volume.value = volume - MAX_VOLUME }
 
   handleStop = () => {
     const { instrument, curretNotes } = this.state
@@ -133,8 +123,8 @@ export default class SoundControl extends Component {
     const cannotPlay = loading || isPlaying || (parsedText.length === 1 && !parsedText[0][0])
     return (
       <div className="field sound-control">
-        {isPlaying ? (
-          <div className="control">
+        <div className="control">
+          {isPlaying ? (
             <Button
               onClick={this.handleStop}
               color="danger"
@@ -143,9 +133,7 @@ export default class SoundControl extends Component {
               text="stop"
               disabled={!isPlaying}
             />
-          </div>
-        ) : (
-          <div className="control">
+          ) : (
             <Button
               onClick={this.handleStart}
               color="info"
@@ -154,8 +142,8 @@ export default class SoundControl extends Component {
               text={loading ? "loading..." : "play"}
               disabled={cannotPlay}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     )
   }

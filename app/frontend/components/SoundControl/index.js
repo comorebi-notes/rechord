@@ -5,12 +5,11 @@ import Button               from "../shared/Button"
 import { times }            from "../../constants/times"
 import * as instruments     from "../../constants/instruments"
 import * as utils           from "../../utils"
+import { window }           from "../../utils/browser-dependencies"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../constants"
 
 // const chorus = new Tone.Chorus(4, 2.5, 0.5).toMaster()
 // const reverb = new Tone.Freeverb(0.5).toMaster()
-
-let instrument
 
 export default class SoundControl extends Component {
   constructor(props) {
@@ -18,31 +17,52 @@ export default class SoundControl extends Component {
     this.setVolume(props.volume)
     this.setInstrument(props.instrumentType)
     this.state = {
+      instrument:  this.setInstrument(props.instrumentType),
       curretNotes: [],
       loading:     true,
       hasLoaded:   false
     }
   }
+  componentDidMount() {
+    window.addEventListener("scroll", this.setInstrumentForIos)
+  }
   componentWillReceiveProps({ bpm, volume, instrumentType, beatClick }) {
     if (bpm !== this.props.bpm) this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
     if (!this.state.hasLoaded || instrumentType !== this.props.instrumentType) {
-      this.setInstrument(instrumentType, false)
-      this.setState({ hasLoaded:  true })
+      this.setState({
+        instrument: this.setInstrument(instrumentType, false),
+        hasLoaded:  true
+      })
     }
     if (this.state.click && (beatClick !== this.props.beatClick)) {
       this.state.click.volume.value = beatClick ? 0 : -100
     }
   }
 
+  // ===== iOS 対応の苦肉の策 =====
+  // iOS では必ずユーザ操作によって音源がロードされる必要がある。
+  // 初回スクロール時に hasLoaded でなければ音源をロードし、イベントを外す。
+  // https://qiita.com/yohei-qiita/items/78805185ab218468215e
+  setInstrumentForIos = () => {
+    if (!this.state.hasLoaded) {
+      this.setState({
+        instrument: this.setInstrument(this.props.instrumentType),
+        hasLoaded:  true
+      })
+    }
+    window.removeEventListener("scroll", this.setInstrumentForIos)
+  }
+
   setInstrument = (type, setLoading = true) => {
     if (setLoading && this.state && this.state.loading === false) this.setState({ loading: true })
     const onLoad = () => this.setState({ loading: false })
-    instrument = new Sampler(...instruments.types(onLoad)[type]).toMaster()
+    return new Sampler(...instruments.types(onLoad)[type]).toMaster()
   }
   setClick = () => new MonoSynth(instruments.click).toMaster()
 
   setInstrumentSchedule = (score) => {
+    const { instrument } = this.state
     const triggerInstrument = (time, value) => {
       const { notes } = value
       const { curretNotes } = this.state
@@ -85,33 +105,26 @@ export default class SoundControl extends Component {
     Transport.bpm.value = bpm
   }
   setVolume = (volume) => {
-    const newVolume = volume - MAX_VOLUME
-    Master.volume.value = newVolume
+    Master.volume.value = volume - MAX_VOLUME
   }
 
   handleStop = () => {
-    const { curretNotes } = this.state
+    const { instrument, curretNotes } = this.state
     curretNotes.forEach(note => instrument.triggerRelease(note))
     Transport.stop()
     Transport.cancel()
     this.props.onChangePlaying(false)
   }
   handleStart = () => {
-    const { time, parsedText, instrumentType, onChangePlaying } = this.props
-    const { hasLoaded } = this.props
+    const { time, parsedText, onChangePlaying } = this.props
     const score = utils.makeScore(parsedText, time)
-
-    if (!hasLoaded) {
-      this.setInstrument(instrumentType, true)
-      this.setState({ hasLoaded: true })
-    }
 
     Transport.timeSignature = times[time]
     this.handleStop()
     this.setInstrumentSchedule(score)
     this.setClickSchedule(score)
     onChangePlaying(true)
-    Transport.start(hasLoaded ? "+0.1" : "+1.0") // iOS対応の苦肉の策…
+    Transport.start("+0.1")
   }
 
   render() {

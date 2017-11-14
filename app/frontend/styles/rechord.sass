@@ -23,16 +23,23 @@ $fullhd: 1344px + (2 * $gap)  !default
       resize: none
     .separator
       font-weight: normal
+      margin-right: 1.1em
       &:before
         content: " "
         letter-spacing: .65em
+    .separator, .space
+      & + .root
+        &:not(:first-child):before
+          content: ""
     .space
       display: none
     .root
       line-height: 1.8
       font-size: 1.3em
       &:not(:first-child)
-        padding-left: .8em
+        &:before
+          content: " "
+          letter-spacing: .65em
       &:not(:last-child)
         padding-right: 2px
     .on-chord

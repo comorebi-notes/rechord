@@ -8,13 +8,13 @@ export default class InstrumentControl extends Component {
     this.props.handleSetState({ instrumentType: e.target.value })
   }
   render() {
-    const { instrumentType, isPlaying } = this.props
+    const { instrumentType, disabled } = this.props
     return (
       <SelectField icon="music" customClass="instrument-control">
         <select
           value={instrumentType}
           onChange={this.handleChangeInstrument}
-          disabled={isPlaying}
+          disabled={disabled}
         >
           {Object.keys(instruments.types()).map(type => (
             <option key={type} value={type}>

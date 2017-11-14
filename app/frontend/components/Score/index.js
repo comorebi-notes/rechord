@@ -56,20 +56,20 @@ export default class Score extends Component {
                   <UndoControl
                     editorState={editorState}
                     handleChangeEditorState={this.handleChangeEditorState}
-                    isPlaying={isPlaying}
+                    disabled={isPlaying}
                   />
                   <KeyControl
                     inputText={inputText}
                     setInputText={this.setInputText}
-                    isPlaying={isPlaying}
+                    disabled={isPlaying}
                   />
                   <ClearButton
                     setInputText={this.setInputText}
-                    isPlaying={isPlaying}
+                    disabled={isPlaying}
                   />
                   <SetSampleButton
                     setInputText={this.setInputText}
-                    isPlaying={isPlaying}
+                    disabled={isPlaying}
                   />
                 </div>
 
@@ -77,12 +77,12 @@ export default class Score extends Component {
                   <InstrumentControl
                     instrumentType={instrumentType}
                     handleSetState={handleSetState}
-                    isPlaying={isPlaying}
+                    disabled={isPlaying}
                   />
                   <TimeControl
                     time={time}
                     handleSetState={handleSetState}
-                    isPlaying={isPlaying}
+                    disabled={isPlaying}
                   />
                   <BpmControl
                     bpm={bpm}

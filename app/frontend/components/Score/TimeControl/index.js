@@ -9,14 +9,14 @@ export default class TimeControl extends Component {
     this.props.handleSetState({ time: e.target.value })
   }
   render() {
-    const { time, isPlaying } = this.props
+    const { time, disabled } = this.props
     return (
       <HorizontalField label="Time">
         <SelectField customClass="time-control">
           <select
             value={time}
             onChange={this.handleChangeTime}
-            disabled={isPlaying}
+            disabled={disabled}
           >
             {Object.keys(times).map(timeKey => (
               <option key={timeKey} value={timeKey}>

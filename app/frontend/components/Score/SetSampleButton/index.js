@@ -7,14 +7,14 @@ import sampleScore from "../../../constants/sampleScore"
 export default class SetSampleButton extends Component {
   handleSetSample = () => this.props.setInputText(sampleScore)
   render() {
-    const { isPlaying } = this.props
+    const { disabled } = this.props
     return (
       <Field>
         <Button
           onClick={this.handleSetSample}
           icon="tasks"
           text="sample"
-          disabled={isPlaying}
+          disabled={disabled}
         />
       </Field>
     )

@@ -13,21 +13,21 @@ export default class KeyControl extends Component {
   handleKeyDown = () => this.handleKeyChange("down")
 
   render() {
-    const { isPlaying } = this.props
+    const { disabled } = this.props
     return (
       <HasAddonsField customClass="key-control">
         <div className="control">
           <Button
             onClick={this.handleKeyUp}
             text="#"
-            disabled={isPlaying}
+            disabled={disabled}
           />
         </div>
         <div className="control">
           <Button
             onClick={this.handleKeyDown}
             text="b"
-            disabled={isPlaying}
+            disabled={disabled}
           />
         </div>
       </HasAddonsField>

@@ -14,21 +14,21 @@ export default class UndoControl extends Component {
     this.props.handleChangeEditorState(nextEditorState)
   }
   render() {
-    const { editorState, isPlaying } = this.props
+    const { editorState, disabled } = this.props
     return (
       <HasAddonsField customClass="undo-control">
         <div className="control">
           <Button
             onClick={this.handleUndo}
             icon="undo"
-            disabled={isPlaying || editorState.getUndoStack().size === 0}
+            disabled={disabled || editorState.getUndoStack().size === 0}
           />
         </div>
         <div className="control">
           <Button
             onClick={this.handleRedo}
             icon="repeat"
-            disabled={isPlaying || editorState.getRedoStack().size === 0}
+            disabled={disabled || editorState.getRedoStack().size === 0}
           />
         </div>
       </HasAddonsField>

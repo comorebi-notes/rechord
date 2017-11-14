@@ -25,10 +25,7 @@ export default class App extends Component {
   handleSetState = (state) => this.setState(state)
 
   render() {
-    const {
-      inputText, editorState,
-      time, bpm, volume, instrumentType, isPlaying, beatClick
-    } = this.state
+    const { inputText, editorState, time, bpm, volume, instrumentType, isPlaying, beatClick } = this.state
     return (
       <div>
         <Field label="Title">

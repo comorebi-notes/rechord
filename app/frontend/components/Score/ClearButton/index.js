@@ -6,14 +6,14 @@ import Button from "../../shared/Button"
 export default class ClearButton extends Component {
   handleClearText = () => this.props.setInputText("")
   render() {
-    const { isPlaying } = this.props
+    const { disabled } = this.props
     return (
       <Field>
         <Button
           onClick={this.handleClearText}
           icon="trash"
           text="clear"
-          disabled={isPlaying}
+          disabled={disabled}
         />
       </Field>
     )

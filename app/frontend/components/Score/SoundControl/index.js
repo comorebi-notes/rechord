@@ -101,22 +101,23 @@ export default class SoundControl extends Component {
   setBpm = (bpm) => { Transport.bpm.value = bpm }
   setVolume = (volume) => { Master.volume.value = volume - MAX_VOLUME }
 
+  handleChangePlaying = (state) => this.props.handleSetState({ isPlaying: state })
   handleStop = () => {
     const { instrument, curretNotes } = this.state
     curretNotes.forEach(note => instrument.triggerRelease(note))
     Transport.stop()
     Transport.cancel()
-    this.props.onChangePlaying(false)
+    this.handleChangePlaying(false)
   }
   handleStart = () => {
-    const { time, parsedText, onChangePlaying } = this.props
+    const { time, parsedText } = this.props
     const score = utils.makeScore(parsedText, time)
 
     Transport.timeSignature = times[time]
     this.handleStop()
     this.setInstrumentSchedule(score)
     this.setClickSchedule(score)
-    onChangePlaying(true)
+    this.handleChangePlaying(true)
     Transport.start("+0.1")
   }
 

@@ -2,10 +2,16 @@ import React, { Component } from "react"
 
 import HasAddonsField from "../../shared/HasAddonsField"
 import Button         from "../../shared/Button"
+import * as utils     from "../../../utils"
 
 export default class KeyControl extends Component {
-  handleKeyUp   = () => this.props.handleKeyChange("up")
-  handleKeyDown = () => this.props.handleKeyChange("down")
+  handleKeyChange = (operation) => {
+    const { inputText, setInputText } = this.props
+    setInputText(utils.keyChange(inputText, operation))
+  }
+  handleKeyUp   = () => this.handleKeyChange("up")
+  handleKeyDown = () => this.handleKeyChange("down")
+
   render() {
     const { isPlaying } = this.props
     return (

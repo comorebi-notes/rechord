@@ -7,4 +7,4 @@ export const MIN_VOLUME     = 1
 export const MAX_VOLUME     = 20
 export const DEFAULT_BPM    = 120
 export const DEFAULT_VOLUME = MAX_VOLUME - 5
-export const DEFAULT_TIME   = "4/4"
+export const DEFAULT_BEAT   = "4/4"

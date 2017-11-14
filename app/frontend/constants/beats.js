@@ -1,4 +1,4 @@
-export const times = {
+export const beats = {
   "2/4": [2, 4],
   "3/4": [3, 4],
   "4/4": [4, 4],
@@ -7,4 +7,4 @@ export const times = {
   "7/4": [7, 4]
 }
 
-export default times
+export default beats

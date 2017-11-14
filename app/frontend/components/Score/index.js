@@ -7,7 +7,7 @@ import KeyControl        from "./KeyControl"
 import ClearButton       from "./ClearButton"
 import SetSampleButton   from "./SetSampleButton"
 import InstrumentControl from "./InstrumentControl"
-import TimeControl       from "./TimeControl"
+import BeatControl       from "./BeatControl"
 import BpmControl        from "./BpmControl"
 import ClickControl      from "./ClickControl"
 import VolumeControl     from "./VolumeControl"
@@ -32,7 +32,7 @@ export default class Score extends Component {
   render() {
     const {
       inputText, editorState, instrumentType,
-      time, bpm, volume, beatClick, isPlaying, handleSetState
+      beat, bpm, volume, beatClick, isPlaying, handleSetState
     } = this.props
     const parsedText = utils.parseChordProgression(inputText)
 
@@ -79,8 +79,8 @@ export default class Score extends Component {
                     handleSetState={handleSetState}
                     disabled={isPlaying}
                   />
-                  <TimeControl
-                    time={time}
+                  <BeatControl
+                    time={beat}
                     handleSetState={handleSetState}
                     disabled={isPlaying}
                   />
@@ -96,7 +96,7 @@ export default class Score extends Component {
               </div>
               <SoundControl
                 instrumentType={instrumentType}
-                time={time}
+                beat={beat}
                 bpm={bpm}
                 volume={volume}
                 beatClick={beatClick}

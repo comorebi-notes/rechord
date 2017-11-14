@@ -5,7 +5,7 @@ import Score          from "../Score"
 import Field          from "../shared/Field"
 import scoreDecorator from "../../decorators/score-decorator"
 import sampleScore    from "../../constants/sampleScore"
-import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_TIME } from "../../constants"
+import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT } from "../../constants"
 
 export default class App extends Component {
   constructor() {
@@ -18,14 +18,14 @@ export default class App extends Component {
       beatClick:      false,
       bpm:            DEFAULT_BPM,
       volume:         DEFAULT_VOLUME,
-      time:           DEFAULT_TIME,
+      beat:           DEFAULT_BEAT,
       instrumentType: "Piano"
     }
   }
   handleSetState = (state) => this.setState(state)
 
   render() {
-    const { inputText, editorState, time, bpm, volume, instrumentType, isPlaying, beatClick } = this.state
+    const { inputText, editorState, beat, bpm, volume, instrumentType, isPlaying, beatClick } = this.state
     return (
       <div>
         <Field label="Title">
@@ -39,7 +39,7 @@ export default class App extends Component {
           inputText={inputText}
           editorState={editorState}
           instrumentType={instrumentType}
-          time={time}
+          beat={beat}
           bpm={bpm}
           volume={volume}
           beatClick={beatClick}

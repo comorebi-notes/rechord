@@ -1,7 +1,7 @@
 import { Chord, Note, Distance }               from "tonal"
 import translate                               from "./translate"
 import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE } from "../constants"
-import { times }                               from "../constants/times"
+import { beats }                               from "../constants/beats"
 import * as regex                              from "../constants/regex"
 
 export const parseChordProgression = (text) => {
@@ -42,22 +42,22 @@ export const keyChange = (progression, operation) => {
   return newProgression.join("\n")
 }
 
-const setBeats = (length, selectedTime) => {
+const setBeatPositions = (length, selectedBeat) => {
   if (length === 1) return [0]
 
-  const beat = times[selectedTime][0]
-  const beats = []
+  const beat = beats[selectedBeat][0]
+  const beatPositions = []
 
   if (beat / length >= 2) {
     for (let i = 0; i < beat; i += 1) {
-      if (i % length === 0) beats.push(i)
+      if (i % length === 0) beatPositions.push(i)
     }
   } else {
     for (let i = 0; i < beat; i += 1) {
-      beats.push(i)
+      beatPositions.push(i)
     }
   }
-  return beats
+  return beatPositions
 }
 
 const upOctave = (note) => Distance.transpose(note, "8M")
@@ -113,11 +113,11 @@ export const makeScore = (text, selectedTime) => {
     if (!line) return false
 
     line.forEach(chords => {
-      const beats = setBeats(chords.length, selectedTime)
+      const beatPositions = setBeatPositions(chords.length, selectedTime)
       chords.forEach((chord, index) => {
-        if (beats.length <= index) return false
+        if (beatPositions.length <= index) return false
 
-        const time = `${bar}:${beats[index]}:0`
+        const time = `${bar}:${beatPositions[index]}:0`
         const notes = () => {
           switch (chord[1][0]) {
             case STREAK_NOTE: return STREAK_NOTE

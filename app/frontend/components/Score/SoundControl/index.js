@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 
 import Button                from "../../shared/Button"
-import { times }             from "../../../constants/times"
+import { beats }             from "../../../constants/beats"
 import * as instruments      from "../../../constants/instruments"
 import * as utils            from "../../../utils"
 import { window, navigator } from "../../../utils/browser-dependencies"
@@ -83,7 +83,7 @@ export default class SoundControl extends Component {
     new Part(triggerInstrument, score).start()
   }
   setClickSchedule = (score) => {
-    const { time: selectedTime, beatClick } = this.props
+    const { beat, beatClick } = this.props
     const click = this.setClick()
     this.setState({ click })
     click.volume.value = beatClick ? 0 : -100
@@ -91,8 +91,8 @@ export default class SoundControl extends Component {
     const triggerClick = (time) => click.triggerAttackRelease("A6", "32n", time, 0.1)
     const setSchedule = () => {
       for (let bar = 0; bar <= utils.barLength(score); bar += 1) {
-        for (let beat = 0; beat < times[selectedTime][0]; beat += 1) {
-          Transport.schedule(triggerClick, `${bar}:${beat}:0`)
+        for (let currentBeat = 0; currentBeat < beats[beat][0]; currentBeat += 1) {
+          Transport.schedule(triggerClick, `${bar}:${currentBeat}:0`)
         }
       }
     }
@@ -110,10 +110,10 @@ export default class SoundControl extends Component {
     this.handleChangePlaying(false)
   }
   handleStart = () => {
-    const { time, parsedText } = this.props
-    const score = utils.makeScore(parsedText, time)
+    const { beat, parsedText } = this.props
+    const score = utils.makeScore(parsedText, beat)
 
-    Transport.timeSignature = times[time]
+    Transport.timeSignature = beats[beat]
     this.handleStop()
     this.setInstrumentSchedule(score)
     this.setClickSchedule(score)

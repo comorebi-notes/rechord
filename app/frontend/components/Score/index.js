@@ -80,7 +80,7 @@ export default class Score extends Component {
                     disabled={isPlaying}
                   />
                   <BeatControl
-                    time={beat}
+                    beat={beat}
                     handleSetState={handleSetState}
                     disabled={isPlaying}
                   />

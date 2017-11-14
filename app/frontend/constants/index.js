@@ -1,7 +1,7 @@
 export const STREAK_NOTE    = "%"
 export const RESUME_NOTE    = "="
 export const STOP_NOTE      = "_"
-export const MIN_BPM        = 1
+export const MIN_BPM        = 0
 export const MAX_BPM        = 999
 export const MIN_VOLUME     = 1
 export const MAX_VOLUME     = 20

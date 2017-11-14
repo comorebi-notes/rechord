@@ -32,8 +32,7 @@ export default class Score extends Component {
   render() {
     const {
       inputText, editorState, instrumentType,
-      time, bpm, volume, beatClick, isPlaying,
-      handleSetState
+      time, bpm, volume, beatClick, isPlaying, handleSetState
     } = this.props
     const parsedText = utils.parseChordProgression(inputText)
 

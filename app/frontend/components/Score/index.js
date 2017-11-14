@@ -6,11 +6,11 @@ import UndoControl       from "./UndoControl"
 import KeyControl        from "./KeyControl"
 import InstrumentControl from "./InstrumentControl"
 import TimeControl       from "./TimeControl"
+import BpmControl        from "./BpmControl"
 import ClickControl      from "./ClickControl"
 import VolumeControl     from "./VolumeControl"
 import SoundControl      from "./SoundControl"
 import Field             from "../shared/Field"
-import HorizontalField   from "../shared/HorizontalField"
 import Button            from "../shared/Button"
 import * as utils        from "../../utils"
 import sampleScore       from "../../constants/sampleScore"
@@ -109,16 +109,10 @@ export default class Score extends Component {
                     handleChange={this.handleChangeTime}
                     isPlaying={isPlaying}
                   />
-                  <HorizontalField label="BPM">
-                    <input
-                      type="number"
-                      min={MIN_BPM}
-                      max={MAX_BPM}
-                      className="input"
-                      value={bpm}
-                      onChange={this.handleChangeBpm}
-                    />
-                  </HorizontalField>
+                  <BpmControl
+                    bpm={bpm}
+                    handleChange={this.handleChangeBpm}
+                  />
                   <ClickControl
                     beatClick={beatClick}
                     handleChange={this.handleToggleClick}

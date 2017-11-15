@@ -2,14 +2,14 @@ import React, { Component } from "react"
 import { Editor }           from "draft-js"
 import classNames           from "classnames"
 
-import { setCurrentPosition, changeScrollPosition } from "./changeScrollPosition"
+import { setCurrentScrollPosition, changeScrollPosition } from "./changeScrollPosition"
 
 export default class ScoreEditor extends Component {
   componentDidUpdate() {
     changeScrollPosition()
   }
   handleChange = (editorState) => {
-    setCurrentPosition()
+    setCurrentScrollPosition()
     this.props.handleChangeEditorState(editorState)
   }
   render() {

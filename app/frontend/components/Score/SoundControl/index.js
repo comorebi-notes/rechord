@@ -16,7 +16,7 @@ export default class SoundControl extends Component {
     this.state = {
       instrument:  this.setInstrument(props.instrumentType),
       click:       this.setClick(),
-      curretNotes: [],
+      currentNotes: [],
       loading:     true,
       hasLoaded:   false
     }
@@ -24,7 +24,8 @@ export default class SoundControl extends Component {
 
   // ===== iOS 対応の苦肉の策 =====
   // iOS では必ずユーザ操作によって音源がロードされる必要がある。
-  // 初回スクロール時に hasLoaded でなければ音源をロードし、イベントを外す。
+  // 初回スクロール時か props の初回変更時に、
+  // hasLoaded でなければ音源をロードし、スクロールのイベントリスナーを外す。
   // https://qiita.com/yohei-qiita/items/78805185ab218468215e
   componentDidMount() {
     const isIOS = /[ (]iP/.test(navigator.userAgent)
@@ -63,20 +64,19 @@ export default class SoundControl extends Component {
   }
   setClick = () => new MonoSynth(instruments.click).toMaster()
   setInstrumentSchedule = (score) => {
-    const { instrument } = this.state
     const triggerInstrument = (time, value) => {
       const { notes } = value
-      const { curretNotes } = this.state
+      const { currentNotes } = this.state
 
       if (notes[0] !== RESUME_NOTE) {
-        curretNotes.forEach(note => instrument.triggerRelease(note))
+        this.releaseNotes(currentNotes)
         if (notes === "fin") {
           this.handleStop()
         } else if (notes[0] === STREAK_NOTE) {
-          curretNotes.forEach(note => instrument.triggerAttack(note))
+          this.attackNotes(currentNotes)
         } else {
-          notes.forEach(note => instrument.triggerAttack(note))
-          this.setState({ curretNotes: notes })
+          this.attackNotes(notes)
+          this.setState({ currentNotes: notes })
         }
       }
     }
@@ -101,10 +101,12 @@ export default class SoundControl extends Component {
   setBpm = (bpm) => { Transport.bpm.value = bpm }
   setVolume = (volume) => { Master.volume.value = volume - MAX_VOLUME }
 
+  attackNotes  = (notes) => notes.forEach(note => this.state.instrument.triggerAttack(note))
+  releaseNotes = (notes) => notes.forEach(note => this.state.instrument.triggerRelease(note))
+
   handleChangePlaying = (state) => this.props.handleSetState({ isPlaying: state })
   handleStop = () => {
-    const { instrument, curretNotes } = this.state
-    curretNotes.forEach(note => instrument.triggerRelease(note))
+    this.releaseNotes(this.state.currentNotes)
     Transport.stop()
     Transport.cancel()
     this.handleChangePlaying(false)

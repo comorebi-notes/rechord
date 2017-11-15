@@ -1,13 +1,8 @@
-// breakpoints
-$gap: 32px
-$tablet: 769px
-$desktop: 960px + (2 * $gap)
-$widescreen: 1152px + (2 * $gap)
-$fullhd: 1344px + (2 * $gap)  !default
+@import "partials/variables.sass"
+@import "partials/chord-colors.sass"
 
 #rechord
   .score
-    font-family: "Roboto"
     font-weight: bold
     font-size: 1.1em
     color: #777
@@ -15,6 +10,7 @@ $fullhd: 1344px + (2 * $gap)  !default
     height: auto
     padding: .625em 1.2em
     overflow: auto
+    resize: none
     transition: all .1s ease-in-out
     &.read-only
       background-color: #fcfcfc
@@ -44,30 +40,6 @@ $fullhd: 1344px + (2 * $gap)  !default
         padding-right: 1px
     .on-chord
       padding-left: .1em
-    .A
-      color: #f65022
-    .As, .Bb
-      color: #f37800
-    .B, .Cb
-      color: #feb140
-    .C, .Bs
-      color: #8fc31f
-    .Cs, .Db
-      color: #49a944
-    .D
-      color: #009eca
-    .Ds, .Eb
-      color: #206ada
-    .E, .Fb
-      color: #5020f7
-    .F, .Es
-      color: #8020c8
-    .Fs, .Gb
-      color: #b21793
-    .G
-      color: #da008f
-    .Gs, .Ab
-      color: #ea305a
     .streak, .resume, .stop
       color: #aaa
       white-space: nowrap
@@ -86,9 +58,6 @@ $fullhd: 1344px + (2 * $gap)  !default
   wbr
     display: none
 
-  .chord-progression.textarea
-    height: 100%
-    resize: none
   .control-ui
     flex-grow: 0
     position: relative

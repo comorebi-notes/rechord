@@ -70,6 +70,7 @@ const addNewRootToNotes = (notes, denominator, baseKey) => {
   }
   const newRoot = `${denominator}${baseKey + keyAdjuster()}`
   const distanceByNewRoot = Distance.semitones(notes[0], newRoot)
+
   if (distanceByNewRoot > 0 && distanceByNewRoot <= 4) {
     // 1度と3度の構成音を削除して5度の構成音のオクターブ上を足す
     notes.splice(0, 2)
@@ -123,9 +124,7 @@ export const makeScore = (text, selectedTime) => {
             case STREAK_NOTE: return STREAK_NOTE
             case RESUME_NOTE: return RESUME_NOTE
             case STOP_NOTE:   return []
-            default: {
-              return fixNotes(chord, baseKey)
-            }
+            default:          return fixNotes(chord, baseKey)
           }
         }
         return score.push({ time, notes: notes() })

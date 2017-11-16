@@ -12,13 +12,23 @@
 @import "../../../vendor/assets/bulma-switch.sass"
 @import "partials/*"
 
-.title-logo
-  span
-    &:first-child
-      margin-right: 8px
-      opacity: .85
-    &:last-child
-      letter-spacing: 1px
+.navbar-brand
+  .title-logo
+    margin-left: -1rem
+    span
+      &:first-child
+        margin-right: 8px
+        opacity: .85
+      &:last-child
+        letter-spacing: 1px
+
+@media screen and (max-width: $desktop)
+  .navbar-brand
+    .navbar-burger
+      display: flex
+      align-items: center
+    .title-logo
+      margin-left: 0
 
 @media screen and (min-width: $fullhd)
   .container

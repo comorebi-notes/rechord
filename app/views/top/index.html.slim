@@ -1,20 +1,29 @@
 nav.navbar.is-primary role="navigation" aria-label="main navigation"
   .container
-    .navbar-brand style="margin-left: -1rem"
+    .navbar-brand
       a.navbar-item href="/"
         h1.title.is-4.title-logo style="color: #fff"
           span.icon.is-medium
             i.fa.fa-paper-plane
           span
             | rechord
-
-/ section.hero.is-primary
-/   .hero-body
-/     .container
-/       h1.title
-/         | rechord
-/       h2.subtitle
-/         | play chord progression by text
+      - if logged_in?
+        .navbar-burger
+          = image_tag current_user.icon_url, alt: current_user.name, style: "height: 32px"
+    .navbar-menu
+      .navbar-end
+        - if logged_in?
+          .navbar-item
+            span style="margin-right: .8em"
+              = "@#{current_user.name}"
+            = image_tag current_user.icon_url, size: "32*32", alt: current_user.name
+        .navbar-item
+          .field
+            .control
+              - if logged_in?
+                = link_to "Logout", logout_path, class: "button is-primary is-inverted"
+              - else
+                = link_to "Login by Twitter", "auth/twitter", class: "button is-primary is-inverted"
 
 section.section
   .container

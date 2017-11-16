@@ -126,7 +126,8 @@ export default class SoundControl extends Component {
   render() {
     const { isPlaying, parsedText, bpm } = this.props
     const { loading } = this.state
-    const cannotPlay = loading || isPlaying || bpm <= 0 || (parsedText.length === 1 && !parsedText[0][0])
+    const isBlankText = parsedText.every(text => !text[0])
+    const cannotPlay = loading || isPlaying || bpm <= 0 || isBlankText
     return (
       <div className="field sound-control">
         <div className="control">

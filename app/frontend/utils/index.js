@@ -1,5 +1,5 @@
 import { Chord, Note, Distance }               from "tonal"
-import translate                               from "./translate"
+import translate, { tokenize }                 from "./translate"
 import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE } from "../constants"
 import { beats }                               from "../constants/beats"
 import * as regex                              from "../constants/regex"
@@ -17,7 +17,7 @@ export const parseChordProgression = (text) => {
         .map(chords => chords.trim())
         .filter(chords => chords !== "")
         .map(chords => chords.split(/\s+/))
-        .map(chords => chords.map(chord => Chord.tokenize(chord)))
+        .map(chords => chords.map(chord => tokenize(chord)))
     )
   ))
   return score

@@ -35,14 +35,14 @@ export default class SoundControl extends Component {
       this.onMount(() => this.setState({ hasLoaded: true }))
     }
   }
-  componentWillReceiveProps({ bpm, volume, instrumentType, beatClick }) {
+  componentWillReceiveProps({ bpm, volume, instrumentType, enabledClick }) {
     if (bpm !== this.props.bpm) this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
     if (!this.state.hasLoaded || instrumentType !== this.props.instrumentType) {
       this.setLoaded(instrumentType, true)
     }
-    if (this.state.click && (beatClick !== this.props.beatClick)) {
-      this.state.click.volume.value = beatClick ? 0 : -100
+    if (this.state.click && (enabledClick !== this.props.enabledClick)) {
+      this.state.click.volume.value = enabledClick ? 0 : -100
     }
   }
 
@@ -83,10 +83,10 @@ export default class SoundControl extends Component {
     new Part(triggerInstrument, score).start()
   }
   setClickSchedule = (score) => {
-    const { beat, beatClick } = this.props
+    const { beat, enabledClick } = this.props
     const click = this.setClick()
     this.setState({ click })
-    click.volume.value = beatClick ? 0 : -100
+    click.volume.value = enabledClick ? 0 : -100
 
     const triggerClick = (time) => click.triggerAttackRelease("A6", "32n", time, 0.1)
     const setSchedule = () => {

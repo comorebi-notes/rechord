@@ -32,7 +32,7 @@ export default class Score extends Component {
   render() {
     const {
       inputText, editorState, instrumentType,
-      beat, bpm, volume, beatClick, isPlaying, handleSetState
+      beat, bpm, volume, enabledClick, isPlaying, handleSetState
     } = this.props
     const parsedText = utils.parseChordProgression(inputText)
 
@@ -89,7 +89,7 @@ export default class Score extends Component {
                     handleSetState={handleSetState}
                   />
                   <ClickControl
-                    beatClick={beatClick}
+                    enabledClick={enabledClick}
                     handleSetState={handleSetState}
                   />
                 </div>
@@ -99,7 +99,7 @@ export default class Score extends Component {
                 beat={beat}
                 bpm={bpm}
                 volume={volume}
-                beatClick={beatClick}
+                enabledClick={enabledClick}
                 parsedText={parsedText}
                 isPlaying={isPlaying}
                 handleSetState={handleSetState}

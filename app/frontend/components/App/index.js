@@ -15,7 +15,7 @@ export default class App extends Component {
       inputText:      sampleScore,
       editorState:    EditorState.createWithContent(contentState, scoreDecorator),
       isPlaying:      false,
-      beatClick:      false,
+      enabledClick:   false,
       bpm:            DEFAULT_BPM,
       volume:         DEFAULT_VOLUME,
       beat:           DEFAULT_BEAT,
@@ -25,7 +25,7 @@ export default class App extends Component {
   handleSetState = (state) => this.setState(state)
 
   render() {
-    const { inputText, editorState, beat, bpm, volume, instrumentType, isPlaying, beatClick } = this.state
+    const { inputText, editorState, beat, bpm, volume, instrumentType, isPlaying, enabledClick } = this.state
     return (
       <div>
         <Field label="Title">
@@ -42,7 +42,7 @@ export default class App extends Component {
           beat={beat}
           bpm={bpm}
           volume={volume}
-          beatClick={beatClick}
+          enabledClick={enabledClick}
           isPlaying={isPlaying}
           handleSetState={this.handleSetState}
         />

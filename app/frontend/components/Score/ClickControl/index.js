@@ -4,21 +4,21 @@ import HorizontalField from "../../shared/HorizontalField"
 
 export default class ClickControl extends Component {
   handleToggleClick = (e) => {
-    this.props.handleSetState({ beatClick: e.target.checked })
+    this.props.handleSetState({ enabledClick: e.target.checked })
   }
   render() {
-    const { beatClick } = this.props
+    const { enabledClick } = this.props
     return (
       <HorizontalField label="Click" customClass="click-control">
         <input
           type="checkbox"
-          id="beatClick"
-          name="beatClick"
+          id="enabledClick"
+          name="enabledClick"
           className="switch is-rounded is-info is-medium"
-          checked={beatClick}
+          checked={enabledClick}
           onChange={this.handleToggleClick}
         />
-        <label htmlFor="beatClick" />
+        <label htmlFor="enabledClick" />
       </HorizontalField>
     )
   }

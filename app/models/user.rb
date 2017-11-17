@@ -6,10 +6,20 @@ class User < ApplicationRecord
       name     = auth[:info][:nickname]
       icon_url = auth[:info][:image]
 
-      self.find_or_create_by(provider: provider, uid: uid) do |user|
-        user.name     = name
-        user.icon_url = icon_url
+      user = self.find_or_create_by(provider: provider, uid: uid) do |u|
+        u.name     = name
+        u.icon_url = icon_url
       end
+
+      update_targets = {
+        name:     name,
+        icon_url: icon_url
+      }
+      if update_targets.any? { |key, value| user[key] != value }
+        user.update(update_targets)
+      end
+
+      user
     end
   end
 end

@@ -7,19 +7,21 @@ import * as regex                              from "../constants/regex"
 export const parseChordProgression = (text) => {
   let score = []
 
-  score = text.replace(regex.rootChord, " $&")
-  score = score.replace(regex.joinOnChord, "$1$2")
-  score = score.split("\n")
-  score = score.map(line => line.split("|"))
-  score = score.map(line => (
-    line[0][0] === "\n" ? line : (
-      line
-        .map(chords => chords.trim())
-        .filter(chords => chords !== "")
-        .map(chords => chords.split(/\s+/))
-        .map(chords => chords.map(chord => tokenize(chord)))
-    )
-  ))
+  score = text
+    .replace(regex.rootChord, " $&")
+    .replace(regex.joinOnChord, "$1$2")
+    .split("\n")
+    .filter(line => line[0] !== "#")
+    .map(line => line.split("|"))
+    .map(line => (
+      line[0][0] === "\n" ? line : (
+        line
+          .map(chords => chords.trim())
+          .filter(chords => chords !== "")
+          .map(chords => chords.split(/\s+/))
+          .map(chords => chords.map(chord => tokenize(chord)))
+      )
+    ))
   return score
 }
 

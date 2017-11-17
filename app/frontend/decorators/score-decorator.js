@@ -38,6 +38,12 @@ const onChordClass = (onChord) => (
       .replace("#", "s")
   )
 )
+
+const commentComponent = (props) => (
+  <span className="comment">
+    {props.children}
+  </span>
+)
 const separatorComponent = (props) => (
   <span className="separator">
     {props.children}
@@ -60,6 +66,7 @@ const whiteSpacesComponent = () => (
 )
 
 const ScoreDecorator = new CompositeDecorator([
+  baseDecorator(constantRegex.comment,     commentComponent),
   baseDecorator(constantRegex.separator,   separatorComponent),
   baseDecorator(constantRegex.onChord,     onChordComponent),
   baseDecorator(constantRegex.rootChord,   rootChordComponent),

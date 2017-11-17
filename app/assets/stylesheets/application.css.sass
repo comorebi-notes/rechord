@@ -19,14 +19,22 @@
       &:first-child
         margin-right: 8px
         opacity: .85
-      &:last-child
-        letter-spacing: 1px
+.navbar-menu
+  .button
+    .fa
+      margin-right: .4em
+  .current-user
+    span
+      margin-right: .8em
+      font-size: .9em
+    img
+      max-height: 32px
+  .navbar-end
+    .navbar-item:last-child
+      padding-right: 0
 
 @media screen and (max-width: $desktop)
   .navbar-brand
-    .navbar-burger
-      display: flex
-      align-items: center
     .title-logo
       margin-left: 0
 

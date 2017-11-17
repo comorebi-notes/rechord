@@ -32,7 +32,7 @@ export default class App extends Component {
     return (
       <div>
         <Field label="Title">
-          <input className="input" type="text" placeholder="title" style={{ width: "50%" }} />
+          <input className="input" type="text" placeholder="title" style={{ maxWidth: 400 }} />
         </Field>
         <Field label="Comment">
           <input className="input" type="text" placeholder="comment" />

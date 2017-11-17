@@ -74,6 +74,8 @@ GEM
     ffi (1.9.18)
     font-awesome-rails (4.7.0.2)
       railties (>= 3.2, < 5.2)
+    friendly_id (5.2.3)
+      activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.6)
@@ -235,6 +237,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   dotenv-rails
   font-awesome-rails
+  friendly_id
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   omniauth

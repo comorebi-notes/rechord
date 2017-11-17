@@ -35,3 +35,8 @@ footer.footer
       p
         small
           | Copyright &copy; 2017 comorebi notes All Rights Reserved.
+
+javascript:
+  var data = {
+    score: #{raw @score.to_json} || {}
+  }

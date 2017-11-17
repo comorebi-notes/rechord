@@ -4,5 +4,9 @@ Rails.application.routes.draw do
 
   resources :scores, param: :token
 
-  root "top#index"
+  scope "/:token" do
+    get "" => "scores#show"
+  end
+
+  root "scores#show"
 end

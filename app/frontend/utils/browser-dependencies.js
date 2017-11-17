@@ -1,8 +1,8 @@
 "use strict"
 
-export const Window    = window
-export const Document  = Window.document
-export const Navigator = navigator
+const Window    = window
+const Document  = Window.document
+const Navigator = navigator
 
 export { Window    as window }
 export { Document  as document }

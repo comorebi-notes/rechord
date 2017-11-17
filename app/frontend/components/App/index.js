@@ -5,14 +5,17 @@ import Score          from "../Score"
 import Field          from "../shared/Field"
 import scoreDecorator from "../../decorators/score-decorator"
 import sampleScore    from "../../constants/sampleScore"
+import { window }     from "../../utils/browser-dependencies"
 import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT } from "../../constants"
 
 export default class App extends Component {
   constructor() {
     super()
-    const contentState = ContentState.createFromText(sampleScore)
+    const { score } = window.data
+    const scoreContent = score.content || sampleScore
+    const contentState = ContentState.createFromText(scoreContent)
     this.state = {
-      inputText:      sampleScore,
+      inputText:      scoreContent,
       editorState:    EditorState.createWithContent(contentState, scoreDecorator),
       isPlaying:      false,
       enabledClick:   false,

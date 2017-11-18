@@ -8,7 +8,7 @@ import sampleScore    from "../../constants/sampleScore"
 import { window }     from "../../utils/browser-dependencies"
 import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT } from "../../constants"
 
-export default class App extends Component {
+export default class Rechord extends Component {
   constructor() {
     super()
     const { score } = window.data

@@ -17,7 +17,7 @@ nav.navbar.is-primary role="navigation" aria-label="main navigation"
         = link_to "Features", "#", class: "navbar-item"
       .navbar-end
         - if logged_in?
-          .navbar-item.current-user
+          = link_to user_path(current_user.id), class: "navbar-item current-user" do
             span = "@#{current_user.name}"
             = image_tag current_user.icon_url, size: "32*32", alt: current_user.name
         .navbar-item

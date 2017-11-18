@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "/logout",                 to: 'sessions#destroy'
 
   resources :scores, param: :token
+  resources :users, only: [:show, :update, :delete]
 
   scope "/:token" do
     get "" => "scores#show"

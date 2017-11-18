@@ -62,7 +62,7 @@ const rootChordComponent = (props) => (
   </span>
 )
 const whiteSpacesComponent = () => (
-  <span className="space">&nbsp;</span>
+  <span className="space" />
 )
 
 const ScoreDecorator = new CompositeDecorator([

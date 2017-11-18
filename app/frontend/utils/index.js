@@ -9,7 +9,8 @@ export const parseChordProgression = (text) => {
   let score = []
 
   score = text
-    .replace(regex.rootChord, " $&")
+    .replace(regex.whiteSpaces, "")
+    .replace(regex.rootChord,   " $&")
     .replace(regex.joinOnChord, "$1$2")
     .split("\n")
     .filter(line => line[0] !== "#")
@@ -19,7 +20,7 @@ export const parseChordProgression = (text) => {
         line
           .map(chords => chords.trim())
           .filter(chords => chords !== "")
-          .map(chords => chords.split(/\s+/))
+          .map(chords => chords.split(/ +/))
           .map(chords => chords.map(chord => tokenize(chord)))
       )
     ))
@@ -33,7 +34,7 @@ export const keyChange = (progression, operation) => {
     if (line[0] === "\n") {
       newProgression.push(line)
     } else {
-      const notesRegExp = /(^|\||\n)?\s*(C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g
+      const notesRegExp = /(^|\||\n)? *(C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g
       const transposeNote = (note, p1, p2) => {
         const interval = operation === "up" ? "2m" : "-2m"
         const newNote = Note.simplify(Distance.transpose(p2, interval), false)

@@ -1,8 +1,8 @@
 nav.navbar.is-primary role="navigation" aria-label="main navigation"
   .container
     .navbar-brand
-      a.navbar-item href="/"
-        h1.title.is-4.title-logo style="color: #fff"
+      a.navbar-item.title-logo href="/"
+        h1.title.is-4
           span.icon.is-medium
             i.fa.fa-paper-plane
           span
@@ -20,24 +20,22 @@ nav.navbar.is-primary role="navigation" aria-label="main navigation"
           = link_to user_path(current_user.id), class: "navbar-item current-user" do
             span = "@#{current_user.name}"
             = image_tag current_user.icon_url, size: "32*32", alt: current_user.name
-        .navbar-item
-          .field
-            .control
-              - if logged_in?
-                = link_to logout_path, class: "button is-primary is-inverted" do
-                  = fa_icon "sign-out", text: "Logout"
-              - else
+        - else
+          .navbar-item
+            .field
+              .control
                 = link_to "auth/twitter", class: "button is-primary is-inverted" do
                   = fa_icon "twitter", text: "Login by Twitter"
+                / = link_to logout_path, class: "button is-primary is-inverted" do
+                /   = fa_icon "sign-out", text: "Logout"
 
 // for .navbar-burger
 coffee:
-  document.addEventListener "DOMContentLoaded", ->
-    $navbarBurgers = Array::slice.call(document.querySelectorAll(".navbar-burger"), 0)
-    if $navbarBurgers.length > 0
-      $navbarBurgers.forEach ($element) ->
-        $element.addEventListener "click", ->
-          target  = $element.dataset.target
-          $target = document.getElementById target
-          $element.classList.toggle "is-active"
-          $target.classList.toggle  "is-active"
+  $navbarBurgers = Array::slice.call(document.querySelectorAll(".navbar-burger"), 0)
+  if $navbarBurgers.length > 0
+    $navbarBurgers.forEach ($element) ->
+      $element.addEventListener "click", ->
+        target  = $element.dataset.target
+        $target = document.getElementById target
+        $element.classList.toggle "is-active"
+        $target.classList.toggle  "is-active"

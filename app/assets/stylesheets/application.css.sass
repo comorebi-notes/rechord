@@ -25,6 +25,8 @@ html
 .navbar-brand
   .title-logo
     margin-left: -1rem
+    .title
+      color: #fff
     span
       &:first-child
         margin-right: 8px
@@ -35,18 +37,34 @@ html
       margin-right: .4em
   .current-user
     span
+      margin-left: .8em
       margin-right: .8em
       font-size: .9em
     img
       max-height: 32px
   .navbar-end
     .navbar-item:last-child
-      padding-right: 0
+      margin-right: -1rem
 
-@media screen and (max-width: $desktop)
+@media screen and (max-width: $desktop - 1)
   .navbar-brand
     .title-logo
       margin-left: 0
+  .navbar-menu
+    &.is-active
+      position: absolute
+      z-index: 30
+      width: 100%
+    .navbar-end
+      text-align: center
+      margin-bottom: .5em
+      .current-user
+        display: flex
+        flex-direction: row-reverse
+        align-items: center
+        justify-content: center
+      .navbar-item:last-child
+        margin-right: 0
 
 @media screen and (min-width: $fullhd)
   .container

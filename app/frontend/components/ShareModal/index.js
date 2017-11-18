@@ -21,8 +21,8 @@ export default class ShareModal extends Component {
         <div className="modal-background" role="presentation" onClick={this.hideModal} />
         <div className="modal-content">
           <div className="box">
-            <h1 className="has-text-centered title is-5">
-              <a id="shared-url" href={sharedUrl} target="_blank">
+            <h1 className="has-text-centered title is-5 shared-url">
+              <a href={sharedUrl} target="_blank">
                 {sharedUrl}
               </a>
               {showCopyButton && (

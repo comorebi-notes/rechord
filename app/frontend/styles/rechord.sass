@@ -111,9 +111,10 @@
           margin-left: -.3rem
         &:last-of-type
           margin-left: .5rem
-  #shared-url
-    vertical-align: middle
-    margin-right: .8em
+  .shared-url
+    a
+      vertical-align: middle
+      margin-right: .8em
 
 @media screen and (max-width: $tablet - 1px)
   #rechord
@@ -135,3 +136,10 @@
           padding-top: .375em
         .field-body
           width: 100%
+    .shared-url
+      display: flex
+      font-size: 1.1em
+      flex-direction: column
+      a
+        margin-right: 0
+        margin-bottom: .5em

@@ -17,9 +17,12 @@ ActiveRecord::Schema.define(version: 20171117024531) do
 
   create_table "scores", force: :cascade do |t|
     t.string "title", null: false
-    t.text "comment"
     t.text "content", null: false
-    t.integer "status", default: 0, null: false
+    t.integer "status", default: 0
+    t.integer "instrument", default: 0
+    t.integer "beat", default: 3
+    t.integer "bpm", default: 120
+    t.boolean "click", default: false
     t.string "token"
     t.bigint "user_id"
     t.datetime "created_at", null: false

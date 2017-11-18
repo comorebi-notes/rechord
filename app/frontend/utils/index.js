@@ -3,6 +3,7 @@ import translate, { tokenize }                 from "./translate"
 import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE } from "../constants"
 import { beats }                               from "../constants/beats"
 import * as regex                              from "../constants/regex"
+import * as br                                 from "./browser-dependencies"
 
 export const parseChordProgression = (text) => {
   let score = []
@@ -148,3 +149,6 @@ export const valueInRange = (value, min, max) => {
 export const barLength = (score) => (
   parseInt(score[score.length - 2].time.split(":")[0], 10) // fin の直前の小節
 )
+
+export const protocol = () => (/^https:/.test(br.location.href) ? "https" : "http")
+export const sharedUrl = (url) => `${protocol()}://${br.location.host}/${url}`

@@ -45,6 +45,9 @@ export default class SoundControl extends Component {
       this.state.click.volume.value = enabledClick ? 0 : -100
     }
   }
+  componentWillUnmount() {
+    this.handleStop()
+  }
 
   onMount = (callback) => callback()
   setInstrumentForIOS = () => {

@@ -7,3 +7,6 @@ import "../styles/rechord.sass"
 document.addEventListener("turbolinks:load", () => {
   ReactDOM.render(<App />, document.getElementById("rechord"))
 })
+document.addEventListener("turbolinks:visit", () => {
+  ReactDOM.unmountComponentAtNode(document.getElementById("rechord"))
+})

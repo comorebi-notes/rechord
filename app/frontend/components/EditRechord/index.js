@@ -11,7 +11,7 @@ import sampleScore    from "../../constants/sampleScore"
 import { window, localStorage } from "../../utils/browser-dependencies"
 import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT } from "../../constants"
 
-export default class Rechord extends Component {
+export default class EditRechord extends Component {
   constructor() {
     super()
     const { score } = window.data
@@ -21,10 +21,10 @@ export default class Rechord extends Component {
       inputText:      scoreContent,
       editorState:    EditorState.createWithContent(contentState, scoreDecorator),
       isPlaying:      false,
+      volume:         DEFAULT_VOLUME,
       title:          score.title || "",
       enabledClick:   score.click || false,
       bpm:            score.bpm || DEFAULT_BPM,
-      volume:         score.volume || DEFAULT_VOLUME,
       beat:           score.beat || DEFAULT_BEAT,
       instrumentType: score.instrument || "Piano"
     }

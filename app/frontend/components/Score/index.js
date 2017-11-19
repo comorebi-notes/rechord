@@ -20,14 +20,16 @@ export default class Score extends Component {
   }
   render() {
     const {
-      inputText, editorState, instrumentType, beat, bpm, volume,
+      hideLabel, inputText, editorState, instrumentType, beat, bpm, volume,
       enabledClick, isPlaying, handleSetState, setInputText
     } = this.props
     const parsedText = utils.parseChordProgression(inputText)
 
     return (
       <div className="field">
-        <label className="label">Score</label>
+        {!hideLabel && (
+          <label className="label">Score</label>
+        )}
         <div className="control">
           <div className="columns">
             <div className="column control">

@@ -1,22 +1,22 @@
 @import "partials/variables.sass"
 @import "partials/chord-colors.sass"
 
-#rechord
+.rechord
+  margin-bottom: 1em
   .score
     font-weight: bold
     font-size: 1.1em
     color: #777
     max-width: 320px
+    max-height: inherit
     height: auto
     padding: .625em 1.2em
     overflow: auto
     resize: none
     transition: all .1s ease-in-out
     &.read-only
-      background-color: #fcfcfc
-      border: 1px solid #fcfcfc
+      border-color: transparent
       box-shadow: none
-      resize: none
     .separator
       font-weight: normal
       margin-right: 1.1em

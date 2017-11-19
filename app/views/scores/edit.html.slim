@@ -6,7 +6,8 @@ section.section
 
 javascript:
   var data = {
-    score: #{raw @score.to_json} || {}
+    score:       #{raw @score.to_json} || {},
+    currentUser: #{raw @current_user.to_json} || {}
   }
 
 = render "shared/footer"

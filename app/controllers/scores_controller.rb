@@ -1,6 +1,10 @@
 class ScoresController < ApplicationController
+  before_action :set_data, only: [:show, :edit]
+
   def show
-    @score = Score.friendly.find_by(token: params[:token])
+  end
+
+  def edit
   end
 
   def create
@@ -18,5 +22,9 @@ class ScoresController < ApplicationController
     params.require(:score).permit(
       :title, :content, :instrument, :beat, :bpm, :click, :user_id
     )
+  end
+
+  def set_data
+    @score = Score.friendly.find_by(token: params[:token])
   end
 end

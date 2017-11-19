@@ -127,9 +127,13 @@
         cursor: pointer
         &:hover, &:active
           opacity: .8
+    &.as-show
+      justify-content: flex-start
+      .shared-button
+        margin:  0 .75em 1.2em 0
 
 @media screen and (max-width: $tablet - 1px)
-  #rechord
+  .rechord
     .score
       font-size: .95em
       .public-DraftEditor-content
@@ -158,3 +162,6 @@
       button
         align-self: center
         font-size: .85em
+    .shared-buttons
+      &.as-show
+        justify-content: center

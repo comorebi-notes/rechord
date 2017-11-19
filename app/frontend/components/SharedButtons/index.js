@@ -1,10 +1,12 @@
 import React, { PureComponent }            from "react"
 import { ShareButtons, generateShareIcon } from "react-share"
+import classNames                          from "classnames"
 
 export default class SharedButtons extends PureComponent {
   render() {
-    const { url, title } = this.props
-    const iconSize = 40
+    const { url, title, asShow } = this.props
+    const buttonsClass = classNames("shared-buttons", { "as-show": asShow })
+    const iconSize = asShow ? 24 : 40
     const {
       TwitterShareButton,
       FacebookShareButton,
@@ -18,7 +20,7 @@ export default class SharedButtons extends PureComponent {
     const TumblrIcon     = generateShareIcon("tumblr")
     const EmailIcon      = generateShareIcon("email")
     return (
-      <div className="shared-buttons">
+      <div className={buttonsClass}>
         <span className="icon shared-button">
           <TwitterShareButton
             url={url}

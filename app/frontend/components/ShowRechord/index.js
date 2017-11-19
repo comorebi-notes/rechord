@@ -1,9 +1,11 @@
 import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 
-import Score          from "../Score"
-import scoreDecorator from "../../decorators/score-decorator"
-import { window }     from "../../utils/browser-dependencies"
+import Score              from "../Score"
+import SharedButtons      from "../SharedButtons"
+import scoreDecorator     from "../../decorators/score-decorator"
+import * as utils         from "../../utils"
+import { window }         from "../../utils/browser-dependencies"
 import { DEFAULT_VOLUME } from "../../constants"
 
 export default class ShowRechord extends Component {
@@ -16,12 +18,13 @@ export default class ShowRechord extends Component {
       inputText:      scoreContent,
       editorState:    EditorState.createWithContent(contentState, scoreDecorator),
       isPlaying:      false,
+      volume:         DEFAULT_VOLUME,
       title:          score.title,
       enabledClick:   score.click,
       bpm:            score.bpm,
-      volume:         DEFAULT_VOLUME,
       beat:           score.beat,
-      instrumentType: score.instrument
+      instrumentType: score.instrument,
+      url:            score.url
     }
   }
   setEditorState = (inputText) => {
@@ -39,11 +42,12 @@ export default class ShowRechord extends Component {
 
   render() {
     const {
-      inputText, title, editorState, beat, bpm, volume, instrumentType, isPlaying, enabledClick
+      inputText, title, editorState, beat, bpm, volume, instrumentType, isPlaying, enabledClick, url
     } = this.state
     return (
       <div>
         <h1 className="title">{title}</h1>
+        <SharedButtons url={utils.sharedUrl(url)} title={title} asShow />
         <Score
           hideLabel
           inputText={inputText}

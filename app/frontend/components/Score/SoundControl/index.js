@@ -108,7 +108,7 @@ export default class SoundControl extends Component {
   attackNotes  = (notes) => notes.forEach(note => this.state.instrument.triggerAttack(note))
   releaseNotes = (notes) => notes.forEach(note => this.state.instrument.triggerRelease(note))
 
-  handleChangePlaying = (state) => this.props.handleSetState({ isPlaying: state })
+  handleChangePlaying = (state) => this.props.handleSetState({ isPlaying: state }, false)
   handleStop = () => {
     this.releaseNotes(this.state.currentNotes)
     Transport.stop()

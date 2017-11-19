@@ -4,7 +4,7 @@ class User < ApplicationRecord
       provider = auth[:provider]
       uid      = auth[:uid]
       name     = auth[:info][:nickname]
-      icon_url = auth[:info][:image]
+      icon_url = auth[:info][:image].gsub(/^http:/, "https:")
 
       user = self.find_or_create_by(provider: provider, uid: uid) do |u|
         u.name     = name

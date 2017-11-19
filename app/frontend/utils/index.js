@@ -5,10 +5,8 @@ import { beats }                               from "../constants/beats"
 import * as regex                              from "../constants/regex"
 import * as br                                 from "./browser-dependencies"
 
-export const parseChordProgression = (text) => {
-  let score = []
-
-  score = text
+export const parseChordProgression = (text) => (
+  text
     .replace(regex.whiteSpaces, "")
     .replace(regex.rootChord,   " $&")
     .replace(regex.joinOnChord, "$1$2")
@@ -24,8 +22,7 @@ export const parseChordProgression = (text) => {
           .map(chords => chords.map(chord => tokenize(chord)))
       )
     ))
-  return score
-}
+)
 
 export const keyChange = (progression, operation) => {
   const newProgression = []

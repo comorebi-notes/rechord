@@ -1,5 +1,4 @@
 import React, { Component }          from "react"
-import { EditorState, ContentState } from "draft-js"
 
 import ScoreEditor       from "./ScoreEditor"
 import UndoControl       from "./UndoControl"
@@ -15,24 +14,14 @@ import SoundControl      from "./SoundControl"
 import * as utils        from "../../utils"
 
 export default class Score extends Component {
-  setEditorState = (inputText) => {
-    const contentState = ContentState.createFromText(inputText)
-    return EditorState.push(this.props.editorState, contentState)
-  }
-  setInputText = (nextInputText, setEditorState = true) => {
-    this.props.handleSetState({ inputText: nextInputText })
-    if (setEditorState) {
-      this.props.handleSetState({ editorState: this.setEditorState(nextInputText) })
-    }
-  }
   handleChangeEditorState = (editorState) => {
-    this.props.handleSetState({ editorState })
-    this.setInputText(editorState.getCurrentContent().getPlainText(), false)
+    this.props.handleSetState({ editorState }, false)
+    this.props.setInputText(editorState.getCurrentContent().getPlainText(), false)
   }
   render() {
     const {
-      inputText, editorState, instrumentType,
-      beat, bpm, volume, enabledClick, isPlaying, handleSetState
+      inputText, editorState, instrumentType, beat, bpm, volume,
+      enabledClick, isPlaying, handleSetState, setInputText
     } = this.props
     const parsedText = utils.parseChordProgression(inputText)
 
@@ -60,15 +49,15 @@ export default class Score extends Component {
                   />
                   <KeyControl
                     inputText={inputText}
-                    setInputText={this.setInputText}
+                    setInputText={setInputText}
                     disabled={isPlaying}
                   />
                   <ClearButton
-                    setInputText={this.setInputText}
+                    setInputText={setInputText}
                     disabled={isPlaying}
                   />
                   <SetSampleButton
-                    setInputText={this.setInputText}
+                    setInputText={setInputText}
                     disabled={isPlaying}
                   />
                 </div>

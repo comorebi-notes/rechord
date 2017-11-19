@@ -70,6 +70,7 @@ export default class Rechord extends Component {
         />
         <ShareModal
           url={url}
+          title={title}
           isActive={modal}
           handleSetState={this.handleSetState}
         />

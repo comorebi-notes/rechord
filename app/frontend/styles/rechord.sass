@@ -115,6 +115,18 @@
     a
       vertical-align: middle
       margin-right: .8em
+  .shared-buttons
+    display: flex
+    justify-content: center
+    padding-top: .3em
+    .shared-button
+      margin: .8rem
+      margin-top: 0
+      > div
+        outline: 0
+        cursor: pointer
+        &:hover, &:active
+          opacity: .8
 
 @media screen and (max-width: $tablet - 1px)
   #rechord
@@ -142,4 +154,7 @@
       flex-direction: column
       a
         margin-right: 0
-        margin-bottom: .5em
+        margin-bottom: .65em
+      button
+        align-self: center
+        font-size: .85em

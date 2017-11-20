@@ -13,8 +13,10 @@ const unmountComponent = (id) => () => {
   const element = document.getElementById(id)
   if (element) ReactDOM.unmountComponentAtNode(element)
 }
+const setReact = (id, component) => {
+  document.addEventListener("turbolinks:load", renderComponent(id, component))
+  document.addEventListener("turbolinks:before-cache", unmountComponent(id))
+}
 
-document.addEventListener("turbolinks:load",  renderComponent("edit-rechord", <EditRechord />))
-document.addEventListener("turbolinks:visit", unmountComponent("edit-rechord"))
-document.addEventListener("turbolinks:load",  renderComponent("show-rechord", <ShowRechord />))
-document.addEventListener("turbolinks:visit", unmountComponent("show-rechord"))
+setReact("edit-rechord", <EditRechord />)
+setReact("show-rechord", <ShowRechord />)

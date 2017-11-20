@@ -36,7 +36,7 @@ export default class SaveControl extends Component {
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     return (
       <div>
-        <div className="share has-text-centered" style={{ marginTop: "2rem" }}>
+        <div className="share has-text-centered">
           <button
             className="button is-primary is-medium"
             onClick={this.handleSave}

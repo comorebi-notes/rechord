@@ -12,6 +12,9 @@
 @import "../../../vendor/assets/bulma-switch.sass"
 @import "partials/*"
 
+html
+  font-size: 15.5px
+
 // footer をページ下部に固定
 html
   height: 100%
@@ -31,6 +34,12 @@ h1, h2, h3
   font-size: .85em !important
 .is-size-8
   font-size: .75em !important
+
+.radio
+  input[type="radio"]
+    margin-right: .5em
+  & + .radio
+    margin-left: 1.2em
 
 .modal-card-foot.right
   flex-direction: row-reverse

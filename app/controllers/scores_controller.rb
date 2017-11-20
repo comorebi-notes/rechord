@@ -21,7 +21,7 @@ class ScoresController < ApplicationController
 
   def score_params
     params.require(:score).permit(
-      :title, :content, :instrument, :beat, :bpm, :click, :user_id
+      :title, :content, :instrument, :beat, :bpm, :click, :status, :user_id
     )
   end
 

@@ -46,15 +46,21 @@ export default class ShowRechord extends Component {
     const {
       inputText, title, editorState, beat, bpm, volume, instrumentType, isPlaying, enabledClick, url, author
     } = this.state
+    const existAuthor = Object.keys(author).length > 0
     return (
       <div>
-        {Object.keys(author).length > 0 && (
-          <div style={{ position: "absolute", right: 0, top: -24 }}>
-            <AuthorCard author={author} />
+        <div className="score-header">
+          <div>
+            <h1 className="title">{title}</h1>
+            <SharedButtons url={utils.sharedUrl(url)} title={title} asShow />
           </div>
-        )}
-        <h1 className="title">{title}</h1>
-        <SharedButtons url={utils.sharedUrl(url)} title={title} asShow />
+          {existAuthor && (
+            <div className="is-hidden-touch">
+              <AuthorCard author={author} />
+            </div>
+          )}
+        </div>
+
         <Score
           hideLabel
           inputText={inputText}
@@ -68,6 +74,12 @@ export default class ShowRechord extends Component {
           setInputText={this.setInputText}
           handleSetState={this.handleSetState}
         />
+
+        {existAuthor && (
+          <div className="is-hidden-desktop" style={{ marginTop: "2rem" }}>
+            <AuthorCard author={author} />
+          </div>
+        )}
       </div>
     )
   }

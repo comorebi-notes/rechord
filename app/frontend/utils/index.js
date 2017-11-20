@@ -28,7 +28,7 @@ export const keyChange = (progression, operation) => {
   const newProgression = []
   const lines = progression.split(/\n/)
   lines.forEach(line => {
-    if (line[0] === "\n") {
+    if (/\n|#/.test(line[0])) {
       newProgression.push(line)
     } else {
       const notesRegExp = /(^|\||\n)? *(C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g

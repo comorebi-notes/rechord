@@ -2,6 +2,7 @@ import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 
 import Score              from "../Score"
+import AuthorCard         from "../AuthorCard"
 import SharedButtons      from "../SharedButtons"
 import scoreDecorator     from "../../decorators/score-decorator"
 import * as utils         from "../../utils"
@@ -11,7 +12,7 @@ import { DEFAULT_VOLUME } from "../../constants"
 export default class ShowRechord extends Component {
   constructor() {
     super()
-    const { score } = window.data
+    const { score, author } = window.data
     const scoreContent = score.content
     const contentState = ContentState.createFromText(scoreContent)
     this.state = {
@@ -24,7 +25,8 @@ export default class ShowRechord extends Component {
       bpm:            score.bpm,
       beat:           score.beat,
       instrumentType: score.instrument,
-      url:            score.url
+      url:            score.url,
+      author
     }
   }
   setEditorState = (inputText) => {
@@ -42,10 +44,15 @@ export default class ShowRechord extends Component {
 
   render() {
     const {
-      inputText, title, editorState, beat, bpm, volume, instrumentType, isPlaying, enabledClick, url
+      inputText, title, editorState, beat, bpm, volume, instrumentType, isPlaying, enabledClick, url, author
     } = this.state
     return (
       <div>
+        {Object.keys(author).length > 0 && (
+          <div style={{ position: "absolute", right: 0, top: -24 }}>
+            <AuthorCard author={author} />
+          </div>
+        )}
         <h1 className="title">{title}</h1>
         <SharedButtons url={utils.sharedUrl(url)} title={title} asShow />
         <Score

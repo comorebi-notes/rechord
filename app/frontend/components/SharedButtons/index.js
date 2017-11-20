@@ -1,12 +1,12 @@
-import React, { PureComponent }            from "react"
-import { ShareButtons, generateShareIcon } from "react-share"
-import classNames                          from "classnames"
+import React, { PureComponent } from "react"
+import { ShareButtons }         from "react-share"
+import classNames               from "classnames"
+import ShareIcon                from "./ShareIcon"
 
 export default class SharedButtons extends PureComponent {
   render() {
     const { url, title, asShow } = this.props
     const buttonsClass = classNames("shared-buttons", { "as-show": asShow })
-    const iconSize = asShow ? 24 : 40
     const {
       TwitterShareButton,
       FacebookShareButton,
@@ -14,11 +14,7 @@ export default class SharedButtons extends PureComponent {
       TumblrShareButton,
       EmailShareButton,
     } = ShareButtons
-    const TwitterIcon    = generateShareIcon("twitter")
-    const FacebookIcon   = generateShareIcon("facebook")
-    const GooglePlusIcon = generateShareIcon("google")
-    const TumblrIcon     = generateShareIcon("tumblr")
-    const EmailIcon      = generateShareIcon("email")
+
     return (
       <div className={buttonsClass}>
         <span className="icon shared-button">
@@ -27,7 +23,7 @@ export default class SharedButtons extends PureComponent {
             title={`${title} | rechord`}
             hashtags={["rechord"]}
           >
-            <TwitterIcon size={iconSize} round />
+            <ShareIcon icon="twitter" color="#00aced" large={!asShow} />
           </TwitterShareButton>
         </span>
         <span className="icon shared-button">
@@ -35,12 +31,12 @@ export default class SharedButtons extends PureComponent {
             url={url}
             hashtag="rechord"
           >
-            <FacebookIcon size={iconSize} round />
+            <ShareIcon icon="facebook" color="#3b5998" large={!asShow} />
           </FacebookShareButton>
         </span>
         <span className="icon shared-button">
           <GooglePlusShareButton url={url} >
-            <GooglePlusIcon size={iconSize} round />
+            <ShareIcon icon="google-plus" color="#dd4b39" large={!asShow} />
           </GooglePlusShareButton>
         </span>
         <span className="icon shared-button">
@@ -49,7 +45,7 @@ export default class SharedButtons extends PureComponent {
             title={`${title} | rechord`}
             tags={["rechord"]}
           >
-            <TumblrIcon size={iconSize} round />
+            <ShareIcon icon="tumblr" color="#2c4762" large={!asShow} />
           </TumblrShareButton>
         </span>
         <span className="icon shared-button">
@@ -58,7 +54,7 @@ export default class SharedButtons extends PureComponent {
             subject={`${title} | rechord`}
             body={url}
           >
-            <EmailIcon size={iconSize} round />
+            <ShareIcon icon="envelope" color="#7f7f7f" large={!asShow} />
           </EmailShareButton>
         </span>
       </div>

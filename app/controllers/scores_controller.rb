@@ -2,6 +2,7 @@ class ScoresController < ApplicationController
   before_action :set_data, only: [:show, :edit]
 
   def show
+    redirect_to root_path unless @score
   end
 
   def edit

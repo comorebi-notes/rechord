@@ -35,22 +35,20 @@ export default class SaveControl extends Component {
     const { loading, error } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     return (
-      <div>
-        <div className="share has-text-centered">
-          <button
-            className="button is-primary is-medium"
-            onClick={this.handleSave}
-            disabled={loading}
-          >
-            <span className="icon">
-              <i className={iconClass} />
-            </span>
-            <span>save & share</span>
-          </button>
-          {error.length > 0 && (
-            <p>{error}</p>
-          )}
-        </div>
+      <div className="share has-text-centered">
+        <button
+          className="button is-primary is-medium"
+          onClick={this.handleSave}
+          disabled={loading}
+        >
+          <span className="icon">
+            <i className={iconClass} />
+          </span>
+          <span>save & share</span>
+        </button>
+        {error.length > 0 && (
+          <p className="has-text-danger" style={{ marginTop: 4 }}>{error}</p>
+        )}
       </div>
     )
   }

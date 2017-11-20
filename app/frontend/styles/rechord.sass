@@ -25,7 +25,10 @@
     .separator, .separator + .space, .space:first-child
       & + .root
         &:not(:first-child):before
-          content: ""
+          content: "" !important
+    .streak + .streak, .resume + .resume, .stop + .stop
+      &:before
+        content: "" !important
     .comment
       font-size: .85em
       line-height: 2.4

@@ -1,15 +1,16 @@
 import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 
-import Score          from "../Score"
-import StatusControl  from "../StatusControl"
-import SaveControl    from "../SaveControl"
-import ShareModal     from "../ShareModal"
-import RestoreModal   from "../RestoreModal"
-import Field          from "../shared/Field"
-import scoreDecorator from "../../decorators/score-decorator"
-import sampleScore    from "../../constants/sampleScore"
-import { window, localStorage } from "../../utils/browser-dependencies"
+import Score             from "../Score"
+import StatusControl     from "../StatusControl"
+import SaveControl       from "../SaveControl"
+import ShareModal        from "../ShareModal"
+import RestoreModal      from "../RestoreModal"
+import Field             from "../shared/Field"
+import scoreDecorator    from "../../decorators/score-decorator"
+import sampleScore       from "../../constants/sampleScore"
+import { window }        from "../../utils/browser-dependencies"
+import * as restoreState from "../../utils/restoreState"
 import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT } from "../../constants"
 
 export default class EditRechord extends Component {
@@ -32,11 +33,8 @@ export default class EditRechord extends Component {
       userId:         currentUser && currentUser.id
     }
 
-    if (Object.keys(score).length === 0 && localStorage) {
-      const localStorageState = localStorage.getItem("rechordState")
-      if (localStorage) {
-        this.state.localStorageState = JSON.parse(localStorageState)
-      }
+    if (Object.keys(score).length === 0) {
+      this.state.localStorageState = restoreState.get()
     }
   }
   setEditorState = (inputText) => {
@@ -53,14 +51,10 @@ export default class EditRechord extends Component {
   handleSetTitle = (e) => this.handleSetState({ title: e.target.value })
   handleResetLocalStorage = () => {
     this.setState({ localStorageState: false })
-    localStorage.removeItem("rechordState")
+    restoreState.remove()
   }
   handleSetState = (newState, saveLocalStorage = true) => {
-    if (saveLocalStorage && localStorage) {
-      const { title, inputText, enabledClick, bpm, volume, beat, instrumentType, status } = this.state
-      const oldState = { title, inputText, enabledClick, bpm, volume, beat, instrumentType, status }
-      localStorage.setItem("rechordState", JSON.stringify(Object.assign(oldState, newState)))
-    }
+    if (saveLocalStorage) restoreState.set(Object.assign({}, this.state, newState))
     this.setState(newState)
   }
 

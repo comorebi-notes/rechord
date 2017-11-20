@@ -1,33 +1,36 @@
 import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 
-import Score              from "../Score"
-import StatusControl      from "../StatusControl"
-import SaveControl        from "../SaveControl"
-import ShareModal         from "../ShareModal"
-import Field              from "../shared/Field"
-import scoreDecorator     from "../../decorators/score-decorator"
-import { window }         from "../../utils/browser-dependencies"
-import { DEFAULT_VOLUME } from "../../constants"
+import Score             from "../Score"
+import StatusControl     from "../StatusControl"
+import SaveControl       from "../SaveControl"
+import ShareModal        from "../ShareModal"
+import RestoreModal      from "../RestoreModal"
+import Field             from "../shared/Field"
+import scoreDecorator    from "../../decorators/score-decorator"
+import sampleScore       from "../../constants/sampleScore"
+import { window }        from "../../utils/browser-dependencies"
+import * as restoreState from "../../utils/restoreState"
+import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT } from "../../constants"
 
-export default class EditRechord extends Component {
+export default class NewRechord extends Component {
   constructor() {
     super()
-    const { score, currentUser } = window.data
-    const contentState = ContentState.createFromText(score.content)
+    const { currentUser } = window.data
+    const contentState = ContentState.createFromText(sampleScore)
     this.state = {
-      inputText:      score.content,
-      editorState:    EditorState.createWithContent(contentState, scoreDecorator),
-      isPlaying:      false,
-      volume:         DEFAULT_VOLUME,
-      title:          score.title,
-      enabledClick:   score.click,
-      bpm:            score.bpm,
-      beat:           score.beat,
-      status:         score.status,
-      instrumentType: score.instrument,
-      token:          score.token,
-      userId:         currentUser && currentUser.id
+      inputText:         sampleScore,
+      editorState:       EditorState.createWithContent(contentState, scoreDecorator),
+      isPlaying:         false,
+      volume:            DEFAULT_VOLUME,
+      title:             "",
+      enabledClick:      false,
+      bpm:               DEFAULT_BPM,
+      beat:              DEFAULT_BEAT,
+      status:            "published",
+      instrumentType:    "Piano",
+      userId:            currentUser && currentUser.id,
+      localStorageState: restoreState.get()
     }
   }
   setEditorState = (inputText) => {
@@ -42,12 +45,19 @@ export default class EditRechord extends Component {
   }
 
   handleSetTitle = (e) => this.handleSetState({ title: e.target.value })
-  handleSetState = (newState) => this.setState(newState)
+  handleResetLocalStorage = () => {
+    this.setState({ localStorageState: false })
+    restoreState.remove()
+  }
+  handleSetState = (newState, saveLocalStorage = true) => {
+    if (saveLocalStorage) restoreState.set(Object.assign({}, this.state, newState))
+    this.setState(newState)
+  }
 
   render() {
     const {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, status, userId, url, modal, token
+      isPlaying, enabledClick, status, userId, url, modal, localStorageState
     } = this.state
     return (
       <div>
@@ -77,7 +87,6 @@ export default class EditRechord extends Component {
           handleSetState={this.handleSetState}
         />
         <SaveControl
-          update
           title={title}
           content={inputText}
           instrument={instrumentType}
@@ -87,15 +96,19 @@ export default class EditRechord extends Component {
           url={url}
           status={status}
           userId={userId}
-          token={token}
           handleSetState={this.handleSetState}
         />
         <ShareModal
-          update
           url={url}
           title={title}
           isActive={modal}
           handleSetState={this.handleSetState}
+        />
+        <RestoreModal
+          localStorageState={localStorageState}
+          setInputText={this.setInputText}
+          handleSetState={this.handleSetState}
+          handleResetLocalStorage={this.handleResetLocalStorage}
         />
       </div>
     )

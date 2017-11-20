@@ -9,5 +9,5 @@ Rails.application.routes.draw do
     get "" => "scores#show"
   end
 
-  root "scores#edit"
+  root "scores#new"
 end

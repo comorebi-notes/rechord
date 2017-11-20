@@ -14,10 +14,11 @@ export default class ShareModal extends Component {
   handleCopy = () => utils.copyToClipboard(utils.sharedUrl(this.props.url))
 
   render() {
-    const { url, title, isActive } = this.props
+    const { url, title, isActive, update } = this.props
     const { showCopyButton } = this.state
     const sharedUrl = utils.sharedUrl(url)
     const modalClass = classNames("modal", { "is-active": isActive })
+    const modalTitle = update ? "Updated!" : "Saved!"
 
     return (
       <div className={modalClass}>
@@ -25,7 +26,7 @@ export default class ShareModal extends Component {
         <div className="modal-content">
           <div className="box">
             <h1 className="has-text-centered title is-4">
-              Saved!
+              {modalTitle}
             </h1>
             <h2 className="has-text-centered title is-5 shared-url">
               <a href={sharedUrl} target="_blank">

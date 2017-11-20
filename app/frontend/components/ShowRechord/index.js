@@ -12,7 +12,7 @@ import { DEFAULT_VOLUME } from "../../constants"
 export default class ShowRechord extends Component {
   constructor() {
     super()
-    const { score, author } = window.data
+    const { score, author, currentUser } = window.data
     const scoreContent = score.content
     const contentState = ContentState.createFromText(scoreContent)
     this.state = {
@@ -26,6 +26,8 @@ export default class ShowRechord extends Component {
       beat:           score.beat,
       instrumentType: score.instrument,
       url:            score.url,
+      token:          score.token,
+      userId:         currentUser && currentUser.id,
       author
     }
   }
@@ -44,9 +46,12 @@ export default class ShowRechord extends Component {
 
   render() {
     const {
-      inputText, title, editorState, beat, bpm, volume, instrumentType, isPlaying, enabledClick, url, author
+      inputText, title, editorState, beat, bpm, volume, instrumentType,
+      isPlaying, enabledClick, url, author, userId, token
     } = this.state
     const existAuthor = Object.keys(author).length > 0
+    const showEditButton = Object.keys(author).length > 0 && author.id === userId
+    const editPath = `/scores/${token}/edit`
     return (
       <div>
         <div className="score-header">
@@ -78,6 +83,17 @@ export default class ShowRechord extends Component {
         {existAuthor && (
           <div className="is-hidden-desktop" style={{ marginTop: "2rem" }}>
             <AuthorCard author={author} />
+          </div>
+        )}
+
+        {showEditButton && (
+          <div className="share has-text-centered" style={{ marginTop: "1.5rem" }}>
+            <a href={editPath} className="button is-primary is-medium">
+              <span className="icon">
+                <i className="fa fa-edit" />
+              </span>
+              <span>edit</span>
+            </a>
           </div>
         )}
       </div>

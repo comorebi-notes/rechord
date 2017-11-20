@@ -1,5 +1,6 @@
 import React        from "react"
 import ReactDOM     from "react-dom"
+import NewRechord   from "../components/NewRechord"
 import EditRechord  from "../components/EditRechord"
 import ShowRechord  from "../components/ShowRechord"
 import { document } from "../utils/browser-dependencies"
@@ -18,5 +19,6 @@ const setReact = (id, component) => {
   document.addEventListener("turbolinks:before-cache", unmountComponent(id))
 }
 
+setReact("new-rechord",  <NewRechord />)
 setReact("edit-rechord", <EditRechord />)
 setReact("show-rechord", <ShowRechord />)

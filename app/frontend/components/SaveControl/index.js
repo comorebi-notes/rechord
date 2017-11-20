@@ -9,9 +9,10 @@ export default class SaveControl extends Component {
       error:   ""
     }
   }
-  handleSave = () => {
+  handleClick = () => {
+    const func = this.props.update ? "updateScore" : "createScore"
     this.setState({ loading: true })
-    api.createScore(
+    api[func](
       this.props,
       (success) => {
         this.setState({
@@ -32,19 +33,21 @@ export default class SaveControl extends Component {
     )
   }
   render() {
+    const { update } = this.props
     const { loading, error } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
+    const buttonLabel = update ? "update" : "save & share"
     return (
       <div className="share has-text-centered">
         <button
           className="button is-primary is-medium"
-          onClick={this.handleSave}
+          onClick={this.handleClick}
           disabled={loading}
         >
           <span className="icon">
             <i className={iconClass} />
           </span>
-          <span>save & share</span>
+          <span>{buttonLabel}</span>
         </button>
         {error.length > 0 && (
           <p className="has-text-danger" style={{ marginTop: 4 }}>{error}</p>

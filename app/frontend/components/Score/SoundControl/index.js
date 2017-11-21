@@ -5,6 +5,7 @@ import Button                from "../../shared/Button"
 import { beats }             from "../../../constants/beats"
 import * as instruments      from "../../../constants/instruments"
 import * as utils            from "../../../utils"
+import { scoreMaker }        from "../../../utils/scoreMaker"
 import { window, navigator } from "../../../utils/browser-dependencies"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../../constants"
 
@@ -117,7 +118,7 @@ export default class SoundControl extends Component {
   }
   handleStart = () => {
     const { beat, parsedText } = this.props
-    const score = utils.makeScore(parsedText, beat)
+    const score = scoreMaker(parsedText, beat)
 
     Transport.timeSignature = beats[beat]
     this.handleStop()

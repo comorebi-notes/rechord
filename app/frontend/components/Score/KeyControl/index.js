@@ -2,12 +2,12 @@ import React, { Component } from "react"
 
 import HasAddonsField from "../../shared/HasAddonsField"
 import Button         from "../../shared/Button"
-import * as utils     from "../../../utils"
+import * as decorator from "../../../decorators/scoreEditorDecorator"
 
 export default class KeyControl extends Component {
   handleKeyChange = (operation) => {
     const { inputText, setInputText } = this.props
-    setInputText(utils.keyChange(inputText, operation))
+    setInputText(decorator.keyChange(inputText, operation))
   }
   handleKeyUp   = () => this.handleKeyChange("up")
   handleKeyDown = () => this.handleKeyChange("down")

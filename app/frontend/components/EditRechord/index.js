@@ -6,7 +6,7 @@ import StatusControl      from "../StatusControl"
 import SaveControl        from "../SaveControl"
 import ShareModal         from "../ShareModal"
 import Field              from "../shared/Field"
-import scoreDecorator     from "../../decorators/score-decorator"
+import scoreDecorator     from "../../decorators/scoreDecorator"
 import { window }         from "../../utils/browser-dependencies"
 import { DEFAULT_VOLUME } from "../../constants"
 

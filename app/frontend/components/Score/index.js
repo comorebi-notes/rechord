@@ -1,4 +1,4 @@
-import React, { Component }          from "react"
+import React, { Component } from "react"
 
 import ScoreEditor       from "./ScoreEditor"
 import UndoControl       from "./UndoControl"
@@ -11,7 +11,7 @@ import BpmControl        from "./BpmControl"
 import ClickControl      from "./ClickControl"
 import VolumeControl     from "./VolumeControl"
 import SoundControl      from "./SoundControl"
-import * as utils        from "../../utils"
+import * as decorator    from "../../decorators/scoreEditorDecorator"
 
 export default class Score extends Component {
   handleChangeEditorState = (editorState) => {
@@ -23,7 +23,7 @@ export default class Score extends Component {
       hideLabel, inputText, editorState, instrumentType, beat, bpm, volume,
       enabledClick, isPlaying, handleSetState, setInputText
     } = this.props
-    const parsedText = utils.parseChordProgression(inputText)
+    const parsedText = decorator.parseChordProgression(inputText)
 
     return (
       <div className="field">

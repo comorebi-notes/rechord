@@ -15,7 +15,7 @@
         vertical-align: middle
       figure
         display: inline-block
-        margin-right: .8em
+        margin-right: .5rem
       &:hover
         color: #444
     .created-at, .updated-at
@@ -24,12 +24,16 @@
       .icon
         margin-right: .25em
         color: #666
+    .button
+      display: block
+      margin-bottom: 1rem
 
 @media screen and (max-width: $tablet - 1px)
   .rechord
     .score-header
-      display: block
-      .shared-buttons
-        position: absolute
-        top: 0
-        right: 0
+      flex-direction: column
+      > div:last-child
+        margin: 1em 0
+        .shared-buttons
+          .shared-button
+            margin-bottom: 1em

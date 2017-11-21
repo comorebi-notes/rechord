@@ -48,6 +48,7 @@ export default class ShowRechord extends Component {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
       isPlaying, enabledClick, url, author, userId, token, createdAt
     } = this.state
+    const userPath = `/users/${userId}`
     const editPath = `/scores/${token}/edit`
     const showEditButton = Object.keys(author).length > 0 && author.id === userId
     return (
@@ -56,10 +57,11 @@ export default class ShowRechord extends Component {
           title={title}
           author={author}
           url={url}
-          userId={userId}
+          userPath={userPath}
+          editPath={editPath}
           createdAt={createdAt}
+          showEditButton={showEditButton}
         />
-
         <Score
           hideLabel
           inputText={inputText}
@@ -73,17 +75,6 @@ export default class ShowRechord extends Component {
           setInputText={this.setInputText}
           handleSetState={this.handleSetState}
         />
-
-        {showEditButton && (
-          <div className="share has-text-centered" style={{ marginTop: "1.5rem" }}>
-            <a href={editPath} className="button is-primary is-medium">
-              <span className="icon">
-                <i className="fa fa-edit" />
-              </span>
-              <span>edit</span>
-            </a>
-          </div>
-        )}
       </div>
     )
   }

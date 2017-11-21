@@ -21,11 +21,17 @@ h1, h2, h3
 .is-size-8
   font-size: .75em !important
 
-.radio
-  input[type="radio"]
-    margin-right: .5em
-  & + .radio
-    margin-left: 1.2em
+.radio-buttons
+  display: flex
+  align-items: center
+  justify-content: center
+  .radio
+    display: flex
+    align-items: center
+    input[type="radio"]
+      margin-right: .5em
+    & + .radio
+      margin-left: 1.2em
 
 .modal-card-foot.right
   flex-direction: row-reverse

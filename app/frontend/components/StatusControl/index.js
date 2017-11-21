@@ -22,7 +22,7 @@ export default class StatusControl extends Component {
     )
     return (
       <div className="field" style={{ marginTop: "1.5em", fontWeight: "bold" }}>
-        <div className="control has-text-centered">
+        <div className="control radio-buttons">
           {radioParams.map(renderRadioComponent)}
         </div>
       </div>

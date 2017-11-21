@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import * as api             from "../../api"
+import * as utils           from "../../utils"
 
 export default class SaveControl extends Component {
   constructor() {
@@ -10,25 +11,23 @@ export default class SaveControl extends Component {
     }
   }
   handleClick = () => {
-    const func = this.props.update ? "updateScore" : "createScore"
+    const { update, userId, handleSetState } = this.props
+    const func = update ? "updateScore" : "createScore"
     this.setState({ loading: true })
     api[func](
       this.props,
       (success) => {
-        this.setState({
-          loading: false,
-          error: ""
-        })
-        this.props.handleSetState({
-          url: success.data,
-          modal: true
-        })
+        const { title, token } = success.data
+        this.setState({ loading: false, error: "" })
+        handleSetState({ token, modal: true })
+        // ログイン中かつ新規作成であれば保存以降はupdateのように振る舞う
+        if (!update && userId) {
+          utils.pushUrl(`/scores/${token}/edit`, title)
+          handleSetState({ update: true })
+        }
       },
       (error) => (
-        this.setState({
-          loading: false,
-          error: error.response.data
-        })
+        this.setState({ loading: false, error: error.response.data })
       )
     )
   }
@@ -36,7 +35,7 @@ export default class SaveControl extends Component {
     const { update, userId } = this.props
     const { loading, error } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
-    const buttonLabel = update ? "update" : "save & share"
+    const buttonLabel = update ? "update & share" : "save & share"
     return (
       <div className="has-text-centered">
         <p>

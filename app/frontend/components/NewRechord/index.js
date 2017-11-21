@@ -57,7 +57,7 @@ export default class NewRechord extends Component {
   render() {
     const {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, status, userId, url, modal, localStorageState
+      isPlaying, enabledClick, status, userId, token, modal, update, localStorageState
     } = this.state
     return (
       <div>
@@ -89,19 +89,20 @@ export default class NewRechord extends Component {
           />
         )}
         <SaveControl
+          update={update}
           title={title}
           content={inputText}
           instrument={instrumentType}
           beat={beat}
           bpm={bpm}
           click={enabledClick}
-          url={url}
           status={status}
           userId={userId}
+          token={token}
           handleSetState={this.handleSetState}
         />
         <ShareModal
-          url={url}
+          token={token}
           title={title}
           isActive={modal}
           handleSetState={this.handleSetState}

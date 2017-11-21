@@ -7,7 +7,7 @@ class ScoresController < ApplicationController
   def create
     score = Score.new(score_params)
     if score.save
-      render json: score.token
+      render json: score
     else
       render json: score.errors.full_messages, status: :unprocessable_entity
     end
@@ -23,7 +23,7 @@ class ScoresController < ApplicationController
 
   def update
     if @score.update(score_params)
-      render json: @score.token
+      render json: @score
     else
       render json: @score.errors.full_messages, status: :unprocessable_entity
     end

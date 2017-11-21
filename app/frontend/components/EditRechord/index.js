@@ -84,15 +84,13 @@ export default class EditRechord extends Component {
           beat={beat}
           bpm={bpm}
           click={enabledClick}
-          url={url}
           status={status}
           userId={userId}
           token={token}
           handleSetState={this.handleSetState}
         />
         <ShareModal
-          update
-          url={url}
+          token={token}
           title={title}
           isActive={modal}
           handleSetState={this.handleSetState}

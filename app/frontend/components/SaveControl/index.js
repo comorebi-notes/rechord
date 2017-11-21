@@ -11,20 +11,21 @@ export default class SaveControl extends Component {
     }
   }
   handleClick = () => {
-    const { update, userId, handleSetState } = this.props
+    const { update, userId, handleSetState, handleResetLocalStorage } = this.props
     const func = update ? "updateScore" : "createScore"
     this.setState({ loading: true })
     api[func](
       this.props,
       (success) => {
         const { title, token } = success.data
-        this.setState({ loading: false, error: "" })
         handleSetState({ token, modal: true })
         // ログイン中かつ新規作成であれば保存以降はupdateのように振る舞う
         if (!update && userId) {
           utils.pushUrl(`/scores/${token}/edit`, title)
           handleSetState({ update: true })
         }
+        if (handleResetLocalStorage) handleResetLocalStorage()
+        this.setState({ loading: false, error: "" })
       },
       (error) => (
         this.setState({ loading: false, error: error.response.data })

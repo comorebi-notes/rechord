@@ -47,7 +47,7 @@ export default class EditRechord extends Component {
   render() {
     const {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, status, userId, url, modal, token
+      isPlaying, enabledClick, status, userId, modal, token
     } = this.state
     return (
       <div>

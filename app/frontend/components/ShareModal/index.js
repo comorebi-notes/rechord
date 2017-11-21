@@ -10,7 +10,7 @@ export default class ShareModal extends Component {
     super(props)
     this.state = { showCopyButton: !!document.queryCommandSupported("copy") }
   }
-  hideModal = () => this.props.handleSetState({ modal: false })
+  hideModal = () => this.props.handleSetState({ modal: false }, false)
   handleCopy = () => utils.copyToClipboard(utils.sharedUrl(this.props.token))
 
   render() {

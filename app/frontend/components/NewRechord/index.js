@@ -100,6 +100,7 @@ export default class NewRechord extends Component {
           userId={userId}
           token={token}
           handleSetState={this.handleSetState}
+          handleResetLocalStorage={this.handleResetLocalStorage}
         />
         <ShareModal
           token={token}

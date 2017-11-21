@@ -4,7 +4,7 @@ import * as utils               from "../../../utils"
 
 export default class ScoreHeader extends PureComponent {
   render() {
-    const { author, title, url, userId, createdAt, updatedAt } = this.props
+    const { author, title, url, userId, createdAt } = this.props
     const userPath = `/users/${userId}`
     const existAuthor = Object.keys(author).length > 0
     return (
@@ -20,19 +20,8 @@ export default class ScoreHeader extends PureComponent {
             </a>
           )}
           <p className="created-at">
-            <span className="icon">
-              <i className="fa fa-pencil" />
-            </span>
             {utils.humanDateTime(createdAt, true)}
           </p>
-          {createdAt !== updatedAt && (
-            <p className="updated-at">
-              <span className="icon">
-                <i className="fa fa-repeat" />
-              </span>
-              {utils.humanDateTime(updatedAt, true)}
-            </p>
-          )}
         </div>
         <SharedButtons url={utils.sharedUrl(url)} title={title} asShow />
       </div>

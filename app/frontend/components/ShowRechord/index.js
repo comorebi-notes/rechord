@@ -26,7 +26,6 @@ export default class ShowRechord extends Component {
       url:            score.url,
       token:          score.token,
       createdAt:      score.created_at,
-      updatedAt:      score.updated_at,
       userId:         currentUser && currentUser.id,
       author
     }
@@ -47,7 +46,7 @@ export default class ShowRechord extends Component {
   render() {
     const {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, url, author, userId, token, createdAt, updatedAt
+      isPlaying, enabledClick, url, author, userId, token, createdAt
     } = this.state
     const editPath = `/scores/${token}/edit`
     const showEditButton = Object.keys(author).length > 0 && author.id === userId
@@ -59,7 +58,6 @@ export default class ShowRechord extends Component {
           url={url}
           userId={userId}
           createdAt={createdAt}
-          updatedAt={updatedAt}
         />
 
         <Score

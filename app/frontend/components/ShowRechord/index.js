@@ -2,7 +2,7 @@ import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 
 import Score              from "../Score"
-import ScoreHeader         from "../ScoreHeader"
+import ScoreHeader        from "./ScoreHeader"
 import scoreDecorator     from "../../decorators/scoreDecorator"
 import { window }         from "../../utils/browser-dependencies"
 import { DEFAULT_VOLUME } from "../../constants"

@@ -82,10 +82,12 @@ export default class NewRechord extends Component {
           setInputText={this.setInputText}
           handleSetState={this.handleSetState}
         />
-        <StatusControl
-          status={status}
-          handleSetState={this.handleSetState}
-        />
+        {userId && (
+          <StatusControl
+            status={status}
+            handleSetState={this.handleSetState}
+          />
+        )}
         <SaveControl
           title={title}
           content={inputText}

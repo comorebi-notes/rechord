@@ -21,7 +21,7 @@ export default class StatusControl extends Component {
       </label>
     )
     return (
-      <div className="field" style={{ marginTop: "1.5em", fontWeight: "bold" }}>
+      <div className="field" style={{ fontWeight: "bold" }}>
         <div className="control radio-buttons">
           {radioParams.map(renderRadioComponent)}
         </div>

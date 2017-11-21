@@ -30,7 +30,7 @@ export default class Score extends Component {
         {!hideLabel && (
           <label className="label">Score</label>
         )}
-        <div className="control">
+        <div className="control" style={{ marginBottom: "1.5rem" }}>
           <div className="columns">
             <div className="column control">
               <ScoreEditor

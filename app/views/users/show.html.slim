@@ -1,2 +1,12 @@
+- content_for :title do
+  = @user.name
+
 section.section
   .container
+    #user-page
+
+javascript:
+  var data = {
+    user:   #{raw @user.to_json},
+    scores: #{raw @scores&.to_json || {}}
+  }

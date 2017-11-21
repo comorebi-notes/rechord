@@ -3,6 +3,7 @@ import ReactDOM     from "react-dom"
 import NewRechord   from "../components/NewRechord"
 import EditRechord  from "../components/EditRechord"
 import ShowRechord  from "../components/ShowRechord"
+import UserPage     from "../components/UserPage"
 import { document } from "../utils/browser-dependencies"
 import "../styles/rechord.sass"
 
@@ -22,3 +23,4 @@ const setReact = (id, component) => {
 setReact("new-rechord",  <NewRechord />)
 setReact("edit-rechord", <EditRechord />)
 setReact("show-rechord", <ShowRechord />)
+setReact("user-page",    <UserPage />)

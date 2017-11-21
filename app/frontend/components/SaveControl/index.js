@@ -18,12 +18,12 @@ export default class SaveControl extends Component {
       this.props,
       (success) => {
         const { title, token } = success.data
-        handleSetState({ token, modal: true })
         // ログイン中かつ新規作成であれば保存以降はupdateのように振る舞う
         if (!update && userId) {
           utils.pushUrl(`/scores/${token}/edit`, title)
           handleSetState({ update: true })
         }
+        handleSetState({ token, modal: true })
         if (handleResetLocalStorage) handleResetLocalStorage()
         this.setState({ loading: false, error: "" })
       },

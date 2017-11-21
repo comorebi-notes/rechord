@@ -13,6 +13,30 @@
     margin-bottom: .4rem
     .title
       margin-bottom: 1.2rem
+    .author-name
+      display: inline-block
+      font-size: .9em
+      margin-bottom: 1em
+      color: #666
+      > *
+        vertical-align: middle
+      figure
+        display: inline-block
+        margin-right: .8em
+      &:hover
+        color: #444
+    .created-at, .updated-at
+      font-size: .9em
+      color: #888
+      .icon
+        margin-right: .25em
+        color: #666
 
 @media screen and (max-width: $tablet - 1px)
   .rechord
+    .score-header
+      display: block
+      .shared-buttons
+        position: absolute
+        top: 0
+        right: 0

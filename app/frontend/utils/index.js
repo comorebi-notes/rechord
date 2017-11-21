@@ -1,5 +1,31 @@
 import * as br from "./browser-dependencies"
 
+export const zeroPadding = (num, length) => {
+  const zeros = Array(length + 1).join('0')
+  return (zeros + num).slice(-length);
+}
+
+export const parseDate = (dateString) => (
+  // 2017-01-29T00:13:31.000+09:00
+  new Date(Date.parse(dateString))
+)
+export const humanDateTime = (dateString, full) => {
+  const date = parseDate(dateString)
+  const yyyy = zeroPadding(date.getFullYear(),  4)
+  const MM   = zeroPadding(date.getMonth() + 1, 2)
+  const dd   = zeroPadding(date.getDate(),      2)
+  const hh   = zeroPadding(date.getHours(),     2)
+  const mm   = zeroPadding(date.getMinutes(),   2)
+  const ss   = zeroPadding(date.getSeconds(),   2)
+  const isFull  = full || false
+
+  if (isFull) {
+    return `${yyyy}/${MM}/${dd} ${hh}:${mm}:${ss}`
+  } else {
+    return `${yyyy}/${MM}/${dd}`
+  }
+}
+
 export const valueInRange = (value, min, max) => {
   if (value < min) return min
   if (max < value) return max

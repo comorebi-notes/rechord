@@ -4,14 +4,6 @@ class ScoresController < ApplicationController
   def new
   end
 
-  def show
-    redirect_to root_path unless @score
-  end
-
-  def edit
-    redirect_to root_path if @score.user_id != current_user.id
-  end
-
   def create
     score = Score.new(score_params)
     if score.save
@@ -19,6 +11,14 @@ class ScoresController < ApplicationController
     else
       render json: score.errors.full_messages, status: :unprocessable_entity
     end
+  end
+
+  def show
+    redirect_to root_path unless @score
+  end
+
+  def edit
+    redirect_to root_path if @score.user_id != current_user.id
   end
 
   def update

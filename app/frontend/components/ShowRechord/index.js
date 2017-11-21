@@ -2,10 +2,8 @@ import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 
 import Score              from "../Score"
-import AuthorCard         from "../AuthorCard"
-import SharedButtons      from "../SharedButtons"
+import ScoreHeader         from "../ScoreHeader"
 import scoreDecorator     from "../../decorators/scoreDecorator"
-import * as utils         from "../../utils"
 import { window }         from "../../utils/browser-dependencies"
 import { DEFAULT_VOLUME } from "../../constants"
 
@@ -27,6 +25,8 @@ export default class ShowRechord extends Component {
       instrumentType: score.instrument,
       url:            score.url,
       token:          score.token,
+      createdAt:      score.created_at,
+      updatedAt:      score.updated_at,
       userId:         currentUser && currentUser.id,
       author
     }
@@ -47,24 +47,20 @@ export default class ShowRechord extends Component {
   render() {
     const {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, url, author, userId, token
+      isPlaying, enabledClick, url, author, userId, token, createdAt, updatedAt
     } = this.state
-    const existAuthor = Object.keys(author).length > 0
-    const showEditButton = Object.keys(author).length > 0 && author.id === userId
     const editPath = `/scores/${token}/edit`
+    const showEditButton = Object.keys(author).length > 0 && author.id === userId
     return (
       <div>
-        <div className="score-header">
-          <div>
-            <h1 className="title">{title}</h1>
-            <SharedButtons url={utils.sharedUrl(url)} title={title} asShow />
-          </div>
-          {existAuthor && (
-            <div className="is-hidden-touch">
-              <AuthorCard author={author} />
-            </div>
-          )}
-        </div>
+        <ScoreHeader
+          title={title}
+          author={author}
+          url={url}
+          userId={userId}
+          createdAt={createdAt}
+          updatedAt={updatedAt}
+        />
 
         <Score
           hideLabel
@@ -79,12 +75,6 @@ export default class ShowRechord extends Component {
           setInputText={this.setInputText}
           handleSetState={this.handleSetState}
         />
-
-        {existAuthor && (
-          <div className="is-hidden-desktop" style={{ marginTop: "2rem" }}>
-            <AuthorCard author={author} />
-          </div>
-        )}
 
         {showEditButton && (
           <div className="share has-text-centered" style={{ marginTop: "1.5rem" }}>

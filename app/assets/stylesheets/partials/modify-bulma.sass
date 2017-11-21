@@ -1,0 +1,47 @@
+html
+  font-size: 15.5px
+
+// footer をページ下部に固定
+html
+  height: 100%
+  body
+    min-height: 100%
+    display: flex
+    flex-direction: column
+    section.section
+      flex-grow: 1
+
+h1, h2, h3
+  a:hover, a:active
+    color: $link
+    opacity: .8
+
+.is-size-7
+  font-size: .85em !important
+.is-size-8
+  font-size: .75em !important
+
+.radio
+  input[type="radio"]
+    margin-right: .5em
+  & + .radio
+    margin-left: 1.2em
+
+.modal-card-foot.right
+  flex-direction: row-reverse
+  .button:last-child
+    margin-left: 0
+    margin-right: 0
+  .button:not(:last-child)
+    margin-left: 10px
+    margin-right: 0
+
+a.box
+  &:hover, &:focus
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.3)
+  &:active
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.2), 0 0 0 1px rgba(10, 10, 10, 0.3)
+
+@media screen and (min-width: $fullhd)
+  .container
+    max-width: 1200px

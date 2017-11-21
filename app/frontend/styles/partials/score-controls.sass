@@ -1,0 +1,65 @@
+.rechord
+  .control-ui
+    flex-grow: 0
+    position: relative
+    button
+      display: inline-block
+      width: 100%
+    .field-label .label
+      font-size: .9em
+    .field.is-horizontal
+      .field-label
+        margin-right: 1em
+      .field-body
+        input[type=number]
+          min-width: 72px
+    .editor-control
+    .key-control, .undo-control
+      > div
+        flex-grow: 1
+        button
+          font-weight: bold
+    .click-control
+      .field-body
+        margin-top: .3em
+        min-width: 72px
+        .control
+          height: calc(2.25em - .3em)
+          text-align: center
+          input[type=checkbox]
+            max-width: 80px
+    .instrument-control
+    .beat-control
+      .select, select
+        width: 100%
+    .sound-control
+      margin-bottom: 0
+      button
+        transition: opacity .3s ease-in-out
+    .volume-control
+      display: flex
+      width: 100%
+      margin-top: -4px
+      .icon
+        opacity: .8
+        margin: 1rem 0
+        &:first-of-type
+          margin-right: .5rem
+          margin-left: -.3rem
+        &:last-of-type
+          margin-left: .5rem
+
+@media screen and (max-width: $tablet - 1px)
+  .rechord
+    .control-ui
+      > .columns
+        display: flex
+      .instrument-control
+        .select, select
+          width: 100%
+      .is-horizontal
+        display: flex
+        .field-label.is-normal
+          padding-top: .375em
+        .field-body
+          width: 100%

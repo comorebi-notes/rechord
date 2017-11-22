@@ -1,12 +1,8 @@
-- content_for :title do
-  = @score.title
-
 section.section
   .container
-    #edit-rechord.rechord
+    #rechord.rechord
 
 javascript:
   var data = {
-    score:       #{raw @score&.to_json},
     currentUser: #{raw current_user&.to_json || {}}
   }

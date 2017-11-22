@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react"
-import SharedButtons            from "../../SharedButtons"
-import * as utils               from "../../../utils"
+import { Link }                 from "react-router-dom"
+import SharedButtons            from "../../../SharedButtons"
+import * as utils               from "../../../../utils"
 
 export default class ScoreHeader extends PureComponent {
   render() {
@@ -11,12 +12,12 @@ export default class ScoreHeader extends PureComponent {
         <div>
           <h1 className="title">{title}</h1>
           {existAuthor && (
-            <a href={userPath} className="author-name">
+            <Link to={userPath} className="author-name">
               <figure className="image is-24x24">
                 <img src={author.icon_url} alt={author.name} />
               </figure>
               <strong>@{author.name}</strong>
-            </a>
+            </Link>
           )}
           <p className="created-at">
             {utils.humanDateTime(createdAt, true)}
@@ -25,12 +26,12 @@ export default class ScoreHeader extends PureComponent {
         <div>
           <SharedButtons url={utils.sharedUrl(url)} title={title} asShow />
           {showEditButton && (
-            <a href={editPath} className="button is-primary is-medium">
+            <Link to={editPath} className="button is-primary is-medium">
               <span className="icon">
                 <i className="fa fa-edit" />
               </span>
               <span>edit</span>
-            </a>
+            </Link>
           )}
         </div>
       </div>

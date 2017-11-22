@@ -1,19 +1,19 @@
 import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 
-import Score             from "../Score"
-import StatusControl     from "../StatusControl"
-import SaveControl       from "../SaveControl"
-import ShareModal        from "../ShareModal"
-import RestoreModal      from "../RestoreModal"
-import Field             from "../shared/Field"
-import scoreDecorator    from "../../decorators/scoreDecorator"
-import sampleScore       from "../../constants/sampleScore"
-import { window }        from "../../utils/browser-dependencies"
-import * as restoreState from "../../utils/restoreState"
-import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT } from "../../constants"
+import Score             from "../../Score"
+import StatusControl     from "../../StatusControl"
+import SaveControl       from "../../SaveControl"
+import ShareModal        from "../../ShareModal"
+import RestoreModal      from "../../RestoreModal"
+import Field             from "../../shared/Field"
+import scoreDecorator    from "../../../decorators/scoreDecorator"
+import sampleScore       from "../../../constants/sampleScore"
+import { window }        from "../../../utils/browser-dependencies"
+import * as restoreState from "../../../utils/restoreState"
+import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT } from "../../../constants"
 
-export default class NewRechord extends Component {
+export default class NewScore extends Component {
   constructor() {
     super()
     const { currentUser } = window.data
@@ -33,6 +33,7 @@ export default class NewRechord extends Component {
       localStorageState: restoreState.get()
     }
   }
+
   setEditorState = (inputText) => {
     const contentState = ContentState.createFromText(inputText)
     return EditorState.push(this.state.editorState, contentState)

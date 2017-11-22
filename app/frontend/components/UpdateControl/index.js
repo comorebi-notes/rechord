@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Link }             from "react-router-dom"
 import * as api             from "../../api"
 import * as utils           from "../../utils"
 
@@ -28,12 +29,12 @@ export default class UpdateControl extends Component {
     const { token } = this.props
     const { loading, error } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
-    const showPath = `/scores/${token}`
+    const showPath = `/${token}`
     return (
       <div>
         <p>
-          <a
-            href={showPath}
+          <Link
+            to={showPath}
             className="button"
             onClick={this.handleClickCancenl}
             disabled={loading}
@@ -43,7 +44,7 @@ export default class UpdateControl extends Component {
               <i className="fa fa-undo" />
             </span>
             <span>cancel</span>
-          </a>
+          </Link>
           <button
             className="button is-primary"
             onClick={this.handleClickUpdate}

@@ -1,7 +1,14 @@
 class ScoresController < ApplicationController
   before_action :set_data, only: [:show, :edit, :update]
 
-  def new
+  def show
+    redirect_to root_path unless @score
+    render json: { score: @score, author: @score&.user }
+  end
+
+  def edit
+    redirect_to root_path if @score.user_id != current_user.id
+    render json: { score: @score }
   end
 
   def create
@@ -12,14 +19,6 @@ class ScoresController < ApplicationController
     else
       render json: score.errors.full_messages, status: :unprocessable_entity
     end
-  end
-
-  def show
-    redirect_to root_path unless @score
-  end
-
-  def edit
-    redirect_to root_path if @score.user_id != current_user.id
   end
 
   def update

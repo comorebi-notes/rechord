@@ -10,10 +10,10 @@ html
     = csrf_meta_tags
     = render "layouts/meta"
 
-    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload"
-    = javascript_include_tag "application", "data-turbolinks-track": "reload"
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "application"
     = stylesheet_pack_tag    "rechord"
-    = javascript_pack_tag    "rechord", "data-turbolinks-track": "reload"
+    = javascript_pack_tag    "rechord"
 
   body
     = render "shared/header"

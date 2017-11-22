@@ -13,7 +13,10 @@ Rails.application.routes.draw do
     param: :token,
     constraints: OnlyAjaxRequest.new
   }
-  resources :users, only: [:show, :update, :destroy]
+  resources :users, {
+    only: [:show, :update, :destroy],
+    constraints: OnlyAjaxRequest.new
+  }
 
   get "*path" => "top#index"
   root "top#index"

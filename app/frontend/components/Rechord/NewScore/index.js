@@ -3,13 +3,14 @@ import { EditorState, ContentState } from "draft-js"
 
 import Score             from "../../Score"
 import StatusControl     from "../../StatusControl"
-import SaveControl       from "../../SaveControl"
+import CreateControl     from "./CreateControl"
 import ShareModal        from "../../ShareModal"
 import RestoreModal      from "../../RestoreModal"
 import Field             from "../../shared/Field"
 import scoreDecorator    from "../../../decorators/scoreDecorator"
 import sampleScore       from "../../../constants/sampleScore"
 import { window }        from "../../../utils/browser-dependencies"
+import * as utils        from "../../../utils"
 import * as restoreState from "../../../utils/restoreState"
 import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT } from "../../../constants"
 
@@ -33,6 +34,7 @@ export default class NewScore extends Component {
       localStorageState: restoreState.get()
     }
   }
+  componentDidMount = () => utils.setTitle()
 
   setEditorState = (inputText) => {
     const contentState = ContentState.createFromText(inputText)
@@ -60,6 +62,7 @@ export default class NewScore extends Component {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
       isPlaying, enabledClick, status, userId, token, modal, localStorageState
     } = this.state
+    const { handleGlobalState } = this.props
     return (
       <div>
         <Field label="Title">
@@ -89,7 +92,7 @@ export default class NewScore extends Component {
             handleSetState={this.handleSetState}
           />
         )}
-        <SaveControl
+        <CreateControl
           title={title}
           content={inputText}
           instrument={instrumentType}
@@ -101,6 +104,7 @@ export default class NewScore extends Component {
           token={token}
           handleSetState={this.handleSetState}
           handleResetLocalStorage={this.handleResetLocalStorage}
+          handleGlobalState={handleGlobalState}
         />
         <ShareModal
           token={token}

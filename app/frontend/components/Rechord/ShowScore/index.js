@@ -5,13 +5,13 @@ import Score              from "../../Score"
 import ScoreHeader        from "./ScoreHeader"
 import scoreDecorator     from "../../../decorators/scoreDecorator"
 import * as api           from "../../../api"
-import { window }         from "../../../utils/browser-dependencies"
+import * as utils         from "../../../utils"
 import { DEFAULT_VOLUME } from "../../../constants"
 
 export default class ShowScore extends Component {
-  constructor() {
-    super()
-    const { currentUser } = window.data
+  constructor(props) {
+    super(props)
+    const { currentUser } = props
     this.state = {
       loading:   true,
       error:     "",
@@ -28,6 +28,7 @@ export default class ShowScore extends Component {
         const { score, author } = success.data
         const scoreContent = score.content
         const contentState = ContentState.createFromText(scoreContent)
+        utils.setTitle(score.title)
         this.setState({
           loading:        false,
           inputText:      scoreContent,

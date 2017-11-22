@@ -1,9 +1,8 @@
 import React, { Component } from "react"
-import { Link }             from "react-router-dom"
-import * as api             from "../../api"
-import * as utils           from "../../utils"
+import { Link, withRouter } from "react-router-dom"
+import * as api             from "../../../../api"
 
-export default class UpdateControl extends Component {
+class UpdateControl extends Component {
   constructor() {
     super()
     this.state = {
@@ -12,13 +11,14 @@ export default class UpdateControl extends Component {
     }
   }
   handleClickUpdate = () => {
-    const { userId } = this.props
+    const { history, handleGlobalState } = this.props
     this.setState({ loading: true })
     api.updateScore(
       this.props,
       (success) => {
         const { token } = success.data
-        if (userId) utils.transitionUrl(`/scores/${token}`)
+        handleGlobalState({ flash: "スコアが更新されました。" })
+        history.push(`/${token}`)
       },
       (error) => (
         this.setState({ loading: false, error: error.response.data })
@@ -63,3 +63,5 @@ export default class UpdateControl extends Component {
     )
   }
 }
+
+export default withRouter(UpdateControl)

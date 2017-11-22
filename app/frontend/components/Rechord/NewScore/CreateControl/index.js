@@ -1,8 +1,8 @@
 import React, { Component } from "react"
-import * as api             from "../../api"
-import * as utils           from "../../utils"
+import { withRouter }       from "react-router-dom"
+import * as api             from "../../../../api"
 
-export default class SaveControl extends Component {
+class CreateControl extends Component {
   constructor() {
     super()
     this.state = {
@@ -11,7 +11,7 @@ export default class SaveControl extends Component {
     }
   }
   handleClick = () => {
-    const { userId, handleSetState, handleResetLocalStorage } = this.props
+    const { userId, handleSetState, handleResetLocalStorage, handleGlobalState, history } = this.props
     this.setState({ loading: true })
     api.createScore(
       this.props,
@@ -22,7 +22,8 @@ export default class SaveControl extends Component {
           handleSetState({ token, modal: true })
           this.setState({ loading: false, error: "" })
         } else {
-          utils.transitionUrl(`/scores/${token}`)
+          handleGlobalState({ flash: "スコアが作成されました。" })
+          history.push(`/${token}`)
         }
       },
       (error) => (
@@ -64,3 +65,5 @@ export default class SaveControl extends Component {
     )
   }
 }
+
+export default withRouter(CreateControl)

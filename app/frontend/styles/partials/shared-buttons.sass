@@ -1,53 +1,50 @@
-.rechord
-  margin-bottom: 1em
-  .shared-url
-    a
-      vertical-align: middle
-      margin-right: .8em
-  .shared-buttons
-    display: flex
-    justify-content: center
-    padding-top: .3em
+.shared-url
+  a
+    vertical-align: middle
+    margin-right: .8em
+.shared-buttons
+  display: flex
+  justify-content: center
+  padding-top: .3em
+  .shared-button
+    margin: .8rem
+    margin-top: 0
+    &:first-child
+      margin-left: 0
+    &:last-child
+      margin-right: 0
+    > div
+      outline: 0
+      cursor: pointer
+      &:hover, &:active
+        opacity: .8
+    .fa-stack-1x
+      font-size: .95em
+    .fa-google-plus
+      font-size: .9em
+    .fa-envelope
+      font-size: .85em
+  &.as-show
+    font-size: .85em
+    justify-content: flex-start
     .shared-button
-      margin: .8rem
-      margin-top: 0
+      margin:  0 .75em 1.2em 0
       &:first-child
         margin-left: 0
       &:last-child
         margin-right: 0
-      > div
-        outline: 0
-        cursor: pointer
-        &:hover, &:active
-          opacity: .8
-      .fa-stack-1x
-        font-size: .95em
-      .fa-google-plus
-        font-size: .9em
-      .fa-envelope
-        font-size: .85em
-    &.as-show
-      font-size: .85em
-      justify-content: flex-start
-      .shared-button
-        margin:  0 .75em 1.2em 0
-        &:first-child
-          margin-left: 0
-        &:last-child
-          margin-right: 0
 
 @media screen and (max-width: $tablet - 1px)
-  .rechord
-    .shared-url
-      display: flex
-      font-size: 1.1em
-      flex-direction: column
-      a
-        margin-right: 0
-        margin-bottom: .65em
-      button
-        align-self: center
-        font-size: .85em
-    .shared-buttons
-      &.as-show
-        justify-content: center
+  .shared-url
+    display: flex
+    font-size: 1.1em
+    flex-direction: column
+    a
+      margin-right: 0
+      margin-bottom: .65em
+    button
+      align-self: center
+      font-size: .85em
+  .shared-buttons
+    &.as-show
+      justify-content: center

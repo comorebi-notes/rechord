@@ -2,10 +2,7 @@ doctype html
 html
   head
     title
-      - if yield(:title).present?
-        = "#{yield(:title)} | rechord"
-      - else
-        = "rechord | 演奏もできるコード進行共有サービス"
+      | rechord | 演奏もできるコード進行共有サービス
 
     = csrf_meta_tags
     = render "layouts/meta"
@@ -16,13 +13,4 @@ html
     = javascript_pack_tag    "rechord"
 
   body
-    = render "shared/header"
-    - if flash[:success]
-      .container style="margin-top: 2em"
-        .notification.is-success
-          span.icon.is-medium style="vertical-align: middle"
-            i.fa.fa-lg.fa-check-circle
-          span style="vertical-align: middle"
-            = flash[:success]
     = yield
-    = render "shared/footer"

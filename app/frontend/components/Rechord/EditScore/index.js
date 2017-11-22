@@ -3,18 +3,18 @@ import { EditorState, ContentState } from "draft-js"
 
 import Score              from "../../Score"
 import StatusControl      from "../../StatusControl"
-import UpdateControl      from "../../UpdateControl"
+import UpdateControl      from "./UpdateControl"
 import ShareModal         from "../../ShareModal"
 import Field              from "../../shared/Field"
 import scoreDecorator     from "../../../decorators/scoreDecorator"
 import * as api           from "../../../api"
-import { window }         from "../../../utils/browser-dependencies"
+import * as utils         from "../../../utils"
 import { DEFAULT_VOLUME } from "../../../constants"
 
 export default class EditScore extends Component {
-  constructor() {
-    super()
-    const { currentUser } = window.data
+  constructor(props) {
+    super(props)
+    const { currentUser } = props
     this.state = {
       loading:   true,
       error:     "",
@@ -30,6 +30,7 @@ export default class EditScore extends Component {
       (success) => {
         const { score } = success.data
         const contentState = ContentState.createFromText(score.content)
+        utils.setTitle(score.title)
         this.setState({
           loading:        false,
           error:          "",
@@ -68,6 +69,7 @@ export default class EditScore extends Component {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
       isPlaying, enabledClick, status, userId, modal, token
     } = this.state
+    const { handleGlobalState } = this.props
     return (
       <div>
         {!loading && (
@@ -86,6 +88,7 @@ export default class EditScore extends Component {
                 userId={userId}
                 token={token}
                 handleSetState={this.handleSetState}
+                handleGlobalState={handleGlobalState}
               />
               <Field label="Title">
                 <input

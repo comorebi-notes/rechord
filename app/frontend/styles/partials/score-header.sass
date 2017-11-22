@@ -1,39 +1,36 @@
-.rechord
-  margin-bottom: 1em
-  .score-header
-    display: flex
-    justify-content: space-between
-    margin-bottom: .4rem
-    .title
-      margin-bottom: 1.2rem
-    .author-name
+.score-header
+  display: flex
+  justify-content: space-between
+  margin-bottom: .4rem
+  .title
+    margin-bottom: 1.2rem
+  .author-name
+    display: inline-block
+    font-size: .9em
+    margin-bottom: 1em
+    color: #666
+    > *
+      vertical-align: middle
+    figure
       display: inline-block
-      font-size: .9em
-      margin-bottom: 1em
+      margin-right: .5rem
+    &:hover
+      color: #444
+  .created-at, .updated-at
+    font-size: .9em
+    color: #888
+    .icon
+      margin-right: .25em
       color: #666
-      > *
-        vertical-align: middle
-      figure
-        display: inline-block
-        margin-right: .5rem
-      &:hover
-        color: #444
-    .created-at, .updated-at
-      font-size: .9em
-      color: #888
-      .icon
-        margin-right: .25em
-        color: #666
-    .button
-      display: block
-      margin-bottom: 1rem
+  .button
+    display: block
+    margin-bottom: 1rem
 
 @media screen and (max-width: $tablet - 1px)
-  .rechord
-    .score-header
-      flex-direction: column
-      > div:last-child
-        margin: 1em 0
-        .shared-buttons
-          .shared-button
-            margin-bottom: 1em
+  .score-header
+    flex-direction: column
+    > div:last-child
+      margin: 1em 0
+      .shared-buttons
+        .shared-button
+          margin-bottom: 1em

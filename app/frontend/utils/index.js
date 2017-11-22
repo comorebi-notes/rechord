@@ -38,13 +38,8 @@ export const barLength = (score) => (
 export const protocol = () => (/^https:/.test(br.location.href) ? "https" : "http")
 export const sharedUrl = (url) => `${protocol()}://${br.location.host}/${url}`
 
-export const pushUrl = (url, title) => {
-  const { document, history } = br
-  if (title) document.title = `${title} | rechord`
-  history.pushState(null, null, url)
-}
-export const transitionUrl = (url) => {
-  br.location.href = url
+export const setTitle = (title) => {
+  br.document.title = title ? `${title} | rechord` : "rechord | 演奏もできるコード進行共有サービス"
 }
 
 export const copyToClipboard = (text) => {

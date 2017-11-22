@@ -1,71 +1,69 @@
-.rechord
-  .score
-    font-weight: bold
-    font-size: 1.1em
-    color: #777
-    max-width: 320px
-    max-height: inherit
-    height: auto
-    padding: .625em 1.2em
-    overflow: auto
-    resize: none
-    transition: all .1s ease-in-out
-    &.read-only
-      box-shadow: none
-    .separator
-      font-weight: normal
-      margin-right: 1.1em
+.score
+  font-weight: bold
+  font-size: 1.1em
+  color: #777
+  max-width: 320px
+  max-height: inherit
+  height: auto
+  padding: .625em 1.2em
+  overflow: auto
+  resize: none
+  transition: all .1s ease-in-out
+  &.read-only
+    box-shadow: none
+  .separator
+    font-weight: normal
+    margin-right: 1.1em
+    &:before
+      content: " "
+      letter-spacing: .65em
+  .separator, .separator + .space, .space:first-child
+    & + .root
+      &:not(:first-child):before
+        content: "" !important
+  .streak + .streak, .resume + .resume, .stop + .stop
+    &:before
+      content: "" !important
+  .comment
+    font-size: .85em
+    font-weight: normal
+    line-height: 2.4
+    color: #888
+  .space
+    display: none
+  .root
+    line-height: 1.8
+    font-size: 1.3em
+    &:not(:first-child)
       &:before
         content: " "
         letter-spacing: .65em
-    .separator, .separator + .space, .space:first-child
-      & + .root
-        &:not(:first-child):before
-          content: "" !important
-    .streak + .streak, .resume + .resume, .stop + .stop
-      &:before
-        content: "" !important
-    .comment
-      font-size: .85em
-      font-weight: normal
-      line-height: 2.4
-      color: #888
-    .space
-      display: none
-    .root
-      line-height: 1.8
-      font-size: 1.3em
-      &:not(:first-child)
-        &:before
-          content: " "
-          letter-spacing: .65em
-      &:not(:last-child)
-        padding-right: 1px
-    .on-chord
-      padding-left: .1em
-    .streak, .resume, .stop
-      color: #aaa
-      white-space: nowrap
-    .DraftEditor-editorContainer
-      position: relative
-      z-index: 1
-    .public-DraftEditorPlaceholder-root
-      position: absolute
-      top: .8em
-      font-weight: normal
-      opacity: .5
-      z-index: 1
-    .public-DraftEditor-content
-      min-height: 225px
-      word-wrap: normal !important
-  wbr
-    display: none
+    &:not(:last-child)
+      padding-right: 1px
+  .on-chord
+    padding-left: .1em
+  .streak, .resume, .stop
+    color: #aaa
+    white-space: nowrap
+  .DraftEditor-editorContainer
+    position: relative
+    z-index: 1
+  .public-DraftEditorPlaceholder-root
+    position: absolute
+    top: .8em
+    font-weight: normal
+    opacity: .5
+    z-index: 1
+  .public-DraftEditor-content
+    min-height: 225px
+    word-wrap: normal !important
+wbr
+  display: none
 
 @media screen and (max-width: $tablet - 1px)
-  .rechord
-    .score
-      font-size: .95em
-      .public-DraftEditor-content
-        word-wrap: break-word !important
-      .public-DraftStyleDefault-block
-        display: block
+  .score
+    font-size: .95em
+    .public-DraftEditor-content
+      word-wrap: break-word !important
+    .public-DraftStyleDefault-block
+      display: block

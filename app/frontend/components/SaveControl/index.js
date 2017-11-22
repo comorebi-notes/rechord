@@ -34,6 +34,7 @@ export default class SaveControl extends Component {
     const { userId } = this.props
     const { loading, error } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
+    const buttonLabel = userId ? "save" : "save & share"
     return (
       <div className="has-text-centered">
         <p>
@@ -45,7 +46,7 @@ export default class SaveControl extends Component {
             <span className="icon">
               <i className={iconClass} />
             </span>
-            <span>save & share</span>
+            <span>{buttonLabel}</span>
           </button>
         </p>
         {error.length > 0 && (

@@ -9,7 +9,7 @@ export const parseDate = (dateString) => (
   // 2017-01-29T00:13:31.000+09:00
   new Date(Date.parse(dateString))
 )
-export const humanDateTime = (dateString, full) => {
+export const humanDateTime = (dateString, full = false) => {
   const date = parseDate(dateString)
   const yyyy = zeroPadding(date.getFullYear(),  4)
   const MM   = zeroPadding(date.getMonth() + 1, 2)
@@ -17,9 +17,8 @@ export const humanDateTime = (dateString, full) => {
   const hh   = zeroPadding(date.getHours(),     2)
   const mm   = zeroPadding(date.getMinutes(),   2)
   const ss   = zeroPadding(date.getSeconds(),   2)
-  const isFull  = full || false
 
-  if (isFull) {
+  if (full) {
     return `${yyyy}/${MM}/${dd} ${hh}:${mm}:${ss}`
   } else {
     return `${yyyy}/${MM}/${dd}`

@@ -16,15 +16,14 @@ export default class SaveControl extends Component {
     api.createScore(
       this.props,
       (success) => {
-        const { title, token } = success.data
-        // ログイン中かつ新規作成であれば保存以降はupdateのように振る舞う
-        if (userId) {
-          utils.pushUrl(`/scores/${token}/edit`, title)
-          handleSetState({ update: true })
-        }
-        handleSetState({ token, modal: true })
+        const { token } = success.data
         if (handleResetLocalStorage) handleResetLocalStorage()
-        this.setState({ loading: false, error: "" })
+        if (!userId) {
+          handleSetState({ token, modal: true })
+          this.setState({ loading: false, error: "" })
+        } else {
+          utils.transitionUrl(`/scores/${token}`)
+        }
       },
       (error) => (
         this.setState({ loading: false, error: error.response.data })

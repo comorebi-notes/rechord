@@ -4,7 +4,6 @@ import { EditorState, ContentState } from "draft-js"
 import Score             from "../Score"
 import StatusControl     from "../StatusControl"
 import SaveControl       from "../SaveControl"
-import UpdateControl     from "../UpdateControl"
 import ShareModal        from "../ShareModal"
 import RestoreModal      from "../RestoreModal"
 import Field             from "../shared/Field"
@@ -58,24 +57,10 @@ export default class NewRechord extends Component {
   render() {
     const {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, status, userId, token, modal, update, localStorageState
+      isPlaying, enabledClick, status, userId, token, modal, localStorageState
     } = this.state
     return (
       <div>
-        {update && (
-          <UpdateControl
-            title={title}
-            content={inputText}
-            instrument={instrumentType}
-            beat={beat}
-            bpm={bpm}
-            click={enabledClick}
-            status={status}
-            userId={userId}
-            token={token}
-            handleSetState={this.handleSetState}
-          />
-        )}
         <Field label="Title">
           <input
             className="input"
@@ -103,22 +88,19 @@ export default class NewRechord extends Component {
             handleSetState={this.handleSetState}
           />
         )}
-        {!update && (
-          <SaveControl
-            update={update}
-            title={title}
-            content={inputText}
-            instrument={instrumentType}
-            beat={beat}
-            bpm={bpm}
-            click={enabledClick}
-            status={status}
-            userId={userId}
-            token={token}
-            handleSetState={this.handleSetState}
-            handleResetLocalStorage={this.handleResetLocalStorage}
-          />
-        )}
+        <SaveControl
+          title={title}
+          content={inputText}
+          instrument={instrumentType}
+          beat={beat}
+          bpm={bpm}
+          click={enabledClick}
+          status={status}
+          userId={userId}
+          token={token}
+          handleSetState={this.handleSetState}
+          handleResetLocalStorage={this.handleResetLocalStorage}
+        />
         <ShareModal
           token={token}
           title={title}

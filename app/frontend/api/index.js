@@ -2,9 +2,14 @@ import axios, { config } from "./axios"
 
 const getScoreParams = (params) => {
   const { title, content, instrument, beat, bpm, click, status, userId } = params
-  return {
-    score: { title, content, instrument, beat, bpm, click, status, user_id: userId }
+  const scoreParams = {
+    score: { title, content, instrument, beat, bpm, click, status }
   }
+  if (userId) {
+    scoreParams.score.user_id = userId
+    scoreParams.flash = "Saved Successfully!"
+  }
+  return scoreParams
 }
 
 export const createScore = (params, onSuccess, onError) => (

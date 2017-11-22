@@ -7,6 +7,7 @@ class ScoresController < ApplicationController
   def create
     score = Score.new(score_params)
     if score.save
+      flash[:success] = params[:flash]
       render json: score
     else
       render json: score.errors.full_messages, status: :unprocessable_entity
@@ -23,6 +24,7 @@ class ScoresController < ApplicationController
 
   def update
     if @score.update(score_params)
+      flash[:success] = params[:flash]
       render json: @score
     else
       render json: @score.errors.full_messages, status: :unprocessable_entity

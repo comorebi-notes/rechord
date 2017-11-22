@@ -17,5 +17,12 @@ html
 
   body
     = render "shared/header"
+    - if flash[:success]
+      .container style="margin-top: 2em"
+        .notification.is-success
+          span.icon.is-medium style="vertical-align: middle"
+            i.fa.fa-lg.fa-check-circle
+          span style="vertical-align: middle"
+            = flash[:success]
     = yield
     = render "shared/footer"

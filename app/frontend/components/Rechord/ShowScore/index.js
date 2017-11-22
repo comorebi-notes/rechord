@@ -67,7 +67,7 @@ export default class ShowScore extends Component {
       isPlaying, enabledClick, url, author, userId, token, createdAt
     } = this.state
     const userPath = `/users/${userId}`
-    const editPath = `/scores/${token}/edit`
+    const editPath = `/${token}/edit`
     const showEditButton = author && Object.keys(author).length > 0 && author.id === userId
     return (
       <div>

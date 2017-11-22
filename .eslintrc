@@ -14,8 +14,9 @@
   "rules": {
     "arrow-parens": 0,
     "indent": [2, 2, { "SwitchCase": 1 }],
-    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/anchor-is-valid": 0,
     "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/label-has-for": 0,
     "class-methods-use-this": 0,
     "comma-dangle": 0,
     "no-var": 1,

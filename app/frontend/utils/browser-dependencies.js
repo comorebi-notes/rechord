@@ -3,7 +3,7 @@
 const Window       = window
 const Document     = Window.document
 const Navigator    = navigator
-const Location     = location
+const Location     = Window.location
 const LocalStorage = localStorage
 const History      = history
 

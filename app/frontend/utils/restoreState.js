@@ -14,7 +14,9 @@ export const get = () => {
 export const set = (state) => {
   if (!localStorage) return false
 
-  const { title, inputText, enabledClick, bpm, volume, beat, instrumentType, status } = state
+  const { update, title, inputText, enabledClick, bpm, volume, beat, instrumentType, status } = state
+  if (update) return false
+
   return localStorage.setItem(localStorageKey, JSON.stringify({
     title, inputText, enabledClick, bpm, volume, beat, instrumentType, status
   }))

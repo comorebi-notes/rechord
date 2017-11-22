@@ -4,6 +4,7 @@ import { EditorState, ContentState } from "draft-js"
 import Score             from "../Score"
 import StatusControl     from "../StatusControl"
 import SaveControl       from "../SaveControl"
+import UpdateControl     from "../UpdateControl"
 import ShareModal        from "../ShareModal"
 import RestoreModal      from "../RestoreModal"
 import Field             from "../shared/Field"
@@ -61,6 +62,20 @@ export default class NewRechord extends Component {
     } = this.state
     return (
       <div>
+        {update && (
+          <UpdateControl
+            title={title}
+            content={inputText}
+            instrument={instrumentType}
+            beat={beat}
+            bpm={bpm}
+            click={enabledClick}
+            status={status}
+            userId={userId}
+            token={token}
+            handleSetState={this.handleSetState}
+          />
+        )}
         <Field label="Title">
           <input
             className="input"
@@ -88,20 +103,22 @@ export default class NewRechord extends Component {
             handleSetState={this.handleSetState}
           />
         )}
-        <SaveControl
-          update={update}
-          title={title}
-          content={inputText}
-          instrument={instrumentType}
-          beat={beat}
-          bpm={bpm}
-          click={enabledClick}
-          status={status}
-          userId={userId}
-          token={token}
-          handleSetState={this.handleSetState}
-          handleResetLocalStorage={this.handleResetLocalStorage}
-        />
+        {!update && (
+          <SaveControl
+            update={update}
+            title={title}
+            content={inputText}
+            instrument={instrumentType}
+            beat={beat}
+            bpm={bpm}
+            click={enabledClick}
+            status={status}
+            userId={userId}
+            token={token}
+            handleSetState={this.handleSetState}
+            handleResetLocalStorage={this.handleResetLocalStorage}
+          />
+        )}
         <ShareModal
           token={token}
           title={title}

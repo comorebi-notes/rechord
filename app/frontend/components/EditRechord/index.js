@@ -3,7 +3,7 @@ import { EditorState, ContentState } from "draft-js"
 
 import Score              from "../Score"
 import StatusControl      from "../StatusControl"
-import SaveControl        from "../SaveControl"
+import UpdateControl      from "../UpdateControl"
 import ShareModal         from "../ShareModal"
 import Field              from "../shared/Field"
 import scoreDecorator     from "../../decorators/scoreDecorator"
@@ -51,6 +51,18 @@ export default class EditRechord extends Component {
     } = this.state
     return (
       <div>
+        <UpdateControl
+          title={title}
+          content={inputText}
+          instrument={instrumentType}
+          beat={beat}
+          bpm={bpm}
+          click={enabledClick}
+          status={status}
+          userId={userId}
+          token={token}
+          handleSetState={this.handleSetState}
+        />
         <Field label="Title">
           <input
             className="input"
@@ -74,19 +86,6 @@ export default class EditRechord extends Component {
         />
         <StatusControl
           status={status}
-          handleSetState={this.handleSetState}
-        />
-        <SaveControl
-          update
-          title={title}
-          content={inputText}
-          instrument={instrumentType}
-          beat={beat}
-          bpm={bpm}
-          click={enabledClick}
-          status={status}
-          userId={userId}
-          token={token}
           handleSetState={this.handleSetState}
         />
         <ShareModal

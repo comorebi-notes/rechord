@@ -11,15 +11,14 @@ export default class SaveControl extends Component {
     }
   }
   handleClick = () => {
-    const { update, userId, handleSetState, handleResetLocalStorage } = this.props
-    const func = update ? "updateScore" : "createScore"
+    const { userId, handleSetState, handleResetLocalStorage } = this.props
     this.setState({ loading: true })
-    api[func](
+    api.createScore(
       this.props,
       (success) => {
         const { title, token } = success.data
         // ログイン中かつ新規作成であれば保存以降はupdateのように振る舞う
-        if (!update && userId) {
+        if (userId) {
           utils.pushUrl(`/scores/${token}/edit`, title)
           handleSetState({ update: true })
         }
@@ -33,10 +32,9 @@ export default class SaveControl extends Component {
     )
   }
   render() {
-    const { update, userId } = this.props
+    const { userId } = this.props
     const { loading, error } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
-    const buttonLabel = update ? "update & share" : "save & share"
     return (
       <div className="has-text-centered">
         <p>
@@ -48,7 +46,7 @@ export default class SaveControl extends Component {
             <span className="icon">
               <i className={iconClass} />
             </span>
-            <span>{buttonLabel}</span>
+            <span>save & share</span>
           </button>
         </p>
         {error.length > 0 && (

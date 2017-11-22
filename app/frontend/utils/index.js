@@ -44,6 +44,9 @@ export const pushUrl = (url, title) => {
   if (title) document.title = `${title} | rechord`
   history.pushState(null, null, url)
 }
+export const transitionUrl = (url) => {
+  br.location.href = url
+}
 
 export const copyToClipboard = (text) => {
   const { document } = br

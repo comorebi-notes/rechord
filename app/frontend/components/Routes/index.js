@@ -1,13 +1,13 @@
 import React, { Component }          from "react"
 import { withRouter, Route, Switch } from "react-router-dom"
 
-import Header       from "../../shared/Header"
-import Footer       from "../../shared/Footer"
-import FlashMessage from "../../shared/FlashMessage"
-import NewScore     from "../NewScore"
-import EditScore    from "../EditScore"
-import ShowScore    from "../ShowScore"
-import UserPage     from "../../UserPage"
+import Header       from "../shared/Header"
+import Footer       from "../shared/Footer"
+import FlashMessage from "../shared/FlashMessage"
+import NewScore     from "../Rechord/NewScore"
+import EditScore    from "../Rechord/EditScore"
+import ShowScore    from "../Rechord/ShowScore"
+import UserPage     from "../UserPage"
 
 class Routes extends Component {
   constructor(props) {

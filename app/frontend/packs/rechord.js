@@ -1,6 +1,6 @@
 import React        from "react"
 import ReactDOM     from "react-dom"
-import Rechord      from "../components/Rechord"
+import Root         from "../components"
 import { document } from "../utils/browser-dependencies"
 import "../styles/rechord.sass"
 
@@ -12,4 +12,4 @@ const setReact = (id, component) => (
   document.addEventListener("DOMContentLoaded", renderComponent(id, component))
 )
 
-setReact("rechord", <Rechord />)
+setReact("rechord", <Root />)

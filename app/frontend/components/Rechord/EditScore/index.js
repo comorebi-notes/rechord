@@ -4,7 +4,6 @@ import { Link }                      from "react-router-dom"
 
 import Score              from "../../Score"
 import UpdateControl      from "./UpdateControl"
-import ShareModal         from "../../ShareModal"
 import Field              from "../../shared/Field"
 import scoreDecorator     from "../../../decorators/scoreDecorator"
 import * as api           from "../../../api"
@@ -67,7 +66,7 @@ export default class EditScore extends Component {
     const {
       loading, error,
       inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, status, userId, modal, token
+      isPlaying, enabledClick, status, userId, token
     } = this.state
     const showPath = `/${token}`
     return (
@@ -122,12 +121,6 @@ export default class EditScore extends Component {
             </div>
           )
         )}
-        <ShareModal
-          token={token}
-          title={title}
-          isActive={modal}
-          handleSetState={this.handleSetState}
-        />
       </div>
     )
   }

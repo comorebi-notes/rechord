@@ -55,12 +55,12 @@ export default class Header extends PureComponent {
                 <div className="navbar-item">
                   <div className="field">
                     <div className="control">
-                      <Link to="auth/twitter" className="button is-primary is-inverted login-button">
+                      <a href="auth/twitter" className="button is-primary is-inverted login-button">
                         <span className="icon">
                           <i className="fa fa-twitter" />
                         </span>
                         <span>Login by Twitter</span>
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>

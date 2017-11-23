@@ -1,8 +1,8 @@
 import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
+import { Link }                      from "react-router-dom"
 
 import Score              from "../../Score"
-import StatusControl      from "../../StatusControl"
 import UpdateControl      from "./UpdateControl"
 import ShareModal         from "../../ShareModal"
 import Field              from "../../shared/Field"
@@ -69,25 +69,23 @@ export default class EditScore extends Component {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
       isPlaying, enabledClick, status, userId, modal, token
     } = this.state
+    const showPath = `/${token}`
     return (
       <div>
+        <p>
+          <Link to={showPath} className="button" style={{ marginBottom: "2rem" }}>
+            <span className="icon">
+              <i className="fa fa-undo" />
+            </span>
+            <span>back</span>
+          </Link>
+        </p>
+
         {!loading && (
           error ? (
             <div>{error}</div>
           ) : (
             <div>
-              <UpdateControl
-                title={title}
-                content={inputText}
-                instrument={instrumentType}
-                beat={beat}
-                bpm={bpm}
-                click={enabledClick}
-                status={status}
-                userId={userId}
-                token={token}
-                handleSetState={this.handleSetState}
-              />
               <Field label="Title">
                 <input
                   className="input"
@@ -109,8 +107,16 @@ export default class EditScore extends Component {
                 setInputText={this.setInputText}
                 handleSetState={this.handleSetState}
               />
-              <StatusControl
+              <UpdateControl
+                title={title}
+                content={inputText}
+                instrument={instrumentType}
+                beat={beat}
+                bpm={bpm}
+                click={enabledClick}
                 status={status}
+                userId={userId}
+                token={token}
                 handleSetState={this.handleSetState}
               />
             </div>

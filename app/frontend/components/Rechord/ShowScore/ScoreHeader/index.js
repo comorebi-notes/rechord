@@ -6,7 +6,7 @@ import * as utils               from "../../../../utils"
 export default class ScoreHeader extends PureComponent {
   render() {
     const { author, title, url, userPath, editPath, createdAt, showEditButton } = this.props
-    const existAuthor = Object.keys(author).length > 0
+    const existAuthor = author && Object.keys(author).length > 0
     return (
       <div className="score-header">
         <div>

@@ -26,11 +26,11 @@ export default class Score extends Component {
     const parsedText = decorator.parseChordProgression(inputText)
 
     return (
-      <div className="field">
+      <div className="field" style={{ paddingBottom: "1.5rem" }}>
         {!hideLabel && (
           <label className="label">Score</label>
         )}
-        <div className="control" style={{ marginBottom: "1.5rem" }}>
+        <div className="control">
           <div className="columns">
             <div className="column control">
               <ScoreEditor

@@ -19,17 +19,20 @@ h1, h2, h3
 .is-size-8
   font-size: .75em !important
 
+.button
+  padding-left: 1em
+  padding-right: 1em
+
 .radio-buttons
   display: flex
   align-items: center
   justify-content: center
-  .radio
-    display: flex
-    align-items: center
-    input[type="radio"]
-      margin-right: .5em
-    & + .radio
-      margin-left: 1.2em
+  .has-checkradio
+    .is-checkradio + label
+      padding-right: 0
+    &:not(:last-of-type)
+      .is-checkradio + label
+        margin-right: 1.2rem
 
 .modal
   .modal-card-head

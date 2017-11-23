@@ -2,7 +2,6 @@ import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 
 import Score             from "../../Score"
-import StatusControl     from "../../StatusControl"
 import CreateControl     from "./CreateControl"
 import ShareModal        from "../../ShareModal"
 import RestoreModal      from "../../RestoreModal"
@@ -85,12 +84,6 @@ export default class NewScore extends Component {
           setInputText={this.setInputText}
           handleSetState={this.handleSetState}
         />
-        {userId && (
-          <StatusControl
-            status={status}
-            handleSetState={this.handleSetState}
-          />
-        )}
         <CreateControl
           title={title}
           content={inputText}

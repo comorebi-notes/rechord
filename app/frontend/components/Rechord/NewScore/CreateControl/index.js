@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import { withRouter }       from "react-router-dom"
+import StatusControl        from "../../../StatusControl"
+import ErrorMessages        from "../../../shared/ErrorMessages"
 import * as api             from "../../../../api"
 
 class CreateControl extends Component {
@@ -31,33 +33,43 @@ class CreateControl extends Component {
     )
   }
   render() {
-    const { userId } = this.props
+    const { userId, status, handleSetState } = this.props
     const { loading, error } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     const buttonLabel = userId ? "save" : "save & share"
     return (
-      <div className="has-text-centered">
-        <p>
-          <button
-            className="button is-primary is-medium"
-            onClick={this.handleClick}
-            disabled={loading}
-          >
-            <span className="icon">
-              <i className={iconClass} />
-            </span>
-            <span>{buttonLabel}</span>
-          </button>
-        </p>
-        {error.length > 0 && (
-          <p className="has-text-danger" style={{ marginTop: 4 }}>{error}</p>
-        )}
+      <div className="score-footer">
+        <div>
+          {userId && (
+            <StatusControl
+              status={status}
+              handleSetState={handleSetState}
+            />
+          )}
+          {userId && <br />}
+          <div className="save-control">
+            <button
+              className="button is-primary is-medium"
+              onClick={this.handleClick}
+              disabled={loading}
+            >
+              <span className="icon">
+                <i className={iconClass} />
+              </span>
+              <span>{buttonLabel}</span>
+            </button>
+          </div>
+        </div>
+
+        {error.length > 0 && <ErrorMessages error={error} />}
         {!userId && (
-          <div className="notification is-size-7" style={{ marginTop: "1rem", display: "inline-block" }}>
-            <span className="icon">
-              <i className="fa fa-warning" />
-            </span>
-            ログインしていない場合、保存後のデータは編集できませんのでご注意ください。
+          <div>
+            <div className="notification is-size-7">
+              <span className="icon">
+                <i className="fa fa-warning" />
+              </span>
+              ログインしていない場合、保存後のデータは編集できませんのでご注意ください。
+            </div>
           </div>
         )}
       </div>

@@ -3,16 +3,16 @@ import classNames           from "classnames"
 
 export default class RestoreModal extends Component {
   handleClick = () => {
-    const { localStorageState, handleSetState, setInputText } = this.props
-    handleSetState(localStorageState)
-    setInputText(localStorageState.inputText)
+    const { restoreState, handleSetState, setInputText } = this.props
+    handleSetState(restoreState)
+    setInputText(restoreState.inputText)
     this.hideModal()
   }
   hideModal = () => this.props.handleResetLocalStorage()
 
   render() {
-    const { localStorageState } = this.props
-    const modalClass = classNames("modal", { "is-active": localStorageState })
+    const { restoreState } = this.props
+    const modalClass = classNames("modal", { "is-active": restoreState })
 
     return (
       <div className={modalClass}>

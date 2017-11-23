@@ -14,7 +14,7 @@ export default class ScoreEditor extends Component {
   }
   render() {
     const { editorState, readOnly } = this.props
-    const placeholder = ["# e.g.", "D6(9) | Aadd9 | E | F#m7(11)"].join("\n")
+    const placeholder = "D6(9) | Aadd9 | E | F#m7(11)"
     const textAreaClass = classNames("textarea", "score", { "read-only": readOnly })
     return (
       <div id="score-editor" className={textAreaClass}>

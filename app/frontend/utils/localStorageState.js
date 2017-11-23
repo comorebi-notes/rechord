@@ -1,6 +1,7 @@
 import { localStorage } from "./browser-dependencies"
 
 const localStorageKey = "rechordState"
+const commonKey = "rechord"
 
 export const get = () => {
   if (!localStorage) return false
@@ -25,4 +26,17 @@ export const set = (state) => {
 export const remove = () => {
   if (!localStorage) return false
   return localStorage.removeItem(localStorageKey)
+}
+
+export const visit = () => {
+  if (!localStorage) return false
+  return localStorage.setItem(commonKey, JSON.stringify({ isVisited: true }))
+}
+export const isVisited = () => {
+  if (!localStorage) return false
+
+  const state = JSON.parse(localStorage.getItem(commonKey))
+  if (!state) return false
+
+  return !!state.isVisited
 }

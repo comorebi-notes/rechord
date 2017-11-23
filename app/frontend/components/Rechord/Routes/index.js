@@ -18,6 +18,7 @@ class Routes extends Component {
   render() {
     const { currentUser, location } = this.props
     const { state } = location
+    const showFlashMessage = state && state.flash && state.flash.length > 0
 
     const params = { currentUser }
     const RouteWithState = ({ component: Children, ...routeParams }) => (
@@ -32,7 +33,7 @@ class Routes extends Component {
     return (
       <div className="main-content">
         <Header currentUser={currentUser} />
-        {state && state.flash && state.flash.length > 0 && (
+        {showFlashMessage && (
           <FlashMessage flash={state.flash} />
         )}
 

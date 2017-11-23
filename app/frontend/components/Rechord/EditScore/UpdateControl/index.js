@@ -11,14 +11,13 @@ class UpdateControl extends Component {
     }
   }
   handleClickUpdate = () => {
-    const { history, handleGlobalState } = this.props
+    const { history } = this.props
     this.setState({ loading: true })
     api.updateScore(
       this.props,
       (success) => {
         const { token } = success.data
-        handleGlobalState({ flash: "スコアが更新されました。" })
-        history.push(`/${token}`)
+        history.push(`/${token}`, { flash: "スコアが更新されました。" })
       },
       (error) => (
         this.setState({ loading: false, error: error.response.data })

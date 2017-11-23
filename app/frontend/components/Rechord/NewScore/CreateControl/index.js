@@ -11,7 +11,7 @@ class CreateControl extends Component {
     }
   }
   handleClick = () => {
-    const { userId, handleSetState, handleResetLocalStorage, handleGlobalState, history } = this.props
+    const { userId, handleSetState, handleResetLocalStorage, history } = this.props
     this.setState({ loading: true })
     api.createScore(
       this.props,
@@ -22,8 +22,7 @@ class CreateControl extends Component {
           handleSetState({ token, modal: true })
           this.setState({ loading: false, error: "" })
         } else {
-          handleGlobalState({ flash: "スコアが作成されました。" })
-          history.push(`/${token}`)
+          history.push(`/${token}`, { flash: "スコアが作成されました。" })
         }
       },
       (error) => (

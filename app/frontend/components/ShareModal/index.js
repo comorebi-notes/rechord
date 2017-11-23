@@ -31,7 +31,11 @@ export default class ShareModal extends Component {
                 {sharedUrl}
               </a>
               {showCopyButton && (
-                <button className="button is-small is-info" onClick={this.handleCopy}>
+                <button
+                  className="button is-small is-info"
+                  style={{ verticalAlign: "middle" }}
+                  onClick={this.handleCopy}
+                >
                   <span className="icon">
                     <i className="fa fa-copy" />
                   </span>

@@ -62,7 +62,6 @@ export default class NewScore extends Component {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
       isPlaying, enabledClick, status, userId, token, modal, localStorageState
     } = this.state
-    const { handleGlobalState } = this.props
     return (
       <div>
         <Field label="Title">
@@ -104,7 +103,6 @@ export default class NewScore extends Component {
           token={token}
           handleSetState={this.handleSetState}
           handleResetLocalStorage={this.handleResetLocalStorage}
-          handleGlobalState={handleGlobalState}
         />
         <ShareModal
           token={token}

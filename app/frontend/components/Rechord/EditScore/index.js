@@ -69,7 +69,6 @@ export default class EditScore extends Component {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
       isPlaying, enabledClick, status, userId, modal, token
     } = this.state
-    const { handleGlobalState } = this.props
     return (
       <div>
         {!loading && (
@@ -88,7 +87,6 @@ export default class EditScore extends Component {
                 userId={userId}
                 token={token}
                 handleSetState={this.handleSetState}
-                handleGlobalState={handleGlobalState}
               />
               <Field label="Title">
                 <input

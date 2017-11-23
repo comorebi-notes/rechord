@@ -4,14 +4,12 @@ export default class FlashMessage extends PureComponent {
   render() {
     const { flash } = this.props
     return (
-      <div className="container" style={{ marginTop: "2em" }}>
+      <div className="container flash-message">
         <div className="notification is-success">
-          <span className="icon is-medium" style={{ verticalAlign: "middle" }}>
+          <span className="icon is-medium">
             <i className="fa fa-lg fa-check-circle" />
           </span>
-          <span style={{ verticalAlign: "middle" }}>
-            {flash}
-          </span>
+          <span>{flash}</span>
         </div>
       </div>
     )

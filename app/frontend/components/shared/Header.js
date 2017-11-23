@@ -59,7 +59,7 @@ export default class Header extends PureComponent {
                         <span className="icon">
                           <i className="fa fa-twitter" />
                         </span>
-                        Login by Twitter
+                        <span>Login by Twitter</span>
                       </Link>
                     </div>
                   </div>

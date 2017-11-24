@@ -1,6 +1,7 @@
 import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 import { Link }                      from "react-router-dom"
+import classNames                    from "classnames"
 
 import Score          from "../../Score"
 import TitleControl   from "../../TitleControl"
@@ -16,7 +17,6 @@ export default class EditScore extends Component {
     const { currentUser } = props
     this.state = {
       loading:        true,
-      error:          "",
       editorState:    EditorState.createEmpty(),
       isPlaying:      false,
       volume:         DEFAULT_VOLUME,
@@ -36,7 +36,6 @@ export default class EditScore extends Component {
         utils.setTitle(score.title)
         this.setState({
           loading:        false,
-          error:          "",
           inputText:      score.content,
           editorState:    EditorState.createWithContent(contentState, scoreDecorator),
           title:          score.title,
@@ -66,13 +65,12 @@ export default class EditScore extends Component {
 
   render() {
     const {
-      loading, error,
-      inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, status, userId, token, errors
+      loading, errors, inputText, title, editorState, beat, bpm, volume,
+      instrumentType, isPlaying, enabledClick, status, userId, token
     } = this.state
     const showPath = `/${token}`
     return (
-      <div>
+      <div className={classNames({ "loading-wrapper": loading })}>
         <p>
           <Link to={showPath} className="button" style={{ marginBottom: "2rem" }}>
             <span className="icon">
@@ -82,38 +80,36 @@ export default class EditScore extends Component {
           </Link>
         </p>
 
-        <div>
-          <TitleControl
-            title={title}
-            errors={errors}
-            handleSetState={this.handleSetState}
-          />
-          <Score
-            inputText={inputText}
-            editorState={editorState}
-            instrumentType={instrumentType}
-            beat={beat}
-            bpm={bpm}
-            volume={volume}
-            enabledClick={enabledClick}
-            isPlaying={isPlaying}
-            errors={errors}
-            setInputText={this.setInputText}
-            handleSetState={this.handleSetState}
-          />
-          <UpdateControl
-            title={title}
-            content={inputText}
-            instrument={instrumentType}
-            beat={beat}
-            bpm={bpm}
-            click={enabledClick}
-            status={status}
-            userId={userId}
-            token={token}
-            handleSetState={this.handleSetState}
-          />
-        </div>
+        <TitleControl
+          title={title}
+          errors={errors}
+          handleSetState={this.handleSetState}
+        />
+        <Score
+          inputText={inputText}
+          editorState={editorState}
+          instrumentType={instrumentType}
+          beat={beat}
+          bpm={bpm}
+          volume={volume}
+          enabledClick={enabledClick}
+          isPlaying={isPlaying}
+          errors={errors}
+          setInputText={this.setInputText}
+          handleSetState={this.handleSetState}
+        />
+        <UpdateControl
+          title={title}
+          content={inputText}
+          instrument={instrumentType}
+          beat={beat}
+          bpm={bpm}
+          click={enabledClick}
+          status={status}
+          userId={userId}
+          token={token}
+          handleSetState={this.handleSetState}
+        />
       </div>
     )
   }

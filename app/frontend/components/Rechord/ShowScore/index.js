@@ -1,5 +1,6 @@
 import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
+import classNames                    from "classnames"
 
 import Score           from "../../Score"
 import ScoreHeader     from "./ScoreHeader"
@@ -14,7 +15,6 @@ export default class ShowScore extends Component {
     const { currentUser } = props
     this.state = {
       loading:        true,
-      error:          "",
       editorState:    EditorState.createEmpty(),
       isPlaying:      false,
       volume:         DEFAULT_VOLUME,
@@ -46,7 +46,7 @@ export default class ShowScore extends Component {
           author
         })
       },
-      (error) => this.setState({ loading: false, error: error.response.data })
+      (error) => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
 
@@ -65,39 +65,36 @@ export default class ShowScore extends Component {
 
   render() {
     const {
-      loading, error,
-      inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, author, userId, token, createdAt
+      loading, inputText, title, editorState, beat, bpm, volume,
+      instrumentType, isPlaying, enabledClick, author, userId, token, createdAt
     } = this.state
     const userPath = `/users/${userId}`
     const editPath = `/${token}/edit`
     const showEditButton = author && Object.keys(author).length > 0 && author.id === userId
     return (
-      <div>
-        <div>
-          <ScoreHeader
-            title={title}
-            author={author}
-            token={token}
-            userPath={userPath}
-            editPath={editPath}
-            createdAt={createdAt}
-            showEditButton={showEditButton}
-          />
-          <Score
-            hideLabel
-            inputText={inputText}
-            editorState={editorState}
-            instrumentType={instrumentType}
-            beat={beat}
-            bpm={bpm}
-            volume={volume}
-            enabledClick={enabledClick}
-            isPlaying={isPlaying}
-            setInputText={this.setInputText}
-            handleSetState={this.handleSetState}
-          />
-        </div>
+      <div className={classNames({ "loading-wrapper": loading })}>
+        <ScoreHeader
+          title={title}
+          author={author}
+          token={token}
+          userPath={userPath}
+          editPath={editPath}
+          createdAt={createdAt}
+          showEditButton={showEditButton}
+        />
+        <Score
+          hideLabel
+          inputText={inputText}
+          editorState={editorState}
+          instrumentType={instrumentType}
+          beat={beat}
+          bpm={bpm}
+          volume={volume}
+          enabledClick={enabledClick}
+          isPlaying={isPlaying}
+          setInputText={this.setInputText}
+          handleSetState={this.handleSetState}
+        />
       </div>
     )
   }

@@ -5,7 +5,7 @@ import * as utils               from "../../../../utils"
 
 export default class ScoreHeader extends PureComponent {
   render() {
-    const { author, title, url, userPath, editPath, createdAt, showEditButton } = this.props
+    const { author, title, token, userPath, editPath, createdAt, showEditButton } = this.props
     const existAuthor = author && Object.keys(author).length > 0
     return (
       <div className="score-header">
@@ -24,7 +24,7 @@ export default class ScoreHeader extends PureComponent {
           </p>
         </div>
         <div>
-          <SharedButtons url={utils.sharedUrl(url)} title={title} asShow />
+          <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />
           {showEditButton && (
             <Link to={editPath} className="button is-primary is-medium">
               <span className="icon">

@@ -14,24 +14,25 @@ export default class ScoreEditor extends Component {
   componentDidUpdate() {
     changeScrollPosition()
   }
-  handleTouchEditor = () => {
+  validate = (editorState) => (
+    validator({
+      key:      "content",
+      types:    [["required"], ["maxLength", 1024]],
+      setState: this.props.handleSetState,
+      errors:   this.props.errors,
+      value:    editorState.getCurrentContent().getPlainText()
+    })
+  )
+  handleTouch = () => {
     this.setState({ touch: true })
-    this.handleChange(this.props.editorState, true)
+    this.validate(this.props.editorState)
   }
-  handleChange = (editorState, touch = false) => {
-    const { errors, handleSetState, handleChangeEditorState } = this.props
-    const isTouched = touch || this.state.touch
+  handleChange = (editorState) => {
+    const { touch } = this.state
+    const { handleChangeEditorState } = this.props
     setCurrentScrollPosition()
     handleChangeEditorState(editorState)
-    if (isTouched && errors) {
-      validator({
-        key:      "content",
-        types:    [["required"], ["maxLength", 1024]],
-        value:    editorState.getCurrentContent().getPlainText(),
-        setState: handleSetState,
-        errors
-      })
-    }
+    if (touch) this.validate(editorState)
   }
   render() {
     const { errors, editorState, readOnly } = this.props
@@ -44,7 +45,7 @@ export default class ScoreEditor extends Component {
             editorState={editorState}
             placeholder={placeholder}
             readOnly={readOnly}
-            onBlur={this.handleTouchEditor}
+            onBlur={this.handleTouch}
             onChange={this.handleChange}
           />
         </div>

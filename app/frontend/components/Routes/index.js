@@ -33,11 +33,11 @@ class Routes extends Component {
     return (
       <div className="main-content">
         <Header currentUser={currentUser} />
-        {showFlashMessage && (
-          <FlashMessage flash={state.flash} />
-        )}
 
         <section className="section">
+          {showFlashMessage && (
+            <FlashMessage flash={state.flash} />
+          )}
           <div className="container">
             <Switch>
               <RouteWithState path="/"            component={NewScore} exact />

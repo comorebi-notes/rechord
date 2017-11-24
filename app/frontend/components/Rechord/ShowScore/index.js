@@ -46,7 +46,7 @@ export default class ShowScore extends Component {
           author
         })
       },
-      (error) => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })
+      () => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
 

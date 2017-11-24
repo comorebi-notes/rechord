@@ -1,0 +1,39 @@
+.loading-wrapper
+  &:before
+    content: "loading..."
+    display: flex
+    justify-content: center
+    align-items: center
+    color: #aaa
+    font-weight: bold
+    position: absolute
+    background-color: #fff
+    width: calc(100% + 2em)
+    height: calc(100% + 2em)
+    top: -1em
+    left: -1em
+    z-index: 50
+    opacity: .7
+  &:after
+    content: "\f110"
+    position: absolute
+    top: calc(50% - 1.4em)
+    left: calc(50% - .52em)
+    font: normal normal normal 14px/1 FontAwesome
+    font-size: 3.17em
+    color: #aaa
+    z-index: 100
+    text-rendering: auto
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    -webkit-animation: spin 2s infinite linear
+    animation: spin 1s infinite steps(8)
+    opacity: .7
+
+@keyframes spin
+  0%
+    -webkit-transform: rotate(0deg)
+    transform: rotate(0deg)
+  100%
+    -webkit-transform: rotate(359deg)
+    transform: rotate(359deg)

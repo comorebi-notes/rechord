@@ -10,6 +10,8 @@ export const parseDate = (dateString) => (
   new Date(Date.parse(dateString))
 )
 export const humanDateTime = (dateString, full = false) => {
+  if (!dateString) return false
+
   const date = parseDate(dateString)
   const yyyy = zeroPadding(date.getFullYear(),  4)
   const MM   = zeroPadding(date.getMonth() + 1, 2)

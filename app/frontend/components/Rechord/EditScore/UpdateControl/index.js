@@ -19,7 +19,7 @@ class UpdateControl extends Component {
       this.props,
       (success) => {
         const { token } = success.data
-        history.push(`/${token}`, { flash: "スコアが更新されました。" })
+        history.push(`/${token}`, { flash: ["success", "スコアが更新されました。"] })
       },
       (error) => (
         this.setState({ loading: false, error: error.response.data })

@@ -21,7 +21,7 @@ class CreateControl extends Component {
           handleSetState({ token, modal: true, errors: utils.setApiErrors() })
           this.setState({ loading: false })
         } else {
-          history.push(`/${token}`, { flash: "スコアが作成されました。" })
+          history.push(`/${token}`, { flash: ["success", "スコアが作成されました。"] })
         }
       },
       (error) => {

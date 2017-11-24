@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react"
+import classNames               from "classnames"
 
 export default class FlashMessage extends PureComponent {
   constructor() {
@@ -10,17 +11,30 @@ export default class FlashMessage extends PureComponent {
   }
   handleDelete = () => this.setState({ show: false })
   render() {
-    const { flash } = this.props
     const { show } = this.state
+    const { flash } = this.props
+    const [type, message] = flash
+
     const flashStyle = { display: (show ? "block" : "none") }
+    const notificationClass = classNames("notification", {
+      "is-success": type === "success",
+      "is-warning": type === "warning",
+      "is-danger":  type === "error"
+    })
+    const icon = {
+      success: "fa-check-circle",
+      warning: "fa-exclamation-circle",
+      error:   "fa-exclamation-triangle"
+    }
+    const iconClass = classNames("fa", "fa-lg", icon[type])
     return (
       <div className="container flash-message" style={flashStyle}>
-        <div className="notification is-success">
+        <div className={notificationClass}>
           <button className="delete" onClick={this.handleDelete} />
-          <span className="icon is-medium">
-            <i className="fa fa-lg fa-check-circle" />
+          <span className="icon is-medium" style={{ marginRight: ".5em" }}>
+            <i className={iconClass} />
           </span>
-          <span>{flash}</span>
+          <span>{message}</span>
         </div>
       </div>
     )

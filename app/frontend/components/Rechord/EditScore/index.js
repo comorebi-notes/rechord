@@ -2,25 +2,28 @@ import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 import { Link }                      from "react-router-dom"
 
-import Score              from "../../Score"
-import TitleControl       from "../../TitleControl"
-import UpdateControl      from "./UpdateControl"
-import scoreDecorator     from "../../../decorators/scoreDecorator"
-import * as api           from "../../../api"
-import * as utils         from "../../../utils"
-import { DEFAULT_VOLUME } from "../../../constants"
+import Score          from "../../Score"
+import TitleControl   from "../../TitleControl"
+import UpdateControl  from "./UpdateControl"
+import scoreDecorator from "../../../decorators/scoreDecorator"
+import * as api       from "../../../api"
+import * as utils     from "../../../utils"
+import { DEFAULT_BPM, DEFAULT_VOLUME } from "../../../constants"
 
 export default class EditScore extends Component {
   constructor(props) {
     super(props)
     const { currentUser } = props
     this.state = {
-      loading:   true,
-      error:     "",
-      isPlaying: false,
-      volume:    DEFAULT_VOLUME,
-      userId:    currentUser && currentUser.id,
-      errors:    {}
+      loading:        true,
+      error:          "",
+      editorState:    EditorState.createEmpty(),
+      isPlaying:      false,
+      volume:         DEFAULT_VOLUME,
+      bpm:            DEFAULT_BPM,
+      instrumentType: "Piano",
+      userId:         currentUser && currentUser.id,
+      errors:         {}
     }
   }
   componentDidMount() {
@@ -45,7 +48,7 @@ export default class EditScore extends Component {
           token:          score.token
         })
       },
-      (error) => this.setState({ loading: false, error: error.response.data })
+      () => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
 
@@ -59,8 +62,6 @@ export default class EditScore extends Component {
       this.setState({ editorState: this.setEditorState(nextInputText) })
     }
   }
-
-  handleSetTitle = (e) => this.handleSetState({ title: e.target.value })
   handleSetState = (newState) => this.setState(newState)
 
   render() {
@@ -81,44 +82,38 @@ export default class EditScore extends Component {
           </Link>
         </p>
 
-        {!loading && (
-          error ? (
-            <div>{error}</div>
-          ) : (
-            <div>
-              <TitleControl
-                title={title}
-                errors={errors}
-                handleSetState={this.handleSetState}
-              />
-              <Score
-                inputText={inputText}
-                editorState={editorState}
-                instrumentType={instrumentType}
-                beat={beat}
-                bpm={bpm}
-                volume={volume}
-                enabledClick={enabledClick}
-                isPlaying={isPlaying}
-                errors={errors}
-                setInputText={this.setInputText}
-                handleSetState={this.handleSetState}
-              />
-              <UpdateControl
-                title={title}
-                content={inputText}
-                instrument={instrumentType}
-                beat={beat}
-                bpm={bpm}
-                click={enabledClick}
-                status={status}
-                userId={userId}
-                token={token}
-                handleSetState={this.handleSetState}
-              />
-            </div>
-          )
-        )}
+        <div>
+          <TitleControl
+            title={title}
+            errors={errors}
+            handleSetState={this.handleSetState}
+          />
+          <Score
+            inputText={inputText}
+            editorState={editorState}
+            instrumentType={instrumentType}
+            beat={beat}
+            bpm={bpm}
+            volume={volume}
+            enabledClick={enabledClick}
+            isPlaying={isPlaying}
+            errors={errors}
+            setInputText={this.setInputText}
+            handleSetState={this.handleSetState}
+          />
+          <UpdateControl
+            title={title}
+            content={inputText}
+            instrument={instrumentType}
+            beat={beat}
+            bpm={bpm}
+            click={enabledClick}
+            status={status}
+            userId={userId}
+            token={token}
+            handleSetState={this.handleSetState}
+          />
+        </div>
       </div>
     )
   }

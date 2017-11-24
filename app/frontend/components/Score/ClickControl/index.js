@@ -15,7 +15,7 @@ export default class ClickControl extends Component {
           id="enabledClick"
           name="enabledClick"
           className="switch is-rounded is-info is-medium"
-          checked={enabledClick}
+          checked={enabledClick || false}
           onChange={this.handleToggleClick}
         />
         <label htmlFor="enabledClick" />

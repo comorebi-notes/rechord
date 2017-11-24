@@ -18,7 +18,7 @@ class Routes extends Component {
   render() {
     const { currentUser, location } = this.props
     const { state } = location
-    const showFlashMessage = state && state.flash && state.flash.length > 0
+    const showFlashMessage = state && state.flash
 
     const params = { currentUser }
     const RouteWithState = ({ component: Children, ...routeParams }) => (

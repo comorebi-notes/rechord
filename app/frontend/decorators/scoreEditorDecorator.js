@@ -2,8 +2,9 @@ import { Note, Distance } from "tonal"
 import { tokenize }       from "../utils/translate"
 import * as regex         from "../constants/regex"
 
-export const parseChordProgression = (text) => (
-  text
+export const parseChordProgression = (text) => {
+  if (!text) return false
+  return text
     .replace(regex.whiteSpaces, "")
     .replace(regex.rootChord,   " $&")
     .replace(regex.joinOnChord, "$1$2")
@@ -19,7 +20,7 @@ export const parseChordProgression = (text) => (
           .map(chords => chords.map(chord => tokenize(chord)))
       )
     ))
-)
+}
 
 export const keyChange = (progression, operation) => {
   const newProgression = []

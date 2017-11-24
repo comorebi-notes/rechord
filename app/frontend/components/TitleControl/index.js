@@ -36,7 +36,7 @@ export default class TitleControl extends Component {
             className="input"
             type="text"
             placeholder="title"
-            value={title}
+            value={title || ""}
             onBlur={this.handleTouch}
             onChange={this.handleSetTitle}
           />

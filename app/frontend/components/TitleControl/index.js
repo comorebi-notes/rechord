@@ -17,7 +17,7 @@ export default class TitleControl extends Component {
     handleSetState({ title: e.target.value })
     validator({
       key:      "title",
-      types:    ["tooLongTitle"],
+      types:    ["required", "tooLongTitle"],
       value:    e.target.value,
       setState: handleSetState,
       errors

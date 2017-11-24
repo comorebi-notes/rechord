@@ -24,7 +24,7 @@ export default class ScoreEditor extends Component {
     handleChangeEditorState(editorState)
     validator({
       key:      "score",
-      types:    ["tooLongScore"],
+      types:    ["required", "tooLongScore"],
       value:    editorState.getCurrentContent().getPlainText(),
       setState: handleSetState,
       errors

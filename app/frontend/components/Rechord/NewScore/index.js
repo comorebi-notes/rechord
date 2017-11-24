@@ -2,10 +2,10 @@ import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 
 import Score                  from "../../Score"
+import TitleControl           from "../../TitleControl"
 import CreateControl          from "./CreateControl"
 import ShareModal             from "./ShareModal"
 import RestoreModal           from "./RestoreModal"
-import Field                  from "../../shared/Field"
 import scoreDecorator         from "../../../decorators/scoreDecorator"
 import sampleScore            from "../../../constants/sampleScore"
 import { window }             from "../../../utils/browser-dependencies"
@@ -37,7 +37,8 @@ export default class NewScore extends Component {
       status:         "published",
       instrumentType: "Piano",
       userId:         currentUser.id,
-      restoreState:   localStorageState.get()
+      restoreState:   localStorageState.get(),
+      errors:         {}
     }
   }
   componentDidMount = () => utils.setTitle()
@@ -53,7 +54,6 @@ export default class NewScore extends Component {
     }
   }
 
-  handleSetTitle = (e) => this.handleSetState({ title: e.target.value })
   handleResetLocalStorage = () => {
     this.setState({ restoreState: false })
     localStorageState.remove()
@@ -66,19 +66,15 @@ export default class NewScore extends Component {
   render() {
     const {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, status, userId, token, modal, restoreState
+      isPlaying, enabledClick, status, userId, token, modal, restoreState, errors
     } = this.state
     return (
       <div>
-        <Field label="Title">
-          <input
-            className="input"
-            type="text"
-            placeholder="title"
-            value={title}
-            onChange={this.handleSetTitle}
-          />
-        </Field>
+        <TitleControl
+          title={title}
+          errors={errors}
+          handleSetState={this.handleSetState}
+        />
         <Score
           inputText={inputText}
           editorState={editorState}

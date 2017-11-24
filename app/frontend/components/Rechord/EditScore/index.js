@@ -3,6 +3,7 @@ import { EditorState, ContentState } from "draft-js"
 import { Link }                      from "react-router-dom"
 
 import Score              from "../../Score"
+import TitleControl       from "../../TitleControl"
 import UpdateControl      from "./UpdateControl"
 import Field              from "../../shared/Field"
 import scoreDecorator     from "../../../decorators/scoreDecorator"
@@ -19,7 +20,8 @@ export default class EditScore extends Component {
       error:     "",
       isPlaying: false,
       volume:    DEFAULT_VOLUME,
-      userId:    currentUser && currentUser.id
+      userId:    currentUser && currentUser.id,
+      errors:    {}
     }
   }
   componentDidMount() {
@@ -41,7 +43,7 @@ export default class EditScore extends Component {
           beat:           score.beat,
           status:         score.status,
           instrumentType: score.instrument,
-          token:          score.token,
+          token:          score.token
         })
       },
       (error) => this.setState({ loading: false, error: error.response.data })
@@ -66,7 +68,7 @@ export default class EditScore extends Component {
     const {
       loading, error,
       inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, status, userId, token
+      isPlaying, enabledClick, status, userId, token, errors
     } = this.state
     const showPath = `/${token}`
     return (
@@ -85,15 +87,11 @@ export default class EditScore extends Component {
             <div>{error}</div>
           ) : (
             <div>
-              <Field label="Title">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="title"
-                  value={title}
-                  onChange={this.handleSetTitle}
-                />
-              </Field>
+              <TitleControl
+                title={title}
+                errors={errors}
+                handleSetState={this.handleSetState}
+              />
               <Score
                 inputText={inputText}
                 editorState={editorState}
@@ -103,6 +101,7 @@ export default class EditScore extends Component {
                 volume={volume}
                 enabledClick={enabledClick}
                 isPlaying={isPlaying}
+                errors={errors}
                 setInputText={this.setInputText}
                 handleSetState={this.handleSetState}
               />

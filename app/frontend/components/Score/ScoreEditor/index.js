@@ -22,13 +22,15 @@ export default class ScoreEditor extends Component {
     const { errors, handleSetState, handleChangeEditorState } = this.props
     setCurrentScrollPosition()
     handleChangeEditorState(editorState)
-    validator({
-      key:      "score",
-      types:    ["required", "tooLongScore"],
-      value:    editorState.getCurrentContent().getPlainText(),
-      setState: handleSetState,
-      errors
-    })
+    if (errors) {
+      validator({
+        key:      "score",
+        types:    ["required", "tooLongScore"],
+        value:    editorState.getCurrentContent().getPlainText(),
+        setState: handleSetState,
+        errors
+      })
+    }
   }
   render() {
     const { touch } = this.state
@@ -36,7 +38,7 @@ export default class ScoreEditor extends Component {
     const placeholder = "D6(9) | Aadd9 | E | F#m7(11)"
     const textAreaClass = classNames("textarea", "score", { "read-only": readOnly })
     return (
-      <FormWithValidate errors={errors.score} touch={touch}>
+      <FormWithValidate errors={errors && errors.score} touch={touch}>
         <div id="score-editor" className={textAreaClass}>
           <Editor
             editorState={editorState}

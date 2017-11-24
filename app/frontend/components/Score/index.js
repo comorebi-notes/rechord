@@ -34,6 +34,7 @@ export default class Score extends Component {
           <div className="columns">
             <div className="column control">
               <ScoreEditor
+                validate
                 inputText={inputText}
                 editorState={editorState}
                 errors={errors}

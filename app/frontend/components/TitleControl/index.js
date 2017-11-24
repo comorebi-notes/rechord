@@ -10,25 +10,27 @@ export default class TitleControl extends Component {
   }
   handleTouch = (e) => {
     this.setState({ touch: true })
-    this.handleSetTitle(e)
+    this.handleSetTitle(e, true)
   }
-  handleSetTitle = (e) => {
+  handleSetTitle = (e, touch = false) => {
     const { errors, handleSetState } = this.props
+    const isTouched = touch || this.state.touch
     handleSetState({ title: e.target.value })
-    validator({
-      key:      "title",
-      types:    ["required", "tooLongTitle"],
-      value:    e.target.value,
-      setState: handleSetState,
-      errors
-    })
+    if (isTouched) {
+      validator({
+        key:      "title",
+        types:    [["required"], ["maxLength", 40]],
+        value:    e.target.value,
+        setState: handleSetState,
+        errors
+      })
+    }
   }
   render() {
-    const { touch } = this.state
     const { title, errors } = this.props
     return (
       <Field label="Title">
-        <FormWithValidate errors={errors.title} touch={touch}>
+        <FormWithValidate errors={errors.title}>
           <input
             className="input"
             type="text"

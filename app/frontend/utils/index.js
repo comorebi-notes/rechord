@@ -60,3 +60,11 @@ export const copyToClipboard = (text) => {
   document.body.removeChild(temp)
   return result
 }
+
+export const setApiErrors = (apiErrors) => {
+  const errors = {}
+  Object.keys(apiErrors).forEach(key => {
+    errors[key] = apiErrors[key].map(detail => detail.error)
+  })
+  return errors
+}

@@ -22,8 +22,8 @@ class Score < ApplicationRecord
     "7/4": 5
   }
 
-  validates :title,   presence: true
-  validates :content, presence: true
+  validates :title,   presence: true, length: { maximum: 40 }
+  validates :content, presence: true, length: { maximum: 1024 }
 
   before_create do
     self.token = SecureRandom.urlsafe_base64(8)

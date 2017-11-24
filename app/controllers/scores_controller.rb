@@ -16,7 +16,7 @@ class ScoresController < ApplicationController
     if score.save
       render json: score
     else
-      render json: score.errors.full_messages, status: :unprocessable_entity
+      render json: score.errors.details, status: :unprocessable_entity
     end
   end
 

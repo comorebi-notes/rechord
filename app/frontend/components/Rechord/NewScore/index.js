@@ -18,15 +18,17 @@ export default class NewScore extends Component {
     super()
     const { currentUser } = window.data
     let score = ""
+    let inputText = ""
 
     if (Object.keys(currentUser).length === 0 && !localStorageState.isVisited()) {
-      score = sampleScore
+      score     = sampleScore
+      inputText = sampleScore
       localStorageState.visit()
     }
 
     const contentState = ContentState.createFromText(score)
     this.state = {
-      inputText:      sampleScore,
+      inputText,
       editorState:    EditorState.createWithContent(contentState, scoreDecorator),
       isPlaying:      false,
       volume:         DEFAULT_VOLUME,

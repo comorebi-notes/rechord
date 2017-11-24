@@ -16,16 +16,17 @@ export default class ScoreEditor extends Component {
   }
   handleTouchEditor = () => {
     this.setState({ touch: true })
-    this.handleChange(this.props.editorState)
+    this.handleChange(this.props.editorState, true)
   }
-  handleChange = (editorState) => {
+  handleChange = (editorState, touch = false) => {
     const { errors, handleSetState, handleChangeEditorState } = this.props
+    const isTouched = touch || this.state.touch
     setCurrentScrollPosition()
     handleChangeEditorState(editorState)
-    if (errors) {
+    if (isTouched && errors) {
       validator({
-        key:      "score",
-        types:    ["required", "tooLongScore"],
+        key:      "content",
+        types:    [["required"], ["maxLength", 1024]],
         value:    editorState.getCurrentContent().getPlainText(),
         setState: handleSetState,
         errors
@@ -33,12 +34,11 @@ export default class ScoreEditor extends Component {
     }
   }
   render() {
-    const { touch } = this.state
     const { errors, editorState, readOnly } = this.props
     const placeholder = "D6(9) | Aadd9 | E | F#m7(11)"
     const textAreaClass = classNames("textarea", "score", { "read-only": readOnly })
     return (
-      <FormWithValidate errors={errors && errors.score} touch={touch}>
+      <FormWithValidate errors={errors && errors.content}>
         <div id="score-editor" className={textAreaClass}>
           <Editor
             editorState={editorState}

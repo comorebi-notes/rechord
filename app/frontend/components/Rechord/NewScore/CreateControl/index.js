@@ -1,16 +1,13 @@
 import React, { Component } from "react"
 import { withRouter }       from "react-router-dom"
 import StatusControl        from "../../../StatusControl"
-import ErrorMessages        from "../../../shared/ErrorMessages"
 import * as api             from "../../../../api"
+import * as utils           from "../../../../utils"
 
 class CreateControl extends Component {
   constructor() {
     super()
-    this.state = {
-      loading: false,
-      error:   ""
-    }
+    this.state = { loading: false }
   }
   handleClick = () => {
     const { userId, handleSetState, handleResetLocalStorage, history } = this.props
@@ -21,20 +18,21 @@ class CreateControl extends Component {
         const { token } = success.data
         if (handleResetLocalStorage) handleResetLocalStorage()
         if (!userId) {
-          handleSetState({ token, modal: true })
-          this.setState({ loading: false, error: "" })
+          handleSetState({ token, modal: true, errors: utils.setApiErrors() })
+          this.setState({ loading: false })
         } else {
           history.push(`/${token}`, { flash: "スコアが作成されました。" })
         }
       },
-      (error) => (
-        this.setState({ loading: false, error: error.response.data })
-      )
+      (error) => {
+        handleSetState({ errors: utils.setApiErrors(error.response.data) })
+        this.setState({ loading: false })
+      }
     )
   }
   render() {
     const { userId, status, handleSetState } = this.props
-    const { loading, error } = this.state
+    const { loading } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     const buttonLabel = userId ? "save" : "save & share"
     return (
@@ -61,7 +59,6 @@ class CreateControl extends Component {
           </div>
         </div>
 
-        {error.length > 0 && <ErrorMessages error={error} />}
         {!userId && (
           <div>
             <div className="notification is-size-7">

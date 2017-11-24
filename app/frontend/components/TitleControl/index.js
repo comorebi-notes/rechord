@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import Field                from "../shared/Field"
+import { validateTypes }    from "./validateTypes"
 import { validator }        from "../../validator"
 import FormWithValidate     from "../../validator/FormWithValidate"
 
@@ -11,7 +12,7 @@ export default class TitleControl extends Component {
   validate = (value) => (
     validator({
       key:      "title",
-      types:    [["required"], ["maxLength", 40]],
+      types:    validateTypes,
       setState: this.props.handleSetState,
       errors:   this.props.errors,
       value,
@@ -31,7 +32,7 @@ export default class TitleControl extends Component {
     const { title, errors } = this.props
     return (
       <Field label="Title">
-        <FormWithValidate errors={errors.title}>
+        <FormWithValidate errorKey="title" errors={errors}>
           <input
             className="input"
             type="text"

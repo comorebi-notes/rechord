@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Editor }           from "draft-js"
 import classNames           from "classnames"
+import { validateTypes }    from "./validateTypes"
 import { validator }        from "../../../validator"
 import FormWithValidate     from "../../../validator/FormWithValidate"
 
@@ -17,7 +18,7 @@ export default class ScoreEditor extends Component {
   validate = (editorState) => (
     validator({
       key:      "content",
-      types:    [["required"], ["maxLength", 1024]],
+      types:    validateTypes,
       setState: this.props.handleSetState,
       errors:   this.props.errors,
       value:    editorState.getCurrentContent().getPlainText()
@@ -39,7 +40,7 @@ export default class ScoreEditor extends Component {
     const placeholder = "D6(9) | Aadd9 | E | F#m7(11)"
     const textAreaClass = classNames("textarea", "score", { "read-only": readOnly })
     return (
-      <FormWithValidate errors={errors && errors.content}>
+      <FormWithValidate errorKey="content" errors={errors}>
         <div id="score-editor" className={textAreaClass}>
           <Editor
             editorState={editorState}

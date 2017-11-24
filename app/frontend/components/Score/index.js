@@ -21,7 +21,7 @@ export default class Score extends Component {
   render() {
     const {
       hideLabel, inputText, editorState, instrumentType, beat, bpm, volume,
-      enabledClick, isPlaying, handleSetState, setInputText
+      enabledClick, isPlaying, handleSetState, setInputText, errors
     } = this.props
     const parsedText = decorator.parseChordProgression(inputText)
 
@@ -36,6 +36,8 @@ export default class Score extends Component {
               <ScoreEditor
                 inputText={inputText}
                 editorState={editorState}
+                errors={errors}
+                handleSetState={handleSetState}
                 handleChangeEditorState={this.handleChangeEditorState}
                 readOnly={isPlaying}
               />

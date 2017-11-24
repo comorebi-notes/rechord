@@ -84,6 +84,7 @@ export default class NewScore extends Component {
           volume={volume}
           enabledClick={enabledClick}
           isPlaying={isPlaying}
+          errors={errors}
           setInputText={this.setInputText}
           handleSetState={this.handleSetState}
         />

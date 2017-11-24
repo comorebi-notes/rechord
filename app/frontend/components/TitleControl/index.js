@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import Field                from "../shared/Field"
-import FormWithValidate     from "../shared/FormWithValidate"
 import { validator }        from "../../validator"
+import FormWithValidate     from "../../validator/FormWithValidate"
 
 export default class TitleControl extends Component {
   constructor() {

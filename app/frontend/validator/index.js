@@ -1,6 +1,7 @@
 const validate = (error, message) => (error ? message : false)
 const validates = {
-  tooLongTitle: (value) => validate(value.length > 40, "タイトルが長すぎます。")
+  tooLongTitle: (value) => validate(value.length > 40,   "タイトルが長すぎます。"),
+  tooLongScore: (value) => validate(value.length > 1024, "スコアが長すぎます。")
 }
 
 export const validator = ({ key, value, types, setState, errors }) => {

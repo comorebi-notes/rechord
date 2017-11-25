@@ -1,5 +1,11 @@
 import axios, { config } from "./axios"
 
+const request = (method, url, params, onSuccess, onError) => (
+  axios[method](url, params, config)
+    .then(results => onSuccess(results))
+    .catch(error => onError(error))
+)
+
 const getScoreParams = (params) => {
   const { title, content, instrument, beat, bpm, click, status, userId } = params
   return {
@@ -8,27 +14,18 @@ const getScoreParams = (params) => {
 }
 
 export const showScore = (params, onSuccess, onError) => (
-  axios.get(`/scores/${params.token}`, null, config)
-    .then(results => onSuccess(results))
-    .catch(error => onError(error))
+  request("get", `/scores/${params.token}`, null, onSuccess, onError)
 )
-
 export const editScore = (params, onSuccess, onError) => (
-  axios.get(`/scores/${params.token}/edit`, null, config)
-    .then(results => onSuccess(results))
-    .catch(error => onError(error))
+  request("get", `/scores/${params.token}/edit`, null, onSuccess, onError)
 )
-
 export const createScore = (params, onSuccess, onError) => (
-  axios.post("/scores", getScoreParams(params), config)
-    .then(results => onSuccess(results))
-    .catch(error => onError(error))
+  request("post", "/scores", getScoreParams(params), onSuccess, onError)
 )
-
 export const updateScore = (params, onSuccess, onError) => (
-  axios.put(`/scores/${params.token}`, getScoreParams(params), config)
-    .then(results => onSuccess(results))
-    .catch(error => onError(error))
+  request("put", `/scores/${params.token}`, getScoreParams(params), onSuccess, onError)
 )
 
-export default createScore
+export const showUser = (params, onSuccess, onError) => (
+  request("get", `/users/${params.id}`, null, onSuccess, onError)
+)

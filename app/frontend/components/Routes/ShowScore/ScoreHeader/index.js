@@ -19,9 +19,9 @@ export default class ScoreHeader extends PureComponent {
               <strong>@{author.name}</strong>
             </Link>
           )}
-          <p className="created-at">
+          <time className="created-at">
             {utils.humanDateTime(createdAt, true)}
-          </p>
+          </time>
         </div>
         <div>
           <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />

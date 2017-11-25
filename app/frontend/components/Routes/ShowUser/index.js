@@ -34,7 +34,11 @@ export default class ShowUser extends Component {
             <div className="card" style={{ boxShadow: "none" }}>
               <div className="card-image" style={{ padding: "0 1.5rem" }}>
                 <figure className="image is-square">
-                  <img src={user.icon_url && user.icon_url.replace("_normal", "")} alt={user.name} />
+                  <img
+                    src={user.icon_url && user.icon_url.replace("_normal", "")}
+                    className="user-icon"
+                    alt={user.name}
+                  />
                 </figure>
               </div>
               <div className="card-content">

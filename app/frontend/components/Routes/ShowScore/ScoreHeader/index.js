@@ -14,7 +14,7 @@ export default class ScoreHeader extends PureComponent {
           {existAuthor && (
             <Link to={userPath} className="author-name">
               <figure className="image is-24x24">
-                <img src={author.icon_url} alt={author.name} />
+                <img src={author.icon_url} className="user-icon" alt={author.name} />
               </figure>
               <strong>@{author.name}</strong>
             </Link>

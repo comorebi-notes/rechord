@@ -64,6 +64,8 @@ export const copyToClipboard = (text) => {
 }
 
 export const setApiErrors = (apiErrors) => {
+  if (!apiErrors) return {}
+
   const errors = {}
   Object.keys(apiErrors).forEach(key => {
     errors[key] = apiErrors[key].map(detail => detail.error)

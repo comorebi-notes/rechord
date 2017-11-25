@@ -14,7 +14,6 @@ export default class ShowUser extends Component {
     api.showUser(
       { id },
       (success) => {
-        console.log(success.data)
         const { user, scores } = success.data
         utils.setTitle(user.name)
         this.setState({ loading: false, user, scores })
@@ -34,11 +33,24 @@ export default class ShowUser extends Component {
             <div className="card" style={{ boxShadow: "none" }}>
               <div className="card-image" style={{ padding: "0 1.5rem" }}>
                 <figure className="image is-square">
-                  <img
-                    src={user.icon_url && user.icon_url.replace("_normal", "")}
-                    className="user-icon"
-                    alt={user.name}
-                  />
+                  {user.icon_url ? (
+                    <img
+                      src={user.icon_url.replace("_normal", "")}
+                      className="user-icon"
+                      alt={user.name}
+                    />
+                  ) : (
+                    <div style={{
+                      backgroundColor: "#ccc",
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      borderRadius: "50%"
+                    }}
+                    />
+                  )}
                 </figure>
               </div>
               <div className="card-content">

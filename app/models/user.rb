@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :scores, dependent: :destroy
+
   class << self
     def find_or_create_from_auth(auth)
       provider = auth[:provider]

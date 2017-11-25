@@ -15,15 +15,17 @@ export default class ScoreEditor extends Component {
   componentDidUpdate() {
     changeScrollPosition()
   }
-  validate = (editorState) => (
-    validator({
-      key:      "content",
-      types:    validateTypes,
-      setState: this.props.handleSetState,
-      errors:   this.props.errors,
-      value:    editorState.getCurrentContent().getPlainText()
-    })
-  )
+  validate = (editorState) => {
+    if (this.props.errors) {
+      validator({
+        key:      "content",
+        types:    validateTypes,
+        setState: this.props.handleSetState,
+        errors:   this.props.errors,
+        value:    editorState.getCurrentContent().getPlainText()
+      })
+    }
+  }
   handleTouch = () => {
     this.setState({ touch: true })
     this.validate(this.props.editorState)

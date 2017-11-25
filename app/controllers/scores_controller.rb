@@ -1,5 +1,5 @@
 class ScoresController < ApplicationController
-  before_action :set_data, only: [:show, :edit, :update]
+  before_action :set_score, only: [:show, :edit, :update]
 
   def show
     redirect_to root_path unless @score
@@ -36,7 +36,7 @@ class ScoresController < ApplicationController
     )
   end
 
-  def set_data
+  def set_score
     @score = Score.friendly.find_by(token: params[:token])
   end
 end

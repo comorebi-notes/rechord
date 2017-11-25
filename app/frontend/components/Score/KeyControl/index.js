@@ -18,15 +18,15 @@ export default class KeyControl extends Component {
       <HasAddonsField customClass="key-control">
         <div className="control">
           <Button
-            onClick={this.handleKeyUp}
-            text="#"
+            onClick={this.handleKeyDown}
+            text="b"
             disabled={disabled}
           />
         </div>
         <div className="control">
           <Button
-            onClick={this.handleKeyDown}
-            text="b"
+            onClick={this.handleKeyUp}
+            text="#"
             disabled={disabled}
           />
         </div>

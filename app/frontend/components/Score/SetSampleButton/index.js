@@ -5,11 +5,7 @@ import Button      from "../../shared/Button"
 import sampleScore from "../../../constants/sampleScore"
 
 export default class SetSampleButton extends Component {
-  handleSetSample = () => {
-    const { errors, setInputText, handleSetState } = this.props
-    setInputText(sampleScore)
-    handleSetState({ errors: Object.assign({}, errors, { content: false }) })
-  }
+  handleSetSample = () => this.props.setInputText(sampleScore)
   render() {
     const { disabled } = this.props
     return (

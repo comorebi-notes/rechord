@@ -62,8 +62,6 @@ export default class Score extends Component {
                     disabled={isPlaying}
                   />
                   <SetSampleButton
-                    errors={errors}
-                    handleSetState={handleSetState}
                     setInputText={setInputText}
                     disabled={isPlaying}
                   />

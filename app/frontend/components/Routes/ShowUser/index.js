@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import { window }           from "../../utils/browser-dependencies"
+import { window }           from "../../../utils/browser-dependencies"
 
-export default class UserPage extends Component {
+export default class ShowUser extends Component {
   render() {
     const { user, scores } = window.data
     const showPath = (token) => `/scores/${token}`

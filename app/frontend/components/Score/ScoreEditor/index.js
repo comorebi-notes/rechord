@@ -12,6 +12,11 @@ export default class ScoreEditor extends Component {
     super()
     this.state = { touch: false }
   }
+  componentWillReceiveProps(nextProps) {
+    if (this.state.touch && nextProps.editorState !== this.props.editorState) {
+      this.validate(nextProps.editorState)
+    }
+  }
   componentDidUpdate() {
     changeScrollPosition()
   }
@@ -27,15 +32,15 @@ export default class ScoreEditor extends Component {
     }
   }
   handleTouch = () => {
-    this.setState({ touch: true })
-    this.validate(this.props.editorState)
+    if (!this.state.touch) {
+      this.setState({ touch: true })
+      this.validate(this.props.editorState)
+    }
   }
   handleChange = (editorState) => {
-    const { touch } = this.state
     const { handleChangeEditorState } = this.props
     setCurrentScrollPosition()
     handleChangeEditorState(editorState)
-    if (touch) this.validate(editorState)
   }
   render() {
     const { errors, editorState, readOnly } = this.props

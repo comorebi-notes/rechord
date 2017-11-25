@@ -4,12 +4,12 @@ import { withRouter, Route, Switch } from "react-router-dom"
 import Header       from "../shared/Header"
 import Footer       from "../shared/Footer"
 import FlashMessage from "../shared/FlashMessage"
-import NewScore     from "../Rechord/NewScore"
-import EditScore    from "../Rechord/EditScore"
-import ShowScore    from "../Rechord/ShowScore"
-import UserPage     from "../UserPage"
+import NewScore     from "../Routes/NewScore"
+import EditScore    from "../Routes/EditScore"
+import ShowScore    from "../Routes/ShowScore"
+import ShowUser     from "../Routes/ShowUser"
 
-class Routes extends Component {
+class Container extends Component {
   constructor(props) {
     super(props)
     const { location } = props
@@ -41,7 +41,7 @@ class Routes extends Component {
           <div className="container">
             <Switch>
               <RouteWithState path="/"            component={NewScore} exact />
-              <RouteWithState path="/users/:id"   component={UserPage} />
+              <RouteWithState path="/users/:id"   component={ShowUser} />
               <RouteWithState path="/:token"      component={ShowScore} exact />
               <RouteWithState path="/:token/edit" component={EditScore} />
             </Switch>
@@ -54,4 +54,4 @@ class Routes extends Component {
   }
 }
 
-export default withRouter(Routes)
+export default withRouter(Container)

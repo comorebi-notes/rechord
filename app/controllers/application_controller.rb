@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :logged_in?
 
+  before_action :no_cache
+
   private
 
   def current_user
@@ -17,5 +19,9 @@ class ApplicationController < ActionController::Base
   def authenticate
     return if logged_in?
     redirect_to root_path, alert: "ログインしてください"
+  end
+
+  def no_cache
+    expires_now # ブラウザバックで JSON が表示されるのを防止
   end
 end

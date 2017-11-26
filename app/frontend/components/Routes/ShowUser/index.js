@@ -36,7 +36,7 @@ export default class ShowUser extends Component {
                   {user.icon_url ? (
                     <img
                       src={user.icon_url.replace("_normal", "")}
-                      className="user-icon"
+                      className="user-icon has-border"
                       alt={user.name}
                     />
                   ) : (

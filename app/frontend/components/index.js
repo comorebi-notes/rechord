@@ -6,10 +6,10 @@ import { window } from "../utils/browser-dependencies"
 
 export default class Rechord extends Component {
   render() {
-    const { currentUser } = window.data
+    const { currentUser, flash } = window.data
     return (
       <BrowserRouter>
-        <Container currentUser={currentUser} />
+        <Container currentUser={currentUser} flash={flash} />
       </BrowserRouter>
     )
   }

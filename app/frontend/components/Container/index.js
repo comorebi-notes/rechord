@@ -12,8 +12,13 @@ import ShowUser     from "../Routes/ShowUser"
 class Container extends Component {
   constructor(props) {
     super(props)
-    const { location } = props
-    location.state = {}
+    const { location, flash } = props
+
+    if (flash.length > 0) {
+      location.state = { flash: flash[0] }
+    } else {
+      location.state = {}
+    }
   }
   render() {
     const { currentUser, location } = this.props

@@ -2,5 +2,6 @@
 
 javascript:
   var data = {
-    currentUser: #{raw current_user&.to_json || {}}
+    currentUser: #{raw current_user&.to_json || {}},
+    flash:       #{raw flash&.to_json || []}
   }

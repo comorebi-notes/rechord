@@ -27,7 +27,7 @@ export default class ShowUser extends Component {
     const showScorePath = (token) => `/${token}`
     const editScorePath = (token) => `/${token}/edit`
     return (
-      <div className={classNames({ "loading-wrapper": loading })}>
+      <div className={classNames("show-user", { "loading-wrapper": loading })}>
         <div className="columns">
           <div className="column is-one-third">
             <div className="card" style={{ boxShadow: "none" }}>
@@ -64,6 +64,14 @@ export default class ShowUser extends Component {
                     </span>
                     {user.name}
                   </p>
+                  <p>
+                    <a href="/logout" className="button is-danger" style={{ display: "block" }}>
+                      <span className="icon">
+                        <i className="fa fa-sign-out" />
+                      </span>
+                      <span>Logout</span>
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>
@@ -76,32 +84,38 @@ export default class ShowUser extends Component {
                 <article className="media">
                   <div className="media-content">
                     <div className="content">
-                      <h3>
+                      <time className="created-at">
+                        {utils.humanDateTime(score.created_at, true)}
+                      </time>
+                      <h3 className="score-title">
                         <Link to={showScorePath(score.token)}>
                           {score.title}
                         </Link>
                       </h3>
-                      <p>
-                        {["bpm", "beat", "instrument"].map(key => (
-                          <small key={key} style={{ marginRight: "1em" }}>
-                            {key}: {score[key]}
-                          </small>
+                      <p className="score-attribute">
+                        {["beat", "bpm"].map(key => (
+                          <span key={key} style={{ marginRight: "1em" }}>
+                            <span className="attribute-name">{key}: </span>
+                            <span className="attribute-value">{score[key]}</span>
+                          </span>
                         ))}
                       </p>
                     </div>
-                    <nav className="level is-mobile">
-                      <div className="level-left">
-                        <a className="level-item">
-                          <span className="icon is-small"><i className="fa fa-reply"></i></span>
-                        </a>
-                        <a className="level-item">
-                          <span className="icon is-small"><i className="fa fa-retweet"></i></span>
-                        </a>
-                        <a className="level-item">
-                          <span className="icon is-small"><i className="fa fa-heart"></i></span>
-                        </a>
-                      </div>
-                    </nav>
+                    {false && (
+                      <nav className="level is-mobile score-controller">
+                        <div className="level-left">
+                          <a className="level-item">
+                            <span className="icon is-small"><i className="fa fa-reply"></i></span>
+                          </a>
+                          <a className="level-item">
+                            <span className="icon is-small"><i className="fa fa-retweet"></i></span>
+                          </a>
+                          <a className="level-item">
+                            <span className="icon is-small"><i className="fa fa-heart"></i></span>
+                          </a>
+                        </div>
+                      </nav>
+                    )}
                   </div>
                 </article>
               </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import classNames           from "classnames"
 import { Link }             from "react-router-dom"
+import LinkButton           from "../../shared/LinkButton"
 import * as api             from "../../../api"
 import * as utils           from "../../../utils"
 
@@ -65,11 +66,20 @@ export default class ShowUser extends Component {
                     {user.name}
                   </p>
                   <p>
+                    <LinkButton
+                      to="/logout"
+                      text="edit"
+                      color="primary"
+                      customStyle={{ display: "block" }}
+                      icon="pencil-square-o"
+                    />
+                  </p>
+                  <p>
                     <a href="/logout" className="button is-danger" style={{ display: "block" }}>
                       <span className="icon">
                         <i className="fa fa-sign-out" />
                       </span>
-                      <span>Logout</span>
+                      <span>logout</span>
                     </a>
                   </p>
                 </div>
@@ -77,47 +87,42 @@ export default class ShowUser extends Component {
             </div>
           </div>
 
-          <div className="column">
+          <div className="column scores">
             <h1 className="title is-4">Scores</h1>
             {scores && scores.map(score => (
-              <div className="box" key={score.id}>
-                <article className="media">
-                  <div className="media-content">
-                    <div className="content">
-                      <time className="created-at">
-                        {utils.humanDateTime(score.created_at, true)}
-                      </time>
-                      <h3 className="score-title">
-                        <Link to={showScorePath(score.token)}>
+              <div className={classNames("box", { closed: score.status === "closed" })} key={score.id}>
+                <Link to={showScorePath(score.token)}>
+                  <article className="media">
+                    <div className="media-content">
+                      <div className="content">
+                        <h3 className="score-title">
                           {score.title}
-                        </Link>
-                      </h3>
-                      <p className="score-attribute">
-                        {["beat", "bpm"].map(key => (
-                          <span key={key} style={{ marginRight: "1em" }}>
-                            <span className="attribute-name">{key}: </span>
-                            <span className="attribute-value">{score[key]}</span>
-                          </span>
-                        ))}
-                      </p>
+                        </h3>
+                        <p className="score-attributes">
+                          <time className="created-at">
+                            {utils.humanDateTime(score.created_at, true)}
+                          </time>
+                        </p>
+                      </div>
                     </div>
-                    {false && (
-                      <nav className="level is-mobile score-controller">
-                        <div className="level-left">
-                          <a className="level-item">
-                            <span className="icon is-small"><i className="fa fa-reply"></i></span>
-                          </a>
-                          <a className="level-item">
-                            <span className="icon is-small"><i className="fa fa-retweet"></i></span>
-                          </a>
-                          <a className="level-item">
-                            <span className="icon is-small"><i className="fa fa-heart"></i></span>
-                          </a>
-                        </div>
-                      </nav>
-                    )}
-                  </div>
-                </article>
+                  </article>
+                </Link>
+                {user.id === currentUser.id && (
+                  <nav className="field is-grouped">
+                    <div className="control">
+                      <LinkButton
+                        to={editScorePath(score.token)}
+                        icon="pencil-square-o"
+                      />
+                    </div>
+                    <div className="control">
+                      <LinkButton
+                        to={editScorePath(score.token)}
+                        icon="trash"
+                      />
+                    </div>
+                  </nav>
+                )}
               </div>
             ))}
           </div>

@@ -1,16 +1,18 @@
 import React, { PureComponent } from "react"
+import { Link }                 from "react-router-dom"
 import classNames               from "classnames"
 
-export default class Button extends PureComponent {
+export default class LinkButton extends PureComponent {
   render() {
-    const { color, size, icon, text, disabled, onClick } = this.props
-    const buttonClass = classNames("button", { [`is-${color}`]: color, [`is-${size}`]: size })
+    const { to, color, size, icon, text, disabled, customClass, customStyle } = this.props
+    const buttonClass = classNames("button", customClass, { [`is-${color}`]: color, [`is-${size}`]: size })
     const iconClass = classNames("fa", { [`fa-${icon}`]: icon })
     return (
-      <a
+      <Link
         role="presentation"
-        onClick={onClick}
+        to={to}
         className={buttonClass}
+        style={customStyle}
         disabled={disabled}
       >
         {icon && (
@@ -21,7 +23,7 @@ export default class Button extends PureComponent {
         {text && (
           <span>{text}</span>
         )}
-      </a>
+      </Link>
     )
   }
 }

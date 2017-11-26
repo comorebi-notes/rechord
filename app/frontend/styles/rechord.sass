@@ -18,22 +18,38 @@
 
 .show-user
   .media
-    .created-at
-      color: #666
-      font-size: .85em
     .score-title
       font-weight: bold
       font-size: 1.4em
-      margin: .4em 0 .8em
+      margin: .2em 0 .5em
       display: block
-    .score-attribute
+    .score-attributes
       color: #666
       font-size: .85em
-      line-height: 1.6
+      line-height: 1.8
       .attribute-name
       .attribute-value
         font-size: 1.2em
         font-weight: bold
+      .created-at
+        display: block
+
+.scores
+  .box
+    display: flex
+    justify-content: space-between
+    align-items: center
+    > a:first-child
+      width: 100%
+      h3
+        color: #3273dc
+      &:hover, &:active
+        h3, .score-attributes
+          opacity: .6
+    nav
+      margin-left: 1em
+    &.closed
+      background-color: #eee
 
 section.section
   margin-bottom: 1em

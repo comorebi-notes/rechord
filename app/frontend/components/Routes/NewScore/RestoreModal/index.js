@@ -20,22 +20,22 @@ export default class RestoreModal extends Component {
         <div className="modal-card">
           <header className="modal-card-head">
             <p className="modal-card-title">Restore</p>
-            <button className="delete" onClick={this.hideModal} />
+            <a className="delete" role="presentation" onClick={this.hideModal} />
           </header>
           <section className="modal-card-body">
             前回作業したデータが残っています。<br />
             復元しますか？
           </section>
           <footer className="modal-card-foot right">
-            <button className="button is-success" onClick={this.handleClick}>
+            <a className="button is-success" role="presentation" onClick={this.handleClick}>
               Yes
-            </button>
-            <button className="button" onClick={this.hideModal}>
+            </a>
+            <a className="button" role="presentation" onClick={this.hideModal}>
               No
-            </button>
+            </a>
           </footer>
         </div>
-        <button className="modal-close is-large" onClick={this.hideModal} />
+        <a className="modal-close is-large" role="presentation" onClick={this.hideModal} />
       </div>
     )
   }

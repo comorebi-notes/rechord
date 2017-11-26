@@ -46,8 +46,9 @@ class CreateControl extends Component {
           )}
           {userId && <br />}
           <div className="save-control">
-            <button
+            <a
               className="button is-primary is-medium"
+              role="presentation"
               onClick={this.handleClick}
               disabled={loading}
             >
@@ -55,7 +56,7 @@ class CreateControl extends Component {
                 <i className={iconClass} />
               </span>
               <span>{buttonLabel}</span>
-            </button>
+            </a>
           </div>
         </div>
 

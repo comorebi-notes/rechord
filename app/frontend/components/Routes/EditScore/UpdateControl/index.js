@@ -39,8 +39,9 @@ class UpdateControl extends Component {
           />
           <br />
           <div className="save-control">
-            <button
+            <a
               className="button is-primary is-medium"
+              role="presentation"
               onClick={this.handleClick}
               disabled={loading}
             >
@@ -48,7 +49,7 @@ class UpdateControl extends Component {
                 <i className={iconClass} />
               </span>
               <span>update</span>
-            </button>
+            </a>
           </div>
         </div>
         {error.length > 0 && <ErrorMessages error={error} />}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171117024531) do
+ActiveRecord::Schema.define(version: 20171127012637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(version: 20171117024531) do
     t.string "icon_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "screen_name"
+    t.text "profile"
+    t.string "site_url"
+    t.boolean "admin", default: false
+    t.index ["name"], name: "index_users_on_name"
   end
 
   add_foreign_key "scores", "users"

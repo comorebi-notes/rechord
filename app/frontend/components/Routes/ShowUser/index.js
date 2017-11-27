@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import classNames           from "classnames"
-import { Link }             from "react-router-dom"
+import ScoreCard            from "../../ScoreCard"
 import LinkButton           from "../../shared/LinkButton"
 import * as api             from "../../../api"
 import * as utils           from "../../../utils"
@@ -25,8 +25,6 @@ export default class ShowUser extends Component {
   render() {
     const { loading, user, scores } = this.state
     const { currentUser } = this.props
-    const showScorePath = (token) => `/${token}`
-    const editScorePath = (token) => `/${token}/edit`
     return (
       <div className={classNames("show-user", { "loading-wrapper": loading })}>
         <div className="columns">
@@ -41,16 +39,7 @@ export default class ShowUser extends Component {
                       alt={user.name}
                     />
                   ) : (
-                    <div style={{
-                      backgroundColor: "#ccc",
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      borderRadius: "50%"
-                    }}
-                    />
+                    <div className="dummy-icon" />
                   )}
                 </figure>
               </div>
@@ -90,40 +79,7 @@ export default class ShowUser extends Component {
           <div className="column scores">
             <h1 className="title is-4">Scores</h1>
             {scores && scores.map(score => (
-              <div className={classNames("box", { closed: score.status === "closed" })} key={score.id}>
-                <Link to={showScorePath(score.token)}>
-                  <article className="media">
-                    <div className="media-content">
-                      <div className="content">
-                        <h3 className="score-title">
-                          {score.title}
-                        </h3>
-                        <p className="score-attributes">
-                          <time className="created-at">
-                            {utils.humanDateTime(score.created_at, true)}
-                          </time>
-                        </p>
-                      </div>
-                    </div>
-                  </article>
-                </Link>
-                {user.id === currentUser.id && (
-                  <nav className="field is-grouped">
-                    <div className="control">
-                      <LinkButton
-                        to={editScorePath(score.token)}
-                        icon="pencil-square-o"
-                      />
-                    </div>
-                    <div className="control">
-                      <LinkButton
-                        to={editScorePath(score.token)}
-                        icon="trash"
-                      />
-                    </div>
-                  </nav>
-                )}
-              </div>
+              <ScoreCard key={score.id} score={score} isOwn={user.id === currentUser.id} />
             ))}
           </div>
         </div>

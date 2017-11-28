@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { EditorState }      from "draft-js"
 
-import HasAddonsField from "../../shared/HasAddonsField"
-import Button         from "../../shared/Button"
+import HasAddonsField from "../../commons/HasAddonsField"
+import Button         from "../../commons/Button"
 
 export default class UndoControl extends Component {
   handleUndo = () => {

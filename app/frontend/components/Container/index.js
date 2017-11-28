@@ -1,9 +1,9 @@
 import React, { Component }          from "react"
 import { withRouter, Route, Switch } from "react-router-dom"
 
-import Header       from "../shared/Header"
-import Footer       from "../shared/Footer"
-import FlashMessage from "../shared/FlashMessage"
+import Header       from "../commons/Header"
+import Footer       from "../commons/Footer"
+import FlashMessage from "../commons/FlashMessage"
 import NewScore     from "../Routes/NewScore"
 import EditScore    from "../Routes/EditScore"
 import ShowScore    from "../Routes/ShowScore"

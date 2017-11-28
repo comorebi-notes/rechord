@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
-import HorizontalField from "../../shared/HorizontalField"
-import SelectField     from "../../shared/SelectField"
+import HorizontalField from "../../commons/HorizontalField"
+import SelectField     from "../../commons/SelectField"
 import { beats }       from "../../../constants/beats"
 
 export default class BeatControl extends Component {

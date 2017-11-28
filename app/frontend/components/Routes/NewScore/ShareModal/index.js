@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import classNames           from "classnames"
 
-import SharedButtons from "../../../shared/SharedButtons"
+import SharedButtons from "../../../SharedButtons"
 import { document }  from "../../../../utils/browser-dependencies"
 import * as utils    from "../../../../utils"
 

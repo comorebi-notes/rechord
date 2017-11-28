@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 
-import HorizontalField from "../../shared/HorizontalField"
+import HorizontalField from "../../commons/HorizontalField"
 
 export default class ClickControl extends Component {
   handleToggleClick = (e) => {

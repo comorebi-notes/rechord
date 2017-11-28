@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
-import HasAddonsField from "../../shared/HasAddonsField"
-import Button         from "../../shared/Button"
+import HasAddonsField from "../../commons/HasAddonsField"
+import Button         from "../../commons/Button"
 import * as decorator from "../../../decorators/scoreEditorDecorator"
 
 export default class KeyControl extends Component {

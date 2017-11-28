@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 
-import Slider                     from "../../shared/Slider"
+import Slider                     from "../../commons/Slider"
 import { MIN_VOLUME, MAX_VOLUME } from "../../../constants"
 import * as utils                 from "../../../utils"
 

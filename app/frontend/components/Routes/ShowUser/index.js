@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import classNames           from "classnames"
 import ScoreCard            from "../../ScoreCard"
-import LinkButton           from "../../shared/LinkButton"
+import LinkButton           from "../../commons/LinkButton"
 import * as api             from "../../../api"
 import * as utils           from "../../../utils"
 

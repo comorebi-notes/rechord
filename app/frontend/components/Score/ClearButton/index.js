@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
-import Field  from "../../shared/Field"
-import Button from "../../shared/Button"
+import Field  from "../../commons/Field"
+import Button from "../../commons/Button"
 
 export default class ClearButton extends Component {
   handleClearText = () => this.props.setInputText("")

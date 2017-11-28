@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react"
 import { Link }                 from "react-router-dom"
-import SharedButtons            from "../../../shared/SharedButtons"
+import SharedButtons            from "../../../SharedButtons"
 import * as utils               from "../../../../utils"
 
 export default class ScoreHeader extends PureComponent {

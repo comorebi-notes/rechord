@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
-import Field       from "../../shared/Field"
-import Button      from "../../shared/Button"
+import Field       from "../../commons/Field"
+import Button      from "../../commons/Button"
 import sampleScore from "../../../constants/sampleScore"
 
 export default class SetSampleButton extends Component {

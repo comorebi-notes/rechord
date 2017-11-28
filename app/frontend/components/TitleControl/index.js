@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Field                from "../shared/Field"
+import Field                from "../commons/Field"
 import { validateTypes }    from "./validateTypes"
 import { validator }        from "../../validator"
 import FormWithValidate     from "../../validator/FormWithValidate"

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 
-import SelectField      from "../../shared/SelectField"
+import SelectField      from "../../commons/SelectField"
 import * as instruments from "../../../constants/instruments"
 
 export default class InstrumentControl extends Component {

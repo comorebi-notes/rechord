@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 
-import HorizontalField      from "../../shared/HorizontalField"
+import HorizontalField      from "../../commons/HorizontalField"
 import { MIN_BPM, MAX_BPM } from "../../../constants"
 import * as utils           from "../../../utils"
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 
-import Button                from "../../shared/Button"
+import Button                from "../../commons/Button"
 import { beats }             from "../../../constants/beats"
 import * as instruments      from "../../../constants/instruments"
 import * as utils            from "../../../utils"

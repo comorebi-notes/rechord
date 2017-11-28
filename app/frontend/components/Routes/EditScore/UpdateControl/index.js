@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { withRouter }       from "react-router-dom"
 import StatusControl        from "../../../StatusControl"
-import ErrorMessages        from "../../../shared/ErrorMessages"
+import ErrorMessages        from "../../../commons/ErrorMessages"
 import * as api             from "../../../../api"
 
 class UpdateControl extends Component {

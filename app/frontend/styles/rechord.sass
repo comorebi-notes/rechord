@@ -22,7 +22,7 @@
     margin-bottom: 2em
     &.edit
       .card-content
-        padding: 1em
+        padding: 0 1.5rem 0 0
     .card-image
       padding: 0 1.5rem
     .dummy-icon
@@ -76,4 +76,8 @@ section.section
   margin-bottom: 1em
 
 @media screen and (max-width: $tablet - 1px)
-  .rechord
+  .show-user
+    .card.user-page
+      &, &.edit
+        .card-content
+          padding: 0

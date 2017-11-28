@@ -24,7 +24,12 @@ export default class DestroyUserModal extends Component {
         <div className="modal-background" role="presentation" onClick={this.hideModal} />
         <div className="modal-card">
           <header className="modal-card-head">
-            <p className="modal-card-title">Destroy ?</p>
+            <p className="modal-card-title">
+              <span className="icon">
+                <i className="fa fa-exclamation-triangle" />
+              </span>
+              <span>Caution</span>
+            </p>
             <a className="delete" role="presentation" onClick={this.hideModal} />
           </header>
           <section className="modal-card-body">

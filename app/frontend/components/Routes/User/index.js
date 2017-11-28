@@ -32,6 +32,7 @@ export default class User extends Component {
   render() {
     const { loading, user, scores, edit } = this.state
     const { currentUser, history } = this.props
+    const isOwn = user.id === currentUser.id
     return (
       <div className={classNames("show-user", { "loading-wrapper": loading })}>
         <div className="columns">
@@ -39,13 +40,13 @@ export default class User extends Component {
             {edit ? (
               <EditUser user={user} history={history} handleToggleEdit={this.handleToggleEdit} />
             ) : (
-              <ShowUser user={user} handleToggleEdit={this.handleToggleEdit} />
+              <ShowUser user={user} isOwn={isOwn} handleToggleEdit={this.handleToggleEdit} />
             )}
           </div>
           <div className="column scores">
             <h1 className="title is-4">Scores</h1>
             {scores && scores.map(score => (
-              <ScoreCard key={score.id} score={score} isOwn={user.id === currentUser.id} />
+              <ScoreCard key={score.id} score={score} isOwn={isOwn} />
             ))}
           </div>
         </div>

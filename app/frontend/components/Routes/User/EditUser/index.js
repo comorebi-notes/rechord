@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import DestroyUserModal     from "../DestroyUserModal"
 import Field                from "../../../commons/Field"
 import * as api             from "../../../../api"
 
@@ -12,7 +13,7 @@ export default class EditUser extends Component {
   handleInputProfile    = (e) => this.setState({ profile: e.target.value })
   handleInputIconUrl    = (e) => this.setState({ iconUrl: e.target.value })
   handleInputSiteUrl    = (e) => this.setState({ siteUrl: e.target.value })
-  handleUpdateUser = () => {
+  handleUpdateUser = () => (
     api.updateUser(
       { name: this.props.user.name, ...this.state },
       (success) => {
@@ -21,10 +22,11 @@ export default class EditUser extends Component {
       },
       () => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })
     )
-  }
+  )
+  handleToggleDestroyModal = () => this.setState({ destroyModal: !this.state.destroyModal })
   render() {
-    const { screenName, profile, iconUrl, siteUrl } = this.state
-    const { handleToggleEdit } = this.props
+    const { screenName, profile, iconUrl, siteUrl, destroyModal } = this.state
+    const { user, history, handleToggleEdit } = this.props
     return (
       <div>
         <div className="card" style={{ boxShadow: "none" }}>
@@ -90,9 +92,29 @@ export default class EditUser extends Component {
                   <span>cancel</span>
                 </a>
               </p>
+              <p>
+                <a
+                  className="button is-danger"
+                  role="presentation"
+                  style={{ display: "block" }}
+                  onClick={this.handleToggleDestroyModal}
+                >
+                  <span className="icon">
+                    <i className="fa fa-ban" />
+                  </span>
+                  <span>delete</span>
+                </a>
+              </p>
             </div>
           </div>
         </div>
+
+        <DestroyUserModal
+          active={destroyModal}
+          user={user}
+          history={history}
+          handleToggleDestroyModal={this.handleToggleDestroyModal}
+        />
       </div>
     )
   }

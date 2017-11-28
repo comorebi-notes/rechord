@@ -1,10 +1,13 @@
 import axios, { config } from "./axios"
 
-const request = (method, url, params, onSuccess, onError) => (
-  axios[method](url, params, config)
+const request = (method, url, params, onSuccess, onError) => {
+  const args = method === "delete" ? [url, config] : [url, params, config]
+  axios[method](...args)
     .then(results => onSuccess(results))
     .catch(error => onError(error))
-)
+}
+
+// ======== Scores ========
 
 const getScoreParams = (params) => {
   const { title, content, instrument, beat, bpm, click, status, userId } = params
@@ -26,6 +29,8 @@ export const updateScore = (params, onSuccess, onError) => (
   request("put", `/scores/${params.token}`, getScoreParams(params), onSuccess, onError)
 )
 
+// ======== Users ========
+
 const getUserParams = (params) => {
   const { screenName, profile, iconUrl, siteUrl } = params
   return {
@@ -36,7 +41,9 @@ const getUserParams = (params) => {
 export const showUser = (params, onSuccess, onError) => (
   request("get", `/users/${params.name}`, null, onSuccess, onError)
 )
-
 export const updateUser = (params, onSuccess, onError) => (
   request("put", `/users/${params.name}`, getUserParams(params), onSuccess, onError)
+)
+export const destoryUser = (params, onSuccess, onError) => (
+  request("delete", `/users/${params.name}`, null, onSuccess, onError)
 )

@@ -19,7 +19,7 @@ export default class RestoreModal extends Component {
         <div className="modal-background" role="presentation" onClick={this.hideModal} />
         <div className="modal-card">
           <header className="modal-card-head">
-            <p className="modal-card-title">Restore</p>
+            <p className="modal-card-title">Restore ?</p>
             <a className="delete" role="presentation" onClick={this.hideModal} />
           </header>
           <section className="modal-card-body">

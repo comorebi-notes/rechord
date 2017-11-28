@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: [:show, :update, :destroy]
 
   def show
     if @user == current_user
@@ -13,6 +13,18 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       render json: @user
+    else
+      render json: @user.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    scores = Score.where(user_id: @user.id)
+    if @user.destroy
+      scores&.each(&:deleted!)
+      reset_session
+      flash[:success] = "ユーザが削除されました。"
+      head :ok
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
     end

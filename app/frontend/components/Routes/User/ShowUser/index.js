@@ -2,7 +2,7 @@ import React, { PureComponent } from "react"
 
 export default class ShowUser extends PureComponent {
   render() {
-    const { user: { screen_name, profile, icon_url, site_url }, handleToggleEdit } = this.props
+    const { user: { screen_name, profile, icon_url, site_url }, isOwn, handleToggleEdit } = this.props
     return (
       <div>
         <div className="card" style={{ boxShadow: "none" }}>
@@ -35,27 +35,31 @@ export default class ShowUser extends PureComponent {
                 </p>
               )}
               <p>{profile}</p>
-              <p>
-                <a
-                  className="button is-primary"
-                  role="presentation"
-                  style={{ display: "block" }}
-                  onClick={handleToggleEdit}
-                >
-                  <span className="icon">
-                    <i className="fa fa-pencil-square-o" />
-                  </span>
-                  <span>edit</span>
-                </a>
-              </p>
-              <p>
-                <a href="/logout" className="button is-danger" style={{ display: "block" }}>
-                  <span className="icon">
-                    <i className="fa fa-sign-out" />
-                  </span>
-                  <span>logout</span>
-                </a>
-              </p>
+              {isOwn && (
+                <div>
+                  <p>
+                    <a
+                      className="button is-primary"
+                      role="presentation"
+                      style={{ display: "block" }}
+                      onClick={handleToggleEdit}
+                    >
+                      <span className="icon">
+                        <i className="fa fa-pencil-square-o" />
+                      </span>
+                      <span>edit</span>
+                    </a>
+                  </p>
+                  <p>
+                    <a href="/logout" className="button" style={{ display: "block" }}>
+                      <span className="icon">
+                        <i className="fa fa-sign-out" />
+                      </span>
+                      <span>logout</span>
+                    </a>
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

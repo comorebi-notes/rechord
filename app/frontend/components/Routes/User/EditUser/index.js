@@ -29,7 +29,7 @@ export default class EditUser extends Component {
     const { user, history, handleToggleEdit } = this.props
     return (
       <div>
-        <div className="card" style={{ boxShadow: "none" }}>
+        <div className="card user-page edit">
           <div className="card-content">
             <div className="content">
               <div style={{ marginBottom: "2em" }}>

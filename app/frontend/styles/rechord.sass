@@ -17,14 +17,27 @@
     box-shadow: 0 0 0 2px #eaeaea
 
 .show-user
-  .dummy-icon
-    background-color: #ccc
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    bottom: 0
-    border-radius: 50%
+  .card.user-page
+    box-shadow: none
+    margin-bottom: 2em
+    &.edit
+      .card-content
+        padding: 1em
+    .card-image
+      padding: 0 1.5rem
+    .dummy-icon
+      background-color: #ccc
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      border-radius: 50%
+    .content
+      .profile
+        font-size: .9em
+        line-height: 1.7
+        margin-bottom: 2em
   .media
     .score-title
       font-weight: bold

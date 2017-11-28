@@ -5,8 +5,8 @@ export default class ShowUser extends PureComponent {
     const { user: { screen_name, profile, icon_url, site_url }, isOwn, handleToggleEdit } = this.props
     return (
       <div>
-        <div className="card" style={{ boxShadow: "none" }}>
-          <div className="card-image" style={{ padding: "0 1.5rem" }}>
+        <div className="card user-page">
+          <div className="card-image">
             <figure className="image is-square">
               {icon_url ? (
                 <img
@@ -20,7 +20,7 @@ export default class ShowUser extends PureComponent {
             </figure>
           </div>
           <div className="card-content">
-            <h2 className="title is-3">
+            <h2 className="title is-4">
               {screen_name}
             </h2>
             <div className="content">
@@ -34,7 +34,7 @@ export default class ShowUser extends PureComponent {
                   </a>
                 </p>
               )}
-              <p>{profile}</p>
+              <p className="profile">{profile}</p>
               {isOwn && (
                 <div>
                   <p>

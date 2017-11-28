@@ -4,10 +4,10 @@ import { withRouter, Route, Switch } from "react-router-dom"
 import Header       from "../commons/Header"
 import Footer       from "../commons/Footer"
 import FlashMessage from "../commons/FlashMessage"
-import NewScore     from "../Routes/NewScore"
-import EditScore    from "../Routes/EditScore"
-import ShowScore    from "../Routes/ShowScore"
-import ShowUser     from "../Routes/ShowUser"
+import NewScore     from "./NewScore"
+import EditScore    from "./EditScore"
+import ShowScore    from "./ShowScore"
+import User         from "./User"
 
 class Container extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class Container extends Component {
           <div className="container">
             <Switch>
               <RouteWithState path="/"            component={NewScore} exact />
-              <RouteWithState path="/users/:id"   component={ShowUser} />
+              <RouteWithState path="/users/:name" component={User} />
               <RouteWithState path="/:token"      component={ShowScore} exact />
               <RouteWithState path="/:token/edit" component={EditScore} />
             </Switch>

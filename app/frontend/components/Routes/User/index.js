@@ -1,0 +1,55 @@
+import React, { Component } from "react"
+import classNames           from "classnames"
+import ShowUser             from "./ShowUser"
+import EditUser             from "./EditUser"
+import ScoreCard            from "../../ScoreCard"
+import * as api             from "../../../api"
+import * as utils           from "../../../utils"
+
+export default class User extends Component {
+  constructor() {
+    super()
+    this.state = {
+      loading: true,
+      user:    {},
+      scores:  [],
+      edit:    false
+    }
+  }
+  componentDidMount() {
+    const { name } = this.props.match.params
+    api.showUser(
+      { name },
+      (success) => {
+        const { user, scores } = success.data
+        utils.setTitle(user.name)
+        this.setState({ loading: false, user, scores })
+      },
+      () => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })
+    )
+  }
+  handleToggleEdit = () => this.setState({ edit: !this.state.edit })
+  render() {
+    const { loading, user, scores, edit } = this.state
+    const { currentUser, history } = this.props
+    return (
+      <div className={classNames("show-user", { "loading-wrapper": loading })}>
+        <div className="columns">
+          <div className="column is-one-third">
+            {edit ? (
+              <EditUser user={user} history={history} handleToggleEdit={this.handleToggleEdit} />
+            ) : (
+              <ShowUser user={user} handleToggleEdit={this.handleToggleEdit} />
+            )}
+          </div>
+          <div className="column scores">
+            <h1 className="title is-4">Scores</h1>
+            {scores && scores.map(score => (
+              <ScoreCard key={score.id} score={score} isOwn={user.id === currentUser.id} />
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+}

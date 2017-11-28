@@ -10,8 +10,8 @@ export default class Header extends PureComponent {
   handleToggleBurger = () => this.setState({ isActiveBurger: !this.state.isActiveBurger })
   render() {
     const { isActiveBurger } = this.state
-    const { currentUser: { id, name, icon_url } } = this.props
-    const userPath = `/users/${id}`
+    const { currentUser: { name, icon_url } } = this.props
+    const userPath = `/users/${name}`
     const burgerClass = classNames("navbar-burger", "burger", { "is-active": isActiveBurger })
     const navMenuClass = classNames("navbar-menu", { "is-active": isActiveBurger })
 
@@ -44,7 +44,7 @@ export default class Header extends PureComponent {
               </Link>
             </div>
             <div className="navbar-end">
-              {id ? (
+              {name ? (
                 <Link to={userPath} className="navbar-item current-user">
                   <span>
                     @{name}

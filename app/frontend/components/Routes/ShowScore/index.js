@@ -20,7 +20,7 @@ export default class ShowScore extends Component {
       volume:         DEFAULT_VOLUME,
       bpm:            DEFAULT_BPM,
       instrumentType: "Piano",
-      userId:         currentUser && currentUser.id,
+      user:           currentUser || {}
     }
   }
   componentDidMount() {
@@ -66,11 +66,11 @@ export default class ShowScore extends Component {
   render() {
     const {
       loading, inputText, title, editorState, beat, bpm, volume,
-      instrumentType, isPlaying, enabledClick, author, userId, token, createdAt
+      instrumentType, isPlaying, enabledClick, author, user, token, createdAt
     } = this.state
-    const userPath = `/users/${userId}`
+    const userPath = `/users/${user.name}`
     const editPath = `/${token}/edit`
-    const showEditButton = author && Object.keys(author).length > 0 && author.id === userId
+    const showEditButton = author && Object.keys(author).length > 0 && author.id === user.id
     return (
       <div className={classNames({ "loading-wrapper": loading })}>
         <ScoreHeader

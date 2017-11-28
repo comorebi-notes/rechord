@@ -26,6 +26,17 @@ export const updateScore = (params, onSuccess, onError) => (
   request("put", `/scores/${params.token}`, getScoreParams(params), onSuccess, onError)
 )
 
+const getUserParams = (params) => {
+  const { screenName, profile, iconUrl, siteUrl } = params
+  return {
+    user: { screen_name: screenName, profile, icon_url: iconUrl, site_url: siteUrl }
+  }
+}
+
 export const showUser = (params, onSuccess, onError) => (
-  request("get", `/users/${params.id}`, null, onSuccess, onError)
+  request("get", `/users/${params.name}`, null, onSuccess, onError)
+)
+
+export const updateUser = (params, onSuccess, onError) => (
+  request("put", `/users/${params.name}`, getUserParams(params), onSuccess, onError)
 )

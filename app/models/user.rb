@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  include FriendlyId
+  friendly_id :name
+
   has_many :scores, dependent: :destroy
 
   class << self

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { BrowserRouter }    from "react-router-dom"
 
-import Container  from "./Container"
+import Routes  from "./Routes"
 import { window } from "../utils/browser-dependencies"
 
 export default class Rechord extends Component {
@@ -9,7 +9,7 @@ export default class Rechord extends Component {
     const { currentUser, flash } = window.data
     return (
       <BrowserRouter>
-        <Container currentUser={currentUser} flash={flash} />
+        <Routes currentUser={currentUser} flash={flash} />
       </BrowserRouter>
     )
   }

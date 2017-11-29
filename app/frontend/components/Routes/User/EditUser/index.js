@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import DestroyUserModal     from "../DestroyUserModal"
 import Field                from "../../../commons/Field"
+import * as path            from "../../../../utils/path"
 import * as api             from "../../../../api"
 
 export default class EditUser extends Component {
@@ -18,9 +19,9 @@ export default class EditUser extends Component {
       { name: this.props.user.name, ...this.state },
       (success) => {
         const { name } = success.data
-        this.props.history.push(`/users/${name}`, { flash: ["success", "ユーザ情報が更新されました。"] })
+        this.props.history.push(path.user.show(name), { flash: ["success", "ユーザ情報が更新されました。"] })
       },
-      () => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })
+      () => this.props.history.push(path.current, { flash: ["error", "更新に失敗しました。"] })
     )
   )
   handleToggleDestroyModal = () => this.setState({ destroyModal: !this.state.destroyModal })

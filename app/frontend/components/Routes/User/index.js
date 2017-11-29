@@ -4,6 +4,7 @@ import ShowUser             from "./ShowUser"
 import EditUser             from "./EditUser"
 import ScoreCard            from "../../ScoreCard"
 import * as api             from "../../../api"
+import * as path            from "../../../utils/path"
 import * as utils           from "../../../utils"
 
 export default class User extends Component {
@@ -25,7 +26,7 @@ export default class User extends Component {
         utils.setTitle(user.screen_name)
         this.setState({ loading: false, user, scores })
       },
-      () => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })
+      () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
   handleToggleEdit = () => this.setState({ edit: !this.state.edit })

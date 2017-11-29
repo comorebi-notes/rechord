@@ -6,6 +6,7 @@ import Score           from "../../Score"
 import ScoreHeader     from "./ScoreHeader"
 import scoreDecorator  from "../../../decorators/scoreDecorator"
 import * as api        from "../../../api"
+import * as path       from "../../../utils/path"
 import * as utils      from "../../../utils"
 import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_INSTRUMENT_TYPE } from "../../../constants"
 
@@ -47,7 +48,7 @@ export default class ShowScore extends Component {
           author
         })
       },
-      () => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })
+      () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
 
@@ -69,8 +70,8 @@ export default class ShowScore extends Component {
       loading, inputText, title, editorState, beat, bpm, volume, status,
       instrumentType, isPlaying, enabledClick, author, user, token, createdAt
     } = this.state
-    const userPath = `/users/${user.name}`
-    const editPath = `/${token}/edit`
+    const userPath = path.user.show(user.name)
+    const editPath = path.score.edit(token)
     const showEditButton = author && Object.keys(author).length > 0 && author.id === user.id
     return (
       <div className={classNames({ "loading-wrapper": loading })}>

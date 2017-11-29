@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { withRouter }       from "react-router-dom"
 import StatusControl        from "../../../StatusControl"
 import * as api             from "../../../../api"
+import * as path            from "../../../../utils/path"
 import * as utils           from "../../../../utils"
 
 class CreateControl extends Component {
@@ -21,7 +22,7 @@ class CreateControl extends Component {
           handleSetState({ token, modal: true, errors: utils.setApiErrors() })
           this.setState({ loading: false })
         } else {
-          history.push(`/${token}`, { flash: ["success", "スコアが作成されました。"] })
+          history.push(path.score.show(token), { flash: ["success", "スコアが作成されました。"] })
         }
       },
       (error) => {

@@ -3,6 +3,7 @@ import { withRouter }       from "react-router-dom"
 import StatusControl        from "../../../StatusControl"
 import ErrorMessages        from "../../../commons/ErrorMessages"
 import * as api             from "../../../../api"
+import * as path            from "../../../../utils/path"
 
 class UpdateControl extends Component {
   constructor() {
@@ -19,7 +20,7 @@ class UpdateControl extends Component {
       this.props,
       (success) => {
         const { token } = success.data
-        history.push(`/${token}`, { flash: ["success", "スコアが更新されました。"] })
+        history.push(path.score.show(token), { flash: ["success", "スコアが更新されました。"] })
       },
       (error) => (
         this.setState({ loading: false, error: error.response.data })

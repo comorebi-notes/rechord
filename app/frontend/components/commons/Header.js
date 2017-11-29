@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react"
 import classNames               from "classnames"
 import { Link  }                from "react-router-dom"
+import * as path                from "../../utils/path"
 
 export default class Header extends PureComponent {
   constructor() {
@@ -11,7 +12,7 @@ export default class Header extends PureComponent {
   render() {
     const { isActiveBurger } = this.state
     const { currentUser: { name, icon_url } } = this.props
-    const userPath = `/users/${name}`
+    const userPath = path.user.show(name)
     const burgerClass = classNames("navbar-burger", "burger", { "is-active": isActiveBurger })
     const navMenuClass = classNames("navbar-menu", { "is-active": isActiveBurger })
 

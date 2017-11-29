@@ -9,6 +9,7 @@ import UpdateControl  from "./UpdateControl"
 import scoreDecorator from "../../../decorators/scoreDecorator"
 import * as api       from "../../../api"
 import * as utils     from "../../../utils"
+import * as path      from "../../../utils/path"
 import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_INSTRUMENT_TYPE } from "../../../constants"
 
 export default class EditScore extends Component {
@@ -47,7 +48,7 @@ export default class EditScore extends Component {
           token:          score.token
         })
       },
-      () => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })
+      () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
 
@@ -68,7 +69,7 @@ export default class EditScore extends Component {
       loading, errors, inputText, title, editorState, beat, bpm, volume,
       instrumentType, isPlaying, enabledClick, status, userId, token
     } = this.state
-    const showPath = `/${token}`
+    const showPath = path.score.show(token)
     return (
       <div className={classNames({ "loading-wrapper": loading })}>
         <p>

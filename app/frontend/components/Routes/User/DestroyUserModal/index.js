@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import classNames           from "classnames"
 import * as api             from "../../../../api"
+import * as path            from "../../../../utils/path"
 import { window }           from "../../../../utils/browser-dependencies"
 
 export default class DestroyUserModal extends Component {
@@ -8,9 +9,9 @@ export default class DestroyUserModal extends Component {
     api.destoryUser(
       { name: this.props.user.name },
       () => {
-        window.location.href = "/"
+        window.location.href = path.root
       },
-      () => this.props.history.push("/", { flash: ["error", "削除に失敗しました。"] })
+      () => this.props.history.push(path.current, { flash: ["error", "削除に失敗しました。"] })
     )
   )
   hideModal = () => this.props.handleToggleDestroyModal()

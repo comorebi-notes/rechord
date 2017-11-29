@@ -8,6 +8,7 @@ import NewScore     from "./NewScore"
 import EditScore    from "./EditScore"
 import ShowScore    from "./ShowScore"
 import User         from "./User"
+import * as path    from "../../utils/path"
 
 class Container extends Component {
   constructor(props) {
@@ -45,10 +46,10 @@ class Container extends Component {
           )}
           <div className="container">
             <Switch>
-              <RouteWithState path="/"            component={NewScore} exact />
-              <RouteWithState path="/users/:name" component={User} />
-              <RouteWithState path="/:token"      component={ShowScore} exact />
-              <RouteWithState path="/:token/edit" component={EditScore} />
+              <RouteWithState path={path.root}                 component={NewScore} exact />
+              <RouteWithState path={path.user.show(":name")}   component={User} />
+              <RouteWithState path={path.score.show(":token")} component={ShowScore} exact />
+              <RouteWithState path={path.score.edit(":token")} component={EditScore} />
             </Switch>
           </div>
         </section>

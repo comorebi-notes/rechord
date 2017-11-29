@@ -40,6 +40,7 @@ export default class ShowScore extends Component {
           enabledClick:   score.click,
           bpm:            score.bpm,
           beat:           score.beat,
+          status:         score.status,
           instrumentType: score.instrument,
           token:          score.token,
           createdAt:      score.created_at,
@@ -65,7 +66,7 @@ export default class ShowScore extends Component {
 
   render() {
     const {
-      loading, inputText, title, editorState, beat, bpm, volume,
+      loading, inputText, title, editorState, beat, bpm, volume, status,
       instrumentType, isPlaying, enabledClick, author, user, token, createdAt
     } = this.state
     const userPath = `/users/${user.name}`
@@ -77,6 +78,7 @@ export default class ShowScore extends Component {
           title={title}
           author={author}
           token={token}
+          status={status}
           userPath={userPath}
           editPath={editPath}
           createdAt={createdAt}

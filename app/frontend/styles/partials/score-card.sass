@@ -1,0 +1,28 @@
+.scores
+  .score-card
+    display: block
+    .box
+      display: flex
+      justify-content: space-between
+      align-items: center
+      transition: all .1s ease-in-out
+      background-color: #fff
+      h3
+        color: #3273dc
+        .icon
+          color: #363636
+          font-size: .9em
+          margin-left: .4em
+          opacity: .5
+      h3, .score-attributes
+        transition: all .1s ease-in-out
+      &.closed
+        background-color: #eaeaea
+    &:hover, &:active
+      .box
+        // box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(50, 115, 220, 0.5)
+        background-color: #fafafa
+        &.closed
+          background-color: #e0e0e0
+    &:not(:last-child)
+      margin-bottom: 1.5rem

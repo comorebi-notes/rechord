@@ -9,6 +9,8 @@
 @import "partials/score-controls.sass"
 @import "partials/score-header.sass"
 @import "partials/score-footer.sass"
+@import "partials/score-card.sass"
+@import "partials/user-page.sass"
 
 .user-icon
   border-radius: 50%
@@ -16,80 +18,7 @@
     border: 8px solid #fff
     box-shadow: 0 0 0 2px #eaeaea
 
-.show-user
-  .card.user-page
-    box-shadow: none
-    margin-bottom: 2em
-    &.edit
-      .card-content
-        padding: 0 1.5rem 0 0
-    .card-image
-      padding: 0 1.5rem
-    .dummy-icon
-      background-color: #ccc
-      position: absolute
-      top: 0
-      left: 0
-      right: 0
-      bottom: 0
-      border-radius: 50%
-    .content
-      .profile
-        font-size: .9em
-        line-height: 1.7
-        margin-bottom: 2em
-  .media
-    .score-title
-      font-weight: bold
-      font-size: 1.4em
-      margin: .2em 0 .5em
-      display: block
-    .score-attributes
-      color: #666
-      font-size: .85em
-      line-height: 1.8
-      .attribute-name
-      .attribute-value
-        font-size: 1.2em
-        font-weight: bold
-      .created-at
-        display: block
-
-.scores
-  .score-card
-    display: block
-    .box
-      display: flex
-      justify-content: space-between
-      align-items: center
-      transition: all .1s ease-in-out
-      background-color: #fff
-      h3
-        color: #3273dc
-        .icon
-          color: #363636
-          font-size: .9em
-          margin-left: .4em
-          opacity: .5
-      h3, .score-attributes
-        transition: all .1s ease-in-out
-      &.closed
-        background-color: #eaeaea
-    &:hover, &:active
-      .box
-        // box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(50, 115, 220, 0.5)
-        background-color: #fafafa
-        &.closed
-          background-color: #e0e0e0
-    &:not(:last-child)
-      margin-bottom: 1.5rem
-
 section.section
   margin-bottom: 1em
 
-@media screen and (max-width: $tablet - 1px)
-  .show-user
-    .card.user-page
-      &, &.edit
-        .card-content
-          padding: 0
+// @media screen and (max-width: $tablet - 1px)

@@ -5,12 +5,20 @@ import * as utils               from "../../../../utils"
 
 export default class ScoreHeader extends PureComponent {
   render() {
-    const { author, title, token, userPath, editPath, createdAt, showEditButton } = this.props
+    const { author, title, token, status, userPath, editPath, createdAt, showEditButton } = this.props
     const existAuthor = author && Object.keys(author).length > 0
+    const isClosed = status === "closed"
     return (
       <div className="score-header">
         <div>
-          <h1 className="title">{title}</h1>
+          <h1 className="title">
+            {title}
+            {isClosed && (
+              <span className="icon is-small">
+                <i className="fa fa-lock" />
+              </span>
+            )}
+          </h1>
           {existAuthor && (
             <Link to={userPath} className="author-name">
               <figure className="image is-24x24">

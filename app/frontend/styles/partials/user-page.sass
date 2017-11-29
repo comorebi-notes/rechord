@@ -1,0 +1,50 @@
+.show-user
+  .card.user-page
+    box-shadow: none
+    margin-bottom: 2em
+    &.edit
+      .card-content
+        padding: 0 1.5rem 0 0
+    .card-image
+      padding: 0 1.5rem
+    .dummy-icon
+      background-color: #ccc
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      border-radius: 50%
+    .content
+      font-size: .9em
+      .url
+        word-break: break-all
+      .profile
+        line-height: 1.7
+        margin-bottom: 2em
+  .media
+    .score-title
+      font-weight: bold
+      font-size: 1.4em
+      margin: .2em 0 .5em
+      display: block
+    .score-attributes
+      color: #666
+      font-size: .85em
+      line-height: 1.8
+      .attribute-name
+      .attribute-value
+        font-size: 1.2em
+        font-weight: bold
+      .created-at
+        display: block
+
+@media screen and (max-width: $tablet - 1px)
+  .show-user
+    .card.user-page
+      &
+        .card-content
+          padding: 1.5rem 0 0 0
+      &.edit
+        .card-content
+          padding: 0

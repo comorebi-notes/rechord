@@ -25,7 +25,7 @@ export default class ShowUser extends PureComponent {
             </h2>
             <div className="content">
               {site_url && (
-                <p>
+                <p className="url">
                   <a href={site_url} target="_blank">
                     <span className="icon">
                       <i className="fa fa-home" />

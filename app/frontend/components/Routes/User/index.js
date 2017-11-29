@@ -22,7 +22,7 @@ export default class User extends Component {
       { name },
       (success) => {
         const { user, scores } = success.data
-        utils.setTitle(user.name)
+        utils.setTitle(user.screen_name)
         this.setState({ loading: false, user, scores })
       },
       () => this.props.history.push("/", { flash: ["error", "読み込みに失敗しました。"] })

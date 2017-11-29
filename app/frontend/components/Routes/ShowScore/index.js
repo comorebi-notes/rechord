@@ -7,7 +7,7 @@ import ScoreHeader     from "./ScoreHeader"
 import scoreDecorator  from "../../../decorators/scoreDecorator"
 import * as api        from "../../../api"
 import * as utils      from "../../../utils"
-import { DEFAULT_BPM, DEFAULT_VOLUME } from "../../../constants"
+import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_INSTRUMENT_TYPE } from "../../../constants"
 
 export default class ShowScore extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ export default class ShowScore extends Component {
       isPlaying:      false,
       volume:         DEFAULT_VOLUME,
       bpm:            DEFAULT_BPM,
-      instrumentType: "Piano",
+      instrumentType: DEFAULT_INSTRUMENT_TYPE,
       user:           currentUser || {}
     }
   }

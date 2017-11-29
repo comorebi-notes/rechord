@@ -11,7 +11,7 @@ import sampleScore            from "../../../constants/sampleScore"
 import { window }             from "../../../utils/browser-dependencies"
 import * as utils             from "../../../utils"
 import * as localStorageState from "../../../utils/localStorageState"
-import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT } from "../../../constants"
+import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_BEAT, DEFAULT_INSTRUMENT_TYPE } from "../../../constants"
 
 export default class NewScore extends Component {
   constructor() {
@@ -36,8 +36,8 @@ export default class NewScore extends Component {
       enabledClick:   false,
       bpm:            DEFAULT_BPM,
       beat:           DEFAULT_BEAT,
+      instrumentType: DEFAULT_INSTRUMENT_TYPE,
       status:         "published",
-      instrumentType: "Piano",
       userId:         currentUser.id,
       restoreState:   localStorageState.get(),
       errors:         {}

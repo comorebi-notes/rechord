@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def no_cache
-    expires_now # ブラウザバックで JSON が表示されるのを防止
+    # ブラウザバックで JSON が表示されるのを防止
+    expires_in 0, "no-store" => true, "no-cache" => true, "must-revalidate" => true, "max-age" => 0
   end
 end

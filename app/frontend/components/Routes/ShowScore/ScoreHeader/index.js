@@ -5,7 +5,7 @@ import * as utils               from "../../../../utils"
 
 export default class ScoreHeader extends PureComponent {
   render() {
-    const { author, title, token, status, userPath, editPath, createdAt, showEditButton } = this.props
+    const { author, title, token, status, userPath, createdAt } = this.props
     const existAuthor = author && Object.keys(author).length > 0
     const isClosed = status === "closed"
     return (
@@ -31,17 +31,7 @@ export default class ScoreHeader extends PureComponent {
             {utils.humanDateTime(createdAt, true)}
           </time>
         </div>
-        <div>
-          <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />
-          {showEditButton && (
-            <Link to={editPath} className="button is-primary is-medium">
-              <span className="icon">
-                <i className="fa fa-edit" />
-              </span>
-              <span>edit</span>
-            </Link>
-          )}
-        </div>
+        <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />
       </div>
     )
   }

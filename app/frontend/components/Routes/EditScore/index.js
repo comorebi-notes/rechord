@@ -1,6 +1,5 @@
 import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
-import { Link }                      from "react-router-dom"
 import classNames                    from "classnames"
 
 import Score          from "../../Score"
@@ -69,18 +68,8 @@ export default class EditScore extends Component {
       loading, errors, inputText, title, editorState, beat, bpm, volume,
       instrumentType, isPlaying, enabledClick, status, userId, token
     } = this.state
-    const showPath = path.score.show(token)
     return (
       <div className={classNames({ "loading-wrapper": loading })}>
-        <p>
-          <Link to={showPath} className="button" style={{ marginBottom: "2rem" }}>
-            <span className="icon">
-              <i className="fa fa-undo" />
-            </span>
-            <span>back</span>
-          </Link>
-        </p>
-
         <TitleControl
           title={title}
           errors={errors}

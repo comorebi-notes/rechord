@@ -2,14 +2,15 @@ import React, { PureComponent } from "react"
 import { Link }                 from "react-router-dom"
 import classNames               from "classnames"
 import LinkButton               from "../commons/LinkButton"
+import * as path                from "../../utils/path"
 import * as utils               from "../../utils"
 
 export default class ScoreCard extends PureComponent {
   render() {
     const { score: { title, token, status, created_at }, isOwn } = this.props
     const isClosed = status === "closed"
-    const showScorePath = `/${token}`
-    const editScorePath = `/${token}/edit`
+    const showScorePath = path.score.show(token)
+    const editScorePath = path.score.edit(token)
     return (
       <Link to={showScorePath} className="score-card">
         <div className={classNames("box", { closed: isClosed })}>

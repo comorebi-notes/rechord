@@ -28,4 +28,8 @@ class Score < ApplicationRecord
   before_create do
     self.token = SecureRandom.urlsafe_base64(8)
   end
+
+  scope :published, ->(id) { where(user_id: id, status: :published).order(id: :desc) }
+  scope :editable,  ->(id) { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
+
 end

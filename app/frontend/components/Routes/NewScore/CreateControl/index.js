@@ -38,7 +38,7 @@ class CreateControl extends Component {
     const buttonLabel = userId ? "save" : "save & share"
     return (
       <div className="score-footer">
-        <div>
+        <div className="has-status-control">
           {userId && (
             <StatusControl
               status={status}

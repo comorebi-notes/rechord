@@ -1,5 +1,5 @@
 class ScoresController < ApplicationController
-  before_action :set_score, only: [:show, :edit, :update]
+  before_action :set_score, only: [:show, :edit, :update, :destroy]
 
   def show
     redirect_to root_path unless @score
@@ -23,6 +23,14 @@ class ScoresController < ApplicationController
   def update
     if @score.update(score_params)
       render json: @score
+    else
+      render json: @score.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @score.deleted!
+      head :ok
     else
       render json: @score.errors.full_messages, status: :unprocessable_entity
     end

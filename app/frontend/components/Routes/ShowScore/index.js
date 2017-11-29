@@ -2,12 +2,14 @@ import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 import classNames                    from "classnames"
 
-import Score           from "../../Score"
-import ScoreHeader     from "./ScoreHeader"
-import scoreDecorator  from "../../../decorators/scoreDecorator"
-import * as api        from "../../../api"
-import * as path       from "../../../utils/path"
-import * as utils      from "../../../utils"
+import Score             from "../../Score"
+import ScoreHeader       from "./ScoreHeader"
+import ScoreFooter       from "./ScoreFooter"
+import DestroyScoreModal from "./DestroyScoreModal"
+import scoreDecorator    from "../../../decorators/scoreDecorator"
+import * as api          from "../../../api"
+import * as path         from "../../../utils/path"
+import * as utils        from "../../../utils"
 import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_INSTRUMENT_TYPE } from "../../../constants"
 
 export default class ShowScore extends Component {
@@ -64,26 +66,25 @@ export default class ShowScore extends Component {
   }
 
   handleSetState = (newState) => this.setState(newState)
+  handleToggleDestroyModal = () => this.setState({ destroyModal: !this.state.destroyModal })
 
   render() {
     const {
       loading, inputText, title, editorState, beat, bpm, volume, status,
-      instrumentType, isPlaying, enabledClick, author, user, token, createdAt
+      instrumentType, isPlaying, enabledClick, author, user, token, createdAt, destroyModal
     } = this.state
+    const { history } = this.props
     const userPath = path.user.show(user.name)
-    const editPath = path.score.edit(token)
-    const showEditButton = author && Object.keys(author).length > 0 && author.id === user.id
+    const isOwn = author && Object.keys(author).length > 0 && author.id === user.id
     return (
       <div className={classNames({ "loading-wrapper": loading })}>
         <ScoreHeader
           title={title}
           author={author}
-          token={token}
           status={status}
+          token={token}
           userPath={userPath}
-          editPath={editPath}
           createdAt={createdAt}
-          showEditButton={showEditButton}
         />
         <Score
           hideLabel
@@ -98,6 +99,22 @@ export default class ShowScore extends Component {
           setInputText={this.setInputText}
           handleSetState={this.handleSetState}
         />
+        {isOwn && (
+          <ScoreFooter
+            token={token}
+            history={history}
+            handleToggleDestroyModal={this.handleToggleDestroyModal}
+          />
+        )}
+        {isOwn && (
+          <DestroyScoreModal
+            token={token}
+            user={user}
+            history={history}
+            active={destroyModal}
+            handleToggleDestroyModal={this.handleToggleDestroyModal}
+          />
+        )}
       </div>
     )
   }

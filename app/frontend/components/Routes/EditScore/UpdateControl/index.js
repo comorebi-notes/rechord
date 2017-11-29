@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { withRouter }       from "react-router-dom"
+import { Link, withRouter } from "react-router-dom"
 import StatusControl        from "../../../StatusControl"
 import ErrorMessages        from "../../../commons/ErrorMessages"
 import * as api             from "../../../../api"
@@ -28,18 +28,30 @@ class UpdateControl extends Component {
     )
   }
   render() {
-    const { status, handleSetState } = this.props
+    const { token, status, handleSetState } = this.props
     const { loading, error } = this.state
+    const showPath = path.score.show(token)
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     return (
       <div className="score-footer">
-        <div>
-          <StatusControl
-            status={status}
-            handleSetState={handleSetState}
-          />
-          <br />
-          <div className="save-control">
+        <StatusControl
+          status={status}
+          handleSetState={handleSetState}
+        />
+        <div className="field is-grouped" style={{ marginTop: ".7em" }}>
+          <div className="control">
+            <Link
+              to={showPath}
+              className="button is-medium"
+              disabled={loading}
+            >
+              <span className="icon">
+                <i className={iconClass} />
+              </span>
+              <span>cancel</span>
+            </Link>
+          </div>
+          <div className="control">
             <a
               className="button is-primary is-medium"
               role="presentation"

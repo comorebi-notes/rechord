@@ -28,6 +28,9 @@ export const createScore = (params, onSuccess, onError) => (
 export const updateScore = (params, onSuccess, onError) => (
   request("put", path.score.api.update(params.token), getScoreParams(params), onSuccess, onError)
 )
+export const destroyScore = (params, onSuccess, onError) => (
+  request("delete", path.score.api.destroy(params.token), null, onSuccess, onError)
+)
 
 // ======== Users ========
 const getUserParams = (params) => {

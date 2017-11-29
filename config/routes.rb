@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get "/logout",                 to: 'sessions#destroy'
 
   resources :scores, {
-    only: [:show, :edit, :update, :create],
+    only: [:show, :edit, :update, :create, :destroy],
     param: :token,
     constraints: OnlyAjaxRequest.new
   }

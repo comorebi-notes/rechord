@@ -27,10 +27,7 @@ export default class SharedButtons extends PureComponent {
           </TwitterShareButton>
         </span>
         <span className="icon shared-button">
-          <FacebookShareButton
-            url={url}
-            hashtag="rechord"
-          >
+          <FacebookShareButton url={url}>
             <ShareIcon icon="facebook" color="#3b5998" large={!asShow} />
           </FacebookShareButton>
         </span>

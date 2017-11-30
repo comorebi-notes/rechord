@@ -9,6 +9,7 @@ import EditScore    from "./EditScore"
 import ShowScore    from "./ShowScore"
 import User         from "./User"
 import * as path    from "../../utils/path"
+import { window }   from "../../utils/browser-dependencies"
 
 class Container extends Component {
   constructor(props) {
@@ -19,6 +20,11 @@ class Container extends Component {
       location.state = { flash: flash[0] }
     } else {
       location.state = {}
+    }
+  }
+  componentWillReceiveProps({ location }) {
+    if (location.pathname !== this.props.location.pathname) {
+      window.scrollTo(0, 0)
     }
   }
   render() {

@@ -1,12 +1,14 @@
 import React, { PureComponent } from "react"
 import { Link }                 from "react-router-dom"
 import SharedButtons            from "../../../SharedButtons"
+import * as path                from "../../../../utils/path"
 import * as utils               from "../../../../utils"
 
 export default class ScoreHeader extends PureComponent {
   render() {
-    const { author, title, token, status, userPath, createdAt } = this.props
+    const { author, title, token, status, createdAt } = this.props
     const existAuthor = author && Object.keys(author).length > 0
+    const authorPath = existAuthor && path.user.show(author.name)
     const isClosed = status === "closed"
     return (
       <div className="score-header">
@@ -20,7 +22,7 @@ export default class ScoreHeader extends PureComponent {
             )}
           </h1>
           {existAuthor && (
-            <Link to={userPath} className="author-name">
+            <Link to={authorPath} className="author-name">
               <figure className="image is-24x24">
                 <img src={author.icon_url} className="user-icon" alt={author.name} />
               </figure>

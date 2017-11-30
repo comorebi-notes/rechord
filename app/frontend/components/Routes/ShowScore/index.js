@@ -74,7 +74,6 @@ export default class ShowScore extends Component {
       instrumentType, isPlaying, enabledClick, author, user, token, createdAt, destroyModal
     } = this.state
     const { history } = this.props
-    const userPath = path.user.show(user.name)
     const isOwn = author && Object.keys(author).length > 0 && author.id === user.id
     return (
       <div className={classNames({ "loading-wrapper": loading })}>
@@ -83,7 +82,6 @@ export default class ShowScore extends Component {
           author={author}
           status={status}
           token={token}
-          userPath={userPath}
           createdAt={createdAt}
         />
         <Score

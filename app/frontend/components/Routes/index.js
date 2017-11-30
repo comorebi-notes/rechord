@@ -33,7 +33,6 @@ class Container extends Component {
       <Route
         {...routeParams}
         render={props => <Children {...props} {...params} />}
-        exact
       />
     )
 
@@ -45,9 +44,9 @@ class Container extends Component {
           {showFlashMessage && <FlashMessage flash={state.flash} />}
           <div className="container">
             <Switch>
-              <RouteWithState path={path.root}                 component={NewScore} />
+              <RouteWithState path={path.root}                 component={NewScore} exact />
               <RouteWithState path={path.user.show(":name")}   component={User} />
-              <RouteWithState path={path.score.show(":token")} component={ShowScore} />
+              <RouteWithState path={path.score.show(":token")} component={ShowScore} exact />
               <RouteWithState path={path.score.edit(":token")} component={EditScore} />
             </Switch>
           </div>

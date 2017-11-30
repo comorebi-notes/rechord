@@ -45,7 +45,8 @@ export const protocol = () => (/^https:/.test(br.location.href) ? "https" : "htt
 export const sharedUrl = (url) => `${protocol()}://${br.location.host}/${url}`
 
 export const setTitle = (title) => {
-  br.document.title = title ? `${title} | rechord` : "rechord | 演奏もできるコード進行共有サービス"
+  const baseTitle = "rechord - 演奏もできるコード進行共有サービス"
+  br.document.title = title ? `${title} | ${baseTitle}` : baseTitle
 }
 
 export const copyToClipboard = (text) => {

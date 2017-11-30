@@ -2,10 +2,11 @@ doctype html
 html
   head
     title
+      - base_title = "rechord - 演奏もできるコード進行共有サービス"
       - if @title.present?
-        = "#{@title} | rechord"
+        = "#{@title} | #{base_title}"
       - else
-        | rechord | 演奏もできるコード進行共有サービス
+        = base_title
 
     = csrf_meta_tags
     = render "layouts/meta"

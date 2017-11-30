@@ -38,7 +38,7 @@ class Container extends Component {
 
     return (
       <div className="main-content">
-        <Header currentUser={currentUser} />
+        <Header currentUser={currentUser} pathname={location.pathname} />
 
         <section className="section">
           {showFlashMessage && (

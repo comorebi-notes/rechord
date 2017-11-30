@@ -8,6 +8,11 @@ export default class Header extends PureComponent {
     super()
     this.state = { isActiveBurger: false }
   }
+  componentWillReceiveProps({ pathname }) {
+    if (pathname !== this.props.pathname) {
+      this.setState({ isActiveBurger: false })
+    }
+  }
   handleToggleBurger = () => this.setState({ isActiveBurger: !this.state.isActiveBurger })
   render() {
     const { isActiveBurger } = this.state
@@ -25,9 +30,7 @@ export default class Header extends PureComponent {
                 <span className="icon is-medium">
                   <i className="fa fa-paper-plane" />
                 </span>
-                <span>
-                  rechord
-                </span>
+                <span>rechord</span>
               </h1>
             </Link>
             <div className={burgerClass} onClick={this.handleToggleBurger} role="presentation">

@@ -35,17 +35,16 @@
 @media screen and (max-width: $tablet - 1px)
   .score-header
     flex-direction: column
-    > div:last-child
-      margin: 1em 0
-      .shared-buttons
+    .shared-buttons
+      margin: 1.5em 0 0
+      .shared-button
+        font-size: 1.5em
+        margin-bottom: 1em
+        .fa-stack
+          .fa:last-child
+            left: .1em
+      &.as-show
         .shared-button
-          font-size: 1.5em
-          margin-bottom: 1em
-          .fa-stack
-            .fa:last-child
-              left: .1em
-        &.as-show
-          .shared-button
-            margin-top: .5em
-            &:not(:last-child)
-              margin-right: 1.2em
+          margin-top: .5em
+          &:not(:last-child)
+            margin-right: 1.2em

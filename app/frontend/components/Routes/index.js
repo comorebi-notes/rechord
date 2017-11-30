@@ -16,11 +16,7 @@ class Container extends Component {
     super(props)
     const { location, flash } = props
 
-    if (flash.length > 0) {
-      location.state = { flash: flash[0] }
-    } else {
-      location.state = {}
-    }
+    location.state = flash.length > 0 ? { flash: flash[0] } : {}
   }
   componentWillReceiveProps({ location }) {
     if (location.pathname !== this.props.location.pathname) {
@@ -36,9 +32,8 @@ class Container extends Component {
     const RouteWithState = ({ component: Children, ...routeParams }) => (
       <Route
         {...routeParams}
-        render={(props) => (
-          <Children {...props} {...params} />
-        )}
+        render={props => <Children {...props} {...params} />}
+        exact
       />
     )
 
@@ -47,14 +42,12 @@ class Container extends Component {
         <Header currentUser={currentUser} pathname={location.pathname} />
 
         <section className="section">
-          {showFlashMessage && (
-            <FlashMessage flash={state.flash} />
-          )}
+          {showFlashMessage && <FlashMessage flash={state.flash} />}
           <div className="container">
             <Switch>
-              <RouteWithState path={path.root}                 component={NewScore} exact />
+              <RouteWithState path={path.root}                 component={NewScore} />
               <RouteWithState path={path.user.show(":name")}   component={User} />
-              <RouteWithState path={path.score.show(":token")} component={ShowScore} exact />
+              <RouteWithState path={path.score.show(":token")} component={ShowScore} />
               <RouteWithState path={path.score.edit(":token")} component={EditScore} />
             </Switch>
           </div>

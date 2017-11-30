@@ -26,7 +26,7 @@ export default class ScoreHeader extends PureComponent {
               <figure className="image is-24x24">
                 <img src={author.icon_url} className="user-icon" alt={author.name} />
               </figure>
-              <strong>@{author.name}</strong>
+              <strong>{author.screen_name}</strong>
             </Link>
           )}
           <time className="created-at">

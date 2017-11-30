@@ -1,25 +1,27 @@
 import React, { PureComponent } from "react"
 import classNames               from "classnames"
 import { Link  }                from "react-router-dom"
-import * as path                from "../../utils/path"
+import LoginModal               from "./LoginModal"
+import * as path                from "../../../utils/path"
 
 export default class Header extends PureComponent {
   constructor() {
     super()
-    this.state = { isActiveBurger: false }
+    this.state = { burger: false, modal: false }
   }
   componentWillReceiveProps({ pathname }) {
     if (pathname !== this.props.pathname) {
-      this.setState({ isActiveBurger: false })
+      this.setState({ burger: false })
     }
   }
-  handleToggleBurger = () => this.setState({ isActiveBurger: !this.state.isActiveBurger })
+  handleToggleBurger = () => this.setState({ burger: !this.state.burger })
+  handleToggleModal  = () => this.setState({ modal:  !this.state.modal })
   render() {
-    const { isActiveBurger } = this.state
+    const { burger, modal } = this.state
     const { currentUser: { name, icon_url } } = this.props
     const userPath = path.user.show(name)
-    const burgerClass = classNames("navbar-burger", "burger", { "is-active": isActiveBurger })
-    const navMenuClass = classNames("navbar-menu", { "is-active": isActiveBurger })
+    const burgerClass = classNames("navbar-burger", "burger", { "is-active": burger })
+    const navMenuClass = classNames("navbar-menu", { "is-active": burger })
 
     return (
       <nav className="navbar is-primary" aria-label="main navigation">
@@ -59,17 +61,23 @@ export default class Header extends PureComponent {
                 <div className="navbar-item">
                   <div className="field">
                     <div className="control">
-                      <a href="auth/twitter" className="button is-primary is-inverted login-button">
+                      <a
+                        className="button is-primary is-inverted login-button"
+                        role="presentation"
+                        onClick={this.handleToggleModal}
+                      >
                         <span className="icon">
-                          <i className="fa fa-twitter" />
+                          <i className="fa fa-sign-in" />
                         </span>
-                        <span>Login by Twitter</span>
+                        <span>login or register</span>
                       </a>
                     </div>
                   </div>
                 </div>
               )}
             </div>
+
+            {!name && <LoginModal active={modal} hideModal={this.handleToggleModal} />}
           </div>
         </div>
       </nav>

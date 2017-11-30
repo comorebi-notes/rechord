@@ -24,3 +24,11 @@ export const user = {
   update:  (name) => `/users/${name}`,
   destroy: (name) => `/users/${name}`
 }
+
+export const auth = {
+  twitter:  "/auth/twitter",
+  facebook: "/auth/facebook",
+  google:   "/auth/google",
+  tumblr:   "/auth/tumblr",
+  github:   "/auth/github"
+}

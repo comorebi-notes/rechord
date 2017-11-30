@@ -1,6 +1,11 @@
 const keys = {
-  title:   "タイトル",
-  content: "スコア"
+  title:      "タイトル",
+  content:    "スコア",
+  name:       "ID",
+  screenName: "名前",
+  profile:    "プロフィール",
+  iconUrl:    "アイコンURL",
+  siteUrl:    "サイトURL"
 }
 
 const errors = {

@@ -4,6 +4,7 @@ import StatusControl        from "../../../StatusControl"
 import ErrorMessages        from "../../../commons/ErrorMessages"
 import * as api             from "../../../../api"
 import * as path            from "../../../../utils/path"
+import * as utils           from "../../../../utils"
 
 class UpdateControl extends Component {
   constructor() {
@@ -23,7 +24,7 @@ class UpdateControl extends Component {
         history.push(path.score.show(token), { flash: ["success", "スコアが更新されました。"] })
       },
       (error) => (
-        this.setState({ loading: false, error: error.response.data })
+        this.setState({ loading: false, error: utils.setApiErrors(error.response.data) })
       )
     )
   }

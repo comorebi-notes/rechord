@@ -4,6 +4,13 @@ class User < ApplicationRecord
 
   has_many :scores
 
+  validates :name,        presence: true, length: { maximum: 16 }
+  validates :screen_name, presence: true, length: { maximum: 32 }
+  validates :profile,     length: { maximum: 256 }
+  validates :icon_url,    length: { maximum: 256 }
+  validates :site_url,    length: { maximum: 256 }
+  # validates :twitter,     length: { maximum: 16 }
+
   class << self
     def find_or_create_from_auth(auth)
       provider    = auth[:provider]

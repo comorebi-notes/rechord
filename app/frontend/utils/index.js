@@ -27,6 +27,10 @@ export const humanDateTime = (dateString, full = false) => {
   }
 }
 
+export const snakeToCamel = (text) => (
+  text.replace(/_./g, character => character.charAt(1).toUpperCase())
+)
+
 export const valueInRange = (value, min, max) => {
   if (value < min) return min
   if (max < value) return max
@@ -68,7 +72,7 @@ export const setApiErrors = (apiErrors) => {
 
   const errors = {}
   Object.keys(apiErrors).forEach(key => {
-    errors[key] = apiErrors[key].map(detail => detail.error)
+    errors[snakeToCamel(key)] = apiErrors[key].map(detail => detail.error)
   })
   return errors
 }

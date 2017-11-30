@@ -1,33 +1,68 @@
 import React, { Component } from "react"
 import DestroyUserModal     from "../DestroyUserModal"
 import Field                from "../../../commons/Field"
+import { validateTypes }    from "./validateTypes"
+import { validator }        from "../../../../validator"
+import FormWithValidate     from "../../../../validator/FormWithValidate"
 import * as path            from "../../../../utils/path"
 import * as api             from "../../../../api"
+import * as utils           from "../../../../utils"
 
 export default class EditUser extends Component {
   constructor(props) {
     super(props)
     const { user: { screen_name, profile, icon_url, site_url } } = props
-    this.state = { screenName: screen_name, profile, iconUrl: icon_url, siteUrl: site_url }
+    this.state = {
+      screenName: screen_name || "",
+      profile:    profile || "",
+      iconUrl:    icon_url || "",
+      siteUrl:    site_url || "",
+      touch:      {},
+      errors:     {},
+      loading:    false
+    }
   }
-  handleInputScreenName = (e) => this.setState({ screenName: e.target.value })
-  handleInputProfile    = (e) => this.setState({ profile: e.target.value })
-  handleInputIconUrl    = (e) => this.setState({ iconUrl: e.target.value })
-  handleInputSiteUrl    = (e) => this.setState({ siteUrl: e.target.value })
-  handleUpdateUser = () => (
+  handleChangeWithValidate = (target, value) => {
+    const { touch } = this.state
+    this.setState({ [target]: value })
+    if (touch[target]) this.validate(target, value)
+  }
+  handleInputScreenName = (e) => this.handleChangeWithValidate("screenName", e.target.value)
+  handleInputProfile    = (e) => this.handleChangeWithValidate("profile",    e.target.value)
+  handleInputIconUrl    = (e) => this.handleChangeWithValidate("iconUrl",    e.target.value)
+  handleInputSiteUrl    = (e) => this.handleChangeWithValidate("siteUrl",    e.target.value)
+  handleUpdateUser = () => {
+    this.setState({ loading: true })
     api.updateUser(
       { name: this.props.user.name, ...this.state },
       (success) => {
         const { name } = success.data
         this.props.history.push(path.user.show(name), { flash: ["success", "ユーザ情報が更新されました。"] })
       },
-      () => this.props.history.push(path.current, { flash: ["error", "更新に失敗しました。"] })
+      (error) => (
+        this.setState({ loading: false, error: utils.setApiErrors(error.response.data) })
+      )
     )
-  )
+  }
   handleToggleDestroyModal = () => this.setState({ destroyModal: !this.state.destroyModal })
+  handleTouch = (target) => {
+    const newTouchState = Object.assign({}, this.state.touch, { [target]: true })
+    this.setState({ touch: newTouchState })
+    this.validate(target, this.state[target])
+  }
+  validate = (target, value) => (
+    validator({
+      key:      target,
+      types:    validateTypes[target],
+      setState: (state) => this.setState(state),
+      errors:   this.state.errors,
+      value
+    })
+  )
   render() {
-    const { screenName, profile, iconUrl, siteUrl, destroyModal } = this.state
+    const { screenName, profile, iconUrl, siteUrl, destroyModal, errors, loading } = this.state
     const { user, history, handleToggleEdit } = this.props
+    const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     return (
       <div>
         <div className="card user-page edit">
@@ -35,35 +70,50 @@ export default class EditUser extends Component {
             <div className="content">
               <div style={{ marginBottom: "2em" }}>
                 <Field label="screen name">
-                  <input
-                    type="input"
-                    className="input"
-                    value={screenName || ""}
-                    onChange={this.handleInputScreenName}
-                  />
+                  <FormWithValidate errorKey="screenName" errors={errors}>
+                    <input
+                      type="input"
+                      className="input"
+                      value={screenName}
+                      onBlur={() => this.handleTouch("screenName")}
+                      onChange={this.handleInputScreenName}
+                    />
+                  </FormWithValidate>
                 </Field>
+
                 <Field label="profile">
-                  <textarea
-                    className="textarea"
-                    value={profile || ""}
-                    onChange={this.handleInputProfile}
-                  />
+                  <FormWithValidate errorKey="profile" errors={errors}>
+                    <textarea
+                      className="textarea"
+                      value={profile}
+                      onBlur={() => this.handleTouch("profile")}
+                      onChange={this.handleInputProfile}
+                    />
+                  </FormWithValidate>
                 </Field>
+
                 <Field label="icon url">
-                  <input
-                    type="input"
-                    className="input"
-                    value={iconUrl || ""}
-                    onChange={this.handleInputIconUrl}
-                  />
+                  <FormWithValidate errorKey="iconUrl" errors={errors}>
+                    <input
+                      type="input"
+                      className="input"
+                      value={iconUrl}
+                      onBlur={() => this.handleTouch("iconUrl")}
+                      onChange={this.handleInputIconUrl}
+                    />
+                  </FormWithValidate>
                 </Field>
+
                 <Field label="site url">
-                  <input
-                    type="input"
-                    className="input"
-                    value={siteUrl || ""}
-                    onChange={this.handleInputSiteUrl}
-                  />
+                  <FormWithValidate errorKey="siteUrl" errors={errors}>
+                    <input
+                      type="input"
+                      className="input"
+                      value={siteUrl}
+                      onBlur={() => this.handleTouch("siteUrl")}
+                      onChange={this.handleInputSiteUrl}
+                    />
+                  </FormWithValidate>
                 </Field>
               </div>
 
@@ -72,10 +122,11 @@ export default class EditUser extends Component {
                   className="button is-primary"
                   role="presentation"
                   style={{ display: "block" }}
+                  disabled={loading}
                   onClick={this.handleUpdateUser}
                 >
                   <span className="icon">
-                    <i className="fa fa-save" />
+                    <i className={iconClass} />
                   </span>
                   <span>update</span>
                 </a>
@@ -85,6 +136,7 @@ export default class EditUser extends Component {
                   className="button"
                   role="presentation"
                   style={{ display: "block" }}
+                  disabled={loading}
                   onClick={handleToggleEdit}
                 >
                   <span className="icon">
@@ -93,11 +145,12 @@ export default class EditUser extends Component {
                   <span>cancel</span>
                 </a>
               </p>
-              <p>
+              <p style={{ marginTop: "2em" }}>
                 <a
                   className="button is-danger"
                   role="presentation"
                   style={{ display: "block" }}
+                  disabled={loading}
                   onClick={this.handleToggleDestroyModal}
                 >
                   <span className="icon">

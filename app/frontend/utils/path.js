@@ -28,7 +28,7 @@ export const user = {
 export const auth = {
   twitter:  "/auth/twitter",
   facebook: "/auth/facebook",
-  google:   "/auth/google",
+  google:   "/auth/google_oauth2",
   tumblr:   "/auth/tumblr",
   github:   "/auth/github"
 }

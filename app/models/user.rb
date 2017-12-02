@@ -28,12 +28,39 @@ class User < ApplicationRecord
         }
       when "facebook"
         params = {
-          name:        auth[:uid],
+          name:        SecureRandom.urlsafe_base64(8),
           screen_name: auth[:info][:name],
           icon_url:    auth[:info][:image],
           site_url:    auth[:extra][:raw_info][:link],
           email:       auth[:info][:email]
         }
+      when "google_oauth2"
+        params = {
+          name:        SecureRandom.urlsafe_base64(8),
+          screen_name: auth[:info][:name],
+          icon_url:    auth[:info][:image],
+          site_url:    auth[:info][:urls][:google],
+          email:       auth[:info][:email]
+        }
+      when "tumblr"
+        params = {
+          name:        auth[:info][:nickname],
+          screen_name: auth[:info][:name],
+          icon_url:    auth[:info][:avatar]
+        }
+      when "github"
+        params = {
+          name:        auth[:info][:nickname],
+          screen_name: auth[:info][:nickname],
+          icon_url:    auth[:info][:image],
+          site_url:    auth[:info][:urls][:GitHub],
+          email:       auth[:info][:email]
+        }
+      end
+
+      loop do
+        break unless User.find_by(name: params[:name])
+        params[:name] = SecureRandom.urlsafe_base64(8)
       end
 
       self.find_or_create_by(provider: provider, uid: uid) do |user|

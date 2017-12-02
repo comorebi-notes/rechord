@@ -3,6 +3,7 @@ import { Link }             from "react-router-dom"
 import classNames           from "classnames"
 import ShowUser             from "./ShowUser"
 import EditUser             from "./EditUser"
+import Icon                 from "./Icon"
 import ScoreCard            from "../../ScoreCard"
 import * as api             from "../../../api"
 import * as path            from "../../../utils/path"
@@ -39,11 +40,16 @@ export default class User extends Component {
       <div className={classNames("show-user", { "loading-wrapper": loading })}>
         <div className="columns">
           <div className="column is-one-third">
-            {edit ? (
-              <EditUser user={user} history={history} handleToggleEdit={this.handleToggleEdit} />
-            ) : (
-              <ShowUser user={user} isOwn={isOwn} handleToggleEdit={this.handleToggleEdit} />
-            )}
+            <div className={classNames("card", "user-page", { edit })}>
+              <div className="card-image">
+                <Icon user={user} isOwn={isOwn} />
+              </div>
+              {edit ? (
+                <EditUser user={user} history={history} handleToggleEdit={this.handleToggleEdit} />
+              ) : (
+                <ShowUser user={user} isOwn={isOwn} handleToggleEdit={this.handleToggleEdit} />
+              )}
+            </div>
           </div>
           <div className="column scores">
             <h1 className="title is-4">

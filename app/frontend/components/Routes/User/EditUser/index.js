@@ -11,11 +11,10 @@ import * as utils           from "../../../../utils"
 export default class EditUser extends Component {
   constructor(props) {
     super(props)
-    const { user: { screen_name, profile, icon_url, site_url } } = props
+    const { user: { screen_name, profile, site_url } } = props
     this.state = {
       screenName: screen_name || "",
       profile:    profile || "",
-      iconUrl:    icon_url || "",
       siteUrl:    site_url || "",
       touch:      {},
       errors:     {},
@@ -29,7 +28,6 @@ export default class EditUser extends Component {
   }
   handleInputScreenName = (e) => this.handleChangeWithValidate("screenName", e.target.value)
   handleInputProfile    = (e) => this.handleChangeWithValidate("profile",    e.target.value)
-  handleInputIconUrl    = (e) => this.handleChangeWithValidate("iconUrl",    e.target.value)
   handleInputSiteUrl    = (e) => this.handleChangeWithValidate("siteUrl",    e.target.value)
   handleUpdateUser = () => {
     this.setState({ loading: true })
@@ -60,107 +58,91 @@ export default class EditUser extends Component {
     })
   )
   render() {
-    const { screenName, profile, iconUrl, siteUrl, destroyModal, errors, loading } = this.state
+    const { screenName, profile, siteUrl, destroyModal, errors, loading } = this.state
     const { user, history, handleToggleEdit } = this.props
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     return (
-      <div>
-        <div className="card user-page edit">
-          <div className="card-content">
-            <div className="content">
-              <div style={{ marginBottom: "2em" }}>
-                <Field label="screen name">
-                  <FormWithValidate errorKey="screenName" errors={errors}>
-                    <input
-                      type="input"
-                      className="input"
-                      value={screenName}
-                      onBlur={() => this.handleTouch("screenName")}
-                      onChange={this.handleInputScreenName}
-                    />
-                  </FormWithValidate>
-                </Field>
+      <div className="card-content">
+        <div className="content">
+          <div style={{ marginBottom: "2em" }}>
+            <Field label="screen name">
+              <FormWithValidate errorKey="screenName" errors={errors}>
+                <input
+                  type="input"
+                  className="input"
+                  value={screenName}
+                  onBlur={() => this.handleTouch("screenName")}
+                  onChange={this.handleInputScreenName}
+                />
+              </FormWithValidate>
+            </Field>
 
-                <Field label="profile">
-                  <FormWithValidate errorKey="profile" errors={errors}>
-                    <textarea
-                      className="textarea"
-                      value={profile}
-                      onBlur={() => this.handleTouch("profile")}
-                      onChange={this.handleInputProfile}
-                    />
-                  </FormWithValidate>
-                </Field>
+            <Field label="profile">
+              <FormWithValidate errorKey="profile" errors={errors}>
+                <textarea
+                  className="textarea"
+                  value={profile}
+                  onBlur={() => this.handleTouch("profile")}
+                  onChange={this.handleInputProfile}
+                />
+              </FormWithValidate>
+            </Field>
 
-                <Field label="icon url">
-                  <FormWithValidate errorKey="iconUrl" errors={errors}>
-                    <input
-                      type="input"
-                      className="input"
-                      value={iconUrl}
-                      onBlur={() => this.handleTouch("iconUrl")}
-                      onChange={this.handleInputIconUrl}
-                    />
-                  </FormWithValidate>
-                </Field>
-
-                <Field label="site url">
-                  <FormWithValidate errorKey="siteUrl" errors={errors}>
-                    <input
-                      type="input"
-                      className="input"
-                      value={siteUrl}
-                      onBlur={() => this.handleTouch("siteUrl")}
-                      onChange={this.handleInputSiteUrl}
-                    />
-                  </FormWithValidate>
-                </Field>
-              </div>
-
-              <p>
-                <a
-                  className="button is-primary"
-                  role="presentation"
-                  style={{ display: "block" }}
-                  disabled={loading}
-                  onClick={this.handleUpdateUser}
-                >
-                  <span className="icon">
-                    <i className={iconClass} />
-                  </span>
-                  <span>update</span>
-                </a>
-              </p>
-              <p>
-                <a
-                  className="button"
-                  role="presentation"
-                  style={{ display: "block" }}
-                  disabled={loading}
-                  onClick={handleToggleEdit}
-                >
-                  <span className="icon">
-                    <i className="fa fa-undo" />
-                  </span>
-                  <span>cancel</span>
-                </a>
-              </p>
-              <p style={{ marginTop: "2em" }}>
-                <a
-                  className="button is-danger"
-                  role="presentation"
-                  style={{ display: "block" }}
-                  disabled={loading}
-                  onClick={this.handleToggleDestroyModal}
-                >
-                  <span className="icon">
-                    <i className="fa fa-ban" />
-                  </span>
-                  <span>delete</span>
-                </a>
-              </p>
-            </div>
+            <Field label="site url">
+              <FormWithValidate errorKey="siteUrl" errors={errors}>
+                <input
+                  type="input"
+                  className="input"
+                  value={siteUrl}
+                  onBlur={() => this.handleTouch("siteUrl")}
+                  onChange={this.handleInputSiteUrl}
+                />
+              </FormWithValidate>
+            </Field>
           </div>
+
+          <p>
+            <a
+              className="button is-primary"
+              role="presentation"
+              style={{ display: "block" }}
+              disabled={loading}
+              onClick={this.handleUpdateUser}
+            >
+              <span className="icon">
+                <i className={iconClass} />
+              </span>
+              <span>update</span>
+            </a>
+          </p>
+          <p>
+            <a
+              className="button"
+              role="presentation"
+              style={{ display: "block" }}
+              disabled={loading}
+              onClick={handleToggleEdit}
+            >
+              <span className="icon">
+                <i className="fa fa-undo" />
+              </span>
+              <span>cancel</span>
+            </a>
+          </p>
+          <p style={{ marginTop: "2em" }}>
+            <a
+              className="button is-danger"
+              role="presentation"
+              style={{ display: "block" }}
+              disabled={loading}
+              onClick={this.handleToggleDestroyModal}
+            >
+              <span className="icon">
+                <i className="fa fa-ban" />
+              </span>
+              <span>delete</span>
+            </a>
+          </p>
         </div>
 
         <DestroyUserModal

@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Link }             from "react-router-dom"
 import classNames           from "classnames"
 import ShowUser             from "./ShowUser"
 import EditUser             from "./EditUser"
@@ -45,10 +46,27 @@ export default class User extends Component {
             )}
           </div>
           <div className="column scores">
-            <h1 className="title is-4">Scores</h1>
-            {scores && scores.map(score => (
-              <ScoreCard key={score.id} score={score} isOwn={isOwn} />
-            ))}
+            <h1 className="title is-4">
+              Scores
+              <Link to={path.root}>
+                <span className="icon">
+                  <i className="fa fa-plus-circle" />
+                </span>
+              </Link>
+            </h1>
+            {scores.length > 0 ? (
+              scores.map(score => (
+                <ScoreCard key={score.id} score={score} isOwn={isOwn} />
+              ))
+            ) : (
+              <div className="box no-score">
+                <div className="media-content">
+                  <div className="content">
+                    score is not yet...
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

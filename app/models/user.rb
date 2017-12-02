@@ -67,7 +67,11 @@ class User < ApplicationRecord
 
       self.find_or_create_by(provider: provider, uid: uid) do |user|
         params.each do |key, value|
-          user[key] = value
+          if key == :icon
+            user.remote_icon_url = value
+          else
+            user[key] = value
+          end
         end
       end
     end

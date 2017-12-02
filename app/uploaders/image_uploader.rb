@@ -42,9 +42,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    if original_filename.present? && original_filename =~ /.*(\.[a-z]{3,4})$/i
-      "#{Time.zone.now.strftime('%Y%m%d%H%M%S')}#{$1}"
-    end
+    "#{Time.zone.now.strftime('%Y%m%d%H%M%S')}#{file.extension}"
   end
 
   process :create_square

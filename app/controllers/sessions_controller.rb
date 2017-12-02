@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     user = User.find_or_create_from_auth(request.env["omniauth.auth"])
     session[:user_id] = user.id
     flash[:success] = "ログインしました。"
-    redirect_to root_path
+    redirect_to user_path(user)
   end
 
   def destroy

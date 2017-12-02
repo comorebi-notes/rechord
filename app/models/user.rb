@@ -13,31 +13,34 @@ class User < ApplicationRecord
 
   class << self
     def find_or_create_from_auth(auth)
-      provider    = auth[:provider]
-      uid         = auth[:uid]
-      name        = auth[:info][:nickname]
-      screen_name = auth[:info][:name]
-      profile     = auth[:info][:description]
-      icon_url    = auth[:info][:image].gsub(/^http:/, "https:")
-      site_url    = auth[:info][:urls][:Website]
+      provider = auth[:provider]
+      uid      = auth[:uid]
 
-      user = self.find_or_create_by(provider: provider, uid: uid) do |u|
-        u.name        = name
-        u.screen_name = screen_name
-        u.profile     = profile
-        u.icon_url    = icon_url
-        u.site_url    = site_url
+      case provider
+      when "twitter"
+        params = {
+          name:        auth[:info][:nickname],
+          screen_name: auth[:info][:name],
+          profile:     auth[:info][:description],
+          icon_url:    auth[:info][:image],
+          site_url:    auth[:info][:urls][:Website],
+          twitter:     auth[:info][:nickname]
+        }
+      when "facebook"
+        params = {
+          name:        auth[:uid],
+          screen_name: auth[:info][:name],
+          icon_url:    auth[:info][:image],
+          site_url:    auth[:extra][:raw_info][:link],
+          email:       auth[:info][:email]
+        }
       end
 
-      update_targets = {
-        name:     name,
-        icon_url: icon_url
-      }
-      if update_targets.any? { |key, value| user[key] != value }
-        user.update(update_targets)
+      self.find_or_create_by(provider: provider, uid: uid) do |user|
+        params.each do |key, value|
+          user[key] = value
+        end
       end
-
-      user
     end
   end
 end

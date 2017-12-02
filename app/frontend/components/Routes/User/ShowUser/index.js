@@ -10,7 +10,7 @@ export default class ShowUser extends PureComponent {
             <figure className="image is-square">
               {icon_url ? (
                 <img
-                  src={icon_url.replace("_normal", "")}
+                  src={icon_url}
                   className="user-icon has-border"
                   alt={screen_name}
                 />

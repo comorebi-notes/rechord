@@ -42,6 +42,10 @@ gem 'bulma-rails'
 
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-tumblr'
+gem 'omniauth-github'
 
 gem 'friendly_id'
 

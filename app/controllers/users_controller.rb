@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :update_icon, :destroy]
 
   def show
     if @user == current_user
@@ -12,6 +12,15 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+      render json: @user
+    else
+      render json: @user.errors.details, status: :unprocessable_entity
+    end
+  end
+
+  def update_icon
+    binding.pry
+    if @user.update(icon_params)
       render json: @user
     else
       render json: @user.errors.details, status: :unprocessable_entity
@@ -33,7 +42,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :screen_name, :profile, :icon_url, :site_url, :email, :twitter)
+    params.require(:user).permit(:name, :screen_name, :profile, :icon, :site, :email, :twitter)
+  end
+
+  def icon_params
+    params.permit(:icon)
   end
 
   def set_user

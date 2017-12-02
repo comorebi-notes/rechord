@@ -368,6 +368,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rmagick (2.16.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.3)
@@ -460,6 +461,7 @@ DEPENDENCIES
   rails (~> 5.1.4)
   rails-i18n
   rails_12factor
+  rmagick
   sass-rails (~> 5.0)
   selenium-webdriver
   slim-rails

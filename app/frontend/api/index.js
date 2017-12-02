@@ -34,9 +34,9 @@ export const destroyScore = (params, onSuccess, onError) => (
 
 // ======== Users ========
 const getUserParams = (params) => {
-  const { screenName, profile, iconUrl, siteUrl } = params
+  const { screenName, profile, icon, site } = params
   return {
-    user: { screen_name: screenName, profile, icon_url: iconUrl, site_url: siteUrl }
+    user: { screen_name: screenName, profile, icon, site }
   }
 }
 
@@ -45,6 +45,9 @@ export const showUser = (params, onSuccess, onError) => (
 )
 export const updateUser = (params, onSuccess, onError) => (
   request("put", path.user.update(params.name), getUserParams(params), onSuccess, onError)
+)
+export const updateUserIcon = (params, onSuccess, onError) => (
+  request("put", path.user.updateIcon(params.name), params.icon, onSuccess, onError)
 )
 export const destoryUser = (params, onSuccess, onError) => (
   request("delete", path.user.destroy(params.name), null, onSuccess, onError)

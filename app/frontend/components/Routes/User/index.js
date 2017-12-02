@@ -42,7 +42,7 @@ export default class User extends Component {
           <div className="column is-one-third">
             <div className={classNames("card", "user-page", { edit })}>
               <div className="card-image">
-                <Icon user={user} isOwn={isOwn} />
+                <Icon user={user} isOwn={isOwn} history={history} />
               </div>
               {edit ? (
                 <EditUser user={user} history={history} handleToggleEdit={this.handleToggleEdit} />

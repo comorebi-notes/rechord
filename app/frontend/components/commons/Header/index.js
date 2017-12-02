@@ -18,7 +18,7 @@ export default class Header extends PureComponent {
   handleToggleModal  = () => this.setState({ modal:  !this.state.modal })
   render() {
     const { burger, modal } = this.state
-    const { currentUser: { name, icon_url } } = this.props
+    const { currentUser: { name, icon } } = this.props
     const userPath = path.user.show(name)
     const burgerClass = classNames("navbar-burger", "burger", { "is-active": burger })
     const navMenuClass = classNames("navbar-menu", { "is-active": burger })
@@ -55,7 +55,7 @@ export default class Header extends PureComponent {
                   <span>
                     @{name}
                   </span>
-                  <img src={icon_url} className="user-icon" width={32} height={32} alt={name} />
+                  <img src={icon.url} className="user-icon" width={32} height={32} alt={name} />
                 </Link>
               ) : (
                 <div className="navbar-item">

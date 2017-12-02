@@ -4,8 +4,8 @@ const keys = {
   name:       "ID",
   screenName: "名前",
   profile:    "プロフィール",
-  iconUrl:    "アイコンURL",
-  siteUrl:    "サイトURL"
+  icon:       "アイコンURL",
+  site:       "サイトURL"
 }
 
 const errors = {

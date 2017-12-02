@@ -2,20 +2,20 @@ import React, { PureComponent } from "react"
 
 export default class ShowUser extends PureComponent {
   render() {
-    const { user: { screen_name, profile, site_url }, isOwn, handleToggleEdit } = this.props
+    const { user: { screen_name, profile, site }, isOwn, handleToggleEdit } = this.props
     return (
       <div className="card-content">
         <h2 className="title is-4">
           {screen_name}
         </h2>
         <div className="content">
-          {site_url && (
+          {site && (
             <p className="url">
-              <a href={site_url} target="_blank">
+              <a href={site} target="_blank">
                 <span className="icon">
                   <i className="fa fa-home" />
                 </span>
-                {site_url}
+                {site}
               </a>
             </p>
           )}

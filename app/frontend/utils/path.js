@@ -20,9 +20,10 @@ export const score = {
 }
 
 export const user = {
-  show:    (name) => `/users/${name}`,
-  update:  (name) => `/users/${name}`,
-  destroy: (name) => `/users/${name}`
+  show:       (name) => `/users/${name}`,
+  update:     (name) => `/users/${name}`,
+  updateIcon: (name) => `/users/${name}/update_icon`,
+  destroy:    (name) => `/users/${name}`
 }
 
 export const auth = {

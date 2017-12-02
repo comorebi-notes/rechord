@@ -11,11 +11,11 @@ import * as utils           from "../../../../utils"
 export default class EditUser extends Component {
   constructor(props) {
     super(props)
-    const { user: { screen_name, profile, site_url } } = props
+    const { user: { screen_name, profile, site } } = props
     this.state = {
       screenName: screen_name || "",
       profile:    profile || "",
-      siteUrl:    site_url || "",
+      site:       site || "",
       touch:      {},
       errors:     {},
       loading:    false
@@ -28,7 +28,7 @@ export default class EditUser extends Component {
   }
   handleInputScreenName = (e) => this.handleChangeWithValidate("screenName", e.target.value)
   handleInputProfile    = (e) => this.handleChangeWithValidate("profile",    e.target.value)
-  handleInputSiteUrl    = (e) => this.handleChangeWithValidate("siteUrl",    e.target.value)
+  handleInputSite       = (e) => this.handleChangeWithValidate("site",       e.target.value)
   handleUpdateUser = () => {
     this.setState({ loading: true })
     api.updateUser(
@@ -58,7 +58,7 @@ export default class EditUser extends Component {
     })
   )
   render() {
-    const { screenName, profile, siteUrl, destroyModal, errors, loading } = this.state
+    const { screenName, profile, site, destroyModal, errors, loading } = this.state
     const { user, history, handleToggleEdit } = this.props
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     return (
@@ -89,13 +89,13 @@ export default class EditUser extends Component {
             </Field>
 
             <Field label="site url">
-              <FormWithValidate errorKey="siteUrl" errors={errors}>
+              <FormWithValidate errorKey="site" errors={errors}>
                 <input
                   type="input"
                   className="input"
-                  value={siteUrl}
-                  onBlur={() => this.handleTouch("siteUrl")}
-                  onChange={this.handleInputSiteUrl}
+                  value={site}
+                  onBlur={() => this.handleTouch("site")}
+                  onChange={this.handleInputSite}
                 />
               </FormWithValidate>
             </Field>

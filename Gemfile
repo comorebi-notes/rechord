@@ -49,6 +49,7 @@ gem 'omniauth-github'
 
 gem 'carrierwave'
 gem 'fog'
+gem 'rmagick'
 
 gem 'friendly_id'
 

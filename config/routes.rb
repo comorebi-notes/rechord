@@ -17,7 +17,9 @@ Rails.application.routes.draw do
     only: [:show, :update, :destroy],
     param: :name,
     constraints: OnlyAjaxRequest.new
-  }
+  } do
+    put :update_icon
+  end
 
   get "*path" => "top#index"
   root "top#index"

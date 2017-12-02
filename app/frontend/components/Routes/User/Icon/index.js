@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import classNames           from "classnames"
+import FormWithValidate     from "../../../../validator/FormWithValidate"
 import * as api             from "../../../../api"
 import * as path            from "../../../../utils/path"
 import * as utils           from "../../../../utils"
@@ -8,7 +9,7 @@ import { FormData }         from "../../../../utils/browser-dependencies"
 export default class Icon extends Component {
   constructor() {
     super()
-    this.state = { loading: false }
+    this.state = { loading: false, errors: {} }
   }
   handleFileChange = (e) => {
     const files = e.target.files || e.dataTransfer.files
@@ -26,13 +27,13 @@ export default class Icon extends Component {
         },
         (error) => {
           console.log(error.response.data)
-          this.setState({ loading: false, error: utils.setApiErrors(error.response.data) })
+          this.setState({ loading: false, errors: utils.setApiErrors(error.response.data) })
         }
       )
     }
   }
   render() {
-    const { loading } = this.state
+    const { loading, errors } = this.state
     const { user: { icon, screen_name }, isOwn } = this.props
     return (
       <div className={classNames({ "loading-wrapper": loading })}>
@@ -51,14 +52,16 @@ export default class Icon extends Component {
           <div className="file is-primary">
             <label className="file-label">
               <input className="file-input" type="file" onChange={this.handleFileChange} />
-              <span className="file-cta">
-                <span className="file-icon">
-                  <i className="fa fa-upload" />
+              <FormWithValidate errorKey="icon" target="user" errors={errors} customStyle={{ width: "100%" }}>
+                <span className="file-cta">
+                  <span className="file-icon">
+                    <i className="fa fa-upload" />
+                  </span>
+                  <span className="file-label">
+                    upload icon
+                  </span>
                 </span>
-                <span className="file-label">
-                  upload icon
-                </span>
-              </span>
+              </FormWithValidate>
             </label>
           </div>
         )}

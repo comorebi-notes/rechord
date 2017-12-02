@@ -1,18 +1,36 @@
 const keys = {
-  title:      "タイトル",
-  content:    "スコア",
-  name:       "ID",
-  screenName: "名前",
-  profile:    "プロフィール",
-  icon:       "アイコンURL",
-  site:       "サイトURL"
+  score: {
+    title:      "タイトル",
+    content:    "スコア"
+  },
+  user: {
+    name:       "ID",
+    screenName: "名前",
+    profile:    "プロフィール",
+    icon:       "アイコン",
+    site:       "サイトURL"
+  }
+}
+
+const errorKey = (error) => {
+  switch (true) {
+    case (/You are not allowed to upload .* files, allowed types: jpg, jpeg, gif, png/).test(error):
+      return "wrong_extention"
+    case (/.*maybe it is not an image\?/).test(error):
+      return "not_image"
+    default:
+      return error
+  }
 }
 
 const errors = {
-  blank:    "は必須項目です。",
-  too_long: "が長すぎます。"
+  blank:     (key) => `${key}は必須項目です。`,
+  too_long:  (key) => `${key}が長すぎます。`,
+  over_size: (key) => `${key}のファイルサイズは2MBが上限です。`,
+  wrong_extention: (key) => `${key}は .png, .jpg, .jpeg, .gif のみが使用可能です。`,
+  not_image: () => "画像形式ではありません。"
 }
 
-export const translate = (key, error) => `${keys[key]}${errors[error]}`
+export const translate = (target, key, error) => errors[errorKey(error)](keys[target][key])
 
 export default translate

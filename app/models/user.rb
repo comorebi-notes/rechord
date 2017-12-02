@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :profile,     length: { maximum: 256 }
   validates :site,        length: { maximum: 256 }
   validates :twitter,     length: { maximum: 16 }
+  validate  :limit_icon_file_size
 
   class << self
     def find_or_create_from_auth(auth)
@@ -69,6 +70,13 @@ class User < ApplicationRecord
           user[key] = value
         end
       end
+    end
+  end
+
+  def limit_icon_file_size
+    limit_size = (1024 * 1024 * 2).to_f / 1024
+    if icon.file.size.to_f > limit_size
+      errors.add(:icon, "over_size")
     end
   end
 end

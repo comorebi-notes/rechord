@@ -38,7 +38,7 @@ export default class EditUser extends Component {
         this.props.history.push(path.user.show(name), { flash: ["success", "ユーザ情報が更新されました。"] })
       },
       (error) => (
-        this.setState({ loading: false, error: utils.setApiErrors(error.response.data) })
+        this.setState({ loading: false, errors: utils.setApiErrors(error.response.data) })
       )
     )
   }
@@ -66,7 +66,7 @@ export default class EditUser extends Component {
         <div className="content">
           <div style={{ marginBottom: "2em" }}>
             <Field label="screen name">
-              <FormWithValidate errorKey="screenName" errors={errors}>
+              <FormWithValidate errorKey="screenName" target="user" errors={errors}>
                 <input
                   type="input"
                   className="input"
@@ -78,7 +78,7 @@ export default class EditUser extends Component {
             </Field>
 
             <Field label="profile">
-              <FormWithValidate errorKey="profile" errors={errors}>
+              <FormWithValidate errorKey="profile" target="user" errors={errors}>
                 <textarea
                   className="textarea"
                   value={profile}
@@ -89,7 +89,7 @@ export default class EditUser extends Component {
             </Field>
 
             <Field label="site url">
-              <FormWithValidate errorKey="site" errors={errors}>
+              <FormWithValidate errorKey="site" target="user" errors={errors}>
                 <input
                   type="input"
                   className="input"

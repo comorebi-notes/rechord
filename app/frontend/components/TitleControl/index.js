@@ -32,7 +32,7 @@ export default class TitleControl extends Component {
     const { title, errors } = this.props
     return (
       <Field label="Title">
-        <FormWithValidate errorKey="title" errors={errors}>
+        <FormWithValidate errorKey="title" target="score" errors={errors}>
           <input
             className="input"
             type="text"

@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { Link, withRouter } from "react-router-dom"
 import StatusControl        from "../../../StatusControl"
-import ErrorMessages        from "../../../commons/ErrorMessages"
 import * as api             from "../../../../api"
 import * as path            from "../../../../utils/path"
 import * as utils           from "../../../../utils"
@@ -9,13 +8,10 @@ import * as utils           from "../../../../utils"
 class UpdateControl extends Component {
   constructor() {
     super()
-    this.state = {
-      loading: false,
-      error:   ""
-    }
+    this.state = { loading: false }
   }
   handleClick = () => {
-    const { history } = this.props
+    const { history, handleSetState } = this.props
     this.setState({ loading: true })
     api.updateScore(
       this.props,
@@ -23,14 +19,15 @@ class UpdateControl extends Component {
         const { token } = success.data
         history.push(path.score.show(token), { flash: ["success", "スコアが更新されました。"] })
       },
-      (error) => (
-        this.setState({ loading: false, error: utils.setApiErrors(error.response.data) })
-      )
+      (error) => {
+        this.setState({ loading: false })
+        handleSetState({ errors: utils.setApiErrors(error.response.data) })
+      }
     )
   }
   render() {
     const { token, status, handleSetState } = this.props
-    const { loading, error } = this.state
+    const { loading } = this.state
     const showPath = path.score.show(token)
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     return (
@@ -66,7 +63,6 @@ class UpdateControl extends Component {
             </a>
           </div>
         </div>
-        {error.length > 0 && <ErrorMessages error={error} />}
       </div>
     )
   }

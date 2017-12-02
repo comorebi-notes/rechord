@@ -42,7 +42,7 @@ export default class User extends Component {
           <div className="column is-one-third">
             <div className={classNames("card", "user-page", { edit })}>
               <div className="card-image">
-                <Icon user={user} isOwn={isOwn} history={history} />
+                <Icon user={user} isOwn={isOwn} />
               </div>
               {edit ? (
                 <EditUser user={user} history={history} handleToggleEdit={this.handleToggleEdit} />
@@ -68,7 +68,7 @@ export default class User extends Component {
               <div className="box no-score">
                 <div className="media-content">
                   <div className="content">
-                    score is not yet...
+                    No scores.
                   </div>
                 </div>
               </div>

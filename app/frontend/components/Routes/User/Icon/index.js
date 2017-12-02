@@ -13,7 +13,7 @@ export default class Icon extends Component {
   handleFileChange = (e) => {
     const files = e.target.files || e.dataTransfer.files
     if (files.length > 0) {
-      const { user, history } = this.props
+      const { user } = this.props
       const data = new FormData()
       data.append("name", user.name)
       data.append("icon", files[0])
@@ -21,13 +21,13 @@ export default class Icon extends Component {
       this.setState({ loading: true })
       api.updateUserIcon(
         { name: user.name, icon: data },
-        (success) => {
-          const { name } = success.data
-          history.push(path.user.show(name), { flash: ["success", "ユーザ情報が更新されました。"] })
+        () => {
+          window.location.href = path.user.show(user.name)
         },
-        (error) => (
+        (error) => {
+          console.log(error.response.data)
           this.setState({ loading: false, error: utils.setApiErrors(error.response.data) })
-        )
+        }
       )
     }
   }
@@ -48,7 +48,19 @@ export default class Icon extends Component {
           )}
         </figure>
         {isOwn && (
-          <input type="file" onChange={this.handleFileChange} />
+          <div className="file is-primary">
+            <label className="file-label">
+              <input className="file-input" type="file" onChange={this.handleFileChange} />
+              <span className="file-cta">
+                <span className="file-icon">
+                  <i className="fa fa-upload" />
+                </span>
+                <span className="file-label">
+                  upload icon
+                </span>
+              </span>
+            </label>
+          </div>
         )}
       </div>
     )

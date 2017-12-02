@@ -19,9 +19,9 @@ class UsersController < ApplicationController
   end
 
   def update_icon
-    binding.pry
     if @user.update(icon_params)
-      render json: @user
+      flash[:success] = "アイコンが更新されました。"
+      head :ok
     else
       render json: @user.errors.details, status: :unprocessable_entity
     end

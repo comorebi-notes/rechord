@@ -25,10 +25,9 @@ export default class Icon extends Component {
         () => {
           window.location.href = path.user.show(user.name)
         },
-        (error) => {
-          console.log(error.response.data)
+        (error) => (
           this.setState({ loading: false, errors: utils.setApiErrors(error.response.data) })
-        }
+        )
       )
     }
   }

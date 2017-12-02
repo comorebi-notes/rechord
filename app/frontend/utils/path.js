@@ -33,3 +33,5 @@ export const auth = {
   tumblr:   "/auth/tumblr",
   github:   "/auth/github"
 }
+
+export const twitter = (id) => `https://twitter.com/${id}`

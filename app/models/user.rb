@@ -74,7 +74,7 @@ class User < ApplicationRecord
   end
 
   def limit_icon_file_size
-    limit_size = (1024 * 1024 * 2).to_f / 1024
+    limit_size = (1024 * 1024 * 2).to_f
     if icon.file.size.to_f > limit_size
       errors.add(:icon, "over_size")
     end

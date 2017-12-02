@@ -27,8 +27,9 @@ const errors = {
   blank:     (key) => `${key}は必須項目です。`,
   too_long:  (key) => `${key}が長すぎます。`,
   over_size: (key) => `${key}のファイルサイズは2MBが上限です。`,
+  not_image: ()    => "画像ファイルではありません。",
+  invalid_format:  (key) => `${key}のフォーマットが正しくありません。`,
   wrong_extention: (key) => `${key}は .png, .jpg, .jpeg, .gif のみが使用可能です。`,
-  not_image: () => "画像形式ではありません。"
 }
 
 export const translate = (target, key, error) => errors[errorKey(error)](keys[target][key])

@@ -34,9 +34,9 @@ export const destroyScore = (params, onSuccess, onError) => (
 
 // ======== Users ========
 const getUserParams = (params) => {
-  const { screenName, profile, icon, site } = params
+  const { screenName, profile, icon, site, twitter } = params
   return {
-    user: { screen_name: screenName, profile, icon, site }
+    user: { screen_name: screenName, profile, icon, site, twitter }
   }
 }
 

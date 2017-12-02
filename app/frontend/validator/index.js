@@ -1,7 +1,8 @@
 const validate = (error, message) => (error ? message : false)
 const validates = {
-  required: (value) => validate(!value || value.lenght > 0, "blank"),
+  required: (value) => validate(!value || value.lenght === 0, "blank"),
   maxLength: (value, length) => validate(value.length > length, "too_long"),
+  format: (value, regex) => validate(!regex.test(value), "invalid_format")
 }
 
 export const validator = ({ key, value, types, setState, errors }) => {

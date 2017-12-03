@@ -27,6 +27,7 @@ const errorKey = (error) => {
 const errors = {
   blank:     (key) => `${key}は必須項目です。`,
   too_long:  (key) => `${key}が長すぎます。`,
+  taken:     (key) => `その${key}は既に使用されています。`,
   over_size: (key) => `${key}のファイルサイズは2MBが上限です。`,
   not_image: ()    => "画像ファイルではありません。",
   invalid_format:  (key) => `${key}のフォーマットが正しくありません。`,

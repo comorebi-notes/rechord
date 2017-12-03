@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :scores
 
-  validates :name,        presence: true, length: { maximum: 16 }
+  validates :name,        presence: true, length: { maximum: 16 }, uniqueness: true
   validates :screen_name, presence: true, length: { maximum: 32 }
   validates :profile,     length: { maximum: 256 }
   validates :site,        length: { maximum: 256 }

@@ -21,6 +21,7 @@ export const score = {
 
 export const user = {
   show:       (name) => `/users/${name}`,
+  validName:  (name) => `/users/${name}/valid_name`,
   update:     (name) => `/users/${name}`,
   updateIcon: (name) => `/users/${name}/update_icon`,
   removeIcon: (name) => `/users/${name}/remove_icon`,

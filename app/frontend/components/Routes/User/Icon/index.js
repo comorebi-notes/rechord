@@ -4,7 +4,7 @@ import FormWithValidate     from "../../../../validator/FormWithValidate"
 import * as api             from "../../../../api"
 import * as path            from "../../../../utils/path"
 import * as utils           from "../../../../utils"
-import { FormData }         from "../../../../utils/browser-dependencies"
+import { window, FormData } from "../../../../utils/browser-dependencies"
 
 export default class Icon extends Component {
   constructor() {

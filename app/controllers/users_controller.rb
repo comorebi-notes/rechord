@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :update_icon, :remove_icon, :destroy]
+  before_action :set_user, only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy]
 
   def show
     if @user == current_user
@@ -10,8 +10,18 @@ class UsersController < ApplicationController
     render json: { user: @user, scores: @scores }
   end
 
+  def valid_name
+    if !@user
+      head :ok
+    else
+      @user.errors.add(:name, :taken)
+      render json: @user.errors.details, status: :unprocessable_entity
+    end
+  end
+
   def update
     if @user.update(user_params)
+      flash[:success] = "ユーザ情報が更新されました。"
       render json: @user
     else
       render json: @user.errors.details, status: :unprocessable_entity

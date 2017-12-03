@@ -18,7 +18,8 @@ Rails.application.routes.draw do
     param: :name,
     constraints: OnlyAjaxRequest.new
   } do
-    put :update_icon
+    post   :valid_name
+    put    :update_icon
     delete :remove_icon
   end
 

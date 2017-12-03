@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import classNames           from "classnames"
 import DestroyUserModal     from "../DestroyUserModal"
 import Field                from "../../../commons/Field"
 import { validateTypes }    from "./validateTypes"
@@ -7,19 +8,22 @@ import FormWithValidate     from "../../../../validator/FormWithValidate"
 import * as path            from "../../../../utils/path"
 import * as api             from "../../../../api"
 import * as utils           from "../../../../utils"
+import { window }           from "../../../../utils/browser-dependencies"
 
 export default class EditUser extends Component {
   constructor(props) {
     super(props)
-    const { user: { screen_name, profile, site, twitter } } = props
+    const { user: { name, screen_name, profile, site, twitter } } = props
     this.state = {
+      name:       name || "",
       screenName: screen_name || "",
       profile:    profile || "",
       site:       site || "",
       twitter:    twitter || "",
       touch:      {},
       errors:     {},
-      loading:    false
+      loading:    false,
+      validName:  true
     }
   }
   handleChangeWithValidate = (target, value) => {
@@ -27,17 +31,37 @@ export default class EditUser extends Component {
     this.setState({ [target]: value })
     if (touch[target]) this.validate(target, value)
   }
+  handleInputName = (e) => {
+    this.handleChangeWithValidate("name", e.target.value)
+    if (e.target.value === this.props.user.name) return this.setState({ validName: true })
+    if (!e.target.value) return this.setState({ validName: false })
+    return this.setState({ validName: false })
+  }
   handleInputScreenName = (e) => this.handleChangeWithValidate("screenName", e.target.value)
   handleInputProfile    = (e) => this.handleChangeWithValidate("profile",    e.target.value)
   handleInputSite       = (e) => this.handleChangeWithValidate("site",       e.target.value)
   handleInputTwitter    = (e) => this.handleChangeWithValidate("twitter",    e.target.value)
+  handleBlurName = (e) => {
+    this.handleTouch("name")
+    if (e.target.value === this.props.user.name) return this.setState({ validName: true })
+    if (!e.target.value) return this.setState({ validName: false })
+
+    this.setState({ loading: true })
+    return api.validUserName(
+      { name: e.target.value },
+      () => this.setState({ loading: false, validName: true }),
+      (error) => (
+        this.setState({ loading: false, validName: false, errors: utils.setApiErrors(error.response.data) })
+      )
+    )
+  }
   handleUpdateUser = () => {
     this.setState({ loading: true })
     api.updateUser(
-      { name: this.props.user.name, ...this.state },
+      { originalName: this.props.user.name, ...this.state },
       (success) => {
         const { name } = success.data
-        this.props.history.push(path.user.show(name), { flash: ["success", "ユーザ情報が更新されました。"] })
+        window.location.href = path.user.show(name)
       },
       (error) => (
         this.setState({ loading: false, errors: utils.setApiErrors(error.response.data) })
@@ -60,13 +84,58 @@ export default class EditUser extends Component {
     })
   )
   render() {
-    const { screenName, profile, site, twitter, destroyModal, errors, loading } = this.state
+    const { name, screenName, profile, site, twitter, destroyModal, errors, loading, validName, touch } = this.state
     const { user, history, handleToggleEdit } = this.props
-    const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
+    const updateIconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
+    const nameIconClass = () => {
+      switch (true) {
+        case loading:
+          return "fa fa-circle-o-notch fa-spin"
+        case errors.name && errors.name.length > 0:
+          return "fa fa-exclamation-triangle"
+        case validName:
+          return "fa fa-check"
+        default:
+          return ""
+      }
+    }
+    const nameFieldClass = classNames("input", {
+      "is-danger":  errors.name && errors.name.length > 0,
+      "is-success": touch.name && validName
+    })
     return (
       <div className="card-content">
         <div className="content">
           <div style={{ marginBottom: "2em" }}>
+            <Field label="your url">
+              <pre>
+                {utils.sharedUrl(name)}
+              </pre>
+            </Field>
+
+            <div className="field">
+              <label className="label">ID</label>
+              <div className="control has-icons-right">
+                <FormWithValidate errorKey="name" target="user" errors={errors}>
+                  <div>
+                    <input
+                      type="input"
+                      className={nameFieldClass}
+                      value={name}
+                      onBlur={this.handleBlurName}
+                      onChange={this.handleInputName}
+                    />
+                    <span className="icon is-small is-right">
+                      <i className={nameIconClass()} />
+                    </span>
+                    <p className="help">
+                      IDはあなたのページのURLに含まれます。
+                    </p>
+                  </div>
+                </FormWithValidate>
+              </div>
+            </div>
+
             <Field label="screen name">
               <FormWithValidate errorKey="screenName" target="user" errors={errors}>
                 <input
@@ -124,7 +193,7 @@ export default class EditUser extends Component {
               onClick={this.handleUpdateUser}
             >
               <span className="icon">
-                <i className={iconClass} />
+                <i className={updateIconClass} />
               </span>
               <span>update profile</span>
             </a>

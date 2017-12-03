@@ -16,7 +16,6 @@ class Container extends Component {
   constructor(props) {
     super(props)
     const { location, flash } = props
-
     location.state = flash.length > 0 ? { flash: flash[0] } : {}
   }
   componentWillReceiveProps({ location }) {
@@ -30,29 +29,34 @@ class Container extends Component {
     const showFlashMessage = state && state.flash
 
     const params = { currentUser }
+    const SectionContainer = ({ children }) => (
+      <section className="section">
+        {showFlashMessage && <FlashMessage flash={state.flash} />}
+        <div className="container">
+          {children}
+        </div>
+      </section>
+    )
     const RouteWithState = ({ component: Children, ...routeParams }) => (
-      <Route
-        {...routeParams}
-        render={props => <Children {...props} {...params} />}
-      />
+      <SectionContainer>
+        <Route
+          {...routeParams}
+          render={props => <Children {...props} {...params} />}
+        />
+      </SectionContainer>
     )
 
     return (
       <div className="main-content">
         <Header currentUser={currentUser} pathname={location.pathname} />
 
-        <section className="section">
-          {showFlashMessage && <FlashMessage flash={state.flash} />}
-          <div className="container">
-            <Switch>
-              <RouteWithState path={path.root}                 component={NewScore} exact />
-              <RouteWithState path={path.user.show(":name")}   component={User} />
-              <RouteWithState path={path.about}                component={About} />
-              <RouteWithState path={path.score.show(":token")} component={ShowScore} exact />
-              <RouteWithState path={path.score.edit(":token")} component={EditScore} />
-            </Switch>
-          </div>
-        </section>
+        <Switch>
+          <RouteWithState path={path.root}                 component={NewScore} exact />
+          <RouteWithState path={path.user.show(":name")}   component={User} />
+          <Route          path={path.about}                component={About} exact />
+          <RouteWithState path={path.score.show(":token")} component={ShowScore} exact />
+          <RouteWithState path={path.score.edit(":token")} component={EditScore} />
+        </Switch>
 
         <Footer />
       </div>

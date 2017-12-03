@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     constraints: OnlyAjaxRequest.new
   } do
     put :update_icon
+    delete :remove_icon
   end
 
   get "*path" => "top#index"

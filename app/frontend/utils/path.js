@@ -23,6 +23,7 @@ export const user = {
   show:       (name) => `/users/${name}`,
   update:     (name) => `/users/${name}`,
   updateIcon: (name) => `/users/${name}/update_icon`,
+  removeIcon: (name) => `/users/${name}/remove_icon`,
   destroy:    (name) => `/users/${name}`
 }
 

@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :profile,     length: { maximum: 256 }
   validates :site,        length: { maximum: 256 }
   validates :twitter,     length: { maximum: 16 }
-  validate  :limit_icon_file_size
+  validate  :limit_icon_file_size, if: :has_icon?
 
   class << self
     def find_or_create_from_auth(auth)
@@ -75,6 +75,10 @@ class User < ApplicationRecord
         end
       end
     end
+  end
+
+  def has_icon?
+    icon.present?
   end
 
   def limit_icon_file_size

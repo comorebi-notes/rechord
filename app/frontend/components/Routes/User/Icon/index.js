@@ -11,7 +11,7 @@ export default class Icon extends Component {
     super()
     this.state = { loading: false, errors: {} }
   }
-  handleFileChange = (e) => {
+  handleChangeIcon = (e) => {
     const files = e.target.files || e.dataTransfer.files
     if (files.length > 0) {
       const { user } = this.props
@@ -35,38 +35,64 @@ export default class Icon extends Component {
       )
     }
   }
+  handleRemoveIcon = () => {
+    const { user } = this.props
+    this.setState({ loading: true })
+    api.removeUserIcon(
+      { name: user.name },
+      () => {
+        window.location.href = path.user.show(user.name)
+      },
+      (error) => {
+        if (error.response.status === 500) {
+          window.location.href = path.user.show(user.name)
+        } else {
+          this.setState({ loading: false, errors: utils.setApiErrors(error.response.data) })
+        }
+      }
+    )
+  }
   render() {
     const { loading, errors } = this.state
     const { user: { icon, screen_name }, isOwn } = this.props
     return (
       <div className={classNames({ "loading-wrapper": loading })}>
         <figure className="image is-square">
-          {icon ? (
-            <img
-              src={icon.url}
-              className="user-icon has-border"
-              alt={screen_name}
-            />
-          ) : (
-            <div className="dummy-icon" />
-          )}
+          <img
+            src={utils.iconUrl(icon)}
+            className="user-icon has-border"
+            alt={screen_name}
+          />
         </figure>
         {isOwn && (
-          <div className="file is-primary">
-            <label className="file-label">
-              <input className="file-input" type="file" onChange={this.handleFileChange} />
-              <FormWithValidate errorKey="icon" target="user" errors={errors} customStyle={{ width: "100%" }}>
-                <span className="file-cta">
-                  <span className="file-icon">
-                    <i className="fa fa-upload" />
+          <FormWithValidate errorKey="icon" target="user" errors={errors} customStyle={{ width: "100%" }}>
+            <div className="icon-buttons">
+              <div className="file is-primary is-small">
+                <label className="file-label">
+                  <input className="file-input" type="file" onChange={this.handleChangeIcon} />
+                  <span className="file-cta">
+                    <span className="file-icon">
+                      <i className="fa fa-upload" />
+                    </span>
+                    <span className="file-label">
+                      upload icon
+                    </span>
                   </span>
-                  <span className="file-label">
-                    upload icon
-                  </span>
+                </label>
+              </div>
+              <a
+                className="button is-danger is-small"
+                role="presentation"
+                onClick={this.handleRemoveIcon}
+                disabled={!icon || !icon.url}
+              >
+                <span className="icon">
+                  <i className="fa fa-trash fa-lg" />
                 </span>
-              </FormWithValidate>
-            </label>
-          </div>
+                <span>remove icon</span>
+              </a>
+            </div>
+          </FormWithValidate>
         )}
       </div>
     )

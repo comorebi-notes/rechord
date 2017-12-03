@@ -49,6 +49,9 @@ export const updateUser = (params, onSuccess, onError) => (
 export const updateUserIcon = (params, onSuccess, onError) => (
   request("put", path.user.updateIcon(params.name), params.icon, onSuccess, onError)
 )
+export const removeUserIcon = (params, onSuccess, onError) => (
+  request("delete", path.user.removeIcon(params.name), null, onSuccess, onError)
+)
 export const destoryUser = (params, onSuccess, onError) => (
   request("delete", path.user.destroy(params.name), null, onSuccess, onError)
 )

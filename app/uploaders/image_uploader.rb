@@ -54,6 +54,28 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
 
+  def remove_icon!
+    begin
+      super
+    rescue Fog::Storage::OpenStack::NotFound
+    end
+  end
+
+  def remove_previously_stored_icon
+    begin
+      super
+    rescue Fog::Storage::OpenStack::NotFound
+      @previous_model_for_icon = nil
+    end
+  end
+
+  def remove!
+    begin
+      super
+    rescue Fog::Storage::OpenStack::NotFound
+    end
+  end
+
   protected
 
   def secure_token

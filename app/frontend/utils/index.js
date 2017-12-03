@@ -77,3 +77,8 @@ export const setApiErrors = (apiErrors) => {
   })
   return errors
 }
+
+export const iconUrl = (icon) => {
+  if (icon && icon.url) return icon.url
+  return "https://placehold.jp/24/cccccc/ffffff/400x400.png?text=no%20icon"
+}

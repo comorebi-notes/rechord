@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :update_icon, :destroy]
+  before_action :set_user, only: [:show, :update, :update_icon, :remove_icon, :destroy]
 
   def show
     if @user == current_user
@@ -31,6 +31,20 @@ class UsersController < ApplicationController
     head :internal_server_error
   end
 
+  def remove_icon
+    @user.remove_icon = true
+    if @user.save
+      flash[:success] = "アイコンが削除されました。"
+      head :ok
+    else
+      render json: @user.errors.details, status: :unprocessable_entity
+    end
+  rescue => e
+    logger.error e
+    flash[:error] = "アイコンの削除でエラーが発生しました。"
+    head :internal_server_error
+  end
+
   def destroy
     scores = Score.where(user_id: @user.id)
     if @user.destroy
@@ -54,6 +68,6 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.friendly.find_by(name: params[:name])
+    @user = User.friendly.find_by(name: params[:name] || params[:user_name])
   end
 end

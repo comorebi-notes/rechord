@@ -9,12 +9,20 @@
         font-size: .9em
     .card-image
       padding: 0 1.5rem
-      .file
-        display: block
-        margin: 1.2em 0 1em
-        .file-cta
-          width: 100%
-          justify-content: center
+      .icon-buttons
+        display: flex
+        margin-top: 1.5em
+        > *
+          flex-grow: 1
+        > *:not(:last-child)
+          margin-right: .5em
+        &:last-child
+          margin-bottom: 1em
+        .file
+          display: block
+          .file-cta
+            width: 100%
+            justify-content: center
     .dummy-icon
       background-color: #ccc
       position: absolute

@@ -126,7 +126,7 @@ export default class EditUser extends Component {
               <span className="icon">
                 <i className={iconClass} />
               </span>
-              <span>update</span>
+              <span>update profile</span>
             </a>
           </p>
           <p>

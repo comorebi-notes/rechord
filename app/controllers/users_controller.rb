@@ -25,6 +25,10 @@ class UsersController < ApplicationController
     else
       render json: @user.errors.details, status: :unprocessable_entity
     end
+  rescue => e
+    logger.error e
+    flash[:error] = "アイコンの更新でエラーが発生しました。"
+    head :internal_server_error
   end
 
   def destroy

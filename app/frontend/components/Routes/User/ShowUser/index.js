@@ -47,7 +47,7 @@ export default class ShowUser extends PureComponent {
                   <span className="icon">
                     <i className="fa fa-pencil-square-o" />
                   </span>
-                  <span>edit</span>
+                  <span>edit profile</span>
                 </a>
               </p>
               <p>

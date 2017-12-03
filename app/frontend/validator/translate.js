@@ -8,7 +8,8 @@ const keys = {
     screenName: "名前",
     profile:    "プロフィール",
     icon:       "アイコン",
-    site:       "サイトURL"
+    site:       "サイトURL",
+    twitter:    "Twitter ID "
   }
 }
 

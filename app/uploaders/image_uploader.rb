@@ -42,7 +42,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "#{Time.zone.now.strftime('%Y%m%d%H%M%S')}#{file.extension}"
+    "#{secure_token}.#{file.extension}" if original_filename.present?
   end
 
   process :create_square
@@ -52,5 +52,12 @@ class ImageUploader < CarrierWave::Uploader::Base
       narrow = img.columns > img.rows ? img.rows : img.columns
       img.crop(Magick::CenterGravity, narrow, narrow)
     end
+  end
+
+  protected
+
+  def secure_token
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
   end
 end

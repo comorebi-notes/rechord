@@ -36,4 +36,6 @@ export const auth = {
   github:   "/auth/github"
 }
 
+export const about = "/about"
+
 export const twitter = (id) => `https://twitter.com/${id}`

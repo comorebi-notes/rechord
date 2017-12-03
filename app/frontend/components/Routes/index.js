@@ -8,6 +8,7 @@ import NewScore     from "./NewScore"
 import EditScore    from "./EditScore"
 import ShowScore    from "./ShowScore"
 import User         from "./User"
+import About        from "./About"
 import * as path    from "../../utils/path"
 import { window }   from "../../utils/browser-dependencies"
 
@@ -46,6 +47,7 @@ class Container extends Component {
             <Switch>
               <RouteWithState path={path.root}                 component={NewScore} exact />
               <RouteWithState path={path.user.show(":name")}   component={User} />
+              <RouteWithState path={path.about}                component={About} />
               <RouteWithState path={path.score.show(":token")} component={ShowScore} exact />
               <RouteWithState path={path.score.edit(":token")} component={EditScore} />
             </Switch>

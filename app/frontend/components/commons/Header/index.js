@@ -43,11 +43,11 @@ export default class Header extends PureComponent {
 
           <div className={navMenuClass}>
             <div className="navbar-start">
-              <Link to="/about" className="navbar-item">
-                About
+              <Link to={path.about} className="navbar-item">
+                about
               </Link>
               <Link to="/features" className="navbar-item">
-                Features
+                features
               </Link>
             </div>
             <div className="navbar-end">

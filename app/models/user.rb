@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :scores
 
-  validates :name,        presence: true, length: { maximum: 16 }, uniqueness: true
+  validates :name,        presence: true, length: { maximum: 16 }, format: { with: /[a-z0-9._-]*/ }, uniqueness: true
   validates :screen_name, presence: true, length: { maximum: 32 }
   validates :profile,     length: { maximum: 256 }
   validates :site,        length: { maximum: 256 }
@@ -61,6 +61,7 @@ class User < ApplicationRecord
       end
 
       loop do
+        params[:name].downcase!
         break unless User.find_by(name: params[:name])
         params[:name] = SecureRandom.urlsafe_base64(8)
       end

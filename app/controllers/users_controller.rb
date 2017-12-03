@@ -78,6 +78,6 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.friendly.find_by(name: params[:name] || params[:user_name])
+    @user = User.friendly.find_by(name: (params[:name] || params[:user_name]).downcase)
   end
 end

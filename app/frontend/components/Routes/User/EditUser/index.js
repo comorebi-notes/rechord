@@ -107,13 +107,7 @@ export default class EditUser extends Component {
       <div className="card-content">
         <div className="content">
           <div style={{ marginBottom: "2em" }}>
-            <Field label="your url">
-              <pre>
-                {utils.sharedUrl(name)}
-              </pre>
-            </Field>
-
-            <div className="field">
+            <div className="field" style={{ marginBottom: "2em" }}>
               <label className="label">ID</label>
               <div className="control has-icons-right">
                 <FormWithValidate errorKey="name" target="user" errors={errors}>
@@ -130,6 +124,9 @@ export default class EditUser extends Component {
                     </span>
                     <p className="help">
                       IDはあなたのページのURLに含まれます。
+                    </p>
+                    <p className="help has-text-weight-bold" style={{ wordBreak: "break-all" }}>
+                      {utils.sharedUrl(`users/${name}`)}
                     </p>
                   </div>
                 </FormWithValidate>

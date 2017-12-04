@@ -31,9 +31,8 @@ export default class ShareModal extends Component {
                 {sharedUrl}
               </a>
               {showCopyButton && (
-                <a
+                <button
                   className="button is-small is-info"
-                  role="presentation"
                   style={{ verticalAlign: "middle" }}
                   onClick={this.handleCopy}
                 >
@@ -41,13 +40,13 @@ export default class ShareModal extends Component {
                     <i className="fa fa-copy" />
                   </span>
                   <span>copy</span>
-                </a>
+                </button>
               )}
             </h2>
             <SharedButtons url={sharedUrl} title={title} />
           </div>
         </div>
-        <a className="modal-close is-large" role="presentation" onClick={this.hideModal} />
+        <button className="modal-close is-large" onClick={this.hideModal} />
       </div>
     )
   }

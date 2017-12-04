@@ -80,9 +80,8 @@ export default class Icon extends Component {
                   </span>
                 </label>
               </div>
-              <a
+              <button
                 className="button is-danger is-small"
-                role="presentation"
                 onClick={this.handleRemoveIcon}
                 disabled={!icon || !icon.url}
               >
@@ -90,7 +89,7 @@ export default class Icon extends Component {
                   <i className="fa fa-trash fa-lg" />
                 </span>
                 <span>remove icon</span>
-              </a>
+              </button>
             </div>
           </FormWithValidate>
         )}

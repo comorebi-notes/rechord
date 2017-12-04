@@ -9,7 +9,6 @@ export default class LinkButton extends PureComponent {
     const iconClass = classNames("fa", { [`fa-${icon}`]: icon })
     return (
       <Link
-        role="presentation"
         to={to}
         className={buttonClass}
         style={customStyle}

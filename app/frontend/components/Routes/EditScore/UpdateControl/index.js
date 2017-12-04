@@ -50,9 +50,8 @@ class UpdateControl extends Component {
             </Link>
           </div>
           <div className="control">
-            <a
+            <button
               className="button is-primary is-medium"
-              role="presentation"
               onClick={this.handleClick}
               disabled={loading}
             >
@@ -60,7 +59,7 @@ class UpdateControl extends Component {
                 <i className={iconClass} />
               </span>
               <span>update</span>
-            </a>
+            </button>
           </div>
         </div>
       </div>

@@ -38,17 +38,12 @@ export default class ShowUser extends PureComponent {
           {isOwn && (
             <div>
               <p>
-                <a
-                  className="button is-primary"
-                  role="presentation"
-                  style={{ display: "block" }}
-                  onClick={handleToggleEdit}
-                >
+                <button className="button is-primary wide-button" onClick={handleToggleEdit}>
                   <span className="icon">
                     <i className="fa fa-pencil-square-o" />
                   </span>
                   <span>edit profile</span>
-                </a>
+                </button>
               </p>
               <p>
                 <a href="/logout" className="button" style={{ display: "block" }}>

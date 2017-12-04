@@ -62,16 +62,15 @@ export default class Header extends PureComponent {
                 <div className="navbar-item">
                   <div className="field">
                     <div className="control">
-                      <a
+                      <button
                         className="button is-primary is-inverted login-button"
-                        role="presentation"
                         onClick={this.handleToggleModal}
                       >
                         <span className="icon">
                           <i className="fa fa-sign-in" />
                         </span>
                         <span>login or register</span>
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>

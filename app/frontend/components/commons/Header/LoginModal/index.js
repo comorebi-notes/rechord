@@ -37,7 +37,7 @@ export default class LoginModal extends Component {
             {services.map(renderButton)}
           </div>
         </div>
-        <a className="modal-close is-large" role="presentation" onClick={hideModal} />
+        <button className="modal-close is-large" onClick={hideModal} />
       </div>
     )
   }

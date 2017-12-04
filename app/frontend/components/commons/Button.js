@@ -7,12 +7,7 @@ export default class Button extends PureComponent {
     const buttonClass = classNames("button", { [`is-${color}`]: color, [`is-${size}`]: size })
     const iconClass = classNames("fa", { [`fa-${icon}`]: icon })
     return (
-      <a
-        role="presentation"
-        onClick={onClick}
-        className={buttonClass}
-        disabled={disabled}
-      >
+      <button onClick={onClick} className={buttonClass} disabled={disabled}>
         {icon && (
           <span className="icon is-small">
             <i className={iconClass} />
@@ -21,7 +16,7 @@ export default class Button extends PureComponent {
         {text && (
           <span>{text}</span>
         )}
-      </a>
+      </button>
     )
   }
 }

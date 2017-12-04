@@ -18,16 +18,12 @@ export default class ScoreFooter extends Component {
             </Link>
           </p>
           <p className="control">
-            <a
-              className="button is-danger is-medium"
-              role="presentation"
-              onClick={handleToggleDestroyModal}
-            >
+            <button className="button is-danger is-medium" onClick={handleToggleDestroyModal}>
               <span className="icon">
                 <i className="fa fa-ban" />
               </span>
               <span>delete</span>
-            </a>
+            </button>
           </p>
         </div>
       </div>

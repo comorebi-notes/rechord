@@ -182,10 +182,8 @@ export default class EditUser extends Component {
           </div>
 
           <p>
-            <a
-              className="button is-primary"
-              role="presentation"
-              style={{ display: "block" }}
+            <button
+              className="button wide-button is-primary"
               disabled={loading}
               onClick={this.handleUpdateUser}
             >
@@ -193,13 +191,11 @@ export default class EditUser extends Component {
                 <i className={updateIconClass} />
               </span>
               <span>update profile</span>
-            </a>
+            </button>
           </p>
           <p>
-            <a
-              className="button"
-              role="presentation"
-              style={{ display: "block" }}
+            <button
+              className="button wide-button"
               disabled={loading}
               onClick={handleToggleEdit}
             >
@@ -207,13 +203,11 @@ export default class EditUser extends Component {
                 <i className="fa fa-undo" />
               </span>
               <span>cancel</span>
-            </a>
+            </button>
           </p>
           <p style={{ marginTop: "2em" }}>
-            <a
-              className="button is-danger"
-              role="presentation"
-              style={{ display: "block" }}
+            <button
+              className="button is-danger wide-button"
               disabled={loading}
               onClick={this.handleToggleDestroyModal}
             >
@@ -221,7 +215,7 @@ export default class EditUser extends Component {
                 <i className="fa fa-ban" />
               </span>
               <span>delete</span>
-            </a>
+            </button>
           </p>
         </div>
 

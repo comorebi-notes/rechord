@@ -31,22 +31,22 @@ export default class DestroyUserModal extends Component {
               </span>
               <span>Caution</span>
             </p>
-            <a className="delete" role="presentation" onClick={this.hideModal} />
+            <button className="delete" onClick={this.hideModal} />
           </header>
           <section className="modal-card-body">
             ユーザを削除すると、そのユーザで登録されたスコアもすべて削除されます。<br />
             本当にユーザを削除しますか？
           </section>
           <footer className="modal-card-foot right">
-            <a className="button is-danger" role="presentation" onClick={this.handleDestroyUser}>
+            <button className="button is-danger" onClick={this.handleDestroyUser}>
               Yes
-            </a>
-            <a className="button" role="presentation" onClick={this.hideModal}>
+            </button>
+            <button className="button" onClick={this.hideModal}>
               No
-            </a>
+            </button>
           </footer>
         </div>
-        <a className="modal-close is-large" role="presentation" onClick={this.hideModal} />
+        <button className="modal-close is-large" onClick={this.hideModal} />
       </div>
     )
   }

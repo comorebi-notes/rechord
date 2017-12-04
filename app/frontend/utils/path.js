@@ -29,13 +29,14 @@ export const user = {
 }
 
 export const auth = {
-  twitter:  "/auth/twitter",
-  facebook: "/auth/facebook",
-  google:   "/auth/google_oauth2",
-  tumblr:   "/auth/tumblr",
-  github:   "/auth/github"
+  twitter:  "/users/auth/twitter",
+  facebook: "/users/auth/facebook",
+  google:   "/users/auth/google_oauth2",
+  tumblr:   "/users/auth/tumblr",
+  github:   "/users/auth/github"
 }
 
+export const logout = "/users/logout"
 export const about = "/about"
 
 export const twitter = (id) => `https://twitter.com/${id}`

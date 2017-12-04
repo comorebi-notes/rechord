@@ -3,6 +3,7 @@ class User < ApplicationRecord
   friendly_id :name
 
   mount_uploader :icon, ImageUploader
+  devise :omniauthable
 
   has_many :scores
 

@@ -5,8 +5,10 @@ class OnlyAjaxRequest
 end
 
 Rails.application.routes.draw do
-  get "auth/:provider/callback", to: "sessions#create"
-  get "/logout",                 to: 'sessions#destroy'
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_scope :user do
+    get "/users/logout", to: "devise/sessions#destroy", as: :destroy_user_session
+  end
 
   resources :scores, {
     only: [:show, :edit, :update, :create, :destroy],

@@ -40,6 +40,7 @@ gem 'rails-i18n'
 gem 'slim-rails'
 gem 'bulma-rails'
 
+gem 'devise'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'

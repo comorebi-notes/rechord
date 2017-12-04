@@ -17,12 +17,13 @@ export default class FlashMessage extends PureComponent {
 
     const flashStyle = { display: (show ? "block" : "none") }
     const notificationClass = classNames("notification", {
-      "is-success": type === "success",
+      "is-success": (type === "success" || type === "notice"),
       "is-warning": type === "warning",
       "is-danger":  type === "error"
     })
     const icon = {
       success: "fa-check-circle",
+      notice:  "fa-check-circle",
       warning: "fa-exclamation-circle",
       error:   "fa-exclamation-triangle"
     }

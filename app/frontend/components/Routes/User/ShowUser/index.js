@@ -46,7 +46,7 @@ export default class ShowUser extends PureComponent {
                 </button>
               </p>
               <p>
-                <a href="/logout" className="button" style={{ display: "block" }}>
+                <a href={path.logout} className="button" style={{ display: "block" }}>
                   <span className="icon">
                     <i className="fa fa-sign-out" />
                   </span>

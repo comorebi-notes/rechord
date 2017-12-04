@@ -56,7 +56,7 @@ export default class Header extends PureComponent {
                   <span>
                     @{name}
                   </span>
-                  <img src={utils.iconUrl(icon)} className="user-icon" width={32} height={32} alt={name} />
+                  <img src={utils.iconUrl(icon, "thumb")} className="user-icon" width={32} height={32} alt={name} />
                 </Link>
               ) : (
                 <div className="navbar-item">

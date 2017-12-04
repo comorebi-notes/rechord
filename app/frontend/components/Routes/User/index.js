@@ -54,11 +54,13 @@ export default class User extends Component {
           <div className="column scores">
             <h1 className="title is-4">
               Scores
-              <Link to={path.root}>
-                <span className="icon">
-                  <i className="fa fa-plus-circle" />
-                </span>
-              </Link>
+              {isOwn && (
+                <Link to={path.root}>
+                  <span className="icon">
+                    <i className="fa fa-plus-circle" />
+                  </span>
+                </Link>
+              )}
             </h1>
             {scores.length > 0 ? (
               scores.map(score => (

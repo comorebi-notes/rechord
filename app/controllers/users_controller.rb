@@ -3,9 +3,9 @@ class UsersController < ApplicationController
 
   def show
     if @user == current_user
-      @scores = Score.editable(@user.id)
+      @scores = Score.all_editable(@user.id)
     else
-      @scores = Score.published(@user.id)
+      @scores = Score.all_published(@user.id)
     end
     render json: { user: @user, scores: @scores }
   end

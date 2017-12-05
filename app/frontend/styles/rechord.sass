@@ -26,4 +26,25 @@
 section.section
   margin-bottom: 1em
 
+.section.about
+  .background-rechord
+    position: relative
+    background-image: url("../../../public/assets/images/banner-background.jpg")
+    background-size: cover
+    background-repeat: no-repeat
+    background-attachment: fixed
+    &:before
+      content: ""
+      background-color: rgba(0, 0, 0, 0.4)
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+    .container
+      .title
+        text-shadow: 0 0 5px rgba(255, 255, 255, .2)
+      .subtitle
+        line-height: 1.5
+
 // @media screen and (max-width: $tablet - 1px)

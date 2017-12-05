@@ -38,11 +38,14 @@ class Container extends Component {
       </section>
     )
     const RouteWithState = ({ component: Children, ...routeParams }) => (
+      <Route
+        {...routeParams}
+        render={props => <Children {...props} {...params} />}
+      />
+    )
+    const RouteWithStateContainer = (props) => (
       <SectionContainer>
-        <Route
-          {...routeParams}
-          render={props => <Children {...props} {...params} />}
-        />
+        <RouteWithState {...props} />
       </SectionContainer>
     )
 
@@ -51,11 +54,11 @@ class Container extends Component {
         <Header currentUser={currentUser} pathname={location.pathname} />
 
         <Switch>
-          <RouteWithState path={path.root}                 component={NewScore} exact />
-          <RouteWithState path={path.user.show(":name")}   component={User} />
-          <Route          path={path.about}                component={About} exact />
-          <RouteWithState path={path.score.show(":token")} component={ShowScore} exact />
-          <RouteWithState path={path.score.edit(":token")} component={EditScore} />
+          <RouteWithStateContainer path={path.root}                 component={NewScore} exact />
+          <RouteWithStateContainer path={path.user.show(":name")}   component={User} />
+          <RouteWithState          path={path.about}                component={About} exact />
+          <RouteWithStateContainer path={path.score.show(":token")} component={ShowScore} exact />
+          <RouteWithStateContainer path={path.score.edit(":token")} component={EditScore} />
         </Switch>
 
         <Footer />

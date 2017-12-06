@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react"
 import LinkButton               from "../../commons/LinkButton"
+import Button                   from "../../commons/Button"
 import LoginModal               from "../../commons/Header/LoginModal"
 import * as path                from "../../../utils/path"
 import * as utils               from "../../../utils"
@@ -14,12 +15,12 @@ export default class About extends PureComponent {
   render() {
     const { modal } = this.state
     return (
-      <section className="section about" style={{ padding: 0 }}>
-        <section className="hero is-primary is-large">
-
+      <section className="section about">
+        <section className="hero is-primary is-fullheight">
           <div className="hero-body background-rechord">
             <div className="container has-text-centered">
-              <h1 className="title" style={{ marginBottom: "1em" }}>
+              <h1 className="title">
+                <img src="assets/images/logo_white.png" alt="rechord" width="180" />
                 easy to play, <br className="is-hidden-tablet" />
                 easy to share !
               </h1>
@@ -35,16 +36,31 @@ export default class About extends PureComponent {
                   color="info"
                   size="medium"
                 />
-                <button className="button is-primary is-medium" onClick={this.handleToggleModal}>
-                  <span className="icon is-small">
-                    <i className="fa fa-sign-in" />
-                  </span>
-                  <span>login or register</span>
-                </button>
+                <Button
+                  text="login / register"
+                  color="primary"
+                  size="medium"
+                  icon="sign-in"
+                  onClick={this.handleToggleModal}
+                />
               </div>
+              <p className="hero-icons">
+                <a href="https://github.com/kero-uzura/rechord" target="_blank" rel="noopener noreferrer">
+                  <span className="icon is-medium" style={{ color: "#fff" }}>
+                    <i className="fa fa-github fa-2x" />
+                  </span>
+                </a>
+                <a href="https://twitter.com/rechord_cc" target="_blank" rel="noopener noreferrer">
+                  <span className="icon is-medium">
+                    <span className="fa-stack">
+                      <i className="fa fa-circle fa-stack-2x" />
+                      <i className="fa fa-stack-1x fa-inverse fa-twitter fa-lg" style={{ color: "#111" }} />
+                    </span>
+                  </span>
+                </a>
+              </p>
             </div>
           </div>
-
         </section>
         <LoginModal active={modal} hideModal={this.handleToggleModal} />
       </section>

@@ -14,11 +14,8 @@ export default class Footer extends PureComponent {
                 Copyright &copy; 2017 comorebi notes All Rights Reserved.
               </small>
             </p>
-            <Follow username="rechord_cc" />
-            <span className="icon is-medium" style={{ color: "#fff" }}>
-              <i className="fa fa-github fa-2x" />
-            </span>
             <ShareButtons url={location.origin} asShow asFooter />
+            <Follow username="rechord_cc" />
           </div>
         </div>
       </footer>

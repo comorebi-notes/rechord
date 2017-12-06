@@ -44,9 +44,17 @@ export default class Header extends PureComponent {
               <Link to={path.about} className="navbar-item">
                 about
               </Link>
-              <Link to="/features" className="navbar-item">
-                features
-              </Link>
+              {false && (
+                <Link to="/features" className="navbar-item">
+                  features
+                </Link>
+              )}
+              <span className="navbar-item">
+                <span style={{ opacity: 0.7 }}>features</span>
+                <span className="tag is-rounded" style={{ marginLeft: ".6em" }}>
+                  coming soon !
+                </span>
+              </span>
             </div>
             <div className="navbar-end">
               {name ? (

@@ -2,14 +2,16 @@ doctype html
 html
   head
     title
-      - base_title = "rechord - 演奏もできるコード進行共有サービス"
+      - description = "演奏もできるコード進行共有サービス"
+      - base_title = "rechord - #{description}"
       - if @title.present?
-        = "#{@title} | #{base_title}"
+        - title = "#{@title} | #{base_title}"
       - else
-        = base_title
+        - title = base_title
+      = title
 
     = csrf_meta_tags
-    = render "layouts/meta"
+    = render "layouts/meta", title: title, description: description
 
     = stylesheet_link_tag    "application", media: "all"
     = javascript_include_tag "application"

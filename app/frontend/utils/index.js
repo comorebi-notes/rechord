@@ -44,9 +44,12 @@ export const barLength = (score) => (
 export const protocol = () => (/^https:/.test(br.location.href) ? "https" : "http")
 export const sharedUrl = (url) => `${protocol()}://${br.location.host}/${url}`
 
+export const generateTitle = (baseTitle) => {
+  const defaultTitle = "rechord - 演奏もできるコード進行共有サービス"
+  return baseTitle ? `${baseTitle} | ${defaultTitle}` : defaultTitle
+}
 export const setTitle = (title) => {
-  const baseTitle = "rechord - 演奏もできるコード進行共有サービス"
-  br.document.title = title ? `${title} | ${baseTitle}` : baseTitle
+  br.document.title = generateTitle(title)
 }
 
 export const copyToClipboard = (text) => {

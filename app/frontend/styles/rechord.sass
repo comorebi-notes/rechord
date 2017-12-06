@@ -27,12 +27,13 @@ section.section
   margin-bottom: 1em
 
 .section.about
-  .background-rechord
+  .hero-body.background-rechord
     position: relative
-    background-image: url("../../../public/assets/images/banner-background.jpg")
+    background-image: url("public/assets/images/banner-background.jpg")
     background-size: cover
     background-repeat: no-repeat
-    background-attachment: fixed
+    // background-attachment: fixed
+    background-position: left bottom
     &:before
       content: ""
       background-color: rgba(0, 0, 0, 0.4)
@@ -43,8 +44,19 @@ section.section
       left: 0
     .container
       .title
-        text-shadow: 0 0 5px rgba(255, 255, 255, .2)
+        line-height: 1.2
       .subtitle
         line-height: 1.5
+      .hero-buttons
+        display: flex
 
-// @media screen and (max-width: $tablet - 1px)
+@media screen and (max-width: $tablet - 1px)
+  .section.about
+    .hero-body.background-rechord
+      padding: 6rem 2rem
+      .container
+        .hero-buttons
+          padding: 0 2rem
+          display: block
+          .button
+            width: 100%

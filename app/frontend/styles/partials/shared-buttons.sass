@@ -26,13 +26,20 @@
       font-size: .85em
   &.as-show
     font-size: .85em
-    justify-content: flex-start
     .shared-button
       margin:  0 .75em 1.2em 0
       &:first-child
         margin-left: 0
       &:last-child
         margin-right: 0
+  &.as-footer
+    .shared-button
+      .fa-stack
+        .fa
+          &:first-child
+            color: #fff !important
+          &:last-child
+            color: #532 !important
 
 @media screen and (max-width: $tablet - 1px)
   .shared-url

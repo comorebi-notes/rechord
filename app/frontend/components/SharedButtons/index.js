@@ -2,11 +2,13 @@ import React, { PureComponent } from "react"
 import { ShareButtons }         from "react-share"
 import classNames               from "classnames"
 import ShareIcon                from "./ShareIcon"
+import * as utils               from "../../utils"
 
 export default class SharedButtons extends PureComponent {
   render() {
-    const { url, title, asShow } = this.props
-    const buttonsClass = classNames("shared-buttons", { "as-show": asShow })
+    const { url, title, asShow, asFooter } = this.props
+    const buttonsClass = classNames("shared-buttons", { "as-show": asShow, "as-footer": asFooter })
+    const fixedTitle = utils.generateTitle(title)
     const {
       TwitterShareButton,
       FacebookShareButton,
@@ -20,7 +22,7 @@ export default class SharedButtons extends PureComponent {
         <span className="icon shared-button">
           <TwitterShareButton
             url={url}
-            title={`${title} | rechord`}
+            title={fixedTitle}
             hashtags={["rechord"]}
           >
             <ShareIcon icon="twitter" color="#00aced" large={!asShow} />
@@ -39,7 +41,7 @@ export default class SharedButtons extends PureComponent {
         <span className="icon shared-button">
           <TumblrShareButton
             url={url}
-            title={`${title} | rechord`}
+            title={fixedTitle}
             tags={["rechord"]}
           >
             <ShareIcon icon="tumblr" color="#2c4762" large={!asShow} />
@@ -48,7 +50,7 @@ export default class SharedButtons extends PureComponent {
         <span className="icon shared-button">
           <EmailShareButton
             url={url}
-            subject={`${title} | rechord`}
+            subject={fixedTitle}
             body={url}
           >
             <ShareIcon icon="envelope" color="#7f7f7f" large={!asShow} />

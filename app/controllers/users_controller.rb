@@ -56,9 +56,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    scores = Score.where(user_id: @user.id)
     if @user.destroy
-      scores&.each(&:deleted!)
       reset_session
       flash[:success] = "ユーザが削除されました。"
       head :ok

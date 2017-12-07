@@ -6,6 +6,7 @@
 @import "partials/navbar.sass"
 @import "partials/login.sass"
 @import "partials/shared-buttons.sass"
+@import "partials/about.sass"
 @import "partials/score-editor.sass"
 @import "partials/score-controls.sass"
 @import "partials/score-header.sass"
@@ -26,77 +27,4 @@
 section.section
   margin-bottom: 1em
 
-.section.about
-  margin-bottom: 0
-  padding: 0
-  .hero.is-fullheight
-    min-height: calc(100vh - 3.25rem)
-  .hero-body.background-rechord
-    position: relative
-    background-image: url("public/assets/images/banner-background.jpg")
-    background-size: cover
-    background-repeat: no-repeat
-    // background-attachment: fixed
-    background-position: left bottom
-    &:before
-      content: ""
-      background-color: rgba(0, 0, 0, 0.4)
-      position: absolute
-      top: 0
-      right: 0
-      bottom: 0
-      left: 0
-      opacity: 0
-      animation: fadein 1.4s ease-in-out .2s forwards
-    .container
-      opacity: 0
-      -webkit-filter: blur(5px)
-      filter: blur(5px)
-      animation: fadein 1.2s ease-in-out .8s forwards, blurin 1.2s ease-in-out 1s forwards
-      .title
-        line-height: 1.2
-        margin-bottom: 2em
-        img
-          display: block
-          margin: 0 auto .2em
-      .subtitle
-        line-height: 1.5
-      .hero-buttons
-        display: flex
-        margin-bottom: 3em
-      .hero-icons
-        display: flex
-        align-items: center
-        justify-content: center
-        .icon
-          vertical-align: middle
-        > a
-          &:hover, &:active
-            opacity: .6
-          &:not(:last-child)
-            margin-right: .5em
-
-@media screen and (max-width: $tablet - 1px)
-  .section.about
-    .hero-body.background-rechord
-      padding: 6rem 2rem
-      .container
-        .hero-buttons
-          padding: 0 2rem
-          display: block
-          .button
-            width: 100%
-
-@keyframes fadein
-  0%
-    opacity: 0
-  100%
-    opacity: 1
-
-@keyframes blurin
-  0%
-    -webkit-filter: blur(5px)
-    filter: blur(5px)
-  100%
-    -webkit-filter: blur(0px)
-    filter: blur(0px)
+// @media screen and (max-width: $tablet - 1px)

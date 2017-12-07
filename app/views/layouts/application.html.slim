@@ -11,6 +11,7 @@ html
       = title
 
     = csrf_meta_tags
+    / = render "layouts/gtm_head"
     = render "layouts/meta", title: title, description: description
 
     = stylesheet_link_tag    "application", media: "all"
@@ -18,4 +19,5 @@ html
     = yield(:pack)
 
   body
+    / = render "layouts/gtm_body"
     = yield

@@ -1,16 +1,33 @@
 import React, { Component } from "react"
-import { BrowserRouter }    from "react-router-dom"
+import { Router }           from "react-router-dom"
+import createHistory        from "history/createBrowserHistory"
+import ReactGA              from "react-ga"
 
-import Routes  from "./Routes"
+import Routes     from "./Routes"
 import { window } from "../utils/browser-dependencies"
 
 export default class Rechord extends Component {
+  constructor() {
+    super()
+    const { uaId } = window.data
+    const history = createHistory()
+    if (uaId.length > 0) {
+      ReactGA.initialize(uaId)
+      ReactGA.pageview(window.location.pathname)
+      history.listen(location => {
+        ReactGA.set({ page: location.pathname })
+        ReactGA.pageview(location.pathname)
+      })
+    }
+    this.state = { history }
+  }
   render() {
     const { currentUser, flash } = window.data
+    const { history } = this.state
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Routes currentUser={currentUser} flash={flash} />
-      </BrowserRouter>
+      </Router>
     )
   }
 }

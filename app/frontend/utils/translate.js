@@ -11,6 +11,7 @@ const translate = (chordType) => {
   if (chordType === "+5")     return "M#5"
   if (chordType === "aug")    return "M#5"
   if (chordType === "m7(11)") return "m7add11"
+  if (chordType === "M7(13)") return "M7add13"
   if (chordType.match(/\(.+\)/)) {
     return chordType.replace(/\((.+)\)/, "$1")
   }

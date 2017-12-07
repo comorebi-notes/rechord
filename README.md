@@ -1,24 +1,16 @@
-# README
+<img src="https://rechord.cc/assets/images/logo.png" width="180px" alt="rechord"/>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[https://rechord.cc](https://rechord.cc)
 
-Things you may want to cover:
+rechord は実際に演奏もできるコード進行共有サービスです。
 
-* Ruby version
+## components
+- [Ruby on Rails](https://github.com/rails/rails)
+- [React](https://github.com/facebook/react)
+- [Tone.js](https://github.com/Tonejs/Tone.js/)
+- [tonal](https://github.com/danigb/tonal)
+- [Draft.js](https://github.com/facebook/draft-js)
+- [Bulma](https://github.com/jgthms/bulma)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## copyright
+Copyright &copy; 2017 comorebi notes All Rights Reserved.

@@ -17,7 +17,9 @@ class TopController < ApplicationController
       @title = user&.screen_name
     when /\/([^\/]{11})(\/[^\/]*)*/
       score = Score.friendly.find_by(token: $1)
-      @title = score&.title
+      if score.can_browse?(current_user&.id)
+        @title = score&.title
+      end
     end
   end
 

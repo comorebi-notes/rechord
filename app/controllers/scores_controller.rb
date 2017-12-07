@@ -1,13 +1,11 @@
 class ScoresController < ApplicationController
-  before_action :set_score, only: [:show, :edit, :update, :destroy]
+  before_action :set_score,   only: [:show, :edit, :update, :destroy]
 
   def show
-    redirect_to root_path unless @score
     render json: { score: @score, author: @score&.user }
   end
 
   def edit
-    redirect_to root_path if @score.user_id != current_user.id
     render json: { score: @score }
   end
 
@@ -46,5 +44,6 @@ class ScoresController < ApplicationController
 
   def set_score
     @score = Score.friendly.find_by(token: params[:token])
+    redirect_to root_path unless @score&.can_browse?(current_user&.id)
   end
 end

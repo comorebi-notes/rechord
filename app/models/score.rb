@@ -32,4 +32,11 @@ class Score < ApplicationRecord
   scope :all_published, ->(id) { where(user_id: id, status: :published).order(id: :desc) }
   scope :all_editable,  ->(id) { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
 
+  def owner?(id)
+    user_id == id
+  end
+
+  def can_browse?(id)
+    published? || owner?(id)
+  end
 end

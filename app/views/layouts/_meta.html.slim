@@ -1,3 +1,7 @@
+- description = "rechord はコード進行を入力するだけで誰でも簡単に演奏/共有することができる Web サービスです。"
+- base_url    = "https://rechord.cc"
+- logo_url    = "#{base_url}/assets/images/logo.png"
+
 meta name="viewport"         content="width=420"
 meta name="format-detection" content="telephone=no"
 
@@ -5,18 +9,18 @@ meta name="title"       content=title
 meta name="keywords"    content=""
 meta name="description" content=description
 meta name="author"      content="comorebi notes"
-link rel="canonical"    href="https://rechord.cc"
+link rel="canonical"    href=base_url
 
 meta property="og:site_name"   content="rechord"
 meta property="og:title"       content=title
 meta property="og:description" content=description
 meta property="og:type"        content="website"
 meta property="og:url"         content=request.url
-meta property="og:image"       content="https://rechord.cc/assets/images/logo.png"
+meta property="og:image"       content=logo_url
 meta property="fb:app_id"      content="325988221218874"
 
 meta name="twitter:card"  content="summary"
 meta name="twitter:site"  content="@rechord_cc"
-meta name="twitter:image" content="https://rechord.cc/assets/images/logo.png"
+meta name="twitter:image" content=logo_url
 
 = favicon_link_tag

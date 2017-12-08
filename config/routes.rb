@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     delete :remove_icon
   end
 
-  get "not_support" => "top#not_support"
+  get "not_supported" => "top#not_supported"
   get "*path" => "top#index"
   root "top#index"
 end

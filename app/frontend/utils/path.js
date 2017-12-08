@@ -38,6 +38,5 @@ export const auth = {
 
 export const logout = "/users/logout"
 export const about = "/about"
-export const notSupport = "/not_support"
 
 export const twitter = (id) => `https://twitter.com/${id}`

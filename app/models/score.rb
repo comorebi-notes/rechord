@@ -36,7 +36,7 @@ class Score < ApplicationRecord
     user_id == id
   end
 
-  def can_browse?(id)
+  def browsable?(id)
     published? || owner?(id)
   end
 end

@@ -1,5 +1,7 @@
 class ScoresController < ApplicationController
-  before_action :set_score, only: [:show, :edit, :update, :destroy]
+  before_action :set_score,  only: [:show, :edit, :update, :destroy]
+  before_action :browsable?, only: [:show]
+  before_action :editable?,  only: [:edit, :update, :destroy]
 
   def show
     render json: { score: @score, author: @score&.user }
@@ -42,9 +44,16 @@ class ScoresController < ApplicationController
     )
   end
 
+  def browsable?
+    head :not_found unless @score.browsable?(current_user&.id)
+  end
+
+  def editable?
+    head :forbidden unless @score.owner?(current_user&.id)
+  end
+
   def set_score
     @score = Score.friendly.find_by(token: params[:token])
-    head :not_found and return unless @score
-    head :forbidden and return unless @score.can_browse?(current_user&.id)
+    head :not_found unless @score
   end
 end

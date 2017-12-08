@@ -44,6 +44,7 @@ class ScoresController < ApplicationController
 
   def set_score
     @score = Score.friendly.find_by(token: params[:token])
-    redirect_to root_path unless @score&.can_browse?(current_user&.id)
+    head :not_found and return unless @score
+    head :forbidden and return unless @score.can_browse?(current_user&.id)
   end
 end

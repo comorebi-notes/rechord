@@ -5,5 +5,5 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', <%= ENV["UA_ID"] %>);
+  gtag('config', "<%= ENV["UA_ID"] %>");
 </script>

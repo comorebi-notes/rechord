@@ -1,5 +1,5 @@
 class ScoresController < ApplicationController
-  before_action :set_score,   only: [:show, :edit, :update, :destroy]
+  before_action :set_score, only: [:show, :edit, :update, :destroy]
 
   def show
     render json: { score: @score, author: @score&.user }

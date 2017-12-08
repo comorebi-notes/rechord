@@ -1,16 +1,17 @@
 import React, { Component }          from "react"
 import { withRouter, Route, Switch } from "react-router-dom"
 
-import Header       from "../commons/Header"
-import Footer       from "../commons/Footer"
-import FlashMessage from "../commons/FlashMessage"
-import NewScore     from "./NewScore"
-import EditScore    from "./EditScore"
-import ShowScore    from "./ShowScore"
-import User         from "./User"
-import About        from "./About"
-import * as path    from "../../utils/path"
-import { window }   from "../../utils/browser-dependencies"
+import Header        from "../commons/Header"
+import Footer        from "../commons/Footer"
+import FlashMessage  from "../commons/FlashMessage"
+import NewScore      from "./NewScore"
+import EditScore     from "./EditScore"
+import ShowScore     from "./ShowScore"
+import User          from "./User"
+import About         from "./About"
+import PrivacyPolicy from "./PrivacyPolicy"
+import * as path     from "../../utils/path"
+import { window }    from "../../utils/browser-dependencies"
 
 class Container extends Component {
   constructor(props) {
@@ -57,6 +58,7 @@ class Container extends Component {
           <RouteWithStateContainer path={path.root}                 component={NewScore} exact />
           <RouteWithStateContainer path={path.user.show(":name")}   component={User} />
           <RouteWithState          path={path.about}                component={About} exact />
+          <RouteWithStateContainer path={path.privacyPolicy}        component={PrivacyPolicy} exact />
           <RouteWithStateContainer path={path.score.show(":token")} component={ShowScore} exact />
           <RouteWithStateContainer path={path.score.edit(":token")} component={EditScore} />
         </Switch>

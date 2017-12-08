@@ -6,3 +6,6 @@ section.hero.is-primary.is-fullheight
         | sorry... this browser isn&apos;t supported.
       h2.subtitle.is-6
         | 申し訳ありませんが、このブラウザは rechord に対応していません。
+
+- if ENV["UA_ID"].present?
+  = render "layouts/ga"

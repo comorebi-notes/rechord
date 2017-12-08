@@ -11,14 +11,15 @@ export default class Footer extends PureComponent {
       <footer className="footer">
         <div className="container">
           <div className="content has-text-centered">
-            <Follow username="rechord_cc" />
             <ShareButtons url={location.origin} asShow asFooter />
-            <p>
-              <Link to={path.privacyPolicy}>
-                プライバシーポリシー
-              </Link>
-            </p>
+            <Follow username="rechord_cc" />
             <p style={{ marginTop: "3em" }}>
+              <Link to={path.privacyPolicy}>
+                <span className="is-size-7">
+                  プライバシーポリシー
+                </span>
+              </Link>
+              <br />
               <small>
                 Copyright &copy; 2017 comorebi notes All Rights Reserved.
               </small>

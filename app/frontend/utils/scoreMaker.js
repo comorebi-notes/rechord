@@ -57,11 +57,14 @@ const fixNotes = (chord, baseKey) => {
 
   const maxNotes = 5
   const minNotes = 3
-  for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
-    notes.push(upOctave(notes[i]))
-  }
-  if (denominator && denominator.length > 0 && denominator !== root) {
-    addNewRootToNotes(notes, denominator, baseKey)
+
+  if (notes.length > 0) {
+    for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
+      notes.push(upOctave(notes[i]))
+    }
+    if (denominator && denominator.length > 0 && denominator !== root) {
+      addNewRootToNotes(notes, denominator, baseKey)
+    }
   }
   return notes.map(Note.simplify)
 }

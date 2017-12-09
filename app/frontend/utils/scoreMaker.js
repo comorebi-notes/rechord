@@ -1,4 +1,4 @@
-import { Chord, Note, Distance }               from "tonal"
+import { Note, Distance }                      from "tonal"
 import translate                               from "./translate"
 import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE } from "../constants"
 import { beats }                               from "../constants/beats"
@@ -53,15 +53,18 @@ const fixNotes = (chord, baseKey) => {
   const root        = chord[0]
   const denominator = chord[1].split("/")[1]
   const type        = chord[1].split("/")[0]
-  const notes       = Chord.notes(`${root}${baseKey}`, translate(type))
+  const notes       = translate(root, baseKey, type)
 
   const maxNotes = 5
   const minNotes = 3
-  for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
-    notes.push(upOctave(notes[i]))
-  }
-  if (denominator && denominator.length > 0 && denominator !== root) {
-    addNewRootToNotes(notes, denominator, baseKey)
+
+  if (notes.length > 0) {
+    for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
+      notes.push(upOctave(notes[i]))
+    }
+    if (denominator && denominator.length > 0 && denominator !== root) {
+      addNewRootToNotes(notes, denominator, baseKey)
+    }
   }
   return notes.map(Note.simplify)
 }

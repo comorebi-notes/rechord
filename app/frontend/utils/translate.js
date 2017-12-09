@@ -1,8 +1,8 @@
-import { Note } from "tonal"
+import { Chord, Note } from "tonal"
 
 // support tonal-chord
 
-const translate = (chordType) => {
+const translateType = (chordType) => {
   if (chordType === "add9")   return "Madd9"
   if (chordType === "mM7")    return "mMaj7"
   if (chordType === "m7-5")   return "m7b5"
@@ -16,6 +16,17 @@ const translate = (chordType) => {
     return chordType.replace(/\((.+)\)/, "$1")
   }
   return chordType
+}
+
+const translate = (root, baseKey, chordType) => {
+  const notes = Chord.notes(`${root}${baseKey}`, translateType(chordType))
+  if (chordType === "m6") {
+    // [A3, C4, D4, E4, F#5] => [A3, C4, E4, F#4]
+    notes.splice(2, 1)
+    const lastNote = notes.pop()
+    notes.push(lastNote.replace(/\d{1}/, baseKey + 1))
+  }
+  return notes
 }
 
 // Chord.tokenize では9thコードが変換できないため自前で実装

@@ -62,6 +62,53 @@ export default class About extends PureComponent {
             </div>
           </div>
         </section>
+
+        <div className="container" style={{ margin: "2em auto", padding: "0 2em" }}>
+          <article className="message">
+            <div className="message-body is-size-7">
+              rechord はまだまだ発展途上です。<br />
+              ご要望・バグ報告等がござましたら、<br />Twitter にて、
+              <a href={path.twitter("rechord_cc")} target="_blank" rel="noopener noreferrer">
+                運営公式アカウント (@rechord_cc)
+              </a>
+              までお気軽にお寄せください。
+            </div>
+          </article>
+
+          <div className="box" style={{ maxWidth: 400, margin: "0 auto" }}>
+            <article className="media">
+              <div className="media-left">
+                <figure className="image is-64x64">
+                  <img src="/assets/images/icon_kero.jpg" alt="ケロ" className="user-icon" />
+                </figure>
+              </div>
+              <div className="media-content">
+                <div className="content">
+                  <p>
+                    作者: <strong>ケロ (コモレビノーツ)</strong><br />
+                    <a href={path.twitter("kero_BIRUGE")} target="_blank" rel="noopener noreferrer">
+                      <span className="icon">
+                        <i className="fa fa-twitter" />
+                      </span>
+                    </a>
+                    <a
+                      href="m&#97;i&#108;t&#111;:&#98;&#105;&#114;u&#103;&#101;&#64;&#98;&#105;&#114;&#117;&#103;&#101;.&#99;&#111;m"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span className="icon">
+                        <i className="fa fa-envelope" />
+                      </span>
+                    </a>
+                    <br />
+                    yorozu no mono wo tsukurikeri.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
         <LoginModal active={modal} hideModal={this.handleToggleModal} />
       </section>
     )

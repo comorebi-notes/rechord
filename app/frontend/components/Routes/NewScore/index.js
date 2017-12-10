@@ -72,6 +72,21 @@ export default class NewScore extends Component {
     } = this.state
     return (
       <div>
+        {!userId && (
+          <article className="message is-primary">
+            <div className="message-body has-icon">
+              <span className="icon is-large">
+                <i className="fa fa-envira fa-2x" />
+              </span>
+              <p className="is-size-7">
+                <strong>easy to play, easy to share !</strong><br />
+                rechord は、テキスト入力するだけで実際に演奏もできるコード進行共有サービスです。<br />
+                自由に入力し、自由に鳴らし、自由に共有してみてください。
+              </p>
+            </div>
+          </article>
+        )}
+
         <TitleControl
           title={title}
           errors={errors}

@@ -36,8 +36,8 @@ export const auth = {
   github:   "/users/auth/github"
 }
 
-export const logout        = "/users/logout"
-export const about         = "/about"
-export const privacyPolicy = "/privacy_policy"
+export const logout = "/users/logout"
+export const about  = "/about"
+export const terms  = "/terms"
 
 export const twitter = (id) => `https://twitter.com/${id}`

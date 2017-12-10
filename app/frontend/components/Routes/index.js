@@ -9,7 +9,7 @@ import EditScore     from "./EditScore"
 import ShowScore     from "./ShowScore"
 import User          from "./User"
 import About         from "./About"
-import PrivacyPolicy from "./PrivacyPolicy"
+import Terms         from "./Terms"
 import * as path     from "../../utils/path"
 import { window }    from "../../utils/browser-dependencies"
 
@@ -58,7 +58,7 @@ class Container extends Component {
           <RouteWithStateContainer path={path.root}                 component={NewScore} exact />
           <RouteWithStateContainer path={path.user.show(":name")}   component={User} />
           <RouteWithState          path={path.about}                component={About} exact />
-          <RouteWithStateContainer path={path.privacyPolicy}        component={PrivacyPolicy} exact />
+          <RouteWithStateContainer path={path.terms}                component={Terms} exact />
           <RouteWithStateContainer path={path.score.show(":token")} component={ShowScore} exact />
           <RouteWithStateContainer path={path.score.edit(":token")} component={EditScore} />
         </Switch>

@@ -30,22 +30,27 @@ const addNewRootToNotes = (notes, denominator, baseKey) => {
     return 0
   }
   const newRoot = `${denominator}${baseKey + keyAdjuster()}`
-  const distanceByNewRoot = Distance.semitones(notes[0], newRoot)
 
-  if (distanceByNewRoot > 0 && distanceByNewRoot <= 4) {
-    // 1度と3度の構成音を削除して5度の構成音のオクターブ上を足す
-    notes.splice(0, 2)
-    notes.unshift(newRoot)
-    notes.push(upOctave(notes[1]))
-  } else if (distanceByNewRoot > -4) {
-    // 1度の構成音を削除
-    notes.unshift(newRoot)
-    notes.splice(1, 1)
-  } else {
-    // 最低音に追加
-    notes.unshift(newRoot)
-    notes.pop()
-  }
+  // const distanceByNewRoot = Distance.semitones(notes[0], newRoot)
+  // if (distanceByNewRoot > 0 && distanceByNewRoot <= 4) {
+  //   // 1度と3度の構成音を削除して5度の構成音のオクターブ上を足す
+  //   notes.splice(0, 2)
+  //   notes.unshift(newRoot)
+  //   notes.push(upOctave(notes[1]))
+  // } else if (distanceByNewRoot > -4) {
+  //   // 1度の構成音を削除
+  //   notes.unshift(newRoot)
+  //   notes.splice(1, 1)
+  // } else {
+  // 最低音に追加
+  // notes.unshift(newRoot)
+  // notes.pop()
+  // }
+
+  // 最低音に追加
+  notes.unshift(newRoot)
+  // notes.pop()
+
   return notes
 }
 
@@ -59,11 +64,11 @@ const fixNotes = (chord, baseKey) => {
   const minNotes = 3
 
   if (notes.length > 0) {
-    for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
-      notes.push(upOctave(notes[i]))
-    }
     if (denominator && denominator.length > 0 && denominator !== root) {
       addNewRootToNotes(notes, denominator, baseKey)
+    }
+    for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
+      notes.push(upOctave(notes[i]))
     }
   }
   return notes.map(Note.simplify)

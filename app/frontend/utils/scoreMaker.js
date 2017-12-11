@@ -61,7 +61,7 @@ const fixNotes = (chord, baseKey) => {
   const notes       = translateChord(root, baseKey, type)
 
   const maxNotes = 5
-  const minNotes = 2
+  const minNotes = 3
 
   if (notes.length > 0) {
     if (denominator && denominator.length > 0 && denominator !== root) {

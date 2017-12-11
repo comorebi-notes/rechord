@@ -1,5 +1,5 @@
 import { Note, Distance } from "tonal"
-import { tokenize }       from "../utils/translate"
+import { tokenize }       from "../utils/translateChord"
 import * as regex         from "../constants/regex"
 
 export const parseChordProgression = (text) => {

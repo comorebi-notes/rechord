@@ -50,30 +50,29 @@ const translateType = (type) => {
   }
   // sus
   switch (true) {
-    case manipulateType(/^sus4/): notes[1] = 1;  break
-    case manipulateType(/^sus2/): notes[1] = -2; break
+    case manipulateType(/sus4/): notes[1] = 1;  break
+    case manipulateType(/sus2/): notes[1] = -2; break
   }
   // add
   switch (true) {
-    case manipulateType(/^add2/):  notes[4] = -12; break
-    case manipulateType(/^add9/):  notes[4] = 0;   break
-    case manipulateType(/^add4/):  notes[5] = -12; break
-    case manipulateType(/^add11/): notes[5] = 0;   break
-    case manipulateType(/^add6/):  notes[6] = -12; break
-    case manipulateType(/^add13/): notes[6] = 0;   break
+    case manipulateType(/add2/):  notes[4] = -12; break
+    case manipulateType(/add9/):  notes[4] = 0;   break
+    case manipulateType(/add4/):  notes[5] = -12; break
+    case manipulateType(/add11/): notes[5] = 0;   break
+    case manipulateType(/add6/):  notes[6] = -12; break
+    case manipulateType(/add13/): notes[6] = 0;   break
   }
   // M
   switch (true) {
-    case manipulateType(/^(M|maj|△)7/):  notes[3] = 1; break
-    case manipulateType(/^(M|maj|△)9/):  notes[3] = 1; notes[4] = 0; break
-    case manipulateType(/^(M|maj|△)11/): notes[3] = 1; notes[4] = 0; notes[5] = 0; break
-    case manipulateType(/^(M|maj|△)13/): notes[3] = 1; notes[4] = 0; notes[5] = 0; notes[6] = 0; break
+    case manipulateType(/(M|maj|△)7/):  notes[3] = 1; break
+    case manipulateType(/(M|maj|△)9/):  notes[3] = 1; notes[4] = 0; break
+    case manipulateType(/(M|maj|△)11/): notes[3] = 1; notes[4] = 0; notes[5] = 0; break
+    case manipulateType(/(M|maj|△)13/): notes[3] = 1; notes[4] = 0; notes[5] = 0; notes[6] = 0; break
   }
   // dim
   switch (true) {
-    case manipulateType(/^(dim|o)7/):       notes[1] -= 1; notes[2] -= 1; notes[3] = -1; break
-    case manipulateType(/^(dim|o)(M|maj)/): notes[1] -= 1; notes[2] -= 1; notes[3] = 0;  break
-    case manipulateType(/^(dim|o)/):        notes[1] -= 1; notes[2] -= 1; break
+    case manipulateType(/^(dim|o)7/): notes[1] -= 1; notes[2] -= 1; notes[3] = -1; break
+    case manipulateType(/^(dim|o)/):  notes[1] -= 1; notes[2] -= 1; break
   }
   // tension
   if (tension) baseType += tension.join("")

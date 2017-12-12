@@ -64,10 +64,10 @@ const translateType = (type) => {
   }
   // M
   switch (true) {
-    case manipulateType(/(M|maj|△)7/):  notes[3] = 1; break
-    case manipulateType(/(M|maj|△)9/):  notes[3] = 1; notes[4] = 0; break
-    case manipulateType(/(M|maj|△)11/): notes[3] = 1; notes[4] = 0; notes[5] = 0; break
-    case manipulateType(/(M|maj|△)13/): notes[3] = 1; notes[4] = 0; notes[5] = 0; notes[6] = 0; break
+    case manipulateType(/(M|maj|△|Δ)7/):  notes[3] = 1; break
+    case manipulateType(/(M|maj|△|Δ)9/):  notes[3] = 1; notes[4] = 0; break
+    case manipulateType(/(M|maj|△|Δ)11/): notes[3] = 1; notes[4] = 0; notes[5] = 0; break
+    case manipulateType(/(M|maj|△|Δ)13/): notes[3] = 1; notes[4] = 0; notes[5] = 0; notes[6] = 0; break
   }
   // dim
   switch (true) {

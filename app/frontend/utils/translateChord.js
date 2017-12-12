@@ -93,6 +93,7 @@ const translateType = (type) => {
     case "7":  notes[3] = null; break
     case "9":  notes[4] = null; break
     case "11": notes[5] = null; break
+    case "13": notes[6] = null; break
   }
 
   return notes
@@ -102,8 +103,8 @@ const transposer = (note, interval) => Note.fromMidi(Note.midi(note) + interval)
 
 const buildChord = (root, baseNotes, translator) => {
   const notes = []
-  const chord13 = Chord.notes(root, "13")
-  chord13.splice(5, 0, Distance.transpose(root, "M11")) // tonal の 13th コードは 11th が omit されている
+  const chord13 = Chord.notes(root, "13") // 13コードを基準にして音を足したり減らしたりする
+  chord13.splice(5, 0, Distance.transpose(root, "M11")) // tonal の 13コードは 11th が omit されている
 
   for (let i = 0; i < 7; i += 1) {
     if (translator[i] !== null) notes.push(transposer(chord13[i], translator[i]))

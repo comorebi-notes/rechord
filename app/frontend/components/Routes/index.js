@@ -2,6 +2,7 @@ import React, { Component }          from "react"
 import { withRouter, Route, Switch } from "react-router-dom"
 
 import Header        from "../commons/Header"
+import TabBar        from "../commons/TabBar"
 import Footer        from "../commons/Footer"
 import FlashMessage  from "../commons/FlashMessage"
 import NewScore      from "./NewScore"
@@ -53,6 +54,7 @@ class Container extends Component {
     return (
       <div className="main-content">
         <Header currentUser={currentUser} pathname={location.pathname} />
+        <TabBar pathname={location.pathname} />
 
         <Switch>
           <RouteWithStateContainer path={path.root}                 component={NewScore} exact />

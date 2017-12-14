@@ -4,7 +4,10 @@ export const current = location.href
 export const back    = () => history.back()
 export const forward = () => history.forward()
 
-export const root = "/"
+export const root   = "/"
+export const logout = "/users/logout"
+export const about  = "/about"
+export const terms  = "/terms"
 
 // view と api で path が異なるため注意
 export const score = {
@@ -36,8 +39,6 @@ export const auth = {
   github:   "/users/auth/github"
 }
 
-export const logout = "/users/logout"
-export const about  = "/about"
-export const terms  = "/terms"
+export const search = (query) => `/search?=${query}`
 
 export const twitter = (id) => `https://twitter.com/${id}`

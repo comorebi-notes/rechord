@@ -50,9 +50,12 @@ const data = {
   `,
   timeoutLength: 300
 }
-customizeTwitterWidget(data)
 
 export default class TwitterTL extends PureComponent {
+  constructor() {
+    super()
+    customizeTwitterWidget(data)
+  }
   render() {
     return (
       <Timeline

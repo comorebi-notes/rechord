@@ -11,7 +11,6 @@ export default class ScoreCard extends PureComponent {
     const isClosed = status === "closed"
     const showScorePath = path.score.show(token)
     const editScorePath = path.score.edit(token)
-    const authorPath    = author && path.user.show(author.name)
     return (
       <Link to={showScorePath} className="score-card">
         <div className={classNames("box", { closed: isClosed })}>
@@ -28,7 +27,7 @@ export default class ScoreCard extends PureComponent {
                 </h3>
                 <div className="score-attributes">
                   {author && (
-                    <span to={authorPath} className="author-name">
+                    <span className="author-name">
                       <figure className="image is-24x24">
                         <img src={utils.iconUrl(author.icon, "thumb")} className="user-icon" alt={author.name} />
                       </figure>

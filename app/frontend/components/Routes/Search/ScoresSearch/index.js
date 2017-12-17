@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react"
 import ScoreCard                from "../../../ScoreCard"
 
-export default class ScoreSearch extends PureComponent {
+export default class ScoresSearch extends PureComponent {
   render() {
     const { scores } = this.props
     return (

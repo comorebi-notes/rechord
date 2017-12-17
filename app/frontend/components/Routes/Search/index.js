@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import classNames           from "classnames"
-import ScoreSearch          from "./ScoreSearch"
+import ScoresSearch         from "./ScoresSearch"
+import UsersSearch          from "./UsersSearch"
 import * as api             from "../../../api"
 import * as path            from "../../../utils/path"
 
@@ -11,13 +12,18 @@ export default class Search extends Component {
     this.state = { type, query, result: "", loading: true }
     if (type && query) this.handleSearch(type, query)
   }
-  handleSearch = (type, query) => (
-    api.searchScore(
+  handleSearch = (type, query) => {
+    let method
+    switch (type) {
+      case "scores": method = "searchScore"; break
+      case "users":  method = "searchUser";  break
+    }
+    api[method](
       { query },
       (success) => this.setState({ result: success.data, loading: false }),
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
-  )
+  }
   handlePush = (type, query) => {
     if (query.trim().length === 0) return false
     return this.props.history.push(path.search(type, query))
@@ -37,6 +43,13 @@ export default class Search extends Component {
       "is-info":      type === target,
       "is-selected:": type === target
     })
+    const searchResult = () => {
+      switch (type) {
+        case "scores": return <ScoresSearch scores={result} />
+        case "users":  return <UsersSearch users={result} />
+      }
+      return ""
+    }
     return (
       <div className={classNames("search", { "loading-wrapper": loading })}>
         <div className="field is-grouped">
@@ -82,9 +95,7 @@ export default class Search extends Component {
           </div>
         </div>
 
-        {type === "scores" && result && (
-          <ScoreSearch scores={result} />
-        )}
+        {result && searchResult()}
       </div>
     )
   }

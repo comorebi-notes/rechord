@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     constraints: OnlyAjaxRequest.new
   }
 
-  resource :user, only: [] do
+  resource :users, only: [] do
     get "search/:query" => "users#search"
   end
   resources :users, {

@@ -1,0 +1,51 @@
+.users
+  .user-card
+    display: block
+    .box
+      display: flex
+      justify-content: space-between
+      align-items: center
+      transition: all .1s ease-in-out
+      background-color: #fff
+      .screen-name
+        color: $link
+        font-weight: bold
+        margin-bottom: .4em
+        small
+          font-weight: normal
+          font-size: .7em
+      .screen-name, .user-attributes
+        transition: all .1s ease-in-out
+      .user-attributes
+        line-height: 1.5
+        font-size: .9em
+        strong
+          font-size: 1.2em
+          margin-left: .25em
+        p
+          margin-bottom: .8em
+        .profile p
+          margin-bottom: 0
+    &:hover, &:active
+      .box
+        background-color: #fafafa
+        &.closed
+          background-color: #e0e0e0
+    &:not(:last-child)
+      margin-bottom: 1.5rem
+
+.box.no-user
+  box-shadow: none
+  background-color: #f4f4f4
+  padding: 2.4em
+  .media-content
+    text-align: center
+    color: #888
+    font-weight: bold
+
+@media screen and (max-width: $tablet - 1px)
+  .users
+    .user-card
+      .box
+        .image
+          width: 64px

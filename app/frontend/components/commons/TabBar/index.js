@@ -7,22 +7,22 @@ import * as path from "../../../utils/path"
 class TabBar extends PureComponent {
   constructor() {
     super()
-    this.state = { searchText: "" }
+    this.state = { query: "" }
   }
-  handleInput   = (e) => this.setState({ searchText: e.target.value })
-  handleKeyDown = (e) => {
-    if (e.keyCode === 13) this.handleSearch()
-  }
+  handleInput   = (e) => this.setState({ query: e.target.value })
+  handleKeyDown = (e) => e.keyCode === 13 && this.handleSearch()
+  handleClear   = ()  => this.setState({ query: "" })
   handleSearch = () => {
     const { history } = this.props
-    const { searchText } = this.state
-    if (searchText.length > 0) {
-      history.push(path.search(searchText))
+    const { query } = this.state
+    if (query.length > 0) {
+      history.push(path.search("scores", query)) // デフォルトはスコア検索
+      this.handleClear()
     }
   }
   render() {
     const { currentUser, currentPath } = this.props
-    const { searchText } = this.state
+    const { query } = this.state
     return (
       <div className="tabs tab-bar">
         <div className="container">
@@ -30,18 +30,18 @@ class TabBar extends PureComponent {
             <TabItems currentUser={currentUser} currentPath={currentPath} />
           </ul>
           <div className="field">
-            <div className="control has-icons-right">
+            <div className="control has-icons-left">
+              <span className="icon is-left can-click" role="presentation" onClick={this.handleSearch}>
+                <i className="fa fa-search fa-lg" />
+              </span>
               <input
                 className="input"
                 type="text"
                 placeholder="search..."
-                value={searchText}
+                value={query}
                 onChange={this.handleInput}
                 onKeyDown={this.handleKeyDown}
               />
-              <span className="icon is-right can-click" role="presentation" onClick={this.handleSearch}>
-                <i className="fa fa-search fa-lg" />
-              </span>
             </div>
           </div>
         </div>

@@ -9,18 +9,6 @@
       font-size: .85em
       margin-left: .4em
       opacity: .5
-  .author-name
-    display: inline-block
-    font-size: .9em
-    margin-bottom: 1em
-    color: #666
-    > *
-      vertical-align: middle
-    figure
-      display: inline-block
-      margin-right: .5rem
-    &:hover
-      color: #444
   .created-at, .updated-at
     display: block
     font-size: .9em
@@ -31,6 +19,19 @@
   .button
     display: block
     margin-bottom: 1rem
+
+.author-name
+  display: inline-block
+  font-size: .9em
+  margin-bottom: 1em
+  color: #666
+  > *
+    vertical-align: middle
+  figure
+    display: inline-block
+    margin-right: .5rem
+  &:hover
+    color: #444
 
 @media screen and (max-width: $tablet - 1px)
   .score-header

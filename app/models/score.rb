@@ -29,8 +29,9 @@ class Score < ApplicationRecord
     self.token = SecureRandom.urlsafe_base64(8)
   end
 
-  scope :all_published, ->(id) { where(user_id: id, status: :published).order(id: :desc) }
-  scope :all_editable,  ->(id) { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
+  scope :all_published, ->(id)    { where(user_id: id, status: :published).order(id: :desc) }
+  scope :all_editable,  ->(id)    { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
+  scope :search,        ->(query) { where("title like '%#{query}%'").where(status: :published).order(updated_at: :desc) }
 
   def owner?(id)
     user_id == id

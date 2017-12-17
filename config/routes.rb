@@ -10,11 +10,18 @@ Rails.application.routes.draw do
     get "/users/logout", to: "devise/sessions#destroy", as: :destroy_user_session
   end
 
+  resource :scores, only: [] do
+    get "search/:query" => "scores#search"
+  end
   resources :scores, {
     only: [:show, :edit, :update, :create, :destroy],
     param: :token,
     constraints: OnlyAjaxRequest.new
   }
+
+  resource :user, only: [] do
+    get "search/:query" => "users#search"
+  end
   resources :users, {
     only: [:show, :update, :destroy],
     param: :name,

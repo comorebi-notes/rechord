@@ -18,17 +18,21 @@ export const score = {
     show:    (token) => `/scores/${token}`,
     edit:    (token) => `/scores/${token}/edit`,
     update:  (token) => `/scores/${token}`,
-    destroy: (token) => `/scores/${token}`
+    destroy: (token) => `/scores/${token}`,
+    search:  (query) => `/scores/search/${query}`
   }
 }
 
 export const user = {
-  show:       (name) => `/users/${name}`,
-  validName:  (name) => `/users/${name}/valid_name`,
-  update:     (name) => `/users/${name}`,
-  updateIcon: (name) => `/users/${name}/update_icon`,
-  removeIcon: (name) => `/users/${name}/remove_icon`,
-  destroy:    (name) => `/users/${name}`
+  show:       (name)  => `/users/${name}`,
+  validName:  (name)  => `/users/${name}/valid_name`,
+  update:     (name)  => `/users/${name}`,
+  updateIcon: (name)  => `/users/${name}/update_icon`,
+  removeIcon: (name)  => `/users/${name}/remove_icon`,
+  destroy:    (name)  => `/users/${name}`,
+  api: {
+    search:   (query) => `/users/search/${query}`
+  }
 }
 
 export const auth = {
@@ -39,6 +43,6 @@ export const auth = {
   github:   "/users/auth/github"
 }
 
-export const search = (query) => `/search?=${query}`
+export const search = (type, query) => `/search/${type || "scores"}/${query}`
 
 export const twitter = (id) => `https://twitter.com/${id}`

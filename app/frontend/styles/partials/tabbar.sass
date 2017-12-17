@@ -6,12 +6,39 @@
     align-items: center
     ul
       border: none
+      margin-right: .5em
       a, span
         padding: .85em 1em
       a:hover
         background-color: #fafafa
       .disabled
         opacity: .5
-    .has-addons
-      .input, .button
-        font-size: .9rem
+      .icon
+        margin: 0 .2em 0 0
+        padding-left: .5em
+        font-size: 1.1em
+      .tab-label
+        margin: 0
+        padding: 0
+    .field
+      .input, .button, .icon
+        font-size: .95rem
+
+@media screen and (max-width: $desktop - 1px)
+  .tab-bar.tabs
+    .container
+      width: 100%
+      .field
+        margin-right: 1.5rem
+
+@media screen and (max-width: $tablet - 1px)
+  .tab-bar.tabs
+    .container
+      ul
+        .icon
+          margin: 0
+          padding: 0
+        .tab-label
+          display: none
+      .field
+        margin-right: .75rem

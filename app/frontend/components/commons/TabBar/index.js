@@ -1,9 +1,8 @@
 import React, { PureComponent } from "react"
 import { withRouter }           from "react-router-dom"
 
-import TabItems       from "./TabItems"
-import HasAddonsField from "../HasAddonsField"
-import * as path      from "../../../utils/path"
+import TabItems  from "./TabItems"
+import * as path from "../../../utils/path"
 
 class TabBar extends PureComponent {
   constructor() {
@@ -30,8 +29,8 @@ class TabBar extends PureComponent {
           <ul>
             <TabItems currentUser={currentUser} currentPath={currentPath} />
           </ul>
-          <HasAddonsField>
-            <div className="control">
+          <div className="field">
+            <div className="control has-icons-right">
               <input
                 className="input"
                 type="text"
@@ -40,15 +39,11 @@ class TabBar extends PureComponent {
                 onChange={this.handleInput}
                 onKeyDown={this.handleKeyDown}
               />
+              <span className="icon is-right can-click" role="presentation" onClick={this.handleSearch}>
+                <i className="fa fa-search fa-lg" />
+              </span>
             </div>
-            <div className="control">
-              <button className="button is-primary" onClick={this.handleSearch}>
-                <span className="icon">
-                  <i className="fa fa-search" />
-                </span>
-              </button>
-            </div>
-          </HasAddonsField>
+          </div>
         </div>
       </div>
     )

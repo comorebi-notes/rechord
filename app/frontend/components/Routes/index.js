@@ -51,10 +51,14 @@ class Container extends Component {
       </SectionContainer>
     )
 
+    const hideTabBar = location.pathname !== path.about
+
     return (
       <div className="main-content">
         <Header currentUser={currentUser} pathname={location.pathname} />
-        <TabBar currentUser={currentUser} currentPath={location.pathname} location={location} />
+        {hideTabBar && (
+          <TabBar currentUser={currentUser} currentPath={location.pathname} location={location} />
+        )}
 
         <Switch>
           <RouteWithStateContainer path={path.root}                 component={NewScore} exact />

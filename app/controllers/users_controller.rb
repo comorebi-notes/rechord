@@ -66,8 +66,14 @@ class UsersController < ApplicationController
   end
 
   def search
-    users = User.search(params[:query])
-    render json: users, methods: :scores_count
+    if params[:query].present?
+      users = User.search(params[:query])
+      render json: users, methods: :scores_count
+    else
+      head :ok
+    end
+  rescue
+    head :ok
   end
 
   private

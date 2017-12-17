@@ -66,7 +66,8 @@ class Container extends Component {
           <RouteWithStateContainer path={path.user.show(":name")}        component={User} />
           <RouteWithState          path={path.about}                     component={About} exact />
           <RouteWithStateContainer path={path.terms}                     component={Terms} exact />
-          <RouteWithStateContainer path={path.search(":type", ":query")} component={Search} exact />
+          <RouteWithStateContainer path={path.search(":type", ":query")} component={Search} />
+          <RouteWithStateContainer path={path.search(":type", "")}       component={Search} />
           <RouteWithStateContainer path={path.score.show(":token")}      component={ShowScore} exact />
           <RouteWithStateContainer path={path.score.edit(":token")}      component={EditScore} />
         </Switch>

@@ -10,7 +10,11 @@ export default class Search extends Component {
     super(props)
     const { type, query } = props.match.params
     this.state = { type, query, result: "", loading: true }
-    if (type && query) this.handleSearch(type, query)
+    if (type && query) {
+      this.handleSearch(type, query)
+    } else {
+      this.state.loading = false
+    }
   }
   handleSearch = (type, query) => {
     let method
@@ -95,7 +99,7 @@ export default class Search extends Component {
           </div>
         </div>
 
-        {result && searchResult()}
+        {searchResult()}
       </div>
     )
   }

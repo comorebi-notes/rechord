@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
 
   resource :scores, only: [] do
+    get "search" => "scores#search"
     get "search/:query" => "scores#search"
   end
   resources :scores, {
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   }
 
   resource :users, only: [] do
+    get "search" => "users#search"
     get "search/:query" => "users#search"
   end
   resources :users, {

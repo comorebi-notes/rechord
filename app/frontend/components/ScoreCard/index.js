@@ -26,24 +26,24 @@ export default class ScoreCard extends PureComponent {
                     </span>
                   )}
                 </h3>
-                <p className="score-attributes">
+                <div className="score-attributes">
                   {author && (
-                    <Link to={authorPath} className="author-name">
+                    <span to={authorPath} className="author-name">
                       <figure className="image is-24x24">
                         <img src={utils.iconUrl(author.icon, "thumb")} className="user-icon" alt={author.name} />
                       </figure>
                       <strong>{author.screen_name}</strong>
-                    </Link>
+                    </span>
                   )}
                   <time className="created-at">
-                    作成日時: <strong>{utils.humanDateTime(created_at, true)}</strong>
+                    作成日時 : <strong>{utils.humanDateTime(created_at, true)}</strong>
                   </time>
                   {created_at !== updated_at && (
                     <time className="updated-at">
-                      更新日時: <strong>{utils.humanDateTime(updated_at, true)}</strong>
+                      更新日時 : <strong>{utils.humanDateTime(updated_at, true)}</strong>
                     </time>
                   )}
-                </p>
+                </div>
               </div>
             </div>
           </article>

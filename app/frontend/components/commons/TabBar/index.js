@@ -15,7 +15,7 @@ class TabBar extends PureComponent {
   handleSearch = () => {
     const { history } = this.props
     const { query } = this.state
-    if (query.length > 0) {
+    if (query.trim().length > 0) {
       history.push(path.search("scores", query)) // デフォルトはスコア検索
       this.handleClear()
     }

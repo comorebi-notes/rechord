@@ -18,7 +18,10 @@ export default class Search extends Component {
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   )
-  handlePush = (type, query) => this.props.history.push(path.search(type, query))
+  handlePush = (type, query) => {
+    if (query.trim().length === 0) return false
+    return this.props.history.push(path.search(type, query))
+  }
   handleInputQuery = (e) => this.setState({ query: e.target.value })
   handleChangeType = (type) => {
     this.setState({ type })

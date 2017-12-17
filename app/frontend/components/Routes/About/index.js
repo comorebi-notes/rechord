@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react"
 import LinkButton               from "../../commons/LinkButton"
 import Button                   from "../../commons/Button"
-import LoginModal               from "../../commons/Header/LoginModal"
+import LoginModal               from "../../commons/LoginModal"
 import TwitterTL                from "../../commons/TwitterTL"
 import * as path                from "../../../utils/path"
 import * as utils               from "../../../utils"

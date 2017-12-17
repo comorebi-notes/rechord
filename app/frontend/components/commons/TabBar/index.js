@@ -26,9 +26,7 @@ class TabBar extends PureComponent {
     return (
       <div className="tabs tab-bar">
         <div className="container">
-          <ul>
-            <TabItems currentUser={currentUser} currentPath={currentPath} />
-          </ul>
+          <TabItems currentUser={currentUser} currentPath={currentPath} />
           <div className="field">
             <div className="control has-icons-left">
               <span className="icon is-left can-click" role="presentation" onClick={this.handleSearch}>

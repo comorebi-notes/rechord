@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react"
 import classNames               from "classnames"
 import { Link  }                from "react-router-dom"
-import LoginModal               from "./LoginModal"
+import LoginModal               from "../LoginModal"
 import * as path                from "../../../utils/path"
 import * as utils               from "../../../utils"
 

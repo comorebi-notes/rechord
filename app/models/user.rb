@@ -14,6 +14,10 @@ class User < ApplicationRecord
   validates :twitter,     length: { maximum: 16 }
   validate  :limit_icon_file_size, if: :has_icon?
 
+  scope :search, ->(query) {
+    where("name like ? OR screen_name like ? OR profile like ?", "%#{query}%", "%#{query}%", "%#{query}%").order(:id)
+  }
+
   class << self
     def find_or_create_from_auth(auth)
       provider = auth[:provider]
@@ -88,5 +92,9 @@ class User < ApplicationRecord
     if icon.file.size.to_f > limit_size
       errors.add(:icon, "over_size")
     end
+  end
+
+  def scores_count
+    Score.where(user_id: id).length
   end
 end

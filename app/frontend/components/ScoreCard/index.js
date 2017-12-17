@@ -7,7 +7,7 @@ import * as utils               from "../../utils"
 
 export default class ScoreCard extends PureComponent {
   render() {
-    const { score: { title, token, status, created_at }, isOwn } = this.props
+    const { score: { title, token, status, created_at, updated_at }, author, isOwn } = this.props
     const isClosed = status === "closed"
     const showScorePath = path.score.show(token)
     const editScorePath = path.score.edit(token)
@@ -25,11 +25,24 @@ export default class ScoreCard extends PureComponent {
                     </span>
                   )}
                 </h3>
-                <p className="score-attributes">
+                <div className="score-attributes">
+                  {author && (
+                    <span className="author-name">
+                      <figure className="image is-24x24">
+                        <img src={utils.iconUrl(author.icon, "thumb")} className="user-icon" alt={author.name} />
+                      </figure>
+                      <strong>{author.screen_name}</strong>
+                    </span>
+                  )}
                   <time className="created-at">
-                    {utils.humanDateTime(created_at, true)}
+                    作成日時 : <strong>{utils.humanDateTime(created_at, true)}</strong>
                   </time>
-                </p>
+                  {created_at !== updated_at && (
+                    <time className="updated-at">
+                      更新日時 : <strong>{utils.humanDateTime(updated_at, true)}</strong>
+                    </time>
+                  )}
+                </div>
               </div>
             </div>
           </article>

@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react"
 import classNames               from "classnames"
 import { Link  }                from "react-router-dom"
-import LoginModal               from "./LoginModal"
+import LoginModal               from "../LoginModal"
 import * as path                from "../../../utils/path"
 import * as utils               from "../../../utils"
 
@@ -44,16 +44,8 @@ export default class Header extends PureComponent {
               <Link to={path.about} className="navbar-item">
                 about
               </Link>
-              {false && (
-                <Link to="/features" className="navbar-item">
-                  features
-                </Link>
-              )}
               <span className="navbar-item">
-                <span style={{ opacity: 0.7 }}>features</span>
-                <span className="tag is-rounded" style={{ marginLeft: ".6em" }}>
-                  coming soon !
-                </span>
+                <span style={{ opacity: 0.5 }}>FAQ</span>
               </span>
             </div>
             <div className="navbar-end">

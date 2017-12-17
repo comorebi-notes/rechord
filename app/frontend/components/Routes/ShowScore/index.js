@@ -47,6 +47,7 @@ export default class ShowScore extends Component {
           instrumentType: score.instrument,
           token:          score.token,
           createdAt:      score.created_at,
+          updatedAt:      score.updated_at,
           author
         })
       },
@@ -70,8 +71,8 @@ export default class ShowScore extends Component {
 
   render() {
     const {
-      loading, inputText, title, editorState, beat, bpm, volume, status,
-      instrumentType, isPlaying, enabledClick, author, user, token, createdAt, destroyModal
+      loading, inputText, title, editorState, beat, bpm, volume, status, instrumentType,
+      isPlaying, enabledClick, author, user, token, createdAt, updatedAt, destroyModal
     } = this.state
     const { history } = this.props
     const isOwn = author && Object.keys(author).length > 0 && author.id === user.id
@@ -83,6 +84,7 @@ export default class ShowScore extends Component {
           status={status}
           token={token}
           createdAt={createdAt}
+          updatedAt={updatedAt}
         />
         <Score
           hideLabel

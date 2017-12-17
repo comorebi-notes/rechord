@@ -1,8 +1,5 @@
-.scores
-  .title
-    .icon
-      margin-left: .2em
-  .score-card
+.users
+  .user-card
     display: block
     .box
       display: flex
@@ -10,36 +7,34 @@
       align-items: center
       transition: all .1s ease-in-out
       background-color: #fff
-      h3
+      .screen-name
         color: $link
-        .icon
-          color: #363636
-          font-size: .9em
-          margin-left: .4em
-          opacity: .5
-      h3, .score-attributes
+        font-weight: bold
+        margin-bottom: .4em
+        small
+          font-weight: normal
+          font-size: .7em
+      .screen-name, .user-attributes
         transition: all .1s ease-in-out
-      .score-attributes
-        line-height: 1.6
+      .user-attributes
+        line-height: 1.5
+        font-size: .9em
         strong
+          font-size: 1.2em
           margin-left: .25em
-        .author-name
-          margin-top: .2em
-          .image
-            margin-bottom: 0 !important
-            margin-left: 0 !important
-      &.closed
-        background-color: #eaeaea
+        p
+          margin-bottom: .8em
+        .profile p
+          margin-bottom: 0
     &:hover, &:active
       .box
-        // box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(50, 115, 220, 0.5)
         background-color: #fafafa
         &.closed
           background-color: #e0e0e0
     &:not(:last-child)
       margin-bottom: 1.5rem
 
-.box.no-score
+.box.no-user
   box-shadow: none
   background-color: #f4f4f4
   padding: 2.4em
@@ -47,3 +42,10 @@
     text-align: center
     color: #888
     font-weight: bold
+
+@media screen and (max-width: $tablet - 1px)
+  .users
+    .user-card
+      .box
+        .image
+          width: 64px

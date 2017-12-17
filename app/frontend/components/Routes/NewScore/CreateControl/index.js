@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { withRouter }       from "react-router-dom"
 import StatusControl        from "../../../StatusControl"
+import TwitterTL            from "../../../commons/TwitterTL"
 import * as api             from "../../../../api"
 import * as path            from "../../../../utils/path"
 import * as utils           from "../../../../utils"
@@ -67,6 +68,15 @@ class CreateControl extends Component {
                 <i className="fa fa-warning" />
               </span>
               ログインしていない場合、保存後のデータは編集できませんのでご注意ください。
+            </div>
+          </div>
+        )}
+
+        {!userId && (
+          <div>
+            <hr style={{ margin: "3rem 0" }} />
+            <div className="box twitter-tl">
+              <TwitterTL />
             </div>
           </div>
         )}

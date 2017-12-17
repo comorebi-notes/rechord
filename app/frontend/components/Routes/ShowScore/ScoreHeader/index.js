@@ -6,7 +6,7 @@ import * as utils               from "../../../../utils"
 
 export default class ScoreHeader extends PureComponent {
   render() {
-    const { author, title, token, status, createdAt } = this.props
+    const { author, title, token, status, createdAt, updatedAt } = this.props
     const existAuthor = author && Object.keys(author).length > 0
     const authorPath = existAuthor && path.user.show(author.name)
     const isClosed = status === "closed"
@@ -30,8 +30,13 @@ export default class ScoreHeader extends PureComponent {
             </Link>
           )}
           <time className="created-at">
-            {utils.humanDateTime(createdAt, true)}
+            作成日時 : <strong>{utils.humanDateTime(createdAt, true)}</strong>
           </time>
+          {createdAt !== updatedAt && (
+            <time className="updated-at">
+              更新日時 : <strong>{utils.humanDateTime(updatedAt, true)}</strong>
+            </time>
+          )}
         </div>
         <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />
       </div>

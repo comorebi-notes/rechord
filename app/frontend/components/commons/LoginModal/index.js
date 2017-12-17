@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import classNames           from "classnames"
 
-import * as path  from "../../../../utils/path"
+import * as path  from "../../../utils/path"
 
 export default class LoginModal extends Component {
   render() {

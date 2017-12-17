@@ -31,6 +31,9 @@ export const updateScore = (params, onSuccess, onError) => (
 export const destroyScore = (params, onSuccess, onError) => (
   request("delete", path.score.api.destroy(params.token), null, onSuccess, onError)
 )
+export const searchScore = (params, onSuccess, onError) => (
+  request("get", path.score.api.search(params.query), null, onSuccess, onError)
+)
 
 // ======== Users ========
 const getUserParams = (params) => {
@@ -57,4 +60,7 @@ export const removeUserIcon = (params, onSuccess, onError) => (
 )
 export const destoryUser = (params, onSuccess, onError) => (
   request("delete", path.user.destroy(params.name), null, onSuccess, onError)
+)
+export const searchUser = (params, onSuccess, onError) => (
+  request("get", path.user.api.search(params.query), null, onSuccess, onError)
 )

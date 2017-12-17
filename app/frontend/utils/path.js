@@ -4,7 +4,10 @@ export const current = location.href
 export const back    = () => history.back()
 export const forward = () => history.forward()
 
-export const root = "/"
+export const root   = "/"
+export const logout = "/users/logout"
+export const about  = "/about"
+export const terms  = "/terms"
 
 // view と api で path が異なるため注意
 export const score = {
@@ -15,17 +18,21 @@ export const score = {
     show:    (token) => `/scores/${token}`,
     edit:    (token) => `/scores/${token}/edit`,
     update:  (token) => `/scores/${token}`,
-    destroy: (token) => `/scores/${token}`
+    destroy: (token) => `/scores/${token}`,
+    search:  (query) => `/scores/search/${query}`
   }
 }
 
 export const user = {
-  show:       (name) => `/users/${name}`,
-  validName:  (name) => `/users/${name}/valid_name`,
-  update:     (name) => `/users/${name}`,
-  updateIcon: (name) => `/users/${name}/update_icon`,
-  removeIcon: (name) => `/users/${name}/remove_icon`,
-  destroy:    (name) => `/users/${name}`
+  show:       (name)  => `/users/${name}`,
+  validName:  (name)  => `/users/${name}/valid_name`,
+  update:     (name)  => `/users/${name}`,
+  updateIcon: (name)  => `/users/${name}/update_icon`,
+  removeIcon: (name)  => `/users/${name}/remove_icon`,
+  destroy:    (name)  => `/users/${name}`,
+  api: {
+    search:   (query) => `/users/search/${query}`
+  }
 }
 
 export const auth = {
@@ -36,8 +43,6 @@ export const auth = {
   github:   "/users/auth/github"
 }
 
-export const logout = "/users/logout"
-export const about  = "/about"
-export const terms  = "/terms"
+export const search = (type, query) => `/search/${type || "scores"}/${query}`
 
 export const twitter = (id) => `https://twitter.com/${id}`

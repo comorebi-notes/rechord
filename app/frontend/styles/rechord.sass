@@ -4,16 +4,19 @@
 @import "partials/loading.sass"
 @import "partials/flash-message.sass"
 @import "partials/navbar.sass"
+@import "partials/tabbar.sass"
 @import "partials/footer.sass"
 @import "partials/login.sass"
 @import "partials/shared-buttons.sass"
 @import "partials/about.sass"
 @import "partials/terms.sass"
+@import "partials/search.sass"
 @import "partials/score-editor.sass"
 @import "partials/score-controls.sass"
 @import "partials/score-header.sass"
 @import "partials/score-footer.sass"
 @import "partials/score-card.sass"
+@import "partials/user-card.sass"
 @import "partials/user-page.sass"
 
 .user-icon
@@ -34,7 +37,18 @@
       opacity: .5
       margin-right: .6rem
 
+.twitter-tl
+  margin: 3em auto 0
+  width: max-content
+
+.can-click
+  cursor: pointer
+  pointer-events: all !important
+
 section.section
+  padding-top: 2rem
   margin-bottom: 1em
 
-// @media screen and (max-width: $tablet - 1px)
+@media screen and (max-width: $tablet - 1px)
+  .twitter-tl
+    width: auto

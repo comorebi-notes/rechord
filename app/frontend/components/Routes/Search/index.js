@@ -9,7 +9,12 @@ export default class Search extends Component {
   constructor(props) {
     super(props)
     const { type, query } = props.match.params
-    this.state = { type, query, result: "", loading: true }
+    this.state = {
+      type:    type || "scores",
+      query:   query || "",
+      result:  [],
+      loading: true
+    }
     if (type && query) {
       this.handleSearch(type, query)
     } else {
@@ -28,14 +33,14 @@ export default class Search extends Component {
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
-  handlePush = (type, query) => {
-    if (query.trim().length === 0) return false
+  handlePush = (type, query, force = false) => {
+    if (!force && query.trim().length === 0) return false
     return this.props.history.push(path.search(type, query))
   }
   handleInputQuery = (e) => this.setState({ query: e.target.value })
   handleChangeType = (type) => {
     this.setState({ type })
-    this.handlePush(type, this.state.query)
+    this.handlePush(type, this.state.query, true)
   }
   handleKeyDown = (e) => {
     if (e.keyCode === 13) this.handlePush(this.state.type, this.state.query)

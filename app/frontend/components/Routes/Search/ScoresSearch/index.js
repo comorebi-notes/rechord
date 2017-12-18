@@ -1,7 +1,7 @@
-import React, { PureComponent } from "react"
-import ScoreCard                from "../../../ScoreCard"
+import React, { Component } from "react"
+import ScoreCard            from "../../../ScoreCard"
 
-export default class ScoresSearch extends PureComponent {
+export default class ScoresSearch extends Component {
   render() {
     const { scores } = this.props
     return (

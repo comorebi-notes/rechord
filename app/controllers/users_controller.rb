@@ -69,12 +69,10 @@ class UsersController < ApplicationController
     if params[:word].present?
       words = params[:word].split(" ")
       users = User.ransack(name_or_screen_name_or_profile_cont_all: words).result
-      render json: users, methods: :scores_count
     else
-      head :ok
+      users = User.all
     end
-  rescue
-    head :ok
+    render json: users, methods: :scores_count
   end
 
   private

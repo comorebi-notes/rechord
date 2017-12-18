@@ -40,12 +40,10 @@ class ScoresController < ApplicationController
     if params[:word].present?
       words = params[:word].split(" ")
       scores = Score.searchable.ransack(title_cont_all: words).result
-      render json: scores, include: [:user]
     else
-      head :ok
+      scores = Score.searchable
     end
-  rescue
-    head :ok
+    render json: scores, include: [:user]
   end
 
   private

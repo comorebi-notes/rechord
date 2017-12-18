@@ -15,8 +15,10 @@ class TabBar extends PureComponent {
   handleSearch = () => {
     const { history } = this.props
     const { queryWord } = this.state
-    history.push(path.search("scores", `word=${queryWord}`)) // デフォルトはスコア検索
-    this.handleClear()
+    if (queryWord.trim().length > 0) {
+      history.push(path.search("scores", `word=${queryWord}`)) // デフォルトはスコア検索
+      this.handleClear()
+    }
   }
   render() {
     const { currentUser, currentPath } = this.props
@@ -25,7 +27,7 @@ class TabBar extends PureComponent {
       <div className="tabs tab-bar">
         <div className="container">
           <TabItems currentUser={currentUser} currentPath={currentPath} />
-          <div className="field">
+          <div className="field is-hidden-mobile">
             <div className="control has-icons-left">
               <span className="icon is-left can-click" role="presentation" onClick={this.handleSearch}>
                 <i className="fa fa-search fa-lg" />

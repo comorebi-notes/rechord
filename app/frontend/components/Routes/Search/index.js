@@ -23,7 +23,11 @@ export default class Search extends Component {
       result:  [],
       loading: true
     }
-    this.handleSearch(type, query.word)
+    if (type && query.word) {
+      this.handleSearch(type, query.word)
+    } else {
+      this.state.loading = false
+    }
   }
   handleSearch = (type, query) => {
     let method
@@ -37,7 +41,10 @@ export default class Search extends Component {
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
-  handlePush = (type, query) => this.props.history.push(path.search(type, `word=${query}`))
+  handlePush = (type, query, force = false) => {
+    if (!force && query.trim().length === 0) return false
+    return this.props.history.push(path.search(type, `word=${query}`))
+  }
   handleChangeType = (type) => this.handlePush(type, this.state.query, true)
   handleInputQuery = (e) => this.setState({ query: e.target.value })
   handleKeyDown = (e) => {

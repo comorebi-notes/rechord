@@ -67,6 +67,13 @@ a.box
 .help:not(:last-child)
   margin-bottom: 0 !important
 
+.is-only-mobile
+  display: none !important
+
 @media screen and (min-width: $fullhd)
   .container
     max-width: 1080px
+
+@media screen and (max-width: $tablet - 1px)
+  .is-only-mobile
+    display: inherit !important

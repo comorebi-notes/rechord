@@ -41,7 +41,7 @@ class ScoresController < ApplicationController
       words = params[:word].split(" ")
       scores = Score.searchable.ransack(title_cont_all: words).result
     else
-      scores = Score.searchable
+      scores = []
     end
     render json: scores, include: [:user]
   end

@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import classNames           from "classnames"
+import * as qs              from "qs"
 import ScoresSearch         from "./ScoresSearch"
 import UsersSearch          from "./UsersSearch"
 import * as api             from "../../../api"
@@ -8,10 +9,13 @@ import * as path            from "../../../utils/path"
 export default class Search extends Component {
   constructor(props) {
     super(props)
-    const { type, query } = props.match.params
+    const { type } = props.match.params
+    const query = qs.parse(props.location.search.substr(1))
     this.state = {
+      query: {
+        word: query.word || "",
+      },
       type:    type || "scores",
-      query:   query || "",
       result:  [],
       loading: true
     }
@@ -28,16 +32,19 @@ export default class Search extends Component {
       case "users":  method = "searchUser";  break
     }
     api[method](
-      { query },
+      { query: qs.stringify(query) },
       (success) => this.setState({ result: success.data, loading: false }),
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
   handlePush = (type, query, force = false) => {
-    if (!force && query.trim().length === 0) return false
-    return this.props.history.push(path.search(type, query))
+    if (!force && query.word.trim().length === 0) return false
+    return this.props.history.push(path.search(type, qs.stringify(query)))
   }
-  handleInputQuery = (e) => this.setState({ query: e.target.value })
+  handleInputQueryWord = (e) => {
+    const prevQuery = this.state.query
+    this.setState({ query: Object.assign({}, prevQuery, { word: e.target.value }) })
+  }
   handleChangeType = (type) => {
     this.setState({ type })
     this.handlePush(type, this.state.query, true)
@@ -70,8 +77,8 @@ export default class Search extends Component {
               className="input"
               type="text"
               placeholder="search..."
-              value={query}
-              onChange={this.handleInputQuery}
+              value={query.word}
+              onChange={this.handleInputQueryWord}
               onKeyDown={this.handleKeyDown}
             />
           </div>

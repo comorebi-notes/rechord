@@ -37,8 +37,8 @@ class ScoresController < ApplicationController
   end
 
   def search
-    if params[:query].present?
-      scores = Score.search(params[:query])
+    if params[:word].present?
+      scores = Score.search(params[:word])
       render json: scores, include: [:user]
     else
       head :ok

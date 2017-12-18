@@ -66,8 +66,8 @@ class UsersController < ApplicationController
   end
 
   def search
-    if params[:query].present?
-      users = User.search(params[:query])
+    if params[:word].present?
+      users = User.search(params[:word])
       render json: users, methods: :scores_count
     else
       head :ok

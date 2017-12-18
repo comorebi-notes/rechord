@@ -19,7 +19,7 @@ export const score = {
     edit:    (token) => `/scores/${token}/edit`,
     update:  (token) => `/scores/${token}`,
     destroy: (token) => `/scores/${token}`,
-    search:  (query) => `/scores/search/${query}`
+    search:  (query) => `/scores/search?${query}`
   }
 }
 
@@ -31,7 +31,7 @@ export const user = {
   removeIcon: (name)  => `/users/${name}/remove_icon`,
   destroy:    (name)  => `/users/${name}`,
   api: {
-    search:   (query) => `/users/search/${query}`
+    search:   (query) => `/users/search?${query}`
   }
 }
 
@@ -43,6 +43,10 @@ export const auth = {
   github:   "/users/auth/github"
 }
 
-export const search = (type, query) => `/search/${type || "scores"}/${query}`
+export const search = (_type, _query) => {
+  const type = _type || "scores"
+  const query = _query ? `?${_query}` : ""
+  return `/${type}/search${query}`
+}
 
 export const twitter = (id) => `https://twitter.com/${id}`

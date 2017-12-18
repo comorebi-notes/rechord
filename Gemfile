@@ -53,6 +53,7 @@ gem 'fog'
 gem 'rmagick'
 
 gem 'friendly_id'
+gem 'ransack'
 gem 'dotenv-rails'
 
 group :development, :test do

@@ -20,8 +20,8 @@ export default class OrderButtons extends Component {
       </button>
     )
     const order = [
-      { order: "asc",  icon: "sort-asc" },
-      { order: "desc", icon: "sort-desc" }
+      { order: "asc",  icon: "caret-up fa-lg" },
+      { order: "desc", icon: "caret-down fa-lg" }
     ]
     return (
       <div className="buttons has-addons">

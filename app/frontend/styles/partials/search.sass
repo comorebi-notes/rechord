@@ -3,15 +3,15 @@
     margin-bottom: 2em
   .hits
     align-self: center
+    position: absolute
+    right: 0
     strong
       font-size: 1.2em
       margin-right: .4em
-  .is-only-mobile
-    display: none
 
 @media screen and (max-width: $tablet - 1px)
   .search
-    .control.has-icons-left
+    .search-input
       flex-grow: 1
     .field.is-grouped
       margin-bottom: 1em
@@ -20,9 +20,9 @@
         .button
           .icon
             margin: auto !important
-    .is-only-mobile
-      display: flex
-      justify-content: space-between
-      margin-bottom: 1em
-      .hits
-        font-size: 1.2em
+      &.is-only-mobile
+        position: relative
+        display: flex !important
+        margin-bottom: 1.2em
+        .hits
+          font-size: 1.2em

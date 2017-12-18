@@ -66,14 +66,13 @@ class UsersController < ApplicationController
   end
 
   def search
-    if params[:query].present?
-      users = User.search(params[:query])
-      render json: users, methods: :scores_count
+    if params[:word].present?
+      words = params[:word].split(" ")
+      users = User.ransack(name_or_screen_name_or_profile_cont_all: words).result
     else
-      head :ok
+      users = []
     end
-  rescue
-    head :ok
+    render json: users, methods: :scores_count
   end
 
   private

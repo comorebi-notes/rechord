@@ -9,14 +9,17 @@ export default class TabItems extends PureComponent {
     super()
     this.state = { modal: false }
   }
-  handleToggleModal = () => this.setState({ modal:  !this.state.modal })
+  handleToggleModal = () => this.setState({ modal: !this.state.modal })
   render () {
     const { currentUser, currentPath } = this.props
     const { modal } = this.state
     const isActive = (targetPath) => targetPath === currentPath
-    const tabItemComponent = ({ label, icon, targetPath, onClick }) => (
+    const tabItemComponent = ({ label, icon, targetPath, onlyMobile, onClick }) => (
       <li
-        className={classNames({ "is-active": isActive(targetPath) })}
+        className={classNames({
+          "is-active": isActive(targetPath),
+          "is-only-mobile": onlyMobile
+        })}
         key={label}
       >
         {onClick ? (
@@ -40,14 +43,19 @@ export default class TabItems extends PureComponent {
         )}
       </li>
     )
-    const showUserPath = path.user.show(currentUser.name)
     const tabItems = [
       { label: "new score", icon: "file-text", targetPath: path.root },
       {
         label:      "my page",
         icon:       "user",
-        targetPath: showUserPath,
+        targetPath: path.user.show(currentUser.name),
         onClick:    !currentUser.name && this.handleToggleModal
+      },
+      {
+        label:      "search",
+        icon:       "search",
+        targetPath: path.search(),
+        onlyMobile: true
       },
       // { label: "bookmark",  icon: "bookmark",  targetPath: "" },
       // { label: "ranking",   icon: "trophy",    targetPath: "" }

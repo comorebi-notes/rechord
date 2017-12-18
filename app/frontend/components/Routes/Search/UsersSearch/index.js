@@ -1,7 +1,7 @@
-import React, { PureComponent } from "react"
-import UserCard                 from "../../../UserCard"
+import React, { Component } from "react"
+import UserCard             from "../../../UserCard"
 
-export default class UsersSearch extends PureComponent {
+export default class UsersSearch extends Component {
   render() {
     const { users } = this.props
     return (

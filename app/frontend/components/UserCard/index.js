@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react"
 import { Link }                 from "react-router-dom"
 import * as path                from "../../utils/path"
+import * as utils               from "../../utils"
 
 export default class UserCard extends PureComponent {
   render() {
@@ -13,7 +14,7 @@ export default class UserCard extends PureComponent {
           <article className="media">
             <div className="media-left">
               <figure className="image is-128x128">
-                <img src={icon.url} className="user-icon" alt={screenName} />
+                <img src={utils.iconUrl(icon)} className="user-icon" alt={screenName} />
               </figure>
             </div>
             <div className="media-content">

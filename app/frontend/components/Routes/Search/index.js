@@ -6,55 +6,74 @@ import SortSelect           from "./SortSelect"
 import OrderButtons         from "./OrderButtons"
 import ScoresSearch         from "./ScoresSearch"
 import UsersSearch          from "./UsersSearch"
+import * as utils           from "./searchUtils"
 import * as api             from "../../../api"
 import * as path            from "../../../utils/path"
-import * as utils           from "./searchUtils"
+import { history }          from "../../../utils/browser-dependencies"
 
 export default class Search extends Component {
   constructor(props) {
     super(props)
     const { type } = props.match.params
-    const query = qs.parse(props.location.search.substr(1))
+    const { word, sort_key: sortKey, order } = qs.parse(props.location.search.substr(1))
     this.state = {
-      query:   query.word || "",
-      sortKey: "updated_at",
-      order:   "desc",
+      word:    word    || "",
+      sortKey: sortKey || utils.defaultSortKey,
+      order:   order   || utils.defaultOrder,
       type:    type || "scores",
       result:  [],
       loading: true
     }
-    if (type && query.word) {
-      this.handleSearch(type, query.word)
+    if (type && word) {
+      this.handleSearch(type, word)
     } else {
       this.state.loading = false
     }
   }
-  handleSearch = (type, query) => {
+  handleSearch = (type, word, sortKey, order) => {
     let method
     switch (type) {
       case "scores": method = "searchScore"; break
       case "users":  method = "searchUser";  break
     }
     api[method](
-      { query: `word=${query}` },
+      { query: qs.stringify({ word, sort_key: sortKey, order }) },
       (success) => this.setState({ result: success.data, loading: false }),
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
-  handlePush = (type, query, force = false) => {
-    if (!force && query.trim().length === 0) return false
-    return this.props.history.push(path.search(type, `word=${query}`))
+  handlePush = (type, word, sortKey, order, request = true) => {
+    if (word.trim().length === 0) return false
+    const query = { word }
+    if (sortKey !== utils.defaultSortKey) query.sort_key = sortKey
+    if (order   !== utils.defaultOrder)   query.order = order
+    const searchPath = path.search(type, qs.stringify(query))
+    // 再検索を行うか否か
+    if (request) {
+      return this.props.history.push(searchPath)
+    } else {
+      return history.pushState(null, null, searchPath)
+    }
   }
-  handleChangeType = (type) => this.handlePush(type, this.state.query, true)
-  handleInputQuery = (e) => this.setState({ query: e.target.value })
+  handleChangeType = (type) => this.handlePush(type, this.state.word, null, null)
+  handleInputWord = (e) => this.setState({ word: e.target.value })
   handleKeyDown = (e) => {
-    if (e.keyCode === 13) this.handlePush(this.state.type, this.state.query)
+    const { type, word, sortKey, order } = this.state
+    if (e.keyCode === 13) this.handlePush(type, word, sortKey, order)
   }
-  handleChangeSortKey = (e) => this.setState({ sortKey: e.target.value })
-  handleChangeOrder = (order) => this.setState({ order })
+  handleChangeSortKey = (e) => {
+    this.setState({ sortKey: e.target.value })
+    const { type, word, order } = this.state
+    this.handlePush(type, word, e.target.value, order, false)
+  }
+  handleChangeOrder = (order) => {
+    this.setState({ order })
+    const { type, word, sortKey } = this.state
+    this.handlePush(type, word, sortKey, order, false)
+  }
 
   render() {
-    const { type, query, result, sortKey, order, loading } = this.state
+    const { type, result, word, sortKey, order, loading } = this.state
     const searchResult = () => {
       const sortedResult = utils.sortResult(result, sortKey, order)
       switch (type) {
@@ -74,8 +93,8 @@ export default class Search extends Component {
               className="input"
               type="text"
               placeholder="search..."
-              value={query}
-              onChange={this.handleInputQuery}
+              value={word}
+              onChange={this.handleInputWord}
               onKeyDown={this.handleKeyDown}
             />
           </div>

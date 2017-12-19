@@ -1,3 +1,6 @@
+export const defaultSortKey = "updated_at"
+export const defaultOrder   = "desc"
+
 export const sortOptions = (type) => {
   switch (type) {
     case "scores":

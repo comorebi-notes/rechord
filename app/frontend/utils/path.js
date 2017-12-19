@@ -1,3 +1,5 @@
+import * as qs from "qs"
+
 import { location, history } from "./browser-dependencies"
 
 export const current = location.href
@@ -45,7 +47,12 @@ export const auth = {
 
 export const search = (_type, _query) => {
   const type = _type || "scores"
-  const query = _query ? `?${_query}` : ""
+  const queries = qs.parse(_query)
+  Object.keys(queries).forEach(key => {
+    if (queries[key] === "") delete queries[key]
+  })
+  const queryStrings = qs.stringify(queries)
+  const query = queryStrings ? `?${queryStrings}` : ""
   return `/${type}/search${query}`
 }
 

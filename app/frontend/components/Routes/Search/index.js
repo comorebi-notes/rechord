@@ -77,8 +77,8 @@ export default class Search extends Component {
     const searchResult = () => {
       const sortedResult = utils.sortResult(result, sortKey, order)
       switch (type) {
-        case "scores": return <ScoresSearch scores={sortedResult} />
-        case "users":  return <UsersSearch users={sortedResult} />
+        case "scores": return <ScoresSearch word={word} scores={sortedResult} />
+        case "users":  return <UsersSearch  word={word} users={sortedResult} />
         default:       return ""
       }
     }

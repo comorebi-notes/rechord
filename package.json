@@ -11,6 +11,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-ga": "^2.3.5",
+    "react-highlight-words": "^0.10.0",
     "react-router-dom": "^4.2.2",
     "react-share": "^1.17.0",
     "react-twitter-widgets": "^1.7.1",

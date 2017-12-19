@@ -3,12 +3,17 @@ import ScoreCard            from "../../../ScoreCard"
 
 export default class ScoresSearch extends Component {
   render() {
-    const { scores } = this.props
+    const { scores, word } = this.props
     return (
       <div className="scores">
         {scores.length > 0 ? (
           scores.map(score => (
-            <ScoreCard key={score.id} score={score} author={score.user} />
+            <ScoreCard
+              key={score.id}
+              score={score}
+              author={score.user}
+              highlightWords={word}
+            />
           ))
         ) : (
           <div className="box no-score">

@@ -3,12 +3,12 @@ import UserCard             from "../../../UserCard"
 
 export default class UsersSearch extends Component {
   render() {
-    const { users } = this.props
+    const { users, word } = this.props
     return (
       <div className="users">
         {users.length > 0 ? (
           users.map(user => (
-            <UserCard key={user.id} {...user} />
+            <UserCard key={user.id} highlightWords={word} {...user} />
           ))
         ) : (
           <div className="box no-user">

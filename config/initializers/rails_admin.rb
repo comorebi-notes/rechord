@@ -39,4 +39,39 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model "User" do
+    list do
+      field :id
+      field :icon
+      field :name
+      field :screen_name
+      field :scores
+      field :twitter
+      field :profile
+      field :site
+      field :email
+      field :created_at
+      field :updated_at
+      field :provider
+      field :uid
+      field :admin
+    end
+  end
+
+  config.model "Score" do
+    list do
+      field :id
+      field :title
+      field :user
+      field :status
+      field :content
+      field :updated_at
+      field :created_at
+      field :token
+      field :instrument
+      field :beat
+      field :click
+    end
+  end
 end

@@ -51,6 +51,7 @@ gem 'omniauth-github'
 gem 'cancancan'
 gem 'rails_admin', '~> 1.2'
 gem 'rails_admin-i18n'
+gem 'newrelic_rpm'
 
 gem 'carrierwave'
 gem 'fog'

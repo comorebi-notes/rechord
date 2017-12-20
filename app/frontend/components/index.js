@@ -11,6 +11,8 @@ export default class Rechord extends Component {
     super()
     const { uaId } = window.data
     const history = createHistory()
+    history.pushPageView = () => {}
+
     if (uaId.length > 0) {
       ReactGA.initialize(uaId)
       ReactGA.pageview(window.location.pathname)

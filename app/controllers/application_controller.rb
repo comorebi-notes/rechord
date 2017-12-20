@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
 
   def no_cache
     # ブラウザバックで JSON が表示されるのを防止
-    expires_in 0, "no-store" => true, "no-cache" => true, "must-revalidate" => true, "max-age" => 0
+    if request.format.json?
+      response.headers["Cache-Control"] = "no-cache, no-store"
+      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+      response.headers["Pragma"] = "no-cache"
+    end
   end
 
   def after_sign_out_path_for(resource)

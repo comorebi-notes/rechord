@@ -48,6 +48,7 @@ GEM
     bulma-rails (0.6.1)
       sass (~> 3.2)
     byebug (9.1.0)
+    cancancan (2.1.2)
     capybara (2.15.4)
       addressable
       mini_mime (>= 0.1.3)
@@ -62,6 +63,13 @@ GEM
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.2)
+    coffee-rails (4.2.2)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
     devise (4.3.0)
@@ -242,6 +250,9 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    haml (5.0.4)
+      temple (>= 0.8.0)
+      tilt
     hashie (3.5.6)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -252,8 +263,26 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jquery-rails (4.3.1)
+      rails-dom-testing (>= 1, < 3)
+      railties (>= 4.2.0)
+      thor (>= 0.14, < 2.0)
+    jquery-ui-rails (5.0.5)
+      railties (>= 3.2.16)
     json (2.1.0)
     jwt (1.5.6)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     kgio (2.11.0)
     libv8 (3.16.14.19)
     listen (3.1.5)
@@ -275,6 +304,7 @@ GEM
     multi_json (1.12.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    nested_form (0.3.2)
     netrc (0.11.0)
     nio4r (2.1.0)
     nokogiri (1.8.1)
@@ -329,6 +359,9 @@ GEM
     public_suffix (3.0.0)
     puma (3.10.0)
     rack (2.0.3)
+    rack-pjax (1.0.0)
+      nokogiri (~> 1.5)
+      rack (>= 1.1)
     rack-proxy (0.6.2)
       rack
     rack-test (0.7.0)
@@ -356,6 +389,20 @@ GEM
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
+    rails_admin (1.2.0)
+      builder (~> 3.1)
+      coffee-rails (~> 4.0)
+      font-awesome-rails (>= 3.0, < 5)
+      haml (>= 4.0, < 6)
+      jquery-rails (>= 3.0, < 5)
+      jquery-ui-rails (~> 5.0)
+      kaminari (>= 0.14, < 2.0)
+      nested_form (~> 0.3)
+      rack-pjax (>= 0.7)
+      rails (>= 4.0, < 6)
+      remotipart (~> 1.3)
+      sass-rails (>= 4.0, < 6)
+    rails_admin-i18n (1.11.3)
     rails_serve_static_assets (0.0.5)
     rails_stdout_logging (0.0.5)
     railties (5.1.4)
@@ -384,6 +431,7 @@ GEM
       nokogiri (~> 1.5)
       trollop (~> 2.1)
     ref (2.0.0)
+    remotipart (1.3.1)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -470,6 +518,7 @@ PLATFORMS
 DEPENDENCIES
   bulma-rails
   byebug
+  cancancan
   capybara (~> 2.13)
   carrierwave
   devise
@@ -493,6 +542,8 @@ DEPENDENCIES
   rails (~> 5.1.4)
   rails-i18n
   rails_12factor
+  rails_admin (~> 1.2)
+  rails_admin-i18n
   ransack
   rmagick
   sass-rails (~> 5.0)

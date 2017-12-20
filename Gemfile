@@ -48,6 +48,10 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-tumblr'
 gem 'omniauth-github'
 
+gem 'cancancan'
+gem 'rails_admin', '~> 1.2'
+gem 'rails_admin-i18n'
+
 gem 'carrierwave'
 gem 'fog'
 gem 'rmagick'

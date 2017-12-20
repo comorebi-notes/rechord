@@ -7,6 +7,7 @@ import OrderButtons         from "./OrderButtons"
 import ScoresSearch         from "./ScoresSearch"
 import UsersSearch          from "./UsersSearch"
 import * as utils           from "./searchUtils"
+import { setTitle }         from "../../../utils"
 import * as api             from "../../../api"
 import * as path            from "../../../utils/path"
 import { history }          from "../../../utils/browser-dependencies"
@@ -30,6 +31,7 @@ export default class Search extends Component {
       this.state.loading = false
     }
   }
+  componentDidMount = () => setTitle(`検索: ${this.state.word}`, this.props.history)
   handleSearch = (type, word, sortKey, order) => {
     let method
     switch (type) {

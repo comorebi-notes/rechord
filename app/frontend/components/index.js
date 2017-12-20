@@ -14,10 +14,17 @@ export default class Rechord extends Component {
     if (uaId.length > 0) {
       ReactGA.initialize(uaId)
       ReactGA.pageview(window.location.pathname)
-      history.listen(location => {
-        ReactGA.set({ page: location.pathname })
-        ReactGA.pageview(location.pathname)
-      })
+      // history.listen(location => {
+      //   ReactGA.set({ page: location.pathname })
+      //   ReactGA.pageview(location.pathname)
+      // })
+
+      // ページタイトルはロード後に設定されるため、
+      // 各 Component の componentDidMount で個別に設定
+      history.pushPageView = () => {
+        ReactGA.set({ page: window.location.pathname })
+        ReactGA.pageview(window.location.pathname)
+      }
     }
     this.state = { history }
   }

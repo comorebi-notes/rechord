@@ -25,7 +25,7 @@ export default class User extends Component {
       { name },
       (success) => {
         const { user, scores } = success.data
-        utils.setTitle(user.screen_name)
+        utils.setTitle(`${user.screen_name} のマイページ`, this.props.history)
         this.setState({ loading: false, user, scores })
       },
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })

@@ -48,8 +48,9 @@ export const generateTitle = (baseTitle) => {
   const defaultTitle = "rechord - 演奏もできるコード進行共有サービス"
   return baseTitle ? `${baseTitle} | ${defaultTitle}` : defaultTitle
 }
-export const setTitle = (title) => {
+export const setTitle = (title, history) => {
   br.document.title = generateTitle(title)
+  history.pushPageView()
 }
 
 export const copyToClipboard = (text) => {

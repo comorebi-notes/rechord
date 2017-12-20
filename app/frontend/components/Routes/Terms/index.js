@@ -1,10 +1,12 @@
 import React, { PureComponent } from "react"
+import * as utils               from "../../../utils"
 
 export default class Terms extends PureComponent {
+  componentDidMount = () => utils.setTitle("利用規約", this.props.history)
   render() {
     return (
       <div className="content terms">
-        <h1>利用規約</h1>
+        <h1>利用規約・プライバシーポリシー</h1>
         <p>
           この利用規約 (以下、「本規約」といいます) は、
           コモレビノーツ (以下、「当方」といいます) が

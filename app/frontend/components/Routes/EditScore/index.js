@@ -33,7 +33,7 @@ export default class EditScore extends Component {
       (success) => {
         const { score } = success.data
         const contentState = ContentState.createFromText(score.content)
-        utils.setTitle(score.title)
+        utils.setTitle(score.title, this.props.history)
         this.setState({
           loading:        false,
           inputText:      score.content,

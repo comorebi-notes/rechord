@@ -34,7 +34,7 @@ export default class ShowScore extends Component {
         const { score, author } = success.data
         const scoreContent = score.content
         const contentState = ContentState.createFromText(scoreContent)
-        utils.setTitle(score.title)
+        utils.setTitle(score.title, this.props.history)
         this.setState({
           loading:        false,
           inputText:      scoreContent,

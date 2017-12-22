@@ -38,7 +38,14 @@ export default class ScoreHeader extends PureComponent {
             </time>
           )}
         </div>
-        <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />
+        <div>
+          <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />
+          <div className="fav" style={{ marginTop: "1em" }}>
+            <span className="icon is-large">
+              <i className="fa fa-star fa-3x" />
+            </span>
+          </div>
+        </div>
       </div>
     )
   }

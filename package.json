@@ -4,6 +4,7 @@
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
     "axios": "^0.17.1",
+    "chord-translator": "^0.1.0",
     "classnames": "^2.2.5",
     "draft-js": "^0.10.4",
     "history": "^4.7.2",

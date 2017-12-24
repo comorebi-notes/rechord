@@ -1,6 +1,17 @@
 import { Note, Distance } from "tonal"
-import { tokenize }       from "../utils/translateChord"
 import * as regex         from "../constants/regex"
+
+// Chord.tokenize では9thコードが変換できないため自前で実装
+const tokenize = (name) => {
+  const p = Note.tokenize(name)
+  if (p[0] === "") return ["", name]
+
+  if (p[0] !== "" && p[2].match(/^(6|7|9|11|13|-5)/)) {
+    return [p[0] + p[1], p[2] + p[3]]
+  } else {
+    return [p[0] + p[1] + p[2], p[3]]
+  }
+}
 
 export const parseChordProgression = (text) => {
   if (!text) return false

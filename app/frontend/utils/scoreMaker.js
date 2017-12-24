@@ -1,5 +1,5 @@
 import { Note, Distance }                      from "tonal"
-import translateChord                          from "./translateChord"
+import chordTranslator                         from "chord-translator"
 import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE } from "../constants"
 import { beats }                               from "../constants/beats"
 
@@ -36,7 +36,7 @@ const fixNotes = (chord, baseKey) => {
   const root        = chord[0]
   const denominator = chord[1].split("/")[1]
   const type        = chord[1].split("/")[0]
-  const notes       = translateChord(root, baseKey, type)
+  const notes       = chordTranslator(root, type, baseKey)
 
   const maxNotes = 5
   const minNotes = 3

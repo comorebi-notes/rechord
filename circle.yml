@@ -1,37 +1,61 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2
+
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: circleci/node:6.10
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
+      - image: circleci/ruby:2.4.3-node
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: rechord
+          RAILS_ENV: test
+      - image: circleci/postgres:9.5-alpine
+        environment:
+          POSTGRES_USER: rechord
+          POSTGRES_DB: rechord_test
+          POSTGRES_PASSWORD: ""
 
     working_directory: ~/rechord
 
     steps:
       - checkout
 
-      # Download and cache dependencies
+      # bundle
+      - run:
+          name: Which bundler?
+          command: bundle -v
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: yarn install
-
+            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - rails-demo-bundle-v2-
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
       - save_cache:
+          key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-        
-      # run tests!
-      - run: yarn test
+            - vendor/bundle
+
+      # yarn
+      - restore_cache:
+          keys:
+            - rails-demo-yarn-{{ checksum "yarn.lock" }}
+            - rails-demo-yarn-
+      - run:
+          name: yarn install
+          command: curl -o- -L https://yarnpkg.com/install.sh; yarn install
+      - save_cache:
+          key: rails-demo-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      # database
+      - run:
+          name: Database setup
+          command: bin/rails db:schema:load --trace
+
+  # 
+  #     # run tests!
+  #     - run: yarn test

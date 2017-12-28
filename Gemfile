@@ -82,7 +82,7 @@ end
 
 # for Heroku
 source 'https://rubygems.org'
-ruby '2.4.2'
+ruby '2.4.3'
 gem 'rails_12factor', group: :production
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

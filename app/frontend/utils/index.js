@@ -13,17 +13,20 @@ export const humanDateTime = (dateString, full = false) => {
   if (!dateString) return false
 
   const date = parseDate(dateString)
-  const yyyy = zeroPadding(date.getFullYear(),  4)
-  const MM   = zeroPadding(date.getMonth() + 1, 2)
-  const dd   = zeroPadding(date.getDate(),      2)
-  const hh   = zeroPadding(date.getHours(),     2)
-  const mm   = zeroPadding(date.getMinutes(),   2)
-  const ss   = zeroPadding(date.getSeconds(),   2)
+  const yyyy = date.getFullYear()
+  const MM   = date.getMonth() + 1
+  const dd   = date.getDate()
+  const hh   = date.getHours()
+  const mm   = date.getMinutes()
+  const ss   = date.getSeconds()
+
+  const nowYear = new Date().getFullYear()
+  const year = yyyy === nowYear ? "" : `${yyyy}年`
 
   if (full) {
-    return `${yyyy}/${MM}/${dd} ${hh}:${mm}:${ss}`
+    return `${year}${MM}月${dd}日 ${hh}:${mm}:${ss}`
   } else {
-    return `${yyyy}/${MM}/${dd}`
+    return `${year}${MM}月${dd}日`
   }
 }
 

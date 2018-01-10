@@ -1,6 +1,4 @@
 .score-header
-  display: flex
-  justify-content: space-between
   margin-bottom: .4rem
   .title
     margin-bottom: 1.2rem
@@ -9,32 +7,43 @@
       font-size: .85em
       margin-left: .4em
       opacity: .5
-  .created-at, .updated-at
-    display: block
-    font-size: .85em
-    line-height: 1.6
-    color: #888
-    .icon
-      margin-right: .25em
-      color: #666
-    strong
-      color: currentColor
   .button
     display: block
     margin-bottom: 1rem
 
-.author-name
-  display: inline-block
-  font-size: .9rem
+.author
+  display: flex
+  align-items: center
   margin-bottom: 1em
-  color: #666
-  > *
-    vertical-align: middle
-  figure
-    display: inline-block
-    margin-right: .5rem
-  &:hover
+  line-height: 1.25
+  a
     color: #444
+    &:hover
+      color: #666
+  figure
+    margin-right: .8rem
+  .created-at, .updated-at
+    font-size: .8em
+    line-height: 1.6
+    color: #888
+    &:not(:last-child)
+      margin-right: .6em
+
+.others
+  display: flex
+  align-items: center
+  margin: 1.2em 0 .5em
+  .separator
+    color: #bbb
+    margin: 0 1.2em
+  .fav
+    .icon
+      color: #bbb
+      height: 1.8em
+      .fa
+        font-size: 1.5em
+      &.active
+        color: #f7e330
 
 @media screen and (max-width: $tablet - 1px)
   .score-header

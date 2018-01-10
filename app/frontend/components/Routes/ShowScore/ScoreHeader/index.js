@@ -21,29 +21,40 @@ export default class ScoreHeader extends PureComponent {
               </span>
             )}
           </h1>
-          {existAuthor && (
-            <Link to={authorPath} className="author-name">
-              <figure className="image is-24x24">
-                <img src={utils.iconUrl(author.icon, "thumb")} className="user-icon" alt={author.name} />
-              </figure>
-              <strong>{author.screen_name}</strong>
-            </Link>
-          )}
-          <time className="created-at">
-            作成日時 : <strong>{utils.humanDateTime(createdAt, true)}</strong>
-          </time>
-          {createdAt !== updatedAt && (
-            <time className="updated-at">
-              更新日時 : <strong>{utils.humanDateTime(updatedAt, true)}</strong>
-            </time>
-          )}
-        </div>
-        <div>
-          <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />
-          <div className="fav" style={{ marginTop: "1em" }}>
-            <span className="icon is-large">
-              <i className="fa fa-star fa-3x" />
-            </span>
+
+          <div className="author">
+            <figure className="image is-40x40">
+              <img src={utils.iconUrl()} className="user-icon" alt="guest user" />
+            </figure>
+            <div>
+              <p>
+                {existAuthor ? (
+                  <Link to={authorPath}>
+                    <strong>{author.screen_name}</strong>
+                  </Link>
+                ) : (
+                  <strong>guest user</strong>
+                )}
+              </p>
+              <time className="created-at">
+                {utils.humanDateTime(createdAt, createdAt === updatedAt)}
+              </time>
+              {createdAt !== updatedAt && (
+                <time className="updated-at">
+                  ({utils.humanDateTime(updatedAt, true)} に更新)
+                </time>
+              )}
+            </div>
+          </div>
+
+          <div className="others">
+            <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />
+            <span className="separator">|</span>
+            <div className="fav">
+              <span className="icon">
+                <i className="fa fa-star" />
+              </span>
+            </div>
           </div>
         </div>
       </div>

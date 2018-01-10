@@ -16,9 +16,9 @@ export const humanDateTime = (dateString, full = false) => {
   const yyyy = date.getFullYear()
   const MM   = date.getMonth() + 1
   const dd   = date.getDate()
-  const hh   = date.getHours()
-  const mm   = date.getMinutes()
-  const ss   = date.getSeconds()
+  const hh   = zeroPadding(date.getHours(),   2)
+  const mm   = zeroPadding(date.getMinutes(), 2)
+  const ss   = zeroPadding(date.getSeconds(), 2)
 
   const nowYear = new Date().getFullYear()
   const year = yyyy === nowYear ? "" : `${yyyy}年`

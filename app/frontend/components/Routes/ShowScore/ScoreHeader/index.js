@@ -24,7 +24,7 @@ export default class ScoreHeader extends PureComponent {
 
           <div className="author">
             <figure className="image is-40x40">
-              <img src={utils.iconUrl()} className="user-icon" alt="guest user" />
+              <img src={utils.iconUrl(author && author.icon, "thumb")} className="user-icon" alt="guest user" />
             </figure>
             <div>
               <p>

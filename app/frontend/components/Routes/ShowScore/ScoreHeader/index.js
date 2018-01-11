@@ -41,7 +41,7 @@ export default class ScoreHeader extends PureComponent {
               </time>
               {createdAt !== updatedAt && (
                 <time className="updated-at">
-                  ({utils.humanDateTime(updatedAt, true)} 更新)
+                  {utils.humanDateTime(updatedAt, true)} 更新
                 </time>
               )}
             </div>
@@ -52,7 +52,7 @@ export default class ScoreHeader extends PureComponent {
               <span className="icon">
                 <i className="fa fa-eye" />
               </span>
-              <span>{utils.addCommas(1200)} <small>views</small></span>
+              <span>{utils.addCommas(1200)}</span>
             </div>
             <span className="separator">|</span>
             <div className="counter active">

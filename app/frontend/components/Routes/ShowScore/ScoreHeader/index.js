@@ -52,14 +52,14 @@ export default class ScoreHeader extends PureComponent {
               <span className="icon">
                 <i className="fa fa-eye" />
               </span>
-              <span>120</span>
+              <span>{utils.addCommas(1200)} <small>views</small></span>
             </div>
             <span className="separator">|</span>
             <div className="counter active">
               <span className="icon can-click">
                 <i className="fa fa-heart" />
               </span>
-              <span>12</span>
+              <span>{utils.addCommas(12)}</span>
             </div>
             <span className="separator">|</span>
             <div className="counter">

@@ -34,6 +34,15 @@ export const snakeToCamel = (text) => (
   text.replace(/_./g, character => character.charAt(1).toUpperCase())
 )
 
+export const addCommas = (source) => {
+  const number = `${source}`.split(".")
+  let integer = number[0]
+  const decimal = number.length > 1 ? `.${number[1]}` : ""
+  const regex = /(\d+)(\d{3})/
+  while (regex.test(integer)) integer = integer.replace(regex, "$1,$2")
+  return integer + decimal
+}
+
 export const valueInRange = (value, min, max) => {
   if (value < min) return min
   if (max < value) return max

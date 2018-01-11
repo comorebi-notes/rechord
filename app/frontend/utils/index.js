@@ -18,13 +18,13 @@ export const humanDateTime = (dateString, full = false) => {
   const dd   = date.getDate()
   const hh   = zeroPadding(date.getHours(),   2)
   const mm   = zeroPadding(date.getMinutes(), 2)
-  const ss   = zeroPadding(date.getSeconds(), 2)
+  // const ss   = zeroPadding(date.getSeconds(), 2)
 
   const nowYear = new Date().getFullYear()
   const year = yyyy === nowYear ? "" : `${yyyy}年`
 
   if (full) {
-    return `${year}${MM}月${dd}日 ${hh}:${mm}:${ss}`
+    return `${year}${MM}月${dd}日 ${hh}:${mm}`
   } else {
     return `${year}${MM}月${dd}日`
   }

@@ -32,18 +32,22 @@
 .others
   display: flex
   align-items: center
-  margin: 1.2em 0 .5em
+  margin: 1em 0 .8em
+  color: #666
   .separator
-    color: #bbb
+    color: #ccc
     margin: 0 1.2em
-  .fav
-    .icon
-      color: #bbb
-      height: 1.8em
-      .fa
-        font-size: 1.5em
-      &.active
-        color: #f7e330
+  .icon
+    color: #666
+    margin-right: .4em
+    &.can-click
+      &:hover
+        opacity: .6
+  .counter
+    &.active
+      font-weight: bold
+      .icon
+        color: #fa6060
 
 @media screen and (max-width: $tablet - 1px)
   .score-header

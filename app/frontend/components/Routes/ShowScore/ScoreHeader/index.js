@@ -37,24 +37,38 @@ export default class ScoreHeader extends PureComponent {
                 )}
               </p>
               <time className="created-at">
-                {utils.humanDateTime(createdAt, createdAt === updatedAt)}
+                {utils.humanDateTime(createdAt, true)} 投稿
               </time>
               {createdAt !== updatedAt && (
                 <time className="updated-at">
-                  ({utils.humanDateTime(updatedAt, true)} に更新)
+                  ({utils.humanDateTime(updatedAt, true)} 更新)
                 </time>
               )}
             </div>
           </div>
 
           <div className="others">
-            <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />
-            <span className="separator">|</span>
-            <div className="fav">
+            <div className="counter">
               <span className="icon">
-                <i className="fa fa-star" />
+                <i className="fa fa-eye" />
               </span>
+              <span>120</span>
             </div>
+            <span className="separator">|</span>
+            <div className="counter active">
+              <span className="icon can-click">
+                <i className="fa fa-heart" />
+              </span>
+              <span>12</span>
+            </div>
+            <span className="separator">|</span>
+            <div className="counter">
+              <span className="icon">
+                <i className="fa fa-share-alt" />
+              </span>
+              <span>share</span>
+            </div>
+            {false && <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />}
           </div>
         </div>
       </div>

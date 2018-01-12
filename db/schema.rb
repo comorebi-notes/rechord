@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112050744) do
+ActiveRecord::Schema.define(version: 20180112052813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "favs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "score_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["score_id"], name: "index_favs_on_score_id"
+    t.index ["user_id"], name: "index_favs_on_user_id"
+  end
 
   create_table "impressions", force: :cascade do |t|
     t.string "impressionable_type"
@@ -72,5 +81,7 @@ ActiveRecord::Schema.define(version: 20180112050744) do
     t.index ["name"], name: "index_users_on_name"
   end
 
+  add_foreign_key "favs", "scores"
+  add_foreign_key "favs", "users"
   add_foreign_key "scores", "users"
 end

@@ -34,6 +34,8 @@ Rails.application.routes.draw do
     delete :remove_icon
   end
 
+  resources :favs, only: [:create, :destroy], constraints: OnlyAjaxRequest.new
+
   get "not_supported" => "top#not_supported"
   get "*path" => "top#index"
   root "top#index"

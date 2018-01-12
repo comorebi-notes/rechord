@@ -4,6 +4,8 @@ class Score < ApplicationRecord
   is_impressionable
 
   belongs_to :user, optional: true
+  has_many :favs, dependent: :destroy
+
   enum status: {
     published: 0,
     closed:    1,

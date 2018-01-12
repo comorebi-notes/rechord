@@ -37,6 +37,13 @@ export const user = {
   }
 }
 
+export const fav = {
+  api: {
+    create:  ()   => "/favs",
+    destroy: (id) => `/favs/${id}`
+  }
+}
+
 export const auth = {
   twitter:  "/users/auth/twitter",
   facebook: "/users/auth/facebook",

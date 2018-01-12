@@ -39,6 +39,7 @@ export default class ShowScore extends Component {
           loading:        false,
           inputText:      scoreContent,
           editorState:    EditorState.createWithContent(contentState, scoreDecorator),
+          scoreId:        score.id,
           title:          score.title,
           enabledClick:   score.click,
           bpm:            score.bpm,
@@ -46,6 +47,7 @@ export default class ShowScore extends Component {
           status:         score.status,
           instrumentType: score.instrument,
           token:          score.token,
+          favs:           score.favs,
           createdAt:      score.created_at,
           updatedAt:      score.updated_at,
           author,
@@ -72,19 +74,22 @@ export default class ShowScore extends Component {
 
   render() {
     const {
-      loading, inputText, title, editorState, beat, bpm, volume, status, instrumentType,
-      isPlaying, enabledClick, author, viewsCount, user, token, createdAt, updatedAt, destroyModal
+      loading, inputText, scoreId, title, editorState, beat, bpm, volume, status, instrumentType, isPlaying,
+      enabledClick, author, viewsCount, user, token, favs, createdAt, updatedAt, destroyModal
     } = this.state
     const { history } = this.props
     const isOwn = author && Object.keys(author).length > 0 && author.id === user.id
     return (
       <div className={classNames({ "loading-wrapper": loading })}>
         <ScoreHeader
+          scoreId={scoreId}
           title={title}
           author={author}
-          viewsCount={viewsCount}
           status={status}
           token={token}
+          viewsCount={viewsCount}
+          favs={favs}
+          user={user}
           createdAt={createdAt}
           updatedAt={updatedAt}
         />

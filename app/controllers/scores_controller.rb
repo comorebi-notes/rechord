@@ -5,7 +5,11 @@ class ScoresController < ApplicationController
   before_action :impression, only: [:show]
 
   def show
-    render json: { score: @score, author: @score&.user, views_count: @views_count }
+    render json: {
+      score: @score.as_json(methods: :favs),
+      author: @score&.user,
+      views_count: @views_count
+    }
   end
 
   def edit

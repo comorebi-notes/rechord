@@ -4,8 +4,8 @@ import * as path         from "../utils/path"
 const request = (method, url, params, onSuccess, onError) => {
   const args = method === "delete" ? [url, config] : [url, params, config]
   axios[method](...args)
-    .then(results => onSuccess(results))
-    .catch(error => onError(error))
+    .then(results => onSuccess && onSuccess(results))
+    .catch(error => onError && onError(error))
 }
 
 // ======== Scores ========
@@ -63,4 +63,19 @@ export const destoryUser = (params, onSuccess, onError) => (
 )
 export const searchUser = (params, onSuccess, onError) => (
   request("get", path.user.api.search(params.query), null, onSuccess, onError)
+)
+
+// ======== Favs ========
+const getFavParams = (params) => {
+  const { userId, scoreId } = params
+  return {
+    fav: { user_id: userId, score_id: scoreId }
+  }
+}
+
+export const fav = (params, onSuccess, onError) => (
+  request("post", path.fav.api.create(), getFavParams(params), onSuccess, onError)
+)
+export const unfav = (params, onSuccess, onError) => (
+  request("delete", path.fav.api.destroy(params.favId), null, onSuccess, onError)
 )

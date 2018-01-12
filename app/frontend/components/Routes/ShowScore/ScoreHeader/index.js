@@ -1,12 +1,45 @@
-import React, { PureComponent } from "react"
+import React, { Component } from "react"
 import { Link }                 from "react-router-dom"
+import classNames               from "classnames"
 import SharedButtons            from "../../../SharedButtons"
+import * as api                 from "../../../../api"
 import * as path                from "../../../../utils/path"
 import * as utils               from "../../../../utils"
 
-export default class ScoreHeader extends PureComponent {
+export default class ScoreHeader extends Component {
+  constructor() {
+    super()
+    this.state = { favsCount: 0, myFavId: false }
+  }
+  componentWillReceiveProps = ({ favs }) => {
+    if (favs && !this.props.favs) {
+      const { user } = this.props
+      const favsCount = favs && favs.length
+      const fav = user && favs && favs.find(f => f.user_id === user.id)
+      this.setState({ favsCount, myFavId: fav && fav.id })
+    }
+  }
+  toggleFav = () => {
+    const { scoreId, user } = this.props
+    const { favsCount, myFavId } = this.state
+    if (myFavId) {
+      api.unfav(
+        { favId: myFavId },
+        () => this.setState({ favsCount: favsCount - 1, myFavId: false })
+      )
+    } else {
+      api.fav(
+        { userId: user.id, scoreId },
+        (success) => {
+          const { data: fav } = success
+          this.setState({ favsCount: favsCount + 1, myFavId: fav.id })
+        }
+      )
+    }
+  }
   render() {
-    const { author, viewsCount, title, token, status, createdAt, updatedAt } = this.props
+    const { author, title, token, status, viewsCount, createdAt, updatedAt } = this.props
+    const { favsCount, myFavId } = this.state
     const existAuthor = author && Object.keys(author).length > 0
     const authorPath = existAuthor && path.user.show(author.name)
     const isClosed = status === "closed"
@@ -55,11 +88,11 @@ export default class ScoreHeader extends PureComponent {
               <span>{viewsCount ? utils.addCommas(viewsCount) : 0}</span>
             </div>
             <span className="separator">|</span>
-            <div className="counter active">
-              <span className="icon can-click">
-                <i className="fa fa-heart" />
+            <div className={classNames("counter", { active: myFavId })}>
+              <span className="icon can-click" onClick={this.toggleFav} role="presentation">
+                <i className={classNames("fa", { "fa-heart": myFavId, "fa-heart-o": !myFavId })} />
               </span>
-              <span>{utils.addCommas(12)}</span>
+              <span>{favsCount ? utils.addCommas(favsCount) : 0}</span>
             </div>
             <span className="separator">|</span>
             <div className="counter">

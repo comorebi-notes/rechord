@@ -6,7 +6,7 @@ import * as utils               from "../../../../utils"
 
 export default class ScoreHeader extends PureComponent {
   render() {
-    const { author, title, token, status, createdAt, updatedAt } = this.props
+    const { author, viewsCount, title, token, status, createdAt, updatedAt } = this.props
     const existAuthor = author && Object.keys(author).length > 0
     const authorPath = existAuthor && path.user.show(author.name)
     const isClosed = status === "closed"
@@ -52,7 +52,7 @@ export default class ScoreHeader extends PureComponent {
               <span className="icon">
                 <i className="fa fa-eye" />
               </span>
-              <span>{utils.addCommas(1200)}</span>
+              <span>{viewsCount ? utils.addCommas(viewsCount) : 0}</span>
             </div>
             <span className="separator">|</span>
             <div className="counter active">

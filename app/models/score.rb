@@ -1,6 +1,7 @@
 class Score < ApplicationRecord
   include FriendlyId
   friendly_id :token
+  is_impressionable
 
   belongs_to :user, optional: true
   enum status: {

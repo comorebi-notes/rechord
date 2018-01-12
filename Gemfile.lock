@@ -265,6 +265,8 @@ GEM
       domain_name (~> 0.5)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
+    impressionist (1.6.0)
+      nokogiri (~> 1)
     inflecto (0.0.2)
     ipaddress (0.8.3)
     jbuilder (2.7.0)
@@ -577,6 +579,7 @@ DEPENDENCIES
   fog
   font-awesome-rails
   friendly_id
+  impressionist
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   newrelic_rpm

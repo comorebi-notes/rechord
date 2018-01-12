@@ -2,9 +2,10 @@ class ScoresController < ApplicationController
   before_action :set_score,  only: [:show, :edit, :update, :destroy]
   before_action :browsable?, only: [:show]
   before_action :editable?,  only: [:edit, :update, :destroy]
+  before_action :impression, only: [:show]
 
   def show
-    render json: { score: @score, author: @score&.user }
+    render json: { score: @score, author: @score&.user, views_count: @views_count }
   end
 
   def edit
@@ -65,5 +66,10 @@ class ScoresController < ApplicationController
   def set_score
     @score = Score.friendly.find_by(token: params[:token])
     head :not_found unless @score
+  end
+
+  def impression
+    impressionist(@score, nil, unique: [:session_hash])
+    @views_count = @score.impressionist_count
   end
 end

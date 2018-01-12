@@ -31,7 +31,7 @@ export default class ShowScore extends Component {
     api.showScore(
       { token },
       (success) => {
-        const { score, author } = success.data
+        const { score, author, views_count: viewsCount } = success.data
         const scoreContent = score.content
         const contentState = ContentState.createFromText(scoreContent)
         utils.setTitle(score.title, this.props.history)
@@ -48,7 +48,8 @@ export default class ShowScore extends Component {
           token:          score.token,
           createdAt:      score.created_at,
           updatedAt:      score.updated_at,
-          author
+          author,
+          viewsCount
         })
       },
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
@@ -72,7 +73,7 @@ export default class ShowScore extends Component {
   render() {
     const {
       loading, inputText, title, editorState, beat, bpm, volume, status, instrumentType,
-      isPlaying, enabledClick, author, user, token, createdAt, updatedAt, destroyModal
+      isPlaying, enabledClick, author, viewsCount, user, token, createdAt, updatedAt, destroyModal
     } = this.state
     const { history } = this.props
     const isOwn = author && Object.keys(author).length > 0 && author.id === user.id
@@ -81,6 +82,7 @@ export default class ShowScore extends Component {
         <ScoreHeader
           title={title}
           author={author}
+          viewsCount={viewsCount}
           status={status}
           token={token}
           createdAt={createdAt}

@@ -14,7 +14,7 @@
 .author
   display: flex
   align-items: center
-  margin-bottom: 1em
+  margin-bottom: .8em
   line-height: 1.3
   a
     color: #444
@@ -45,19 +45,9 @@
   .icon
     color: #666
     margin-right: .4em
-    &.can-click
-      &:hover
-        opacity: .6
-  .counter
-    &.active
-      font-weight: bold
-      .icon
-        color: #fa6060
-    &:not(.active)
-      .icon:hover
-        color: #fa6060
   .button
     margin-bottom: 0
+    color: #666
 
 @media screen and (max-width: $tablet - 1px)
   .score-header

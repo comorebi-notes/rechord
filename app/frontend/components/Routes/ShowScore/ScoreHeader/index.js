@@ -89,7 +89,7 @@ export default class ScoreHeader extends Component {
             </div>
             <span className="separator">|</span>
 
-            <div className={classNames("counter", { active: myFavId })}>
+            <div className={classNames("fav", { active: myFavId })}>
               <span className="icon can-click" onClick={this.toggleFav} role="presentation">
                 <i className={classNames("fa", { "fa-heart": myFavId, "fa-heart-o": !myFavId })} />
               </span>

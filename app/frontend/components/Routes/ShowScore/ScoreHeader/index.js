@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Link }                 from "react-router-dom"
 import classNames               from "classnames"
-import SharedButtons            from "../../../SharedButtons"
+import ShareModal               from "../../../ShareModal"
 import * as api                 from "../../../../api"
 import * as path                from "../../../../utils/path"
 import * as utils               from "../../../../utils"
@@ -9,7 +9,11 @@ import * as utils               from "../../../../utils"
 export default class ScoreHeader extends Component {
   constructor() {
     super()
-    this.state = { favsCount: 0, myFavId: false }
+    this.state = {
+      modal:     false,
+      favsCount: 0,
+      myFavId:   false
+    }
   }
   componentWillReceiveProps = ({ favs }) => {
     if (favs && !this.props.favs) {
@@ -37,15 +41,16 @@ export default class ScoreHeader extends Component {
       )
     }
   }
+  handleToggleModal = () => this.setState({ modal: !this.state.modal })
   render() {
     const { author, title, token, status, viewsCount, createdAt, updatedAt } = this.props
-    const { favsCount, myFavId } = this.state
+    const { modal, favsCount, myFavId } = this.state
     const existAuthor = author && Object.keys(author).length > 0
     const authorPath = existAuthor && path.user.show(author.name)
     const isClosed = status === "closed"
     return (
-      <div className="score-header">
-        <div>
+      <div>
+        <div className="score-header">
           <h1 className="title">
             {title}
             {isClosed && (
@@ -97,15 +102,22 @@ export default class ScoreHeader extends Component {
             </div>
             <span className="separator">|</span>
 
-            <button className="button is-white">
+            <button className="button is-white" onClick={this.handleToggleModal}>
               <span className="icon">
                 <i className="fa fa-share-alt" />
               </span>
               <span>share</span>
             </button>
-            {false && <SharedButtons url={utils.sharedUrl(token)} title={title} asShow />}
           </div>
         </div>
+
+        <ShareModal
+          label="share"
+          token={token}
+          title={title}
+          isActive={modal}
+          handleSetState={(newState) => this.setState(newState)}
+        />
       </div>
     )
   }

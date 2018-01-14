@@ -26,6 +26,7 @@ export default class ScoreHeader extends Component {
   toggleFav = () => {
     const { scoreId, user } = this.props
     const { favsCount, myFavId } = this.state
+    if (!user.id) return false
     if (myFavId) {
       api.unfav(
         { favId: myFavId },
@@ -40,10 +41,11 @@ export default class ScoreHeader extends Component {
         }
       )
     }
+    return true
   }
   handleToggleModal = () => this.setState({ modal: !this.state.modal })
   render() {
-    const { author, title, token, status, viewsCount, createdAt, updatedAt } = this.props
+    const { author, title, token, status, user, viewsCount, createdAt, updatedAt } = this.props
     const { modal, favsCount, myFavId } = this.state
     const existAuthor = author && Object.keys(author).length > 0
     const authorPath = existAuthor && path.user.show(author.name)
@@ -95,7 +97,11 @@ export default class ScoreHeader extends Component {
             <span className="separator">|</span>
 
             <div className={classNames("fav", { active: myFavId })}>
-              <span className="icon can-click" onClick={this.toggleFav} role="presentation">
+              <span
+                className={classNames("icon", { "can-click": user.id })}
+                onClick={this.toggleFav}
+                role="presentation"
+              >
                 <i className={classNames("fa", { "fa-heart": myFavId, "fa-heart-o": !myFavId })} />
               </span>
               <span>{favsCount ? utils.addCommas(favsCount) : 0}</span>
@@ -112,7 +118,7 @@ export default class ScoreHeader extends Component {
         </div>
 
         <ShareModal
-          label="share"
+          label="share!"
           token={token}
           title={title}
           isActive={modal}

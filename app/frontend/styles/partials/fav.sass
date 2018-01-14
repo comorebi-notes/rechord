@@ -1,5 +1,5 @@
 .fav
-  .icon
+  .icon.can-click
     i
       transform: translatez(0)
       -webkit-transform: translatez(0)
@@ -9,14 +9,14 @@
         transform: scale(1.1)
   &.active
     font-weight: bold
-    .icon
+    .icon.can-click
       color: #fa6060
       i
         transform: translatez(0)
         -webkit-transform: translatez(0)
         animation: fav-animation .2s linear 0s forwards
   &:not(.active)
-    .icon:hover
+    .icon.can-click:hover
       color: #fa6060
 
 @keyframes fav-animation

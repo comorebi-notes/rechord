@@ -15,6 +15,7 @@ export const terms  = "/terms"
 export const score = {
   show:      (token) => `/${token}`,
   edit:      (token) => `/${token}/edit`,
+  index:     ()      => "/scores",
   api: {
     create:  ()      => `/scores`,
     show:    (token) => `/scores/${token}`,
@@ -32,6 +33,7 @@ export const user = {
   updateIcon: (name)  => `/users/${name}/update_icon`,
   removeIcon: (name)  => `/users/${name}/remove_icon`,
   destroy:    (name)  => `/users/${name}`,
+  index:      ()      => "/users",
   api: {
     search:   (query) => `/users/search?${query}`
   }

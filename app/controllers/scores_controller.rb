@@ -6,9 +6,8 @@ class ScoresController < ApplicationController
 
   def show
     render json: {
-      score: @score.as_json(methods: :favs),
-      author: @score&.user,
-      views_count: @views_count
+      score:  @score.as_json(methods: [:favs, :views_count]),
+      author: @score&.user
     }
   end
 
@@ -48,7 +47,7 @@ class ScoresController < ApplicationController
     else
       scores = []
     end
-    render json: scores, include: [:user]
+    render json: scores, include: [:user], methods: [:favs, :views_count]
   end
 
   private
@@ -74,6 +73,5 @@ class ScoresController < ApplicationController
 
   def impression
     impressionist(@score, nil, unique: [:session_hash])
-    @views_count = @score.impressionist_count
   end
 end

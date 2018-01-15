@@ -7,7 +7,10 @@ class UsersController < ApplicationController
     else
       @scores = Score.all_published(@user.id)
     end
-    render json: { user: @user, scores: @scores }
+    render json: {
+      user:   @user,
+      scores: @scores.as_json(methods: [:favs, :views_count])
+    }
   end
 
   def valid_name

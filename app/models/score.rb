@@ -43,4 +43,8 @@ class Score < ApplicationRecord
   def browsable?(id)
     published? || owner?(id)
   end
+
+  def views_count
+    impressionist_count
+  end
 end

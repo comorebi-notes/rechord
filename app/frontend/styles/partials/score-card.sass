@@ -7,7 +7,7 @@
     .box
       display: flex
       justify-content: space-between
-      align-items: center
+      align-items: top
       transition: all .1s ease-in-out
       background-color: #fff
       h3
@@ -28,6 +28,11 @@
           .image
             margin-bottom: 0 !important
             margin-left: 0 !important
+      nav
+        .control:not(:last-child)
+          margin-right: 1rem
+        .icon
+          margin-right: .4em
       &.closed
         background-color: #eaeaea
     &:hover, &:active

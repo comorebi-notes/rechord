@@ -31,7 +31,7 @@ export default class ShowScore extends Component {
     api.showScore(
       { token },
       (success) => {
-        const { score, author, views_count: viewsCount } = success.data
+        const { score, author } = success.data
         const scoreContent = score.content
         const contentState = ContentState.createFromText(scoreContent)
         utils.setTitle(score.title, this.props.history)
@@ -50,8 +50,8 @@ export default class ShowScore extends Component {
           favs:           score.favs,
           createdAt:      score.created_at,
           updatedAt:      score.updated_at,
-          author,
-          viewsCount
+          viewsCount:     score.views_count,
+          author
         })
       },
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })

@@ -12,7 +12,7 @@ export default class ScoreCard extends PureComponent {
   }
   render() {
     const {
-      score: { title, token, status, views_count: viewsCount, favs, created_at, updated_at }, author
+      score: { title, token, status, views_count: viewsCount, favs, updated_at: updatedAt }, author
     } = this.props
     const { highlightWords } = this.state
     const isClosed = status === "closed"
@@ -41,33 +41,29 @@ export default class ScoreCard extends PureComponent {
                       <strong>{author.screen_name}</strong>
                     </span>
                   )}
-                  <time className="created-at">
-                    作成日時 : <strong>{utils.humanDateTime(created_at, true)}</strong>
-                  </time>
-                  {created_at !== updated_at && (
-                    <time className="updated-at">
-                      更新日時 : <strong>{utils.humanDateTime(updated_at, true)}</strong>
-                    </time>
-                  )}
+                  <nav className="field is-grouped">
+                    <div className="control">
+                      <span className="icon">
+                        <i className="fa fa-eye" />
+                      </span>
+                      <span>{viewsCount ? utils.addCommas(viewsCount) : 0}</span>
+                    </div>
+                    <div className="control">
+                      <span className="icon">
+                        <i className="fa fa-heart-o" />
+                      </span>
+                      <span>{favs ? utils.addCommas(favs.length) : 0}</span>
+                    </div>
+                    <div className="control">
+                      <time>
+                        {utils.humanDateTime(updatedAt, true)}
+                      </time>
+                    </div>
+                  </nav>
                 </div>
               </div>
             </div>
           </article>
-
-          <nav className="field is-grouped">
-            <div className="control">
-              <span className="icon">
-                <i className="fa fa-eye" />
-              </span>
-              <span>{viewsCount ? utils.addCommas(viewsCount) : 0}</span>
-            </div>
-            <div className="control">
-              <span className="icon">
-                <i className="fa fa-heart-o" />
-              </span>
-              <span>{favs ? utils.addCommas(favs.length) : 0}</span>
-            </div>
-          </nav>
         </div>
       </Link>
     )

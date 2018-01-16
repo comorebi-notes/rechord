@@ -86,7 +86,7 @@ export default class Search extends Component {
     }
     return (
       <div className={classNames("search", { "loading-wrapper": loading })}>
-        <div className="field is-grouped">
+        <div className="field is-grouped search-control">
           <div className="control search-input has-icons-left">
             <span className="icon is-left" role="presentation" onClick={this.handleSearch}>
               <i className="fa fa-search" />

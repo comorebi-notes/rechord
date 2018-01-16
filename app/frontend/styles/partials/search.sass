@@ -1,5 +1,5 @@
 .search
-  .field.is-grouped
+  .search-control
     margin-bottom: 2em
   .hits
     align-self: center
@@ -9,11 +9,14 @@
       font-size: 1.2em
       margin-right: .4em
 
+// @media screen and (min-width: $tablet)
+  .search
+
 @media screen and (max-width: $tablet - 1px)
   .search
     .search-input
       flex-grow: 1
-    .field.is-grouped
+    .search-control
       margin-bottom: 1em
       .search-type
         margin-right: 0

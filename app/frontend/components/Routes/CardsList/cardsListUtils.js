@@ -1,5 +1,5 @@
 export const defaultSortKey = "created_at"
-export const defaultOrder   = "desc"
+export const defaultOrder   = "asc"
 
 export const sortOptions = (type) => {
   switch (type) {

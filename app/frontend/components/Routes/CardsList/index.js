@@ -21,7 +21,7 @@ export default class CardsList extends Component {
       result:  [],
       loading: true
     }
-    this.handleSearch(props.type, word)
+    this.handleSearch(props.type, word, sortKey, order)
   }
   componentDidMount = () => {
     const { word } = this.state
@@ -67,10 +67,9 @@ export default class CardsList extends Component {
     const { result, word, sortKey, order, loading } = this.state
     const { type } = this.props
     const searchResult = () => {
-      const sortedResult = utils.sortResult(result, sortKey, order)
       switch (type) {
-        case "scores": return <ScoresResults word={word} scores={sortedResult} />
-        case "users":  return <UsersResults  word={word} users={sortedResult} />
+        case "scores": return <ScoresResults word={word} scores={result} />
+        case "users":  return <UsersResults  word={word} users={result} />
         default:       return ""
       }
     }
@@ -78,7 +77,7 @@ export default class CardsList extends Component {
       <div className={classNames("search", { "loading-wrapper": loading })}>
         <div className="field is-grouped search-control">
           <div className="control search-input has-icons-left">
-            <span className="icon is-left" role="presentation" onClick={this.handleSearch}>
+            <span className="icon is-left">
               <i className="fa fa-search" />
             </span>
             <input

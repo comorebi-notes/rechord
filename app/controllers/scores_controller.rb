@@ -5,13 +5,17 @@ class ScoresController < ApplicationController
   before_action :impression, only: [:show]
 
   def index
-    if params[:word].present?
-      words = params[:word].split(" ")
-      scores = Score.searchable.ransack(title_cont_all: words).result
-    else
-      scores = Score.searchable
-    end
-    render json: scores, include: [:user]
+    words    = params[:word]&.split(" ")
+    sort_key = params[:sort_key] || "created_at"
+    order    = params[:order] || "asc"
+
+    # 新着順の場合は order を逆にする必要がある
+    order = order == "asc" ? "desc" : "asc" if sort_key == "created_at"
+
+    scores = Score.searchable(sort_key, order)
+    scores = scores.ransack(title_cont_all: words).result if words.present?
+
+    render json: scores, include: [:user], methods: [:favs, :views_count]
   end
 
   def show
@@ -48,16 +52,6 @@ class ScoresController < ApplicationController
     else
       render json: @score.errors.full_messages, status: :unprocessable_entity
     end
-  end
-
-  def search
-    if params[:word].present?
-      words = params[:word].split(" ")
-      scores = Score.searchable.ransack(title_cont_all: words).result
-    else
-      scores = []
-    end
-    render json: scores, include: [:user], methods: [:favs, :views_count]
   end
 
   private

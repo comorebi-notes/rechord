@@ -2,12 +2,16 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy]
 
   def index
-    if params[:word].present?
-      words = params[:word].split(" ")
-      users = User.ransack(name_or_screen_name_or_profile_cont_all: words).result
-    else
-      users = User.all
-    end
+    words    = params[:word]&.split(" ")
+    sort_key = params[:sort_key] || "created_at"
+    order    = params[:order] || "asc"
+
+    # 新着順の場合は order を逆にする必要がある
+    order = order == "asc" ? "desc" : "asc" if sort_key == "created_at"
+
+    users = User.order(sort_key => order)
+    users = users.ransack(name_or_screen_name_or_profile_cont_all: words).result if words.present?
+
     render json: users, methods: :scores_count
   end
 
@@ -76,16 +80,6 @@ class UsersController < ApplicationController
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
     end
-  end
-
-  def search
-    if params[:word].present?
-      words = params[:word].split(" ")
-      users = User.ransack(name_or_screen_name_or_profile_cont_all: words).result
-    else
-      users = []
-    end
-    render json: users, methods: :scores_count
   end
 
   private

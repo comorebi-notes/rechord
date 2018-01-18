@@ -22,12 +22,9 @@ export default class TabItems extends PureComponent {
         default: return false
       }
     }
-    const tabItemComponent = ({ label, icon, targetPath, onlyMobile, onClick }) => (
+    const tabItemComponent = ({ label, icon, targetPath, onClick }) => (
       <li
-        className={classNames({
-          "is-active": isActive(targetPath),
-          "is-only-mobile": onlyMobile
-        })}
+        className={classNames({ "is-active": isActive(targetPath) })}
         key={label}
       >
         {onClick ? (
@@ -60,8 +57,7 @@ export default class TabItems extends PureComponent {
         icon:       "user-circle-o",
         targetPath: path.user.show(currentUser.name),
         onClick:    !currentUser.name && this.handleToggleModal
-      },
-      { label: "search", icon: "search", targetPath: path.search(), onlyMobile: true }
+      }
     ]
     return (
       <div>

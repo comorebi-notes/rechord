@@ -13,15 +13,34 @@
   .is-only-mobile
     display: none !important
 
-// @media screen and (min-width: $tablet)
+@media screen and (min-width: $tablet)
   .search
+    .scores, .users
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+      .score-card, .user-card
+        width: calc(50% - 1em)
+        .box
+          height: 100%
+      .score-card
+        .media-content
+          height: 100%
+          .content
+            height: 100%
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+      .no-score
+        width: 100%
 
 @media screen and (max-width: $tablet - 1px)
   .search
-    .search-input
-      flex-grow: 1
     .search-control
       margin-bottom: 1em
+      .search-input.control
+        flex-grow: 1
+        margin-right: 0
       .search-type
         margin-right: 0
         .button

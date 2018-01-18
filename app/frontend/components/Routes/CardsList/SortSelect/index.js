@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import SelectField          from "../../../commons/SelectField"
-import * as utils           from "../searchUtils"
+import * as utils           from "../cardsListUtils"
 
 export default class SortSelect extends Component {
   render() {

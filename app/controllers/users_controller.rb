@@ -1,6 +1,16 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy]
 
+  def index
+    if params[:word].present?
+      words = params[:word].split(" ")
+      users = User.ransack(name_or_screen_name_or_profile_cont_all: words).result
+    else
+      users = User.all
+    end
+    render json: users, methods: :scores_count
+  end
+
   def show
     if @user == current_user
       @scores = @user.editable_scores

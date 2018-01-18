@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     get "search" => "scores#search"
   end
   resources :scores, {
-    only: [:show, :edit, :update, :create, :destroy],
+    only: [:index, :show, :edit, :update, :create, :destroy],
     param: :token,
     constraints: OnlyAjaxRequest.new
   }
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     get "search" => "users#search"
   end
   resources :users, {
-    only: [:show, :update, :destroy],
+    only: [:index, :show, :update, :destroy],
     param: :name,
     constraints: OnlyAjaxRequest.new
   } do

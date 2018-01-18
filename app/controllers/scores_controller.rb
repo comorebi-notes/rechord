@@ -4,6 +4,16 @@ class ScoresController < ApplicationController
   before_action :editable?,  only: [:edit, :update, :destroy]
   before_action :impression, only: [:show]
 
+  def index
+    if params[:word].present?
+      words = params[:word].split(" ")
+      scores = Score.searchable.ransack(title_cont_all: words).result
+    else
+      scores = Score.searchable
+    end
+    render json: scores, include: [:user]
+  end
+
   def show
     render json: {
       score:  @score.as_json(methods: [:favs, :views_count]),

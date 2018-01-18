@@ -8,7 +8,7 @@ export default class OrderButtons extends Component {
       "is-info":      currentOrder === target,
       "is-selected:": currentOrder === target
     })
-    const orderButton = ({ order, icon }) => (
+    const orderButton = ({ order, label, icon }) => (
       <button
         className={buttonClass(order)}
         onClick={() => handleChangeOrder(order)}
@@ -17,11 +17,12 @@ export default class OrderButtons extends Component {
         <span className="icon">
           <i className={classNames("fa", `fa-${icon}`)} />
         </span>
+        <span>{label}</span>
       </button>
     )
     const order = [
-      { order: "asc",  icon: "caret-up fa-lg" },
-      { order: "desc", icon: "caret-down fa-lg" }
+      { order: "asc",  label: "昇順", icon: "caret-up fa-lg" },
+      { order: "desc", label: "降順", icon: "caret-down fa-lg" }
     ]
     return (
       <div className="buttons has-addons">

@@ -98,7 +98,7 @@ export default class CardsList extends Component {
           </div>
           <div className="control hits is-hidden-mobile">
             <strong>{result.length}</strong>
-            <span>hits</span>
+            <span>{type}</span>
           </div>
         </div>
 

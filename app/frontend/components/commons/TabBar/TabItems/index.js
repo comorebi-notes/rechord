@@ -61,14 +61,7 @@ export default class TabItems extends PureComponent {
         targetPath: path.user.show(currentUser.name),
         onClick:    !currentUser.name && this.handleToggleModal
       },
-      {
-        label:      "search",
-        icon:       "search",
-        targetPath: path.search(),
-        onlyMobile: true
-      },
-      // { label: "bookmark",  icon: "bookmark",  targetPath: "" },
-      // { label: "ranking",   icon: "trophy",    targetPath: "" }
+      { label: "search", icon: "search", targetPath: path.search(), onlyMobile: true }
     ]
     return (
       <div>

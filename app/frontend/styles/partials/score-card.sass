@@ -10,6 +10,19 @@
       align-items: top
       transition: all .1s ease-in-out
       background-color: #fff
+      .score-title
+        font-weight: bold
+        font-size: 1.4em
+        margin: .2em 0 .5em
+        display: block
+      .score-attributes
+        color: #444
+        font-size: .85em
+        line-height: 1.8
+        .attribute-name
+        .attribute-value
+          font-size: 1.2em
+          font-weight: bold
       h3
         color: $link
         .icon
@@ -21,18 +34,29 @@
         transition: all .1s ease-in-out
       .score-attributes
         line-height: 1.6
-        strong
-          margin-left: .25em
         .author-name
+          display: inline-block
+          margin-bottom: .5em
           margin-top: .2em
+          figure
+            display: inline-block
+            margin-right: 8px
+            margin-right: .5rem
           .image
             margin-bottom: 0 !important
             margin-left: 0 !important
-      nav
-        .control:not(:last-child)
-          margin-right: 1rem
-        .icon
-          margin-right: .4em
+          > *
+            vertical-align: middle
+        nav
+          align-items: center
+          .control
+            font-size: .9rem
+            margin-top: .2em
+            &:not(:last-child)
+              margin-right: 1.2rem
+          .icon
+            margin-top: .1em
+            margin-right: .2em
       &.closed
         background-color: #eaeaea
     &:hover, &:active

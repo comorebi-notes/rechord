@@ -22,7 +22,7 @@ export const score = {
     edit:    (token) => `/scores/${token}/edit`,
     update:  (token) => `/scores/${token}`,
     destroy: (token) => `/scores/${token}`,
-    search:  (query) => `/scores/search?${query}`
+    index:   (query) => `/scores?${query}`
   }
 }
 
@@ -35,7 +35,7 @@ export const user = {
   destroy:    (name)  => `/users/${name}`,
   index:      ()      => "/users",
   api: {
-    search:   (query) => `/users/search?${query}`
+    index:    (query) => `/users?${query}`
   }
 }
 
@@ -62,7 +62,7 @@ export const search = (_type, _query) => {
   })
   const queryStrings = qs.stringify(queries)
   const query = queryStrings ? `?${queryStrings}` : ""
-  return `/${type}/search${query}`
+  return `/${type}${query}`
 }
 
 export const twitter = (id) => `https://twitter.com/${id}`

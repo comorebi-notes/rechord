@@ -1,6 +1,8 @@
 .search
-  .field.is-grouped
+  .search-control
     margin-bottom: 2em
+    .button > *
+      vertical-align: middle
   .hits
     align-self: center
     position: absolute
@@ -8,21 +10,33 @@
     strong
       font-size: 1.2em
       margin-right: .4em
+  .is-only-mobile
+    display: none !important
+
+// @media screen and (min-width: $tablet)
+  .search
 
 @media screen and (max-width: $tablet - 1px)
   .search
     .search-input
       flex-grow: 1
-    .field.is-grouped
+    .search-control
       margin-bottom: 1em
       .search-type
         margin-right: 0
         .button
           .icon
             margin: auto !important
+    .field.is-grouped
       &.is-only-mobile
         position: relative
         display: flex !important
         margin-bottom: 1.2em
         .hits
           font-size: 1.2em
+      button
+        .icon
+          margin-left: calc(-0.375em - 1px)
+          margin-right: calc(-0.375em - 1px)
+        span:last-of-type:not(.icon)
+          display: none

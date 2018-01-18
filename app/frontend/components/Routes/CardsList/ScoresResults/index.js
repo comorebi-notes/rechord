@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import ScoreCard            from "../../../ScoreCard"
 
-export default class ScoresSearch extends Component {
+export default class ScoresResults extends Component {
   render() {
     const { scores, word } = this.props
     return (

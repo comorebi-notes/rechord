@@ -2,14 +2,12 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy]
 
   def index
-    words    = params[:word]&.split(" ")
-    sort_key = params[:sort_key] || "created_at"
-    order    = params[:order] || "asc"
+    words = params[:word]&.split(" ")
+    sort  = params[:sort] || "created_at"
+    order = sort.slice!(/_(asc|desc)$/, 1) || "desc"
 
-    # 新着順の場合は order を逆にする必要がある
-    order = order == "asc" ? "desc" : "asc" if sort_key == "created_at"
-
-    users = User.order(sort_key => order)
+    sort.gsub!(/_$/, "")
+    users = User.order(sort => order)
     users = users.ransack(name_or_screen_name_or_profile_cont_all: words).result if words.present?
 
     render json: users, methods: :scores_count
@@ -21,10 +19,7 @@ class UsersController < ApplicationController
     else
       @scores = @user.published_scores
     end
-    render json: {
-      user:   @user,
-      scores: @scores.as_json(methods: [:favs, :views_count])
-    }
+    render json: { user: @user, scores: @scores }
   end
 
   def valid_name

@@ -5,22 +5,20 @@ class ScoresController < ApplicationController
   before_action :impression, only: [:show]
 
   def index
-    words    = params[:word]&.split(" ")
-    sort_key = params[:sort_key] || "created_at"
-    order    = params[:order] || "asc"
+    words = params[:word]&.split(" ")
+    sort  = params[:sort] || "created_at"
+    order = sort.slice!(/(asc|desc)$/) || "desc"
 
-    # 新着順の場合は order を逆にする必要がある
-    order = order == "asc" ? "desc" : "asc" if sort_key == "created_at"
-
-    scores = Score.searchable(sort_key, order)
+    sort.gsub!(/_$/, "")
+    scores = Score.searchable(sort, order)
     scores = scores.ransack(title_cont_all: words).result if words.present?
 
-    render json: scores, include: [:user], methods: [:favs_count, :views_count]
+    render json: scores, include: :user
   end
 
   def show
     render json: {
-      score:  @score.as_json(methods: [:favs, :views_count]),
+      score:  @score.as_json(methods: :favs),
       author: @score&.user
     }
   end

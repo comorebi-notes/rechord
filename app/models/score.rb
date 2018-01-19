@@ -34,7 +34,7 @@ class Score < ApplicationRecord
 
   scope :all_published, -> (id) { where(user_id: id, status: :published).order(id: :desc) }
   scope :all_editable,  -> (id) { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
-  scope :searchable,    -> (sort_key, order) { where(status: :published).order(sort_key => order) }
+  scope :searchable,    -> (sort, order) { where(status: :published).order(sort => order) }
 
   def owner?(id)
     user_id == id

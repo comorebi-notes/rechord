@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import classNames           from "classnames"
 import * as qs              from "qs"
 import SortSelect           from "./SortSelect"
-import OrderButtons         from "./OrderButtons"
 import ScoresResults        from "./ScoresResults"
 import UsersResults         from "./UsersResults"
 import * as utils           from "./cardsListUtils"
@@ -13,15 +12,14 @@ import * as path            from "../../../utils/path"
 export default class CardsList extends Component {
   constructor(props) {
     super(props)
-    const { word, sort_key: sortKey, order } = qs.parse(props.location.search.substr(1))
+    const { word, sort } = qs.parse(props.location.search.substr(1))
     this.state = {
-      word:    word    || "",
-      sortKey: sortKey || utils.defaultSortKey,
-      order:   order   || utils.defaultOrder,
+      word:    word || "",
+      sort:    sort || utils.defaultSort,
       result:  [],
       loading: true
     }
-    this.handleSearch(props.type, word, sortKey, order)
+    this.handleSearch(props.type, word, sort)
   }
   componentDidMount = () => {
     const { word } = this.state
@@ -33,38 +31,32 @@ export default class CardsList extends Component {
     const title = word ? `検索: ${word}` : `${humanLabel[type]}一覧`
     setTitle(title, history)
   }
-  handleSearch = (type, word, sortKey, order) => (
+  handleSearch = (type, word, sort) => (
     api[type](
-      { query: qs.stringify({ word, sort_key: sortKey, order }) },
+      { query: qs.stringify({ word, sort }) },
       (success) => this.setState({ result: success.data, loading: false }),
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   )
-  handlePush = (type, word, sortKey, order) => {
+  handlePush = (type, word, sort) => {
     const query = { word }
-    if (sortKey !== utils.defaultSortKey) query.sort_key = sortKey
-    if (order   !== utils.defaultOrder)   query.order = order
+    if (sort !== utils.defaultSort) query.sort = sort
     const searchPath = path.search(type, qs.stringify(query))
     this.props.history.push(searchPath)
   }
   handleInputWord = (e) => this.setState({ word: e.target.value })
   handleKeyDown = (e) => {
-    const { word, sortKey, order } = this.state
-    if (e.keyCode === 13) this.handlePush(this.props.type, word, sortKey, order)
+    const { word, sort } = this.state
+    if (e.keyCode === 13) this.handlePush(this.props.type, word, sort)
   }
-  handleChangeSortKey = (e) => {
-    this.setState({ sortKey: e.target.value })
-    const { word, order } = this.state
-    this.handlePush(this.props.type, word, e.target.value, order)
-  }
-  handleChangeOrder = (order) => {
-    this.setState({ order })
-    const { word, sortKey } = this.state
-    this.handlePush(this.props.type, word, sortKey, order)
+  handleChangeSort = (e) => {
+    this.setState({ sort: e.target.value })
+    const { word } = this.state
+    this.handlePush(this.props.type, word, e.target.value)
   }
 
   render() {
-    const { result, word, sortKey, order, loading } = this.state
+    const { result, word, sort, loading } = this.state
     const { type } = this.props
     const searchResult = () => {
       switch (type) {
@@ -90,10 +82,7 @@ export default class CardsList extends Component {
             />
           </div>
           <div className="control is-hidden-mobile has-icons-left">
-            <SortSelect sortKey={sortKey} type={type} handleChangeSortKey={this.handleChangeSortKey} />
-          </div>
-          <div className="control is-hidden-mobile">
-            <OrderButtons currentOrder={order} handleChangeOrder={this.handleChangeOrder} />
+            <SortSelect sort={sort} type={type} handleChangeSort={this.handleChangeSort} />
           </div>
           <div className="control hits is-hidden-mobile">
             <strong>{result.length}</strong>
@@ -103,14 +92,11 @@ export default class CardsList extends Component {
 
         <div className="field is-grouped is-only-mobile">
           <div className="control has-icons-left">
-            <SortSelect sortKey={sortKey} type={type} handleChangeSortKey={this.handleChangeSortKey} />
-          </div>
-          <div className="control">
-            <OrderButtons currentOrder={order} handleChangeOrder={this.handleChangeOrder} />
+            <SortSelect sort={sort} type={type} handleChangeSort={this.handleChangeSort} />
           </div>
           <div className="control hits">
             <strong>{result.length}</strong>
-            <span>hits</span>
+            <span>{type}</span>
           </div>
         </div>
 

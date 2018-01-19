@@ -12,7 +12,7 @@ export default class ScoreCard extends PureComponent {
   }
   render() {
     const {
-      score: { title, token, status, views_count: viewsCount, favs, created_at: createdAt }, author
+      score: { title, token, status, views_count: viewsCount, favs_count: favsCount, created_at: createdAt }, author
     } = this.props
     const { highlightWords } = this.state
     const isClosed = status === "closed"
@@ -52,7 +52,7 @@ export default class ScoreCard extends PureComponent {
                       <span className="icon">
                         <i className="fa fa-heart-o" />
                       </span>
-                      <span>{favs ? utils.addCommas(favs.length) : 0}</span>
+                      <span>{favsCount ? utils.addCommas(favsCount) : 0}</span>
                     </div>
                     <div className="control">
                       <time>

@@ -12,10 +12,10 @@ class ScoresController < ApplicationController
     # 新着順の場合は order を逆にする必要がある
     order = order == "asc" ? "desc" : "asc" if sort_key == "created_at"
 
-    scores = Score.searchable(sort_key, order)
+    scores = Score.search(sort_key, order)
     scores = scores.ransack(title_cont_all: words).result if words.present?
 
-    render json: scores, include: [:user], methods: [:favs, :views_count]
+    render json: scores, include: [:user], methods: [:favs_count, :views_count]
   end
 
   def show

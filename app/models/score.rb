@@ -3,7 +3,7 @@ class Score < ApplicationRecord
   friendly_id :token
   is_impressionable counter_cache: true, column_name: :views_count
 
-  belongs_to :user, optional: true
+  belongs_to :user, optional: true, counter_cache: true
   has_many :favs, dependent: :destroy
 
   enum status: {
@@ -34,7 +34,7 @@ class Score < ApplicationRecord
 
   scope :all_published, -> (id) { where(user_id: id, status: :published).order(id: :desc) }
   scope :all_editable,  -> (id) { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
-  scope :search,        -> (sort_key, order) { where(status: :published).order(sort_key => order) }
+  scope :searchable,    -> (sort_key, order) { where(status: :published).order(sort_key => order) }
 
   def owner?(id)
     user_id == id

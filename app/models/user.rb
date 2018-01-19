@@ -91,10 +91,6 @@ class User < ApplicationRecord
     end
   end
 
-  def scores_count
-    Score.where(user_id: id).length
-  end
-
   def editable_scores
     Score.all_editable(id)
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119050446) do
+ActiveRecord::Schema.define(version: 20180119052259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20180119050446) do
     t.boolean "admin", default: false
     t.string "email"
     t.string "twitter"
+    t.integer "scores_count", default: 0
     t.index ["name"], name: "index_users_on_name"
   end
 

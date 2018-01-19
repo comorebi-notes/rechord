@@ -41,6 +41,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    after_commit_action (1.1.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
     arel (8.0.0)
     bcrypt (3.1.11)
     bcrypt (3.1.11-java)
@@ -75,6 +78,10 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     concurrent-ruby (1.0.5-java)
+    counter_culture (1.9.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      after_commit_action (~> 1.0)
     crass (1.0.3)
     devise (4.3.0)
       bcrypt (~> 3.0)
@@ -574,6 +581,7 @@ DEPENDENCIES
   cancancan
   capybara (~> 2.13)
   carrierwave
+  counter_culture (~> 1.8)
   devise
   dotenv-rails
   fog

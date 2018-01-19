@@ -1,7 +1,7 @@
 class Score < ApplicationRecord
   include FriendlyId
   friendly_id :token
-  is_impressionable
+  is_impressionable counter_cache: true, column_name: :views_count
 
   belongs_to :user, optional: true
   has_many :favs, dependent: :destroy
@@ -42,9 +42,5 @@ class Score < ApplicationRecord
 
   def browsable?(id)
     published? || owner?(id)
-  end
-
-  def views_count
-    impressionist_count
   end
 end

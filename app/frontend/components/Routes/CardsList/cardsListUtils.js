@@ -8,7 +8,7 @@ export const sortOptions = (type) => {
         { value: "created_at",  label: "作成日時順" },
         { value: "title",       label: "タイトル順" },
         { value: "views_count", label: "閲覧回数順" },
-        { value: "likes",       label: "いいね数順" }
+        { value: "favs_count",  label: "いいね数順" }
       ]
     case "users":
       return [

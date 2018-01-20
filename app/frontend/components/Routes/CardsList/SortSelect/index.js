@@ -4,10 +4,10 @@ import * as utils           from "../cardsListUtils"
 
 export default class SortSelect extends Component {
   render() {
-    const { sort, type, handleChangeSort } = this.props
+    const { sort, type, handleChange } = this.props
     return (
       <SelectField icon="list">
-        <select value={sort} onChange={handleChangeSort}>
+        <select value={sort} onChange={handleChange}>
           {utils.sortOptions(type).map(sortOption => (
             <option value={sortOption.value} key={sortOption.value}>
               {sortOption.label}

@@ -48,6 +48,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-tumblr'
 gem 'omniauth-github'
 
+gem 'dotenv-rails'
+
 gem 'cancancan'
 gem 'rails_admin', '~> 1.2'
 gem 'rails_admin-i18n'
@@ -59,7 +61,7 @@ gem 'rmagick'
 
 gem 'friendly_id'
 gem 'ransack'
-gem 'dotenv-rails'
+gem 'kaminari'
 
 gem 'impressionist'
 gem 'counter_culture', '~> 1.8'

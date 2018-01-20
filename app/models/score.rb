@@ -34,7 +34,7 @@ class Score < ApplicationRecord
 
   scope :all_published, -> (id) { where(user_id: id, status: :published).order(id: :desc) }
   scope :all_editable,  -> (id) { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
-  scope :searchable, -> (sort, order, options) {
+  scope :list, -> (sort, order, options) {
     result = where(status: :published)
     result = result.where.not(user_id: nil) unless options[:guest]
     result.order(sort => order)

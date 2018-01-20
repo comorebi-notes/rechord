@@ -13,10 +13,17 @@ class ScoresController < ApplicationController
     options[:guest] = params[:guest] == "true"
 
     sort.gsub!(/_$/, "")
-    scores = Score.searchable(sort, order, options)
+    scores = Score.list(sort, order, options)
     scores = scores.ransack(title_cont_all: words).result if words.present?
+    total_count = scores.count
+    scores = scores.page(params[:page] || 1).per(50)
 
-    render json: scores, include: :user
+    render json: {
+      result:       scores.as_json(include: :user),
+      total_count:  total_count,
+      current_page: scores.current_page,
+      total_pages:  scores.total_pages
+    }
   end
 
   def show

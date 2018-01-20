@@ -29,7 +29,10 @@ export default class CardsList extends Component {
   handleSearch = (type, query) => (
     api[type](
       { query: qs.stringify(query) },
-      (success) => this.setState({ result: success.data, loading: false }),
+      (success) => {
+        const { result, total_count: totalCount, current_page: currentPage, total_pages: totalPages } = success.data
+        this.setState({ result, totalCount, currentPage, totalPages, loading: false })
+      },
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   )
@@ -52,7 +55,7 @@ export default class CardsList extends Component {
   }
 
   render() {
-    const { query, result, loading } = this.state
+    const { query, result, totalCount, currentPage, totalPages, loading } = this.state
     const { word, sort } = query
     const { type, options } = this.props
     const searchResult = () => {
@@ -61,6 +64,34 @@ export default class CardsList extends Component {
         case "users":  return <UsersResults  word={word} users={result} />
         default:       return ""
       }
+    }
+    const renderOptions = () => (
+      options.map(option => (
+        <OptionCheckbox
+          key={option.key}
+          option={option}
+          value={query[option.key]}
+          handleChangeOption={this.handleChangeOption}
+        />
+      ))
+    )
+    const renderPageCount = () => {
+      const perPage = 50
+      const currentCount = totalPages > 1 ? (
+        <span>
+          <span>{(perPage * (currentPage - 1)) + 1} - {perPage * currentPage}</span>
+          <span className="separator">/</span>
+          <strong>{totalCount}</strong>
+        </span>
+      ) : (
+        <strong>{result.length}</strong>
+      )
+      return (
+        <span>
+          {currentCount}
+          <span className="unit">{type}</span>
+        </span>
+      )
     }
     return (
       <div className={classNames("search", { "loading-wrapper": loading })}>
@@ -73,7 +104,7 @@ export default class CardsList extends Component {
               className="input"
               type="text"
               placeholder="search..."
-              value={word}
+              value={word || ""}
               onChange={this.handleInputWord}
               onKeyDown={this.handleKeyDown}
             />
@@ -82,18 +113,10 @@ export default class CardsList extends Component {
             <SortSelect sort={sort} type={type} handleChangeOption={this.handleChangeOption} />
           </div>
           <div className="control options is-hidden-mobile">
-            {options.map(option => (
-              <OptionCheckbox
-                key={option.key}
-                option={option}
-                value={query[option.key]}
-                handleChangeOption={this.handleChangeOption}
-              />
-            ))}
+            {renderOptions()}
           </div>
           <div className="control hits is-hidden-mobile">
-            <strong>{result.length}</strong>
-            <span>{type}</span>
+            {renderPageCount()}
           </div>
         </div>
 
@@ -102,18 +125,10 @@ export default class CardsList extends Component {
             <SortSelect sort={sort} type={type} handleChangeOption={this.handleChangeOption} />
           </div>
           <div className="control options">
-            {options.map(option => (
-              <OptionCheckbox
-                key={option.key}
-                option={option}
-                value={query[option.key]}
-                handleChangeOption={this.handleChangeOption}
-              />
-            ))}
+            {renderOptions()}
           </div>
           <div className="control hits">
-            <strong>{result.length}</strong>
-            <span>{type}</span>
+            {renderPageCount()}
           </div>
         </div>
 

@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :twitter,     length: { maximum: 16 }
   validate  :limit_icon_file_size, if: :has_icon?
 
-  scope :searchable, -> (sort, order, options) {
+  scope :list, -> (sort, order, options) {
     result = self
     result = result.where.not(scores_count: 0) unless options[:no_score]
     result.order(sort => order)

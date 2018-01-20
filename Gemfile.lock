@@ -589,6 +589,7 @@ DEPENDENCIES
   friendly_id
   impressionist
   jbuilder (~> 2.5)
+  kaminari
   listen (>= 3.0.5, < 3.2)
   newrelic_rpm
   omniauth

@@ -12,9 +12,9 @@ import * as path            from "../../../utils/path"
 export default class CardsList extends Component {
   constructor(props) {
     super(props)
-    const { word, sort } = qs.parse(props.location.search.substr(1))
+    const query = qs.parse(props.location.search.substr(1))
     this.state = {
-      query: { word: word || "", sort },
+      query,
       result:  [],
       loading: true
     }
@@ -45,14 +45,15 @@ export default class CardsList extends Component {
   handleKeyDown = (e) => {
     if (e.keyCode === 13) this.handlePush(this.props.type, this.state.query)
   }
-  handleChangeOption = (e, key) => {
+  handleChangeOption = (key, value) => {
     const { query } = this.state
-    query[key] = e.target.value
+    query[key] = value
     this.handlePush(this.props.type, query)
   }
 
   render() {
-    const { query: { word, sort }, result, loading } = this.state
+    const { query, result, loading } = this.state
+    const { word, sort } = query
     const { type, options } = this.props
     const searchResult = () => {
       switch (type) {
@@ -78,17 +79,18 @@ export default class CardsList extends Component {
             />
           </div>
           <div className="control is-hidden-mobile has-icons-left">
-            <SortSelect sort={sort} type={type} handleChange={(e) => this.handleChangeOption(e, "sort")} />
+            <SortSelect sort={sort} type={type} handleChangeOption={this.handleChangeOption} />
           </div>
-          {options.map(option => (
-            <div className="control is-hidden-mobile">
+          <div className="control options is-hidden-mobile">
+            {options.map(option => (
               <OptionCheckbox
-                key={option.label}
+                key={option.key}
                 option={option}
-                handleChange={(e) => this.handleChangeOption(e, option.key)}
+                value={query[option.key]}
+                handleChangeOption={this.handleChangeOption}
               />
-            </div>
-          ))}
+            ))}
+          </div>
           <div className="control hits is-hidden-mobile">
             <strong>{result.length}</strong>
             <span>{type}</span>
@@ -97,17 +99,18 @@ export default class CardsList extends Component {
 
         <div className="field is-grouped is-only-mobile">
           <div className="control has-icons-left">
-            <SortSelect sort={sort} type={type} handleChangeSort={this.handleChangeSort} />
+            <SortSelect sort={sort} type={type} handleChangeOption={this.handleChangeOption} />
           </div>
-          {options.map(option => (
-            <div className="control">
+          <div className="control options">
+            {options.map(option => (
               <OptionCheckbox
-                key={option.label}
+                key={option.key}
                 option={option}
-                handleChange={(e) => this.handleChangeOption(e, option.key)}
+                value={query[option.key]}
+                handleChangeOption={this.handleChangeOption}
               />
-            </div>
-          ))}
+            ))}
+          </div>
           <div className="control hits">
             <strong>{result.length}</strong>
             <span>{type}</span>

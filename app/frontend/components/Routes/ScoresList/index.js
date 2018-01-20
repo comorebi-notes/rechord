@@ -4,7 +4,7 @@ import CardsList            from "../CardsList"
 export default class ScoresList extends Component {
   render() {
     const options = [
-      { key: "guest", label: "ゲストユーザの投稿を含める" }
+      { key: "guest", label: "ゲストの投稿を含める" }
     ]
     return (
       <CardsList

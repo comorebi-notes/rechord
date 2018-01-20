@@ -6,11 +6,14 @@ class ScoresController < ApplicationController
 
   def index
     words = params[:word]&.split(" ")
-    sort  = params[:sort] || "created_at"
+    sort  = params[:sort] || "id"
     order = sort.slice!(/(asc|desc)$/) || "desc"
 
+    options = {}
+    options[:guest] = params[:guest] == "true"
+
     sort.gsub!(/_$/, "")
-    scores = Score.searchable(sort, order)
+    scores = Score.searchable(sort, order, options)
     scores = scores.ransack(title_cont_all: words).result if words.present?
 
     render json: scores, include: :user

@@ -3,11 +3,14 @@ class UsersController < ApplicationController
 
   def index
     words = params[:word]&.split(" ")
-    sort  = params[:sort] || "created_at"
+    sort  = params[:sort] || "id"
     order = sort.slice!(/_(asc|desc)$/, 1) || "desc"
 
+    options = {}
+    options[:no_score] = params[:no_score] == "true"
+
     sort.gsub!(/_$/, "")
-    users = User.order(sort => order)
+    users = User.searchable(sort, order, options)
     users = users.ransack(name_or_screen_name_or_profile_cont_all: words).result if words.present?
 
     render json: users, methods: :scores_count

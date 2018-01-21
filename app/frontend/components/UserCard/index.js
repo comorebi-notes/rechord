@@ -27,12 +27,10 @@ export default class UserCard extends PureComponent {
             <div className="media-content">
               <div className="content">
                 <h3 className="screen-name">
-                  {userHighlighter(screenName)} <small>({userHighlighter(name)})</small>
+                  <p>{userHighlighter(screenName)}</p>
+                  <p><small>({userHighlighter(name)})</small></p>
                 </h3>
                 <div className="user-attributes">
-                  <p>
-                    scores: <strong>{scoresCount}</strong>
-                  </p>
                   <div className="profile">
                     {profileLines.length > 3 ? (
                       <div>
@@ -46,6 +44,12 @@ export default class UserCard extends PureComponent {
                         <p key={`${line}.${index}`}>{userHighlighter(line)}</p>
                       ))
                     )}
+                  </div>
+                  <div className="scores-count">
+                    <span className="icon">
+                      <i className="fa fa-files-o" />
+                    </span>
+                    <span>{scoresCount}</span>
                   </div>
                 </div>
               </div>

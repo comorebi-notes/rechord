@@ -6,10 +6,14 @@
       justify-content: space-between
       transition: all .1s ease-in-out
       background-color: #fff
+      .media
+        width: 100%
       .screen-name
         color: $link
         font-weight: bold
         margin-bottom: .4em
+        p
+          margin-bottom: 0
         small
           font-weight: normal
           font-size: .7em
@@ -23,8 +27,14 @@
           margin-left: .25em
         p
           margin-bottom: .8em
-        .profile p
-          margin-bottom: 0
+        .profile
+          margin-bottom: 1em
+          p
+            font-size: .95em
+            margin-bottom: 0
+        .scores-count
+          .icon
+            margin-right: .4em
     &:hover, &:active
       .box
         background-color: #fafafa

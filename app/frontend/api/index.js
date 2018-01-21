@@ -79,3 +79,6 @@ export const fav = (params, onSuccess, onError) => (
 export const unfav = (params, onSuccess, onError) => (
   request("delete", path.fav.api.destroy(params.favId), null, onSuccess, onError)
 )
+export const favs = (params, onSuccess, onError) => (
+  request("get", path.fav.api.index(params.query), null, onSuccess, onError)
+)

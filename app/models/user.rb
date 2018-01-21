@@ -5,8 +5,9 @@ class User < ApplicationRecord
   mount_uploader :icon, ImageUploader
   devise :omniauthable
 
-  has_many :scores, dependent: :destroy
-  has_many :favs,   dependent: :destroy
+  has_many :scores,     dependent: :destroy
+  has_many :favs,       dependent: :destroy
+  has_many :fav_scores, through: :favs, source: :score
 
   paginates_per 50
 
@@ -17,19 +18,15 @@ class User < ApplicationRecord
   validates :twitter,     length: { maximum: 16 }
   validate  :limit_icon_file_size, if: :has_icon?
 
-  scope :list, -> (params) {
-    words = params[:word]&.split(" ")
-    sort  = params[:sort] || "id"
-    order = sort.slice!(/_(asc|desc)$/, 1) || "desc"
-
-    options = {}
-    options[:no_scores] = params[:no_scores] == "true"
-    sort.gsub!(/_$/, "")
+  scope :list, -> (_params) {
+    params = set_list_params(_params)
 
     users = self
-    users = users.where.not(scores_count: 0) unless options[:no_scores]
-    users = users.order(sort => order)
-    users = users.ransack(name_or_screen_name_or_profile_cont_all: words).result if words.present?
+    users = users.where.not(scores_count: 0) unless params[:options][:no_scores]
+    users = users.order(params[:sort] => params[:order])
+    if params[:words].present?
+      users = users.ransack(name_or_screen_name_or_profile_cont_all: params[:words]).result
+    end
     users
   }
 
@@ -96,6 +93,18 @@ class User < ApplicationRecord
         end
       end
     end
+
+    def set_list_params(params)
+      words = params[:word]&.split(" ")
+      sort  = params[:sort] || "id"
+      order = sort.slice!(/(asc|desc)$/) || "desc"
+
+      options = {}
+      options[:no_scores] = params[:no_scores] == "true"
+      sort.gsub!(/_$/, "")
+
+      { words: words, sort: sort, order: order, options: options }
+    end
   end
 
   def has_icon?
@@ -115,5 +124,14 @@ class User < ApplicationRecord
 
   def published_scores
     Score.all_published(id)
+  end
+
+  def favs_list(params)
+    params = self.class.set_list_params(params)
+
+    scores = fav_scores.where(status: :published)
+    scores = scores.order(params[:sort] => params[:order])
+    scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
+    scores
   end
 end

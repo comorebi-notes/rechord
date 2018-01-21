@@ -1,4 +1,17 @@
 class FavsController < ApplicationController
+  def index
+    scores = current_user.favs_list(params)
+    total_count = scores.count
+    scores = scores.page(params[:page] || 1)
+
+    render json: {
+      result:       scores.as_json(include: :user),
+      total_count:  total_count,
+      current_page: scores.current_page,
+      total_pages:  scores.total_pages
+    }
+  end
+
   def create
     fav = Fav.new(fav_params)
     if fav.save!

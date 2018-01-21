@@ -13,6 +13,7 @@ import About         from "./About"
 import Terms         from "./Terms"
 import ScoresList    from "./ScoresList"
 import UsersList     from "./UsersList"
+import FavsList      from "./FavsList"
 import * as path     from "../../utils/path"
 import { window }    from "../../utils/browser-dependencies"
 
@@ -68,6 +69,7 @@ class Container extends Component {
           <RouteWithStateContainer path={path.terms}                component={Terms} exact />
           <RouteWithStateContainer path={path.score.index()}        component={ScoresList} exact />
           <RouteWithStateContainer path={path.user.index()}         component={UsersList} exact />
+          <RouteWithStateContainer path={path.fav.index()}          component={FavsList} exact />
           <RouteWithStateContainer path={path.user.show(":name")}   component={User} />
           <RouteWithStateContainer path={path.score.show(":token")} component={ShowScore} exact />
           <RouteWithStateContainer path={path.score.edit(":token")} component={EditScore} />

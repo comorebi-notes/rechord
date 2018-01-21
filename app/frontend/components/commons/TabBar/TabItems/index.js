@@ -57,6 +57,12 @@ export default class TabItems extends PureComponent {
         icon:       "user-circle-o",
         targetPath: path.user.show(currentUser.name),
         onClick:    !currentUser.name && this.handleToggleModal
+      },
+      {
+        label:      "my favs",
+        icon:       "heart",
+        targetPath: path.fav.index(),
+        onClick:    !currentUser.name && this.handleToggleModal
       }
     ]
     return (

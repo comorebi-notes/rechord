@@ -36,21 +36,29 @@ class Score < ApplicationRecord
 
   scope :all_published, -> (id) { where(user_id: id, status: :published).order(id: :desc) }
   scope :all_editable,  -> (id) { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
-  scope :list, -> (params) {
-    words = params[:word]&.split(" ")
-    sort  = params[:sort] || "id"
-    order = sort.slice!(/(asc|desc)$/) || "desc"
-
-    options = {}
-    options[:guest] = params[:guest] == "true"
-    sort.gsub!(/_$/, "")
+  scope :list, -> (_params) {
+    params = set_list_params(_params)
 
     scores = where(status: :published)
-    scores = scores.where.not(user_id: nil) unless options[:guest]
-    scores = scores.order(sort => order)
-    scores = scores.ransack(title_cont_all: words).result if words.present?
+    scores = scores.where.not(user_id: nil) unless params[:options][:guest]
+    scores = scores.order(params[:sort] => params[:order])
+    scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
     scores
   }
+
+  class << self
+    def set_list_params(params)
+      words = params[:word]&.split(" ")
+      sort  = params[:sort] || "id"
+      order = sort.slice!(/(asc|desc)$/) || "desc"
+
+      options = {}
+      options[:guest] = params[:guest] == "true"
+      sort.gsub!(/_$/, "")
+
+      { words: words, sort: sort, order: order, options: options }
+    end
+  end
 
   def owner?(id)
     user_id == id

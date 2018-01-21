@@ -66,6 +66,7 @@ export default class CardsList extends Component {
     const searchResult = () => {
       switch (type) {
         case "scores": return <ScoresResult word={word} scores={result} />
+        case "favs":   return <ScoresResult word={word} scores={result} />
         case "users":  return <UsersResult  word={word} users={result} />
         default:       return ""
       }

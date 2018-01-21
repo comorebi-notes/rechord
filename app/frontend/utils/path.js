@@ -40,9 +40,11 @@ export const user = {
 }
 
 export const fav = {
+  index:     ()      => "/favs",
   api: {
-    create:  ()   => "/favs",
-    destroy: (id) => `/favs/${id}`
+    create:  ()      => "/favs",
+    destroy: (id)    => `/favs/${id}`,
+    index:   (query) => `favs?${query}`
   }
 }
 

@@ -8,6 +8,14 @@ export const sortOptions = (type) => {
         { value: "views_count", label: "閲覧回数順" },
         { value: "favs_count",  label: "いいね数順" }
       ]
+    case "favs":
+      return [
+        { value: "",            label: "新着順" },
+        { value: "title_asc",   label: "タイトル(昇順)" },
+        { value: "title_desc",  label: "タイトル(降順)" },
+        { value: "views_count", label: "閲覧回数順" },
+        { value: "favs_count",  label: "いいね数順" }
+      ]
     case "users":
       return [
         { value: "",                 label: "新着順" },
@@ -25,6 +33,9 @@ export const setDefault = (_query, type) => {
     case "scores":
       if (!query.word)  query.word  = ""
       if (!query.guest) query.guest = "true"
+      return query
+    case "favs":
+      if (!query.word) query.word  = ""
       return query
     case "users":
       if (!query.word)      query.word      = ""

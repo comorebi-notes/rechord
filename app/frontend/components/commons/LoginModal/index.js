@@ -35,6 +35,12 @@ export default class LoginModal extends Component {
               login or register
             </h1>
             {services.map(renderButton)}
+            <p className="is-size-7" style={{ marginBottom: ".8em" }}>
+              ユーザ登録をすることで、投稿したスコアを管理したり、他人のスコアにいいねを付けたりすることができます。
+            </p>
+            <p className="is-size-7">
+              あなたが入力した外部サービスのパスワード等は、管理人を含め第三者に見られることはありません。
+            </p>
           </div>
         </div>
         <button className="modal-close is-large" onClick={hideModal} />

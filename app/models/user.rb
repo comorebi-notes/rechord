@@ -17,10 +17,20 @@ class User < ApplicationRecord
   validates :twitter,     length: { maximum: 16 }
   validate  :limit_icon_file_size, if: :has_icon?
 
-  scope :list, -> (sort, order, options) {
-    result = self
-    result = result.where.not(scores_count: 0) unless options[:no_scores]
-    result.order(sort => order)
+  scope :list, -> (params) {
+    words = params[:word]&.split(" ")
+    sort  = params[:sort] || "id"
+    order = sort.slice!(/_(asc|desc)$/, 1) || "desc"
+
+    options = {}
+    options[:no_scores] = params[:no_scores] == "true"
+    sort.gsub!(/_$/, "")
+
+    users = self
+    users = users.where.not(scores_count: 0) unless options[:no_scores]
+    users = users.order(sort => order)
+    users = users.ransack(name_or_screen_name_or_profile_cont_all: words).result if words.present?
+    users
   }
 
   class << self

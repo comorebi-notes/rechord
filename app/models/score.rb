@@ -36,10 +36,20 @@ class Score < ApplicationRecord
 
   scope :all_published, -> (id) { where(user_id: id, status: :published).order(id: :desc) }
   scope :all_editable,  -> (id) { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
-  scope :list, -> (sort, order, options) {
-    result = where(status: :published)
-    result = result.where.not(user_id: nil) unless options[:guest]
-    result.order(sort => order)
+  scope :list, -> (params) {
+    words = params[:word]&.split(" ")
+    sort  = params[:sort] || "id"
+    order = sort.slice!(/(asc|desc)$/) || "desc"
+
+    options = {}
+    options[:guest] = params[:guest] == "true"
+    sort.gsub!(/_$/, "")
+
+    scores = where(status: :published)
+    scores = scores.where.not(user_id: nil) unless options[:guest]
+    scores = scores.order(sort => order)
+    scores = scores.ransack(title_cont_all: words).result if words.present?
+    scores
   }
 
   def owner?(id)

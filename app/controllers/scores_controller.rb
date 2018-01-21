@@ -5,16 +5,7 @@ class ScoresController < ApplicationController
   before_action :impression, only: [:show]
 
   def index
-    words = params[:word]&.split(" ")
-    sort  = params[:sort] || "id"
-    order = sort.slice!(/(asc|desc)$/) || "desc"
-
-    options = {}
-    options[:guest] = params[:guest] == "true"
-
-    sort.gsub!(/_$/, "")
-    scores = Score.list(sort, order, options)
-    scores = scores.ransack(title_cont_all: words).result if words.present?
+    scores = Score.list(params)
     total_count = scores.count
     scores = scores.page(params[:page] || 1)
 

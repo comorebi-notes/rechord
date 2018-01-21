@@ -2,16 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy]
 
   def index
-    words = params[:word]&.split(" ")
-    sort  = params[:sort] || "id"
-    order = sort.slice!(/_(asc|desc)$/, 1) || "desc"
-
-    options = {}
-    options[:no_scores] = params[:no_scores] == "true"
-
-    sort.gsub!(/_$/, "")
-    users = User.list(sort, order, options)
-    users = users.ransack(name_or_screen_name_or_profile_cont_all: words).result if words.present?
+    users = User.list(params)
     total_count = users.count
     users = users.page(params[:page] || 1)
 

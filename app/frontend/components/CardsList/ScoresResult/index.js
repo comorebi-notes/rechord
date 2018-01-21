@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import ScoreCard            from "../../../ScoreCard"
+import ScoreCard            from "../../ScoreCard"
 
 export default class ScoresResult extends Component {
   render() {

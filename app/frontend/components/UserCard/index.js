@@ -10,7 +10,9 @@ export default class UserCard extends PureComponent {
     this.state = { highlightWords: props.highlightWords }
   }
   render() {
-    const { name, screen_name: screenName, profile, icon, scores_count: scoresCount } = this.props
+    const {
+      name, screen_name: screenName, profile, icon, scores_count: scoresCount, created_at: createdAt
+    } = this.props
     const { highlightWords } = this.state
     const showUserPath = path.user.show(name)
     const profileLines = profile ? profile.split("\n") : []
@@ -45,13 +47,21 @@ export default class UserCard extends PureComponent {
                       ))
                     )}
                   </div>
-                  <div className="scores-count">
+                </div>
+
+                <nav className="field is-grouped">
+                  <div className="control scores-count">
                     <span className="icon">
                       <i className="fa fa-files-o" />
                     </span>
                     <span>{scoresCount}</span>
                   </div>
-                </div>
+                  <div className="control">
+                    <time>
+                      {utils.humanDateTime(createdAt, true)} 登録
+                    </time>
+                  </div>
+                </nav>
               </div>
             </div>
           </article>

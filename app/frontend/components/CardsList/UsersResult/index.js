@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import UserCard             from "../../../UserCard"
+import UserCard             from "../../UserCard"
 
 export default class UsersResult extends Component {
   render() {

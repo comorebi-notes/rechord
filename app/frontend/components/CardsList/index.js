@@ -5,11 +5,11 @@ import SortSelect           from "./SortSelect"
 import OptionCheckbox       from "./OptionCheckbox"
 import ScoresResult         from "./ScoresResult"
 import UsersResult          from "./UsersResult"
-import Pagination           from "../../commons/Pagination"
+import Pagination           from "../commons/Pagination"
 import * as utils           from "./cardsListUtils"
-import { setTitle }         from "../../../utils"
-import * as api             from "../../../api"
-import * as path            from "../../../utils/path"
+import { setTitle }         from "../../utils"
+import * as api             from "../../api"
+import * as path            from "../../utils/path"
 
 export default class CardsList extends Component {
   constructor(props) {

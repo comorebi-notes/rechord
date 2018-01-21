@@ -9,7 +9,9 @@ export default class ScoresList extends Component {
     return (
       <CardsList
         type="scores"
+        unit="scores"
         label="スコア"
+        customClass="multi-columns"
         options={options}
         {...this.props}
       />

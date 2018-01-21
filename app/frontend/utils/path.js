@@ -35,7 +35,8 @@ export const user = {
   destroy:    (name)  => `/users/${name}`,
   index:      ()      => "/users",
   api: {
-    index:    (query) => `/users?${query}`
+    index:    (query)           => `/users?${query}`,
+    scores:   (userName, query) => `/users/${userName}/scores?${query}`
   }
 }
 
@@ -56,15 +57,14 @@ export const auth = {
   github:   "/users/auth/github"
 }
 
-export const search = (_type, _query) => {
-  const type = _type || "scores"
+export const search = (_query) => {
   const queries = qs.parse(_query)
   Object.keys(queries).forEach(key => {
     if (queries[key] === "") delete queries[key]
   })
   const queryStrings = qs.stringify(queries)
   const query = queryStrings ? `?${queryStrings}` : ""
-  return `/${type}${query}`
+  return `${location.pathname}${query}`
 }
 
 export const twitter = (id) => `https://twitter.com/${id}`

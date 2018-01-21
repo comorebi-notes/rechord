@@ -15,8 +15,8 @@ import * as path            from "../../utils/path"
 export default class CardsList extends Component {
   constructor(props) {
     super(props)
-    const { type } = props
-    const query = qs.parse(props.location.search.substr(1))
+    const { type, location } = props
+    const query = qs.parse(location.search.substr(1))
     this.state = {
       query:   utils.setDefault(query, type),
       result:  [],
@@ -26,21 +26,23 @@ export default class CardsList extends Component {
   }
   handleSearch = (type, query) => (
     api[type](
-      { query: qs.stringify(query) },
+      { query: qs.stringify(query), userName: this.props.userName },
       (success) => {
         const { result, total_count: totalCount, current_page: currentPage, total_pages: totalPages } = success.data
         this.setState({ result, totalCount, currentPage, totalPages, loading: false })
 
-        const { query: { word } } = this.state
         const { label } = this.props
-        const title = word ? `検索: ${word}` : `${label}一覧`
-        setTitle(title, this.props.history)
+        if (label) {
+          const { query: { word } } = this.state
+          const title = word ? `検索: ${word}` : `${label}一覧`
+          setTitle(title, this.props.history)
+        }
       },
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   )
   handlePush = (type, query) => {
-    const searchPath = path.search(type, qs.stringify(query))
+    const searchPath = path.search(qs.stringify(query))
     history.pushState("", "", searchPath)
     this.setState({ loading: true, result: [] })
     this.handleSearch(type, query)
@@ -64,13 +66,14 @@ export default class CardsList extends Component {
   render() {
     const { query, result, totalCount, currentPage, totalPages, loading } = this.state
     const { word, sort } = query
-    const { type, options } = this.props
+    const { type, unit, options, customClass } = this.props
     const searchResult = () => {
       switch (type) {
-        case "scores": return <ScoresResult word={word} scores={result} />
-        case "favs":   return <ScoresResult word={word} scores={result} />
-        case "users":  return <UsersResult  word={word} users={result} />
-        default:       return ""
+        case "scores":     return <ScoresResult word={word} scores={result} />
+        case "favs":       return <ScoresResult word={word} scores={result} />
+        case "userScores": return <ScoresResult word={word} scores={result} noAuthor />
+        case "users":      return <UsersResult  word={word} users={result} />
+        default:           return ""
       }
     }
     const renderOptions = () => (
@@ -99,7 +102,7 @@ export default class CardsList extends Component {
       return (
         <span>
           {currentCount}
-          <span className="unit">{type}</span>
+          <span className="unit">{unit}</span>
         </span>
       )
     }
@@ -115,7 +118,7 @@ export default class CardsList extends Component {
       </Pagination>
     )
     return (
-      <div className={classNames("search", { "loading-wrapper": loading })}>
+      <div className={classNames("search", { "loading-wrapper": loading, [customClass]: customClass })}>
         <div className="field is-grouped search-control">
           <div className="control search-input has-icons-left">
             <span className="icon is-left">

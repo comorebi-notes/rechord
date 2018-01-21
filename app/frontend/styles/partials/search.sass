@@ -23,9 +23,10 @@
       margin-left: .4em
   .result
     margin-top: 1.2rem
+    margin-bottom: 1.2rem
 
 @media screen and (min-width: $desktop)
-  .search
+  .search.multi-columns
     .scores, .users
       display: flex
       flex-wrap: wrap
@@ -47,6 +48,8 @@
         width: 100%
     .is-only-mobile
       display: none !important
+    .result
+      margin-bottom: 0
 
 @media screen and (max-width: $tablet - 1px)
   .search
@@ -76,5 +79,3 @@
     .pagination
       margin-top: 2rem
       justify-content: flex-start
-    .result
-      margin-bottom: 1.2rem

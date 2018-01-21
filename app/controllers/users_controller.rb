@@ -15,12 +15,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @user == current_user
-      @scores = @user.editable_scores
-    else
-      @scores = @user.published_scores
-    end
-    render json: { user: @user, scores: @scores }
+    render json: @user
   end
 
   def valid_name

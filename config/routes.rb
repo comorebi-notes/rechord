@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     post   :valid_name
     put    :update_icon
     delete :remove_icon
+    resources :scores, only: [:index], controller: "users/scores"
   end
 
   resources :favs, only: [:index, :create, :destroy], constraints: OnlyAjaxRequest.new

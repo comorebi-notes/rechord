@@ -64,6 +64,9 @@ export const destoryUser = (params, onSuccess, onError) => (
 export const users = (params, onSuccess, onError) => (
   request("get", path.user.api.index(params.query), null, onSuccess, onError)
 )
+export const userScores = (params, onSuccess, onError) => (
+  request("get", path.user.api.scores(params.userName, params.query), null, onSuccess, onError)
+)
 
 // ======== Favs ========
 const getFavParams = (params) => {

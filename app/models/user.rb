@@ -134,4 +134,13 @@ class User < ApplicationRecord
     scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
     scores
   end
+
+  def scores_list(params, owner = false)
+    params = self.class.set_list_params(params)
+
+    scores = owner ? editable_scores : published_scores
+    scores = scores.order(params[:sort] => params[:order])
+    scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
+    scores
+  end
 end

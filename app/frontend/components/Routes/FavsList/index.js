@@ -6,7 +6,9 @@ export default class FavsList extends Component {
     return (
       <CardsList
         type="favs"
+        unit="scores"
         label="いいねしたスコア"
+        customClass="multi-columns"
         options={[]}
         {...this.props}
       />

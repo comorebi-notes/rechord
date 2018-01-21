@@ -9,7 +9,9 @@ export default class UsersList extends Component {
     return (
       <CardsList
         type="users"
+        unit="users"
         label="ユーザ"
+        customClass="multi-columns"
         options={options}
         {...this.props}
       />

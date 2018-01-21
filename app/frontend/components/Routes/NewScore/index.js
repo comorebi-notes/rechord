@@ -4,7 +4,7 @@ import { EditorState, ContentState } from "draft-js"
 import Score                  from "../../Score"
 import TitleControl           from "../../TitleControl"
 import CreateControl          from "./CreateControl"
-import ShareModal             from "./ShareModal"
+import ShareModal             from "../../ShareModal"
 import RestoreModal           from "./RestoreModal"
 import scoreDecorator         from "../../../decorators/scoreDecorator"
 import sampleScore            from "../../../constants/sampleScore"
@@ -119,6 +119,7 @@ export default class NewScore extends Component {
           handleResetLocalStorage={this.handleResetLocalStorage}
         />
         <ShareModal
+          label="saved, and let's share!"
           token={token}
           title={title}
           isActive={modal}

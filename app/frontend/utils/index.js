@@ -13,23 +13,35 @@ export const humanDateTime = (dateString, full = false) => {
   if (!dateString) return false
 
   const date = parseDate(dateString)
-  const yyyy = zeroPadding(date.getFullYear(),  4)
-  const MM   = zeroPadding(date.getMonth() + 1, 2)
-  const dd   = zeroPadding(date.getDate(),      2)
-  const hh   = zeroPadding(date.getHours(),     2)
-  const mm   = zeroPadding(date.getMinutes(),   2)
-  const ss   = zeroPadding(date.getSeconds(),   2)
+  const yyyy = date.getFullYear()
+  const MM   = date.getMonth() + 1
+  const dd   = date.getDate()
+  const hh   = zeroPadding(date.getHours(),   2)
+  const mm   = zeroPadding(date.getMinutes(), 2)
+  // const ss   = zeroPadding(date.getSeconds(), 2)
+
+  const nowYear = new Date().getFullYear()
+  const year = yyyy === nowYear ? "" : `${yyyy}年`
 
   if (full) {
-    return `${yyyy}/${MM}/${dd} ${hh}:${mm}:${ss}`
+    return `${year}${MM}月${dd}日 ${hh}:${mm}`
   } else {
-    return `${yyyy}/${MM}/${dd}`
+    return `${year}${MM}月${dd}日`
   }
 }
 
 export const snakeToCamel = (text) => (
   text.replace(/_./g, character => character.charAt(1).toUpperCase())
 )
+
+export const addCommas = (source) => {
+  const number = `${source}`.split(".")
+  let integer = number[0]
+  const decimal = number.length > 1 ? `.${number[1]}` : ""
+  const regex = /(\d+)(\d{3})/
+  while (regex.test(integer)) integer = integer.replace(regex, "$1,$2")
+  return integer + decimal
+}
 
 export const valueInRange = (value, min, max) => {
   if (value < min) return min

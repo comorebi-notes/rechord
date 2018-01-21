@@ -1,9 +1,9 @@
 import React, { Component } from "react"
 import classNames           from "classnames"
 
-import SharedButtons from "../../../SharedButtons"
-import { document }  from "../../../../utils/browser-dependencies"
-import * as utils    from "../../../../utils"
+import SharedButtons from "../SharedButtons"
+import { document }  from "../../utils/browser-dependencies"
+import * as utils    from "../../utils"
 
 export default class ShareModal extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export default class ShareModal extends Component {
   handleCopy = () => utils.copyToClipboard(utils.sharedUrl(this.props.token))
 
   render() {
-    const { token, title, isActive } = this.props
+    const { label, token, title, isActive } = this.props
     const { showCopyButton } = this.state
     const sharedUrl = utils.sharedUrl(token)
     const modalClass = classNames("modal", { "is-active": isActive })
@@ -24,7 +24,7 @@ export default class ShareModal extends Component {
         <div className="modal-content">
           <div className="box">
             <h1 className="has-text-centered title is-4">
-              Saved!
+              {label}
             </h1>
             <h2 className="has-text-centered title is-5 shared-url">
               <a href={sharedUrl} target="_blank">

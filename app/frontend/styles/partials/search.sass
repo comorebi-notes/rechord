@@ -1,28 +1,81 @@
 .search
-  .field.is-grouped
-    margin-bottom: 2em
+  &.loading-wrapper
+    min-height: 500px
+  .search-control
+    margin-bottom: 1em
+    .button > *
+      vertical-align: middle
+  .search-control, .is-only-mobile
+    .control.options
+      display: flex
+      align-items: center
   .hits
+    font-size: 1rem
     align-self: center
     position: absolute
     right: 0
     strong
       font-size: 1.2em
-      margin-right: .4em
+    .separator
+      font-size: .8em
+      margin: 0 .4em
+    .unit
+      margin-left: .4em
+  .result
+    margin-top: 1.2rem
+    margin-bottom: 1.2rem
+
+@media screen and (min-width: $desktop)
+  .search.multi-columns
+    .scores, .users
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+      .score-card, .user-card
+        width: calc(50% - 1em)
+        margin-bottom: 1.5rem
+        .box
+          height: 100%
+      .score-card
+        .media-content
+          height: 100%
+          .content
+            height: 100%
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+      .no-score, .no-user
+        width: 100%
+    .is-only-mobile
+      display: none !important
+    .result
+      margin-bottom: 0
 
 @media screen and (max-width: $tablet - 1px)
   .search
-    .search-input
-      flex-grow: 1
-    .field.is-grouped
+    .search-control
       margin-bottom: 1em
+      .search-input.control
+        flex-grow: 1
+        margin-right: 0
       .search-type
         margin-right: 0
         .button
           .icon
             margin: auto !important
+    .field.is-grouped
       &.is-only-mobile
         position: relative
         display: flex !important
         margin-bottom: 1.2em
         .hits
           font-size: 1.2em
+      button
+        .icon
+          margin-left: calc(-0.375em - 1px)
+          margin-right: calc(-0.375em - 1px)
+        span:last-of-type:not(.icon)
+          display: none
+    .pagination
+      margin-top: 2rem
+      justify-content: flex-start

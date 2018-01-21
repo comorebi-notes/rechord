@@ -15,13 +15,14 @@ export const terms  = "/terms"
 export const score = {
   show:      (token) => `/${token}`,
   edit:      (token) => `/${token}/edit`,
+  index:     ()      => "/scores",
   api: {
     create:  ()      => `/scores`,
     show:    (token) => `/scores/${token}`,
     edit:    (token) => `/scores/${token}/edit`,
     update:  (token) => `/scores/${token}`,
     destroy: (token) => `/scores/${token}`,
-    search:  (query) => `/scores/search?${query}`
+    index:   (query) => `/scores?${query}`
   }
 }
 
@@ -32,8 +33,19 @@ export const user = {
   updateIcon: (name)  => `/users/${name}/update_icon`,
   removeIcon: (name)  => `/users/${name}/remove_icon`,
   destroy:    (name)  => `/users/${name}`,
+  index:      ()      => "/users",
   api: {
-    search:   (query) => `/users/search?${query}`
+    index:    (query)           => `/users?${query}`,
+    scores:   (userName, query) => `/users/${userName}/scores?${query}`
+  }
+}
+
+export const fav = {
+  index:     ()      => "/favs",
+  api: {
+    create:  ()      => "/favs",
+    destroy: (id)    => `/favs/${id}`,
+    index:   (query) => `favs?${query}`
   }
 }
 
@@ -45,15 +57,14 @@ export const auth = {
   github:   "/users/auth/github"
 }
 
-export const search = (_type, _query) => {
-  const type = _type || "scores"
+export const search = (_query) => {
   const queries = qs.parse(_query)
   Object.keys(queries).forEach(key => {
     if (queries[key] === "") delete queries[key]
   })
   const queryStrings = qs.stringify(queries)
   const query = queryStrings ? `?${queryStrings}` : ""
-  return `/${type}/search${query}`
+  return `${location.pathname}${query}`
 }
 
 export const twitter = (id) => `https://twitter.com/${id}`

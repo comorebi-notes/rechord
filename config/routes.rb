@@ -12,27 +12,24 @@ Rails.application.routes.draw do
     get "/users/logout", to: "devise/sessions#destroy", as: :destroy_user_session
   end
 
-  resource :scores, only: [], constraints: OnlyAjaxRequest.new do
-    get "search" => "scores#search"
-  end
   resources :scores, {
-    only: [:show, :edit, :update, :create, :destroy],
+    only: [:index, :show, :edit, :update, :create, :destroy],
     param: :token,
     constraints: OnlyAjaxRequest.new
   }
 
-  resource :users, only: [], constraints: OnlyAjaxRequest.new do
-    get "search" => "users#search"
-  end
   resources :users, {
-    only: [:show, :update, :destroy],
+    only: [:index, :show, :update, :destroy],
     param: :name,
     constraints: OnlyAjaxRequest.new
   } do
     post   :valid_name
     put    :update_icon
     delete :remove_icon
+    resources :scores, only: [:index], controller: "users/scores"
   end
+
+  resources :favs, only: [:index, :create, :destroy], constraints: OnlyAjaxRequest.new
 
   get "not_supported" => "top#not_supported"
   get "*path" => "top#index"

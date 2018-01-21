@@ -5,7 +5,11 @@ class User < ApplicationRecord
   mount_uploader :icon, ImageUploader
   devise :omniauthable
 
-  has_many :scores, dependent: :destroy
+  has_many :scores,     dependent: :destroy
+  has_many :favs,       dependent: :destroy
+  has_many :fav_scores, through: :favs, source: :score
+
+  paginates_per 20
 
   validates :name,        presence: true, length: { maximum: 16 }, format: { with: /[a-z0-9._-]*/ }, uniqueness: true
   validates :screen_name, presence: true, length: { maximum: 32 }
@@ -13,6 +17,18 @@ class User < ApplicationRecord
   validates :site,        length: { maximum: 256 }
   validates :twitter,     length: { maximum: 16 }
   validate  :limit_icon_file_size, if: :has_icon?
+
+  scope :list, -> (_params) {
+    params = set_list_params(_params)
+
+    users = self
+    users = users.where.not(scores_count: 0) unless params[:options][:no_scores]
+    users = users.order(params[:sort] => params[:order])
+    if params[:words].present?
+      users = users.ransack(name_or_screen_name_or_profile_cont_all: params[:words]).result
+    end
+    users
+  }
 
   class << self
     def find_or_create_from_auth(auth)
@@ -77,6 +93,18 @@ class User < ApplicationRecord
         end
       end
     end
+
+    def set_list_params(params)
+      words = params[:word]&.split(" ")
+      sort  = params[:sort].present? ? params[:sort] : "id"
+      order = sort.slice!(/(asc|desc)$/) || "desc"
+
+      options = {}
+      options[:no_scores] = params[:no_scores] == "true"
+      sort.gsub!(/_$/, "")
+
+      { words: words, sort: sort, order: order, options: options }
+    end
   end
 
   def has_icon?
@@ -90,7 +118,29 @@ class User < ApplicationRecord
     end
   end
 
-  def scores_count
-    Score.where(user_id: id).length
+  def editable_scores
+    Score.all_editable(id)
+  end
+
+  def published_scores
+    Score.all_published(id)
+  end
+
+  def favs_list(_params)
+    params = self.class.set_list_params(_params)
+
+    scores = fav_scores.where(status: :published)
+    scores = scores.order(params[:sort] => params[:order])
+    scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
+    scores
+  end
+
+  def scores_list(_params, owner = false)
+    params = self.class.set_list_params(_params)
+
+    scores = owner ? editable_scores : published_scores
+    scores = scores.order(params[:sort] => params[:order])
+    scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
+    scores
   end
 end

@@ -4,13 +4,16 @@
     .box
       display: flex
       justify-content: space-between
-      align-items: center
       transition: all .1s ease-in-out
       background-color: #fff
+      .media
+        width: 100%
       .screen-name
         color: $link
         font-weight: bold
         margin-bottom: .4em
+        p
+          margin-bottom: 0
         small
           font-weight: normal
           font-size: .7em
@@ -24,8 +27,21 @@
           margin-left: .25em
         p
           margin-bottom: .8em
-        .profile p
-          margin-bottom: 0
+        .profile
+          margin-bottom: 1em
+          p
+            font-size: .85em
+            margin-bottom: 0
+      nav
+        align-items: center
+        .control
+          font-size: .9rem
+          margin-top: .2em
+          &:not(:last-child)
+            margin-right: 1.2rem
+        .icon
+          margin-top: .1em
+          margin-right: .2em
     &:hover, &:active
       .box
         background-color: #fafafa

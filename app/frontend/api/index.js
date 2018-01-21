@@ -4,8 +4,8 @@ import * as path         from "../utils/path"
 const request = (method, url, params, onSuccess, onError) => {
   const args = method === "delete" ? [url, config] : [url, params, config]
   axios[method](...args)
-    .then(results => onSuccess(results))
-    .catch(error => onError(error))
+    .then(results => onSuccess && onSuccess(results))
+    .catch(error => onError && onError(error))
 }
 
 // ======== Scores ========
@@ -31,8 +31,8 @@ export const updateScore = (params, onSuccess, onError) => (
 export const destroyScore = (params, onSuccess, onError) => (
   request("delete", path.score.api.destroy(params.token), null, onSuccess, onError)
 )
-export const searchScore = (params, onSuccess, onError) => (
-  request("get", path.score.api.search(params.query), null, onSuccess, onError)
+export const scores = (params, onSuccess, onError) => (
+  request("get", path.score.api.index(params.query), null, onSuccess, onError)
 )
 
 // ======== Users ========
@@ -61,6 +61,27 @@ export const removeUserIcon = (params, onSuccess, onError) => (
 export const destoryUser = (params, onSuccess, onError) => (
   request("delete", path.user.destroy(params.name), null, onSuccess, onError)
 )
-export const searchUser = (params, onSuccess, onError) => (
-  request("get", path.user.api.search(params.query), null, onSuccess, onError)
+export const users = (params, onSuccess, onError) => (
+  request("get", path.user.api.index(params.query), null, onSuccess, onError)
+)
+export const userScores = (params, onSuccess, onError) => (
+  request("get", path.user.api.scores(params.userName, params.query), null, onSuccess, onError)
+)
+
+// ======== Favs ========
+const getFavParams = (params) => {
+  const { userId, scoreId } = params
+  return {
+    fav: { user_id: userId, score_id: scoreId }
+  }
+}
+
+export const fav = (params, onSuccess, onError) => (
+  request("post", path.fav.api.create(), getFavParams(params), onSuccess, onError)
+)
+export const unfav = (params, onSuccess, onError) => (
+  request("delete", path.fav.api.destroy(params.favId), null, onSuccess, onError)
+)
+export const favs = (params, onSuccess, onError) => (
+  request("get", path.fav.api.index(params.query), null, onSuccess, onError)
 )

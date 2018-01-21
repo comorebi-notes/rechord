@@ -2,9 +2,26 @@ class ScoresController < ApplicationController
   before_action :set_score,  only: [:show, :edit, :update, :destroy]
   before_action :browsable?, only: [:show]
   before_action :editable?,  only: [:edit, :update, :destroy]
+  before_action :impression, only: [:show]
+
+  def index
+    scores = Score.list(params)
+    total_count = scores.count
+    scores = scores.page(params[:page] || 1)
+
+    render json: {
+      result:       scores.as_json(include: :user),
+      total_count:  total_count,
+      current_page: scores.current_page,
+      total_pages:  scores.total_pages
+    }
+  end
 
   def show
-    render json: { score: @score, author: @score&.user }
+    render json: {
+      score:  @score.as_json(methods: :favs),
+      author: @score&.user
+    }
   end
 
   def edit
@@ -36,16 +53,6 @@ class ScoresController < ApplicationController
     end
   end
 
-  def search
-    if params[:word].present?
-      words = params[:word].split(" ")
-      scores = Score.searchable.ransack(title_cont_all: words).result
-    else
-      scores = []
-    end
-    render json: scores, include: [:user]
-  end
-
   private
 
   def score_params
@@ -65,5 +72,9 @@ class ScoresController < ApplicationController
   def set_score
     @score = Score.friendly.find_by(token: params[:token])
     head :not_found unless @score
+  end
+
+  def impression
+    impressionist(@score, nil, unique: [:session_hash])
   end
 end

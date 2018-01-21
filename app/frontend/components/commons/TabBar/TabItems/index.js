@@ -13,13 +13,18 @@ export default class TabItems extends PureComponent {
   render () {
     const { currentUser, currentPath } = this.props
     const { modal } = this.state
-    const isActive = (targetPath) => targetPath === currentPath
-    const tabItemComponent = ({ label, icon, targetPath, onlyMobile, onClick }) => (
+    const isActive = (targetPath) => {
+      if (targetPath === currentPath) return true
+      switch (true) {
+        case (/^\/(scores|[a-zA-Z0-9-_]{11}).*/).test(currentPath): return targetPath === path.score.index()
+        case (/^\/users.*/).test(currentPath):
+          return currentPath !== path.user.show(currentUser.name) && targetPath === path.user.index()
+        default: return false
+      }
+    }
+    const tabItemComponent = ({ label, icon, targetPath, onClick }) => (
       <li
-        className={classNames({
-          "is-active": isActive(targetPath),
-          "is-only-mobile": onlyMobile
-        })}
+        className={classNames({ "is-active": isActive(targetPath) })}
         key={label}
       >
         {onClick ? (
@@ -44,21 +49,21 @@ export default class TabItems extends PureComponent {
       </li>
     )
     const tabItems = [
-      { label: "new score", icon: "file-text", targetPath: path.root },
+      { label: "new score", icon: "file-o",  targetPath: path.root },
+      { label: "scores",    icon: "files-o", targetPath: path.score.index() },
+      { label: "users",     icon: "users",   targetPath: path.user.index() },
       {
         label:      "my page",
-        icon:       "user",
+        icon:       "user-circle-o",
         targetPath: path.user.show(currentUser.name),
         onClick:    !currentUser.name && this.handleToggleModal
       },
       {
-        label:      "search",
-        icon:       "search",
-        targetPath: path.search(),
-        onlyMobile: true
-      },
-      // { label: "bookmark",  icon: "bookmark",  targetPath: "" },
-      // { label: "ranking",   icon: "trophy",    targetPath: "" }
+        label:      "my favs",
+        icon:       "heart",
+        targetPath: path.fav.index(),
+        onClick:    !currentUser.name && this.handleToggleModal
+      }
     ]
     return (
       <div>

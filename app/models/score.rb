@@ -1,8 +1,13 @@
 class Score < ApplicationRecord
   include FriendlyId
   friendly_id :token
+  is_impressionable counter_cache: true, column_name: :views_count
 
-  belongs_to :user, optional: true
+  belongs_to :user, optional: true, counter_cache: true
+  has_many :favs, dependent: :destroy
+
+  paginates_per 20
+
   enum status: {
     published: 0,
     closed:    1,
@@ -29,9 +34,31 @@ class Score < ApplicationRecord
     self.token = SecureRandom.urlsafe_base64(8)
   end
 
-  scope :all_published, ->(id) { where(user_id: id, status: :published).order(id: :desc) }
-  scope :all_editable,  ->(id) { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
-  scope :searchable,    ->     { where(status: :published).where.not(user_id: nil) }
+  scope :all_published, -> (id) { where(user_id: id, status: :published) }
+  scope :all_editable,  -> (id) { where(user_id: id).where.not(status: :deleted) }
+  scope :list, -> (_params) {
+    params = set_list_params(_params)
+
+    scores = where(status: :published)
+    scores = scores.where.not(user_id: nil) unless params[:options][:guest]
+    scores = scores.order(params[:sort] => params[:order])
+    scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
+    scores
+  }
+
+  class << self
+    def set_list_params(params)
+      words = params[:word]&.split(" ")
+      sort  = params[:sort].present? ? params[:sort] : "id"
+      order = sort.slice!(/(asc|desc)$/) || "desc"
+
+      options = {}
+      options[:guest] = params[:guest] == "true"
+      sort.gsub!(/_$/, "")
+
+      { words: words, sort: sort, order: order, options: options }
+    end
+  end
 
   def owner?(id)
     user_id == id

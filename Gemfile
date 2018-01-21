@@ -48,6 +48,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-tumblr'
 gem 'omniauth-github'
 
+gem 'dotenv-rails'
+
 gem 'cancancan'
 gem 'rails_admin', '~> 1.2'
 gem 'rails_admin-i18n'
@@ -59,7 +61,10 @@ gem 'rmagick'
 
 gem 'friendly_id'
 gem 'ransack'
-gem 'dotenv-rails'
+gem 'kaminari'
+
+gem 'impressionist'
+gem 'counter_culture', '~> 1.8'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -82,7 +87,7 @@ end
 
 # for Heroku
 source 'https://rubygems.org'
-ruby '2.4.2'
+ruby '2.4.3'
 gem 'rails_12factor', group: :production
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

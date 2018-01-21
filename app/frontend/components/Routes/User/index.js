@@ -4,7 +4,7 @@ import classNames           from "classnames"
 import ShowUser             from "./ShowUser"
 import EditUser             from "./EditUser"
 import Icon                 from "./Icon"
-import ScoreCard            from "../../ScoreCard"
+import UserScoresList       from "./UserScoresList"
 import * as api             from "../../../api"
 import * as path            from "../../../utils/path"
 import * as utils           from "../../../utils"
@@ -15,7 +15,6 @@ export default class User extends Component {
     this.state = {
       loading: true,
       user:    {},
-      scores:  [],
       edit:    false
     }
   }
@@ -24,17 +23,18 @@ export default class User extends Component {
     api.showUser(
       { name },
       (success) => {
-        const { user, scores } = success.data
+        const user = success.data
         utils.setTitle(`${user.screen_name} のマイページ`, this.props.history)
-        this.setState({ loading: false, user, scores })
+        this.setState({ loading: false, user })
       },
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
   handleToggleEdit = () => this.setState({ edit: !this.state.edit })
   render() {
-    const { loading, user, scores, edit } = this.state
-    const { currentUser, history } = this.props
+    const { loading, user, edit } = this.state
+    const { currentUser, history, location } = this.props
+    const userName = location.pathname.match(/users\/(.*)/)[1]
     const isOwn = user.id === currentUser.id
     return (
       <div className={classNames("show-user", { "loading-wrapper": loading })}>
@@ -53,7 +53,7 @@ export default class User extends Component {
           </div>
           <div className="column scores">
             <h1 className="title is-4">
-              Scores
+              scores
               {isOwn && (
                 <Link to={path.root}>
                   <span className="icon">
@@ -62,19 +62,7 @@ export default class User extends Component {
                 </Link>
               )}
             </h1>
-            {scores.length > 0 ? (
-              scores.map(score => (
-                <ScoreCard key={score.id} score={score} isOwn={isOwn} />
-              ))
-            ) : (
-              <div className="box no-score">
-                <div className="media-content">
-                  <div className="content">
-                    No scores.
-                  </div>
-                </div>
-              </div>
-            )}
+            <UserScoresList userName={userName} location={location} history={history} />
           </div>
         </div>
       </div>

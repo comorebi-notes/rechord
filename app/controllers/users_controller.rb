@@ -1,13 +1,21 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy]
 
+  def index
+    users = User.list(params)
+    total_count = users.count
+    users = users.page(params[:page] || 1)
+
+    render json: {
+      result:       users.as_json(methods: :scores_count),
+      total_count:  total_count,
+      current_page: users.current_page,
+      total_pages:  users.total_pages
+    }
+  end
+
   def show
-    if @user == current_user
-      @scores = Score.all_editable(@user.id)
-    else
-      @scores = Score.all_published(@user.id)
-    end
-    render json: { user: @user, scores: @scores }
+    render json: @user
   end
 
   def valid_name
@@ -63,16 +71,6 @@ class UsersController < ApplicationController
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
     end
-  end
-
-  def search
-    if params[:word].present?
-      words = params[:word].split(" ")
-      users = User.ransack(name_or_screen_name_or_profile_cont_all: words).result
-    else
-      users = []
-    end
-    render json: users, methods: :scores_count
   end
 
   private

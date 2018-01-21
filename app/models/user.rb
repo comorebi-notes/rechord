@@ -126,8 +126,8 @@ class User < ApplicationRecord
     Score.all_published(id)
   end
 
-  def favs_list(params)
-    params = self.class.set_list_params(params)
+  def favs_list(_params)
+    params = self.class.set_list_params(_params)
 
     scores = fav_scores.where(status: :published)
     scores = scores.order(params[:sort] => params[:order])
@@ -135,8 +135,8 @@ class User < ApplicationRecord
     scores
   end
 
-  def scores_list(params, owner = false)
-    params = self.class.set_list_params(params)
+  def scores_list(_params, owner = false)
+    params = self.class.set_list_params(_params)
 
     scores = owner ? editable_scores : published_scores
     scores = scores.order(params[:sort] => params[:order])

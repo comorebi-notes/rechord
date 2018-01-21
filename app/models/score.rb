@@ -34,8 +34,8 @@ class Score < ApplicationRecord
     self.token = SecureRandom.urlsafe_base64(8)
   end
 
-  scope :all_published, -> (id) { where(user_id: id, status: :published).order(id: :desc) }
-  scope :all_editable,  -> (id) { where(user_id: id).where.not(status: :deleted).order(id: :desc) }
+  scope :all_published, -> (id) { where(user_id: id, status: :published) }
+  scope :all_editable,  -> (id) { where(user_id: id).where.not(status: :deleted) }
   scope :list, -> (_params) {
     params = set_list_params(_params)
 

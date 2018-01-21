@@ -6,7 +6,7 @@ class Score < ApplicationRecord
   belongs_to :user, optional: true, counter_cache: true
   has_many :favs, dependent: :destroy
 
-  paginates_per 50
+  paginates_per 20
 
   enum status: {
     published: 0,

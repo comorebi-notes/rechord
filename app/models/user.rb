@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :favs,       dependent: :destroy
   has_many :fav_scores, through: :favs, source: :score
 
-  paginates_per 50
+  paginates_per 20
 
   validates :name,        presence: true, length: { maximum: 16 }, format: { with: /[a-z0-9._-]*/ }, uniqueness: true
   validates :screen_name, presence: true, length: { maximum: 32 }

@@ -87,7 +87,7 @@ export default class CardsList extends Component {
       ))
     )
     const renderPageCount = (current = true) => {
-      const perPage = 50
+      const perPage = 20
       const firstCount = (perPage * (currentPage - 1)) + 1
       const lastCount = perPage * currentPage > totalCount ? totalCount : perPage * currentPage
       const currentCount = current && totalPages > 1 && currentPage <= totalPages ? (

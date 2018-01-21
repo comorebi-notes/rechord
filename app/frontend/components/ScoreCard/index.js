@@ -1,11 +1,11 @@
-import React, { PureComponent } from "react"
+import React, { Component } from "react"
 import { Link }                 from "react-router-dom"
 import classNames               from "classnames"
 import { highlighter }          from "../../decorators/highlighter"
 import * as path                from "../../utils/path"
 import * as utils               from "../../utils"
 
-export default class ScoreCard extends PureComponent {
+export default class ScoreCard extends Component {
   constructor(props) {
     super(props)
     this.state = { highlightWords: props.highlightWords }

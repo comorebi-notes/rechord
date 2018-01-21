@@ -8,6 +8,7 @@ import UsersResult          from "./UsersResult"
 import Pagination           from "../commons/Pagination"
 import * as utils           from "./cardsListUtils"
 import { setTitle }         from "../../utils"
+import { history }          from "../../utils/browser-dependencies"
 import * as api             from "../../api"
 import * as path            from "../../utils/path"
 
@@ -23,25 +24,26 @@ export default class CardsList extends Component {
     }
     this.handleSearch(type, this.state.query)
   }
-  componentDidMount = () => {
-    const { word } = this.state
-    const { label, history } = this.props
-    const title = word ? `検索: ${word}` : `${label}一覧`
-    setTitle(title, history)
-  }
   handleSearch = (type, query) => (
     api[type](
       { query: qs.stringify(query) },
       (success) => {
         const { result, total_count: totalCount, current_page: currentPage, total_pages: totalPages } = success.data
         this.setState({ result, totalCount, currentPage, totalPages, loading: false })
+
+        const { query: { word } } = this.state
+        const { label } = this.props
+        const title = word ? `検索: ${word}` : `${label}一覧`
+        setTitle(title, this.props.history)
       },
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   )
   handlePush = (type, query) => {
     const searchPath = path.search(type, qs.stringify(query))
-    this.props.history.push(searchPath)
+    history.pushState("", "", searchPath)
+    this.setState({ loading: true, result: [] })
+    this.handleSearch(type, query)
   }
 
   updateQuery = (params) => {

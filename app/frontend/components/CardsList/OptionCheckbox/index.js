@@ -1,9 +1,11 @@
 import React, { Component } from "react"
 
+const isChecked = (value) => value === "true" || value === true
+
 export default class OptionCheckbox extends Component {
   handleChange = () => {
     const { option: { key }, value } = this.props
-    this.props.handleChangeOption(key, !(value === "true"))
+    this.props.handleChangeOption(key, !isChecked(value))
   }
   render() {
     const { option: { key, label }, value } = this.props
@@ -15,7 +17,7 @@ export default class OptionCheckbox extends Component {
           type="checkbox"
           id={name}
           name={name}
-          checked={value === "true"}
+          checked={isChecked(value)}
           onChange={this.handleChange}
         />
         <label htmlFor={name}>

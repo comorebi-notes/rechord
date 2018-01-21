@@ -49,7 +49,7 @@ class Score < ApplicationRecord
   class << self
     def set_list_params(params)
       words = params[:word]&.split(" ")
-      sort  = params[:sort] || "id"
+      sort  = params[:sort].present? ? params[:sort] : "id"
       order = sort.slice!(/(asc|desc)$/) || "desc"
 
       options = {}

@@ -57,14 +57,15 @@ export const auth = {
   github:   "/users/auth/github"
 }
 
-export const search = (_query) => {
+export const search = (_query, path) => {
   const queries = qs.parse(_query)
   Object.keys(queries).forEach(key => {
     if (queries[key] === "") delete queries[key]
   })
   const queryStrings = qs.stringify(queries)
   const query = queryStrings ? `?${queryStrings}` : ""
-  return `${location.pathname}${query}`
+  const targetPath = path ? path : location.pathname
+  return `${targetPath}${query}`
 }
 
 export const twitter = (id) => `https://twitter.com/${id}`

@@ -1,8 +1,9 @@
 import React, { PureComponent } from "react"
 import { withRouter }           from "react-router-dom"
 
-import TabItems  from "./TabItems"
-import * as path from "../../../utils/path"
+import TabItems     from "./TabItems"
+import * as path    from "../../../utils/path"
+import { document } from "../../../utils/browser-dependencies"
 
 class TabBar extends PureComponent {
   constructor() {
@@ -16,8 +17,9 @@ class TabBar extends PureComponent {
     const { history } = this.props
     const { queryWord } = this.state
     if (queryWord.trim().length > 0) {
-      history.push(path.search("scores", `word=${queryWord}`)) // デフォルトはスコア検索
+      history.push(path.search(`word=${queryWord}`, path.score.index())) // デフォルトはスコア検索
       this.handleClear()
+      document.activeElement.blur()
     }
   }
   render() {

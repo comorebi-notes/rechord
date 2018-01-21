@@ -7,13 +7,13 @@ class UsersController < ApplicationController
     order = sort.slice!(/_(asc|desc)$/, 1) || "desc"
 
     options = {}
-    options[:no_score] = params[:no_score] == "true"
+    options[:no_scores] = params[:no_scores] == "true"
 
     sort.gsub!(/_$/, "")
     users = User.list(sort, order, options)
     users = users.ransack(name_or_screen_name_or_profile_cont_all: words).result if words.present?
     total_count = users.count
-    users = users.page(params[:page] || 1).per(50)
+    users = users.page(params[:page] || 1)
 
     render json: {
       result:       users.as_json(methods: :scores_count),

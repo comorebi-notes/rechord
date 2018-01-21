@@ -2,7 +2,7 @@
   &.loading-wrapper
     min-height: 500px
   .search-control
-    margin-bottom: 2em
+    margin-bottom: 1em
     .button > *
       vertical-align: middle
   .search-control, .is-only-mobile
@@ -10,6 +10,7 @@
       display: flex
       align-items: center
   .hits
+    font-size: 1rem
     align-self: center
     position: absolute
     right: 0
@@ -20,8 +21,8 @@
       margin: 0 .4em
     .unit
       margin-left: .4em
-  .is-only-mobile
-    display: none !important
+  .result
+    margin-top: 1.2rem
 
 @media screen and (min-width: $tablet)
   .search
@@ -44,6 +45,8 @@
             justify-content: space-between
       .no-score, .no-user
         width: 100%
+    .is-only-mobile
+      display: none !important
 
 @media screen and (max-width: $tablet - 1px)
   .search
@@ -70,3 +73,8 @@
           margin-right: calc(-0.375em - 1px)
         span:last-of-type:not(.icon)
           display: none
+    .pagination
+      margin-top: 2rem
+      justify-content: flex-start
+    .result
+      margin-bottom: 1.2rem

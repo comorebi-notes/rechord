@@ -1,11 +1,11 @@
 import React, { Component } from "react"
 import UserCard             from "../../../UserCard"
 
-export default class UsersResults extends Component {
+export default class UsersResult extends Component {
   render() {
     const { users, word } = this.props
     return (
-      <div className="users">
+      <div className="users result">
         {users.length > 0 ? (
           users.map(user => (
             <UserCard key={user.id} highlightWords={word} {...user} />

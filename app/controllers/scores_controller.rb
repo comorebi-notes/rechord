@@ -16,7 +16,7 @@ class ScoresController < ApplicationController
     scores = Score.list(sort, order, options)
     scores = scores.ransack(title_cont_all: words).result if words.present?
     total_count = scores.count
-    scores = scores.page(params[:page] || 1).per(50)
+    scores = scores.page(params[:page] || 1)
 
     render json: {
       result:       scores.as_json(include: :user),

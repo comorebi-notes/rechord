@@ -3,8 +3,10 @@ import classNames           from "classnames"
 import * as qs              from "qs"
 import SortSelect           from "./SortSelect"
 import OptionCheckbox       from "./OptionCheckbox"
-import ScoresResults        from "./ScoresResults"
-import UsersResults         from "./UsersResults"
+import ScoresResult         from "./ScoresResult"
+import UsersResult          from "./UsersResult"
+import Pagination           from "../../commons/Pagination"
+import * as utils           from "./cardsListUtils"
 import { setTitle }         from "../../../utils"
 import * as api             from "../../../api"
 import * as path            from "../../../utils/path"
@@ -12,13 +14,14 @@ import * as path            from "../../../utils/path"
 export default class CardsList extends Component {
   constructor(props) {
     super(props)
+    const { type } = props
     const query = qs.parse(props.location.search.substr(1))
     this.state = {
-      query,
+      query:   utils.setDefault(query, type),
       result:  [],
       loading: true
     }
-    this.handleSearch(props.type, this.state.query)
+    this.handleSearch(type, this.state.query)
   }
   componentDidMount = () => {
     const { word } = this.state
@@ -45,14 +48,16 @@ export default class CardsList extends Component {
     this.setState({ query: Object.assign({}, this.state.query, params) })
   }
   handleInputWord = (e) => this.updateQuery({ word: e.target.value })
-  handleKeyDown = (e) => {
-    if (e.keyCode === 13) this.handlePush(this.props.type, this.state.query)
-  }
   handleChangeOption = (key, value) => {
     const { query } = this.state
-    query[key] = value
+    if (key) query[key] = value
+    if (key !== "page") delete query.page
     this.handlePush(this.props.type, query)
   }
+  handleKeyDown = (e) => {
+    if (e.keyCode === 13) this.handleChangeOption()
+  }
+  handlePaginate = (page) => this.handleChangeOption("page", page)
 
   render() {
     const { query, result, totalCount, currentPage, totalPages, loading } = this.state
@@ -60,8 +65,8 @@ export default class CardsList extends Component {
     const { type, options } = this.props
     const searchResult = () => {
       switch (type) {
-        case "scores": return <ScoresResults word={word} scores={result} />
-        case "users":  return <UsersResults  word={word} users={result} />
+        case "scores": return <ScoresResult word={word} scores={result} />
+        case "users":  return <UsersResult  word={word} users={result} />
         default:       return ""
       }
     }
@@ -75,16 +80,18 @@ export default class CardsList extends Component {
         />
       ))
     )
-    const renderPageCount = () => {
+    const renderPageCount = (current = true) => {
       const perPage = 50
-      const currentCount = totalPages > 1 ? (
+      const firstCount = (perPage * (currentPage - 1)) + 1
+      const lastCount = perPage * currentPage > totalCount ? totalCount : perPage * currentPage
+      const currentCount = current && totalPages > 1 && currentPage <= totalPages ? (
         <span>
-          <span>{(perPage * (currentPage - 1)) + 1} - {perPage * currentPage}</span>
+          <span>{firstCount} - {lastCount}</span>
           <span className="separator">/</span>
           <strong>{totalCount}</strong>
         </span>
       ) : (
-        <strong>{result.length}</strong>
+        <strong>{totalCount}</strong>
       )
       return (
         <span>
@@ -93,6 +100,17 @@ export default class CardsList extends Component {
         </span>
       )
     }
+    const renderPagination = () => (
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        handlePaginate={this.handlePaginate}
+      >
+        <div className="hits is-only-mobile">
+          {renderPageCount(false)}
+        </div>
+      </Pagination>
+    )
     return (
       <div className={classNames("search", { "loading-wrapper": loading })}>
         <div className="field is-grouped search-control">
@@ -104,7 +122,7 @@ export default class CardsList extends Component {
               className="input"
               type="text"
               placeholder="search..."
-              value={word || ""}
+              value={word}
               onChange={this.handleInputWord}
               onKeyDown={this.handleKeyDown}
             />
@@ -127,12 +145,11 @@ export default class CardsList extends Component {
           <div className="control options">
             {renderOptions()}
           </div>
-          <div className="control hits">
-            {renderPageCount()}
-          </div>
         </div>
 
+        {renderPagination()}
         {searchResult()}
+        {renderPagination()}
       </div>
     )
   }

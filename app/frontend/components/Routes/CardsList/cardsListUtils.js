@@ -19,4 +19,18 @@ export const sortOptions = (type) => {
   }
 }
 
-export default sortOptions
+export const setDefault = (_query, type) => {
+  const query = _query
+  switch (type) {
+    case "scores":
+      if (!query.word)  query.word  = ""
+      if (!query.guest) query.guest = "true"
+      return query
+    case "users":
+      if (!query.word)      query.word      = ""
+      if (!query.no_scores) query.no_scores = "true"
+      return query
+    default:
+      return query
+  }
+}

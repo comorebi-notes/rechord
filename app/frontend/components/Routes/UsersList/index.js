@@ -4,7 +4,7 @@ import CardsList            from "../CardsList"
 export default class UsersList extends Component {
   render() {
     const options = [
-      { key: "no_score", label: "スコアが無いユーザを含める" }
+      { key: "no_scores", label: "スコアが無いユーザを含める" }
     ]
     return (
       <CardsList

@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :scores, dependent: :destroy
   has_many :favs,   dependent: :destroy
 
+  paginates_per 50
+
   validates :name,        presence: true, length: { maximum: 16 }, format: { with: /[a-z0-9._-]*/ }, uniqueness: true
   validates :screen_name, presence: true, length: { maximum: 32 }
   validates :profile,     length: { maximum: 256 }
@@ -17,7 +19,7 @@ class User < ApplicationRecord
 
   scope :list, -> (sort, order, options) {
     result = self
-    result = result.where.not(scores_count: 0) unless options[:no_score]
+    result = result.where.not(scores_count: 0) unless options[:no_scores]
     result.order(sort => order)
   }
 

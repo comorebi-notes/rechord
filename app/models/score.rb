@@ -3,8 +3,10 @@ class Score < ApplicationRecord
   friendly_id :token
   is_impressionable counter_cache: true, column_name: :views_count
 
-  belongs_to :user, optional: true, counter_cache: true
+  belongs_to :user, optional: true
   has_many :favs, dependent: :destroy
+
+  counter_culture :user, column_names: { ["scores.status = ?", '0'] => :scores_count }
 
   paginates_per 20
 

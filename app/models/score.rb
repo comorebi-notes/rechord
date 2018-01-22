@@ -6,7 +6,9 @@ class Score < ApplicationRecord
   belongs_to :user, optional: true
   has_many :favs, dependent: :destroy
 
-  counter_culture :user, column_names: { ["scores.status = ?", '0'] => :scores_count }
+  counter_culture :user,
+    column_name: -> (score) { score.published? ? :scores_count : nil },
+    column_names: { ["scores.status = ?", '0'] => :scores_count }
 
   paginates_per 20
 

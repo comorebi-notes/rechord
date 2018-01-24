@@ -38,6 +38,8 @@ const fixNotes = (chord, baseKey) => {
   const type        = chord[1].split("/")[0]
   const notes       = chordTranslator(root, type, baseKey)
 
+  if (!notes) return false
+
   const maxNotes = 5
   const minNotes = 3
 

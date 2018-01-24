@@ -3,6 +3,7 @@ import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 
 import Button                from "../../commons/Button"
 import { beats }             from "../../../constants/beats"
+import { validate }          from "./validate"
 import * as instruments      from "../../../constants/instruments"
 import * as utils            from "../../../utils"
 import { scoreMaker }        from "../../../utils/scoreMaker"
@@ -120,12 +121,14 @@ export default class SoundControl extends Component {
     const { beat, parsedText } = this.props
     const score = scoreMaker(parsedText, beat)
 
-    Transport.timeSignature = beats[beat]
-    this.handleStop()
-    this.setInstrumentSchedule(score)
-    this.setClickSchedule(score)
-    this.handleChangePlaying(true)
-    Transport.start("+0.1")
+    if (validate(score)) {
+      Transport.timeSignature = beats[beat]
+      this.handleStop()
+      this.setInstrumentSchedule(score)
+      this.setClickSchedule(score)
+      this.handleChangePlaying(true)
+      Transport.start("+0.2")
+    }
   }
 
   render() {

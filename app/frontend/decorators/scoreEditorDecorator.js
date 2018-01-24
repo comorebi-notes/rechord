@@ -51,3 +51,29 @@ export const keyChange = (progression, operation) => {
   })
   return newProgression.join("\n")
 }
+
+const errorClassName = "parse-error"
+
+export const addErrorClass = (element) => {
+  const targetClassName  = element.className
+  const targetClassNames = targetClassName.split(" ")
+
+  // もう付いている場合は一度外して付ける
+  if (targetClassNames.find((className) => className === errorClassName)) {
+    element.className = targetClassNames.filter((className) => className !== errorClassName).join(" ")
+  }
+  element.className += ` ${errorClassName}`
+}
+
+export const removeErrorClass = (element) => {
+  if (!element) return false
+
+  const targetClassName  = element.className
+  const targetClassNames = targetClassName.split(" ")
+
+  if (targetClassNames.find((className) => className === errorClassName)) {
+    element.className = targetClassNames.filter((className) => className !== errorClassName).join(" ")
+  }
+
+  return true
+}

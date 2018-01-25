@@ -64,6 +64,11 @@ const rootChordComponent = (props) => (
 const whiteSpacesComponent = () => (
   <span className="space" />
 )
+const chordTypeComponent = (props) => (
+  <span className="chord-type">
+    {props.children}
+  </span>
+)
 
 const ScoreDecorator = new CompositeDecorator([
   baseDecorator(constantRegex.comment,     commentComponent),
@@ -71,6 +76,7 @@ const ScoreDecorator = new CompositeDecorator([
   baseDecorator(constantRegex.onChord,     onChordComponent),
   baseDecorator(constantRegex.rootChord,   rootChordComponent),
   baseDecorator(constantRegex.whiteSpaces, whiteSpacesComponent),
+  baseDecorator(constantRegex.chordType,   chordTypeComponent)
 ])
 
 export default ScoreDecorator

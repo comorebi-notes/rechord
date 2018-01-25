@@ -54,7 +54,8 @@ export const keyChange = (progression, operation) => {
 
 const errorClassName = "parse-error"
 
-export const addErrorClass = (element) => {
+export const addErrorClass = (_element) => {
+  const element = _element
   const targetClassName  = element.className
   const targetClassNames = targetClassName.split(" ")
 
@@ -65,9 +66,10 @@ export const addErrorClass = (element) => {
   element.className += ` ${errorClassName}`
 }
 
-export const removeErrorClass = (element) => {
-  if (!element) return false
+export const removeErrorClass = (_element) => {
+  if (!_element) return false
 
+  const element = _element
   const targetClassName  = element.className
   const targetClassNames = targetClassName.split(" ")
 

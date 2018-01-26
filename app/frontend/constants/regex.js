@@ -3,6 +3,6 @@ export const onChord     = /\/(C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g
 export const separator   = /\|/g
 export const whiteSpaces = / +/g
 export const comment     = /^#.*$/g
-export const chordType   = /.+/g
+export const chordType   = /[Ma-z0-9(),#♯b♭△ΔΦφø]+/g
 
 export const joinOnChord = /(\/) (C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g

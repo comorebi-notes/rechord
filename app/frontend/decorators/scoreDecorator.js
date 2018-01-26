@@ -66,6 +66,7 @@ const whiteSpacesComponent = () => (
 )
 const chordTypeComponent = (props) => (
   <span className="chord-type">
+    {console.log(props.decoratedText)}
     {props.children}
   </span>
 )

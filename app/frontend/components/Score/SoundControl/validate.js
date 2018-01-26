@@ -3,17 +3,16 @@ import { addErrorClass, removeErrorClass } from "../../../decorators/scoreEditor
 
 export const validate = (score) => {
   let hasError = false
+  // const noteElements = document.getElementById("score-editor").getElementsByClassName("root")
 
-  const noteElements = document.getElementById("score-editor").getElementsByClassName("root")
-
-  score.forEach((scoreItem, index) => {
+  score.forEach((scoreItem) => {
     const { notes } = scoreItem
-    const element   = noteElements[index]
+    // const element   = noteElements[index]
     if (!notes) {
       hasError = true
-      addErrorClass(element)
+      // addErrorClass(element)
     } else {
-      removeErrorClass(element)
+      // removeErrorClass(element)
     }
   })
   return !hasError

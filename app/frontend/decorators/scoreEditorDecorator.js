@@ -6,7 +6,7 @@ const tokenize = (name) => {
   const p = Note.tokenize(name)
   if (p[0] === "") return ["", name]
 
-  if (p[0] !== "" && p[2].match(/^(6|7|9|11|13|-5)/)) {
+  if (p[0] !== "" && p[2].match(/^(5|6|7|9|11|13|-5)/)) {
     return [p[0] + p[1], p[2] + p[3]]
   } else {
     return [p[0] + p[1] + p[2], p[3]]

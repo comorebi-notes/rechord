@@ -14,7 +14,7 @@
   .separator
     font-weight: normal
     margin-right: 1.1em
-    &:before
+    &:not(:first-of-type):before
       content: " "
       letter-spacing: .65em
   .separator, .separator + .space, .space:first-child
@@ -40,16 +40,30 @@
         letter-spacing: .65em
     &:not(:last-child)
       padding-right: 1px
-    &.parse-error
-      display: inline-block
-      animation: error-animation .3s linear 0s forwards
-      & > span, & + span:not(.separator), & + span:not(.separator) + .on-chord
-        background-color: #fee
   .on-chord
     padding-left: .1em
   .streak, .resume, .stop
     color: #aaa
     white-space: nowrap
+  .parse-error, .on-chord + .chord-type
+    color: #f44
+    border: 1px solid #faa
+    background-color: #fee
+    padding: 0 .2em
+  .public-DraftStyleDefault-block
+    > span
+      &:not(.root):not(.on-chord):not(.separator):not(.chord-type):not(.comment)
+        color: #f44
+        border: 1px solid #faa
+        background-color: #fee
+        padding: 0 .2em
+    > span:first-child:last-child
+      &:not(.root):not(.on-chord):not(.separator):not(.chord-type):not(.comment)
+        color: inherit
+        border: none
+        background-color: inherit
+        padding: 0
+
   .DraftEditor-editorContainer
     position: relative
     z-index: 1
@@ -72,11 +86,3 @@ wbr
       word-wrap: break-word !important
     .public-DraftStyleDefault-block
       display: block
-
-@keyframes error-animation
-  0%
-    transform: scale(.5)
-  5%
-    transform: scale(1.4)
-  100%
-    transform: scale(1)

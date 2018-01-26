@@ -1,8 +1,8 @@
-export const rootChord   = /C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B|%|=|_/g
-export const onChord     = /\/(C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g
-export const separator   = /\|/g
+export const rootChord   = /([CDEFGAB][#♯b♭]?)|%|=|_/g
+export const onChord     = /(\/|on)([CDEFGAB][#♯b♭]?)/g
+export const separator   = /[|｜l]/g
 export const whiteSpaces = / +/g
 export const comment     = /^#.*$/g
-export const chordType   = /[Ma-z0-9(),#♯b♭△ΔΦφø]+/g
+export const chordType   = /(?![#♯b♭])(?:(?!on)[Ma-z0-9(),\-#♯b♭△ΔΦφø])+/g
 
-export const joinOnChord = /(\/) (C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g
+export const joinOnChord = /(\/) ([CDEFGAB][#♯b♭]?)/g

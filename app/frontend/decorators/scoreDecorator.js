@@ -1,6 +1,7 @@
 import React                  from "react"
 import { CompositeDecorator } from "draft-js"
 import classNames             from "classnames"
+import { translateType }      from "chord-translator"
 import * as constants         from "../constants"
 import * as constantRegex     from "../constants/regex"
 
@@ -24,7 +25,8 @@ const rootChordClass = (root) => (
   classNames(
     "root",
     root
-      .replace("#", "s")
+      .replace(/[#♯]/,  "s")
+      .replace(/[b♭]/, "b")
       .replace(constants.STREAK_NOTE, "streak")
       .replace(constants.RESUME_NOTE, "resume")
       .replace(constants.STOP_NOTE,   "stop")
@@ -34,9 +36,15 @@ const onChordClass = (onChord) => (
   classNames(
     "on-chord",
     onChord
-      .replace("/", "")
-      .replace("#", "s")
+      .replace(/(\/|on)/, "")
+      .replace(/[#♯]/,    "s")
+      .replace(/[b♭]/,   "b")
   )
+)
+const chordTypeClassName = (chordType) => (
+  classNames("chord-type", {
+    "parse-error": !translateType(chordType)
+  })
 )
 
 const commentComponent = (props) => (
@@ -65,8 +73,7 @@ const whiteSpacesComponent = () => (
   <span className="space" />
 )
 const chordTypeComponent = (props) => (
-  <span className="chord-type">
-    {console.log(props.decoratedText)}
+  <span className={chordTypeClassName(props.decoratedText)}>
     {props.children}
   </span>
 )

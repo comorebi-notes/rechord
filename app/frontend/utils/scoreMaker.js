@@ -34,8 +34,9 @@ const addNewRootToNotes = (notes, denominator, baseKey) => {
 
 const fixNotes = (chord, baseKey) => {
   const root        = chord[0]
-  const denominator = chord[1].split("/")[1]
-  const type        = chord[1].split("/")[0]
+  const splitedType = chord[1].split(/\/|on/)
+  const type        = splitedType[0]
+  const denominator = splitedType[1]
   const notes       = chordTranslator(root, type, baseKey)
 
   if (!notes) return false

@@ -1,5 +1,5 @@
-import { document }                        from "../../../utils/browser-dependencies"
-import { addErrorClass, removeErrorClass } from "../../../decorators/scoreEditorDecorator"
+// import { document }                        from "../../../utils/browser-dependencies"
+// import { addErrorClass, removeErrorClass } from "../../../decorators/scoreEditorDecorator"
 
 export const validate = (score) => {
   let hasError = false

@@ -1,8 +1,14 @@
 import { Note, Distance } from "tonal"
+import moji               from "moji"
 import * as regex         from "../constants/regex"
 
 // Chord.tokenize では9thコードが変換できないため自前で実装
-const tokenize = (name) => {
+const tokenize = (_name) => {
+  let name = _name
+  name = moji(name).convert("ZE", "HE").toString()
+  name = name.replace(/[＃♯]/g,  "#")
+  name = name.replace(/[♭ｂ]/g, "b")
+
   const p = Note.tokenize(name)
   if (p[0] === "") return ["", name]
 
@@ -21,13 +27,13 @@ export const parseChordProgression = (text) => {
     .replace(regex.joinOnChord, "$1$2")
     .split("\n")
     .filter(line => line[0] !== "#")
-    .map(line => line.split("|"))
+    .map(line => line.split(regex.separator))
     .map(line => (
       line[0][0] === "\n" ? line : (
         line
           .map(chords => chords.trim())
           .filter(chords => chords !== "")
-          .map(chords => chords.split(/ +/))
+          .map(chords => chords.split(regex.whiteSpaces))
           .map(chords => chords.map(chord => tokenize(chord)))
       )
     ))

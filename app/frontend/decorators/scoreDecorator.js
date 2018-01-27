@@ -2,12 +2,13 @@ import React                  from "react"
 import { CompositeDecorator } from "draft-js"
 import classNames             from "classnames"
 import { translateType }      from "chord-translator"
+import moji                   from "moji"
 import * as constants         from "../constants"
 import * as constantRegex     from "../constants/regex"
 
 const baseDecorator = (regex, block) => ({
   strategy: (contentBlock, callback) => {
-    const text = contentBlock.getText()
+    const text = moji(contentBlock.getText()).convert("ZE", "HE").toString()
     let matchArr = regex.exec(text)
     let start
     let end
@@ -24,7 +25,7 @@ const baseDecorator = (regex, block) => ({
 const rootChordClass = (root) => (
   classNames(
     "root",
-    root
+    moji(root).convert("ZE", "HE").toString()
       .replace(/[#♯]/g,  "s")
       .replace(/[b♭]/g, "b")
       .replace(constants.STREAK_NOTE, "streak")
@@ -36,7 +37,7 @@ const rootChordClass = (root) => (
 const onChordClass = (onChord) => (
   classNames(
     "on-chord",
-    onChord
+    moji(onChord).convert("ZE", "HE").toString()
       .replace(/(\/|on)/, "")
       .replace(/[#♯]/g,    "s")
       .replace(/[b♭]/g,   "b")
@@ -44,7 +45,7 @@ const onChordClass = (onChord) => (
 )
 const chordTypeClassName = (chordType) => (
   classNames("chord-type", {
-    "parse-error": !translateType(chordType)
+    "parse-error": !translateType(moji(chordType).convert("ZE", "HE").toString())
   })
 )
 

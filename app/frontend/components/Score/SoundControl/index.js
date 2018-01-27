@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
+import Tone, { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 
 import Button                from "../../commons/Button"
 import { beats }             from "../../../constants/beats"
@@ -7,12 +7,13 @@ import { validate }          from "./validate"
 import * as instruments      from "../../../constants/instruments"
 import * as utils            from "../../../utils"
 import { scoreMaker }        from "../../../utils/scoreMaker"
-import { window, navigator } from "../../../utils/browser-dependencies"
+import { window, navigator, AudioContext }      from "../../../utils/browser-dependencies"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../../constants"
 
 export default class SoundControl extends Component {
   constructor(props) {
     super(props)
+    Tone.context = new AudioContext() // reset Tone.js
     this.setBpm(props.bpm)
     this.setVolume(props.volume)
     this.setInstrument(props.instrumentType)
@@ -50,6 +51,7 @@ export default class SoundControl extends Component {
   }
   componentWillUnmount() {
     this.handleStop()
+    Tone.context.close()
   }
 
   onMount = (callback) => callback()
@@ -115,6 +117,7 @@ export default class SoundControl extends Component {
     this.releaseNotes(this.state.currentNotes)
     Transport.stop()
     Transport.cancel()
+    Transport.clear()
     this.handleChangePlaying(false)
   }
   handleStart = () => {
@@ -127,7 +130,7 @@ export default class SoundControl extends Component {
       this.setInstrumentSchedule(score)
       this.setClickSchedule(score)
       this.handleChangePlaying(true)
-      Transport.start("+0.2")
+      Transport.start("+0.25")
     }
   }
 

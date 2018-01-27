@@ -25,11 +25,12 @@ const rootChordClass = (root) => (
   classNames(
     "root",
     root
-      .replace(/[#♯]/,  "s")
-      .replace(/[b♭]/, "b")
+      .replace(/[#♯]/g,  "s")
+      .replace(/[b♭]/g, "b")
       .replace(constants.STREAK_NOTE, "streak")
       .replace(constants.RESUME_NOTE, "resume")
       .replace(constants.STOP_NOTE,   "stop")
+      .replace(constants.STOP_NOTE_2, "stop")
   )
 )
 const onChordClass = (onChord) => (
@@ -37,8 +38,8 @@ const onChordClass = (onChord) => (
     "on-chord",
     onChord
       .replace(/(\/|on)/, "")
-      .replace(/[#♯]/,    "s")
-      .replace(/[b♭]/,   "b")
+      .replace(/[#♯]/g,    "s")
+      .replace(/[b♭]/g,   "b")
   )
 )
 const chordTypeClassName = (chordType) => (

@@ -1,3 +1,17 @@
+@mixin parse-error
+  color: #f44
+  border: 1px solid #faa
+  background-color: #fee
+  padding: 0 .2em
+@mixin reset-parse-error
+  color: inherit
+  border: none
+  background-color: inherit
+  padding: 0
+@mixin unclassed-span
+  &:not(.root):not(.on-chord):not(.separator):not(.chord-type):not(.comment)
+    @content
+
 .score
   font-weight: bold
   font-size: 1.1em
@@ -45,24 +59,20 @@
   .streak, .resume, .stop
     color: #aaa
     white-space: nowrap
-  .parse-error, .on-chord + .chord-type
-    color: #f44
-    border: 1px solid #faa
-    background-color: #fee
-    padding: 0 .2em
+
+  .parse-error
+    @include parse-error
+  .chord-type:first-child, span:not(.root):not(.space) + .chord-type
+    @include parse-error
+  .on-chord:first-child, span:not(.root):not(.space):not(.chord-type) + .on-chord
+    @include parse-error
   .public-DraftStyleDefault-block
     > span
-      &:not(.root):not(.on-chord):not(.separator):not(.chord-type):not(.comment)
-        color: #f44
-        border: 1px solid #faa
-        background-color: #fee
-        padding: 0 .2em
+      @include unclassed-span
+        @include parse-error
     > span:first-child:last-child
-      &:not(.root):not(.on-chord):not(.separator):not(.chord-type):not(.comment)
-        color: inherit
-        border: none
-        background-color: inherit
-        padding: 0
+        @include unclassed-span
+          @include reset-parse-error
 
   .DraftEditor-editorContainer
     position: relative

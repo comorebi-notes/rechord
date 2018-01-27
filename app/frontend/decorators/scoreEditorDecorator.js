@@ -9,14 +9,12 @@ const tokenize = (_name) => {
   name = name.replace(/[＃♯]/g,  "#")
   name = name.replace(/[♭ｂ]/g, "b")
 
-  const p = Note.tokenize(name)
-  if (p[0] === "") return ["", name]
-
-  if (p[0] !== "" && p[2].match(/^(5|6|7|9|11|13|-5)/)) {
-    return [p[0] + p[1], p[2] + p[3]]
-  } else {
-    return [p[0] + p[1] + p[2], p[3]]
-  }
+  const nameMatch = name.match(/([CDEFGAB][#b]{0,2})/)
+  const splitPoint = nameMatch ? nameMatch[0].length : 0
+  return [
+    name.slice(0, splitPoint),
+    name.slice(splitPoint)
+  ]
 }
 
 export const parseChordProgression = (text) => {

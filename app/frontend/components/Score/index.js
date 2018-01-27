@@ -11,6 +11,7 @@ import BpmControl        from "./BpmControl"
 import ClickControl      from "./ClickControl"
 import VolumeControl     from "./VolumeControl"
 import SoundControl      from "./SoundControl"
+import { scoreMaker }    from "../../utils/scoreMaker"
 import * as decorator    from "../../decorators/scoreEditorDecorator"
 
 export default class Score extends Component {
@@ -24,6 +25,7 @@ export default class Score extends Component {
       enabledClick, isPlaying, handleSetState, setInputText, errors
     } = this.props
     const parsedText = decorator.parseChordProgression(inputText)
+    const score = parsedText && scoreMaker(parsedText, beat)
 
     return (
       <div className="field" style={{ paddingBottom: "1.5rem" }}>
@@ -94,6 +96,7 @@ export default class Score extends Component {
                 bpm={bpm}
                 volume={volume}
                 enabledClick={enabledClick}
+                score={score}
                 parsedText={parsedText}
                 isPlaying={isPlaying}
                 handleSetState={handleSetState}

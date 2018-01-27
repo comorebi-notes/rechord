@@ -6,7 +6,6 @@ import { beats }             from "../../../constants/beats"
 import { validate }          from "./validate"
 import * as instruments      from "../../../constants/instruments"
 import * as utils            from "../../../utils"
-import { scoreMaker }        from "../../../utils/scoreMaker"
 import { window, navigator, AudioContext }      from "../../../utils/browser-dependencies"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../../constants"
 
@@ -121,24 +120,21 @@ export default class SoundControl extends Component {
     this.handleChangePlaying(false)
   }
   handleStart = () => {
-    const { beat, parsedText } = this.props
-    const score = scoreMaker(parsedText, beat)
+    const { score, beat } = this.props
 
-    if (validate(score)) {
-      Transport.timeSignature = beats[beat]
-      this.handleStop()
-      this.setInstrumentSchedule(score)
-      this.setClickSchedule(score)
-      this.handleChangePlaying(true)
-      Transport.start("+0.25")
-    }
+    Transport.timeSignature = beats[beat]
+    this.handleStop()
+    this.setInstrumentSchedule(score)
+    this.setClickSchedule(score)
+    this.handleChangePlaying(true)
+    Transport.start("+0.25")
   }
 
   render() {
-    const { isPlaying, parsedText, bpm } = this.props
+    const { isPlaying, score, parsedText, bpm } = this.props
     const { loading } = this.state
     const isBlankText = !parsedText || (parsedText && parsedText.every(text => !text[0]))
-    const cannotPlay = loading || isPlaying || bpm <= 0 || isBlankText
+    const cannotPlay = loading || isPlaying || bpm <= 0 || isBlankText || !validate(score)
     return (
       <div className="field sound-control">
         <div className="control">

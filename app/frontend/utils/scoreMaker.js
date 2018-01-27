@@ -1,7 +1,7 @@
-import { Note, Distance }                      from "tonal"
-import chordTranslator                         from "chord-translator"
-import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE } from "../constants"
-import { beats }                               from "../constants/beats"
+import { Note, Distance } from "tonal"
+import chordTranslator    from "chord-translator"
+import { beats }          from "../constants/beats"
+import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE, STOP_NOTE_2 } from "../constants"
 
 const setBeatPositions = (length, selectedBeat) => {
   if (length === 1) return [0]
@@ -71,6 +71,7 @@ export const scoreMaker = (text, selectedTime) => {
 
         const time = `${bar}:${beatPositions[index]}:0`
         const notes = () => {
+          if (chord[1] === STOP_NOTE_2) return []
           switch (chord[1][0]) {
             case STREAK_NOTE: return STREAK_NOTE
             case RESUME_NOTE: return RESUME_NOTE

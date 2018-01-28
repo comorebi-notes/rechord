@@ -44,7 +44,7 @@ export default class ScoreEditor extends Component {
   }
   render() {
     const { errors, editorState, readOnly } = this.props
-    const placeholder = "D6(9) | Aadd9 | E | F#m7(11)"
+    const placeholder = "C | F | G7 | C ..."
     const textAreaClass = classNames("textarea", "score", { "read-only": readOnly })
     return (
       <FormWithValidate errorKey="content" target="score" errors={errors}>

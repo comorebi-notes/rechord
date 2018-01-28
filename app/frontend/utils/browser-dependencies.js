@@ -7,7 +7,7 @@ const Location     = Window.location
 const LocalStorage = localStorage
 const History      = history
 const formData     = FormData
-const audioContext = AudioContext
+const audioContext = Window.AudioContext || Window.webkitAudioContext
 
 export { Window       as window }
 export { Document     as document }

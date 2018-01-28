@@ -1415,9 +1415,10 @@ chokidar@^1.6.0, chokidar@^1.7.0:
     fsevents "^1.0.0"
 
 chord-translator@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/chord-translator/-/chord-translator-0.1.0.tgz#1b19643d850da83b68af3e76025c20b478057af7"
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/chord-translator/-/chord-translator-0.1.4.tgz#b8474f2eee3f4e6f83cd4c17c896df118bddc6d2"
   dependencies:
+    moji "^0.5.1"
     tonal "^1.1.0"
 
 chownr@^1.0.1:

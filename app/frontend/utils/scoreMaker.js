@@ -61,11 +61,12 @@ export const scoreMaker = (text, selectedTime) => {
   const score = []
   const baseKey = 3
   let bar = 0
+  let notesIndex = 0
 
   text.forEach(line => {
     if (!line) return false
 
-    line.forEach(chords => {
+    line.forEach((chords) => {
       const beatPositions = setBeatPositions(chords.length, selectedTime)
       chords.forEach((chord, index) => {
         if (beatPositions.length <= index) return false
@@ -80,7 +81,8 @@ export const scoreMaker = (text, selectedTime) => {
             default:          return fixNotes(chord, baseKey)
           }
         }
-        return score.push({ time, notes: notes() })
+        notesIndex += 1
+        return score.push({ time, notes: notes(), index: notesIndex - 1 })
       })
       bar += 1
     })

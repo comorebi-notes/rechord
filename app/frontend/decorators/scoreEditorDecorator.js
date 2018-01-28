@@ -1,6 +1,7 @@
 import { Note, Distance } from "tonal"
 import moji               from "moji"
 import * as regex         from "../constants/regex"
+import { document }       from "../utils/browser-dependencies"
 
 // Chord.tokenize では9thコードが変換できないため自前で実装
 const tokenize = (_name) => {
@@ -59,30 +60,33 @@ export const keyChange = (progression, operation) => {
   return newProgression.join("\n")
 }
 
-const errorClassName = "parse-error"
+const elements = document.getElementsByClassName("root")
+const activeClassName = "active"
 
-export const addErrorClass = (_element) => {
-  const element = _element
+export const activateCurrentNotes = (index) => {
+  const element = elements[index]
   const targetClassName  = element.className
   const targetClassNames = targetClassName.split(" ")
 
-  // もう付いている場合は一度外して付ける
-  if (targetClassNames.find((className) => className === errorClassName)) {
-    element.className = targetClassNames.filter((className) => className !== errorClassName).join(" ")
+  if (!targetClassNames.find((className) => className === activeClassName)) {
+    element.className += ` ${activeClassName}`
   }
-  element.className += ` ${errorClassName}`
 }
 
-export const removeErrorClass = (_element) => {
-  if (!_element) return false
-
-  const element = _element
+export const deactivateCurrentNotes = (index) => {
+  const element = elements[index]
   const targetClassName  = element.className
   const targetClassNames = targetClassName.split(" ")
 
-  if (targetClassNames.find((className) => className === errorClassName)) {
-    element.className = targetClassNames.filter((className) => className !== errorClassName).join(" ")
-  }
+  element.className = targetClassNames.filter((className) => className !== activeClassName).join(" ")
+}
 
-  return true
+export const allDeactivateCurrentNotes = () => {
+  Array.prototype.forEach.call(elements, (_element) => {
+    const element = _element
+    const targetClassName  = element.className
+    const targetClassNames = targetClassName.split(" ")
+
+    element.className = targetClassNames.filter((className) => className !== activeClassName).join(" ")
+  })
 }

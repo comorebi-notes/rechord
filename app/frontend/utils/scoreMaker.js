@@ -53,7 +53,7 @@ const fixNotes = (chord, baseKey) => {
       addNewRootToNotes(notes, denominator, baseKey)
     }
   }
-  console.log(notes)
+  // console.log(notes)
   return notes.map(Note.simplify)
 }
 

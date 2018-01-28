@@ -5,7 +5,6 @@ import * as regex         from "../constants/regex"
 // Chord.tokenize では9thコードが変換できないため自前で実装
 const tokenize = (_name) => {
   let name = _name
-  name = moji(name).convert("ZE", "HE").toString()
   name = name.replace(/[＃♯]/g,  "#")
   name = name.replace(/[♭ｂ]/g, "b")
   name = name.replace(regex.whiteSpaces, "")
@@ -23,7 +22,7 @@ const tokenize = (_name) => {
 
 export const parseChordProgression = (text) => {
   if (!text) return false
-  return text
+  return moji(text).convert("ZE", "HE").toString()
     .replace(regex.whiteSpaces, "")
     .replace(regex.rootChord,   " $&")
     .replace(regex.joinOnChord, "$1$2")

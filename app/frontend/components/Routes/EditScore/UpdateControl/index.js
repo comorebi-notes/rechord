@@ -26,7 +26,7 @@ class UpdateControl extends Component {
     )
   }
   render() {
-    const { token, status, handleSetState } = this.props
+    const { token, status, isValid, handleSetState } = this.props
     const { loading } = this.state
     const showPath = path.score.show(token)
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
@@ -44,7 +44,7 @@ class UpdateControl extends Component {
               disabled={loading}
             >
               <span className="icon">
-                <i className={iconClass} />
+                <i className="fa fa-undo" />
               </span>
               <span>cancel</span>
             </Link>
@@ -53,7 +53,7 @@ class UpdateControl extends Component {
             <button
               className="button is-primary is-medium"
               onClick={this.handleClick}
-              disabled={loading}
+              disabled={loading || !isValid}
             >
               <span className="icon">
                 <i className={iconClass} />

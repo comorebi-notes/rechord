@@ -33,7 +33,7 @@ class CreateControl extends Component {
     )
   }
   render() {
-    const { userId, status, handleSetState } = this.props
+    const { userId, status, handleSetState, isValid } = this.props
     const { loading } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     const buttonLabel = userId ? "save" : "save & share"
@@ -51,7 +51,7 @@ class CreateControl extends Component {
             <button
               className="button is-primary is-medium"
               onClick={this.handleClick}
-              disabled={loading}
+              disabled={loading || !isValid}
             >
               <span className="icon">
                 <i className={iconClass} />

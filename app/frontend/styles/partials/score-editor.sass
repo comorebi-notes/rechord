@@ -1,3 +1,17 @@
+@mixin parse-error
+  color: #f44
+  border: 1px solid #faa
+  background-color: #fee
+  padding: 0 .2em
+@mixin reset-parse-error
+  color: inherit
+  border: none
+  background-color: inherit
+  padding: 0
+@mixin unclassed-span
+  &:not(.root):not(.on-chord):not(.separator):not(.chord-type):not(.comment)
+    @content
+
 .score
   font-weight: bold
   font-size: 1.1em
@@ -14,7 +28,7 @@
   .separator
     font-weight: normal
     margin-right: 1.1em
-    &:before
+    &:not(:first-of-type):before
       content: " "
       letter-spacing: .65em
   .separator, .separator + .space, .space:first-child
@@ -30,7 +44,10 @@
     line-height: 2.4
     color: #888
   .space
-    display: none
+    font-size: 0.1rem
+    color: inherit !important
+    border: none !important
+    background-color: inherit !important
   .root
     line-height: 1.8
     font-size: 1.3em
@@ -45,6 +62,21 @@
   .streak, .resume, .stop
     color: #aaa
     white-space: nowrap
+
+  .parse-error
+    @include parse-error
+  .chord-type:first-child, span:not(.root):not(.space) + .chord-type
+    @include parse-error
+  .on-chord:first-child, span:not(.root):not(.space):not(.chord-type) + .on-chord
+    @include parse-error
+  .public-DraftStyleDefault-block
+    > span
+      @include unclassed-span
+        @include parse-error
+    > span:first-child:last-child
+        @include unclassed-span
+          @include reset-parse-error
+
   .DraftEditor-editorContainer
     position: relative
     z-index: 1

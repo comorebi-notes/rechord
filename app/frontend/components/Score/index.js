@@ -11,19 +11,39 @@ import BpmControl        from "./BpmControl"
 import ClickControl      from "./ClickControl"
 import VolumeControl     from "./VolumeControl"
 import SoundControl      from "./SoundControl"
+import { validate }      from "./validate"
+import { scoreMaker }    from "../../utils/scoreMaker"
 import * as decorator    from "../../decorators/scoreEditorDecorator"
 
 export default class Score extends Component {
+  constructor() {
+    super()
+    this.state = { score: false }
+  }
+  componentWillReceiveProps({ inputText, beat }) {
+    if (inputText !== this.props.inputText || beat !== this.props.beat) {
+      const parsedText = decorator.parseChordProgression(inputText)
+      const score = beat && parsedText && scoreMaker(parsedText, beat)
+      this.setState({ score })
+
+      if (score) {
+        const isValid = validate(score)
+        this.setState({ isValid })
+        this.props.handleSetState({ isValid })
+      }
+    }
+  }
   handleChangeEditorState = (editorState) => {
     this.props.handleSetState({ editorState }, false)
     this.props.setInputText(editorState.getCurrentContent().getPlainText(), false)
   }
+
   render() {
     const {
       hideLabel, inputText, editorState, instrumentType, beat, bpm, volume,
       enabledClick, isPlaying, handleSetState, setInputText, errors
     } = this.props
-    const parsedText = decorator.parseChordProgression(inputText)
+    const { score, isValid } = this.state
 
     return (
       <div className="field" style={{ paddingBottom: "1.5rem" }}>
@@ -94,7 +114,8 @@ export default class Score extends Component {
                 bpm={bpm}
                 volume={volume}
                 enabledClick={enabledClick}
-                parsedText={parsedText}
+                score={score}
+                isValid={isValid}
                 isPlaying={isPlaying}
                 handleSetState={handleSetState}
               />

@@ -1,7 +1,8 @@
-import { Note, Distance }                      from "tonal"
-import chordTranslator                         from "chord-translator"
-import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE } from "../constants"
-import { beats }                               from "../constants/beats"
+import { Note, Distance } from "tonal"
+import chordTranslator    from "chord-translator"
+import { beats }          from "../constants/beats"
+import * as regex         from "../constants/regex"
+import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE, STOP_NOTE_2 } from "../constants"
 
 const setBeatPositions = (length, selectedBeat) => {
   if (length === 1) return [0]
@@ -34,22 +35,25 @@ const addNewRootToNotes = (notes, denominator, baseKey) => {
 
 const fixNotes = (chord, baseKey) => {
   const root        = chord[0]
-  const denominator = chord[1].split("/")[1]
-  const type        = chord[1].split("/")[0]
-  const notes       = chordTranslator(root, type, baseKey)
+  const splitedType = chord[1].split(/\/|on/)
+  const type        = splitedType[0]
+  const denominator = splitedType[1]
+
+  const notes = chordTranslator(root, type, baseKey)
+  if (!notes) return false
 
   const maxNotes = 5
   const minNotes = 3
 
   if (notes.length > 0) {
-    if (denominator && denominator.length > 0 && denominator !== root) {
-      addNewRootToNotes(notes, denominator, baseKey)
-    }
     for (let i = notes.length - minNotes; i < maxNotes - minNotes; i += 1) {
       notes.push(upOctave(notes[i]))
     }
+    if (denominator && denominator.length > 0 && denominator !== root) {
+      addNewRootToNotes(notes, denominator, baseKey)
+    }
   }
-  console.log(notes)
+  // console.log(notes)
   return notes.map(Note.simplify)
 }
 
@@ -68,6 +72,7 @@ export const scoreMaker = (text, selectedTime) => {
 
         const time = `${bar}:${beatPositions[index]}:0`
         const notes = () => {
+          if (chord[1] === STOP_NOTE_2) return []
           switch (chord[1][0]) {
             case STREAK_NOTE: return STREAK_NOTE
             case RESUME_NOTE: return RESUME_NOTE

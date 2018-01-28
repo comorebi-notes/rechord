@@ -1,17 +1,20 @@
 import React, { Component } from "react"
-import { Transport, Master, Sampler, MonoSynth, Part } from "tone"
+import Tone, { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 
 import Button                from "../../commons/Button"
 import { beats }             from "../../../constants/beats"
 import * as instruments      from "../../../constants/instruments"
 import * as utils            from "../../../utils"
-import { scoreMaker }        from "../../../utils/scoreMaker"
-import { window, navigator } from "../../../utils/browser-dependencies"
+import { window, navigator, AudioContext }      from "../../../utils/browser-dependencies"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../../constants"
 
 export default class SoundControl extends Component {
   constructor(props) {
     super(props)
+
+    Tone.context.close()
+    Tone.context = new AudioContext() // reset Tone.js
+
     this.setBpm(props.bpm)
     this.setVolume(props.volume)
     this.setInstrument(props.instrumentType)
@@ -114,25 +117,24 @@ export default class SoundControl extends Component {
     this.releaseNotes(this.state.currentNotes)
     Transport.stop()
     Transport.cancel()
+    Transport.clear()
     this.handleChangePlaying(false)
   }
   handleStart = () => {
-    const { beat, parsedText } = this.props
-    const score = scoreMaker(parsedText, beat)
+    const { score, beat } = this.props
 
     Transport.timeSignature = beats[beat]
     this.handleStop()
     this.setInstrumentSchedule(score)
     this.setClickSchedule(score)
     this.handleChangePlaying(true)
-    Transport.start("+0.1")
+    Transport.start("+0.25")
   }
 
   render() {
-    const { isPlaying, parsedText, bpm } = this.props
+    const { isPlaying, bpm, isValid } = this.props
     const { loading } = this.state
-    const isBlankText = !parsedText || (parsedText && parsedText.every(text => !text[0]))
-    const cannotPlay = loading || isPlaying || bpm <= 0 || isBlankText
+    const cannotPlay = loading || isPlaying || bpm <= 0 || !isValid
     return (
       <div className="field sound-control">
         <div className="control">

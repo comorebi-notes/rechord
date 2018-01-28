@@ -1,33 +1,40 @@
 import { Note, Distance } from "tonal"
+import moji               from "moji"
 import * as regex         from "../constants/regex"
 
 // Chord.tokenize では9thコードが変換できないため自前で実装
-const tokenize = (name) => {
-  const p = Note.tokenize(name)
-  if (p[0] === "") return ["", name]
+const tokenize = (_name) => {
+  let name = _name
+  name = name.replace(/[＃♯]/g,  "#")
+  name = name.replace(/[♭ｂ]/g, "b")
+  name = name.replace(regex.whiteSpaces, "")
 
-  if (p[0] !== "" && p[2].match(/^(6|7|9|11|13|-5)/)) {
-    return [p[0] + p[1], p[2] + p[3]]
-  } else {
-    return [p[0] + p[1] + p[2], p[3]]
-  }
+  const validateChord = regex.chord.test(name)
+  if (!validateChord) return ["", "parse-error"]
+
+  const nameMatch = name.match(/([CDEFGAB][#b]{0,2})/)
+  const splitPoint = nameMatch ? nameMatch[0].length : 0
+  return [
+    name.slice(0, splitPoint),
+    name.slice(splitPoint)
+  ]
 }
 
 export const parseChordProgression = (text) => {
   if (!text) return false
-  return text
+  return moji(text).convert("ZE", "HE").toString()
     .replace(regex.whiteSpaces, "")
     .replace(regex.rootChord,   " $&")
     .replace(regex.joinOnChord, "$1$2")
     .split("\n")
     .filter(line => line[0] !== "#")
-    .map(line => line.split("|"))
+    .map(line => line.split(regex.separator))
     .map(line => (
       line[0][0] === "\n" ? line : (
         line
           .map(chords => chords.trim())
           .filter(chords => chords !== "")
-          .map(chords => chords.split(/ +/))
+          .map(chords => chords.split(regex.whiteSpaces))
           .map(chords => chords.map(chord => tokenize(chord)))
       )
     ))
@@ -50,4 +57,32 @@ export const keyChange = (progression, operation) => {
     }
   })
   return newProgression.join("\n")
+}
+
+const errorClassName = "parse-error"
+
+export const addErrorClass = (_element) => {
+  const element = _element
+  const targetClassName  = element.className
+  const targetClassNames = targetClassName.split(" ")
+
+  // もう付いている場合は一度外して付ける
+  if (targetClassNames.find((className) => className === errorClassName)) {
+    element.className = targetClassNames.filter((className) => className !== errorClassName).join(" ")
+  }
+  element.className += ` ${errorClassName}`
+}
+
+export const removeErrorClass = (_element) => {
+  if (!_element) return false
+
+  const element = _element
+  const targetClassName  = element.className
+  const targetClassNames = targetClassName.split(" ")
+
+  if (targetClassNames.find((className) => className === errorClassName)) {
+    element.className = targetClassNames.filter((className) => className !== errorClassName).join(" ")
+  }
+
+  return true
 }

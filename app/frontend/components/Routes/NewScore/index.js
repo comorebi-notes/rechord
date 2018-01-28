@@ -40,7 +40,8 @@ export default class NewScore extends Component {
       status:         "published",
       userId:         currentUser.id,
       restoreState:   localStorageState.get(),
-      errors:         {}
+      errors:         {},
+      isValid:        false
     }
   }
   componentDidMount = () => utils.setTitle("", this.props.history)
@@ -68,7 +69,8 @@ export default class NewScore extends Component {
   render() {
     const {
       inputText, title, editorState, beat, bpm, volume, instrumentType,
-      isPlaying, enabledClick, status, userId, token, modal, restoreState, errors
+      isPlaying, enabledClick, status, userId, token, modal, restoreState,
+      errors, isValid
     } = this.state
     return (
       <div>
@@ -115,6 +117,7 @@ export default class NewScore extends Component {
           status={status}
           userId={userId}
           token={token}
+          isValid={isValid}
           handleSetState={this.handleSetState}
           handleResetLocalStorage={this.handleResetLocalStorage}
         />

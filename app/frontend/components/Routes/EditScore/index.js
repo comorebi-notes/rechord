@@ -23,7 +23,8 @@ export default class EditScore extends Component {
       bpm:            DEFAULT_BPM,
       instrumentType: DEFAULT_INSTRUMENT_TYPE,
       userId:         currentUser && currentUser.id,
-      errors:         {}
+      errors:         {},
+      isValid:        false
     }
   }
   componentDidMount() {
@@ -66,7 +67,7 @@ export default class EditScore extends Component {
   render() {
     const {
       loading, errors, inputText, title, editorState, beat, bpm, volume,
-      instrumentType, isPlaying, enabledClick, status, userId, token
+      instrumentType, isPlaying, enabledClick, status, userId, token, isValid
     } = this.state
     return (
       <div className={classNames({ "loading-wrapper": loading })}>
@@ -98,6 +99,7 @@ export default class EditScore extends Component {
           status={status}
           userId={userId}
           token={token}
+          isValid={isValid}
           handleSetState={this.handleSetState}
         />
       </div>

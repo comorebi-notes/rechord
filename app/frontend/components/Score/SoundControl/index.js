@@ -3,7 +3,6 @@ import Tone, { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 
 import Button                from "../../commons/Button"
 import { beats }             from "../../../constants/beats"
-import { validate }          from "./validate"
 import * as instruments      from "../../../constants/instruments"
 import * as utils            from "../../../utils"
 import { window, navigator, AudioContext }      from "../../../utils/browser-dependencies"
@@ -133,10 +132,9 @@ export default class SoundControl extends Component {
   }
 
   render() {
-    const { isPlaying, score, parsedText, bpm } = this.props
+    const { isPlaying, bpm, isValid } = this.props
     const { loading } = this.state
-    const isBlankText = !parsedText || (parsedText && parsedText.every(text => !text[0]))
-    const cannotPlay = loading || isPlaying || bpm <= 0 || isBlankText || !validate(score)
+    const cannotPlay = loading || isPlaying || bpm <= 0 || !isValid
     return (
       <div className="field sound-control">
         <div className="control">

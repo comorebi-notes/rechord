@@ -12,7 +12,10 @@ import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../../constants"
 export default class SoundControl extends Component {
   constructor(props) {
     super(props)
+
+    Tone.context.close()
     Tone.context = new AudioContext() // reset Tone.js
+
     this.setBpm(props.bpm)
     this.setVolume(props.volume)
     this.setInstrument(props.instrumentType)
@@ -50,7 +53,6 @@ export default class SoundControl extends Component {
   }
   componentWillUnmount() {
     this.handleStop()
-    Tone.context.close()
   }
 
   onMount = (callback) => callback()

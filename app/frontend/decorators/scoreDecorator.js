@@ -71,8 +71,10 @@ const rootChordComponent = (props) => (
     {props.children}
   </span>
 )
-const whiteSpacesComponent = () => (
-  <span className="space" />
+const whiteSpacesComponent = (props) => (
+  <span className="space">
+    {props.children}
+  </span>
 )
 const chordTypeComponent = (props) => (
   <span className={chordTypeClassName(props.decoratedText)}>

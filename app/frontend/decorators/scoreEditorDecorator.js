@@ -8,6 +8,10 @@ const tokenize = (_name) => {
   name = moji(name).convert("ZE", "HE").toString()
   name = name.replace(/[＃♯]/g,  "#")
   name = name.replace(/[♭ｂ]/g, "b")
+  name = name.replace(regex.whiteSpaces, "")
+
+  const validateChord = regex.chord.test(name)
+  if (!validateChord) return ["", "parse-error"]
 
   const nameMatch = name.match(/([CDEFGAB][#b]{0,2})/)
   const splitPoint = nameMatch ? nameMatch[0].length : 0

@@ -1,6 +1,7 @@
 import { Note, Distance } from "tonal"
 import chordTranslator    from "chord-translator"
 import { beats }          from "../constants/beats"
+import * as regex         from "../constants/regex"
 import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE, STOP_NOTE_2 } from "../constants"
 
 const setBeatPositions = (length, selectedBeat) => {
@@ -37,8 +38,8 @@ const fixNotes = (chord, baseKey) => {
   const splitedType = chord[1].split(/\/|on/)
   const type        = splitedType[0]
   const denominator = splitedType[1]
-  const notes       = chordTranslator(root, type, baseKey)
 
+  const notes = chordTranslator(root, type, baseKey)
   if (!notes) return false
 
   const maxNotes = 5

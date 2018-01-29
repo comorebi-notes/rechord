@@ -7,6 +7,7 @@ import ScoreHeader       from "./ScoreHeader"
 import ScoreFooter       from "./ScoreFooter"
 import DestroyScoreModal from "./DestroyScoreModal"
 import scoreDecorator    from "../../../decorators/scoreDecorator"
+import * as regex        from "../../../constants/regex"
 import * as api          from "../../../api"
 import * as path         from "../../../utils/path"
 import * as utils        from "../../../utils"
@@ -32,7 +33,9 @@ export default class ShowScore extends Component {
       { token },
       (success) => {
         const { score, author } = success.data
-        const scoreContent = score.content
+        const scoreContent = score.content.split("\n").map(line => (
+          line[0] === "#" ? line : line.replace(regex.whiteSpaces, "")
+        )).join("\n")
         const contentState = ContentState.createFromText(scoreContent)
         utils.setTitle(score.title, this.props.history)
         this.setState({

@@ -8,12 +8,11 @@ const tokenize = (_name) => {
   let name = _name
   name = name.replace(/[＃♯]/g,  "#")
   name = name.replace(/[♭ｂ]/g, "b")
-  name = name.replace(regex.whiteSpaces, "")
 
   const validateChord = regex.chord.test(name)
   if (!validateChord) return ["", "parse-error"]
 
-  const nameMatch = name.match(/([CDEFGAB][#b]{0,2})/)
+  const nameMatch = name.match(regex.rootChord)
   const splitPoint = nameMatch ? nameMatch[0].length : 0
   return [
     name.slice(0, splitPoint),
@@ -24,7 +23,7 @@ const tokenize = (_name) => {
 export const parseChordProgression = (text) => {
   if (!text) return false
   return moji(text).convert("ZE", "HE").toString()
-    .replace(regex.whiteSpaces, "")
+    // .replace(regex.whiteSpaces, "")
     .replace(regex.rootChord,   " $&")
     .replace(regex.joinOnChord, "$1$2")
     .split("\n")

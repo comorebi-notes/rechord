@@ -4,7 +4,7 @@ import classNames           from "classnames"
 import { validateTypes }    from "./validateTypes"
 import { validator }        from "../../../validator"
 import FormWithValidate     from "../../../validator/FormWithValidate"
-
+import * as regex           from "../../../constants/regex"
 import { setCurrentScrollPosition, changeScrollPosition } from "./changeScrollPosition"
 
 export default class ScoreEditor extends Component {
@@ -42,6 +42,21 @@ export default class ScoreEditor extends Component {
     setCurrentScrollPosition()
     handleChangeEditorState(editorState)
   }
+  handleBeforeInput = (chars, editorState) => {
+    if (chars.match(regex.whiteSpaces)) {
+      const selectionState      = editorState.getSelection()
+      const anchorKey           = selectionState.getAnchorKey()
+      const currentContent      = editorState.getCurrentContent()
+      const currentContentBlock = currentContent.getBlockForKey(anchorKey)
+      const currentLineText     = currentContentBlock.getText()
+      const offset              = editorState.getSelection().getAnchorOffset()
+
+      if (currentLineText[0] !== "#" || offset === 0) {
+        return "handled"
+      }
+    }
+    return false
+  }
   render() {
     const { errors, editorState, readOnly } = this.props
     const placeholder = "C | F | G7 | C ..."
@@ -55,6 +70,7 @@ export default class ScoreEditor extends Component {
             readOnly={readOnly}
             onBlur={this.handleTouch}
             onChange={this.handleChange}
+            handleBeforeInput={this.handleBeforeInput}
           />
         </div>
       </FormWithValidate>

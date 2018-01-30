@@ -26,12 +26,13 @@
   &.read-only
     box-shadow: none
   .separator
+    opacity: .5
     font-weight: normal
     margin-right: 1.1em
     &:not(:first-of-type):before
       content: " "
       letter-spacing: .65em
-  .separator, .separator + .space, .space:first-child
+  .separator, .space
     & + .root
       &:not(:first-child):before
         content: "" !important
@@ -43,11 +44,6 @@
     font-weight: normal
     line-height: 2.4
     color: #888
-  .space
-    font-size: 0.1rem
-    color: inherit !important
-    border: none !important
-    background-color: inherit !important
   .root
     line-height: 1.8
     font-size: 1.3em
@@ -56,18 +52,38 @@
         content: " "
         letter-spacing: .65em
     &:not(:last-child)
-      padding-right: 1px
+      > span
+        padding-right: 1px
+  .chord-type, .on-chord, .space
+    font-size: 1.3em
+    > span > span
+      font-size: 1.1rem
   .on-chord
-    padding-left: .1em
+    > span
+      padding-left: .1em
   .streak, .resume, .stop
     color: #aaa
     white-space: nowrap
 
+  // active
+  .root
+    &, & + .chord-type, & + .on-chord, & + .chord-type + .on-chord
+      > span
+        transition: background-color .2s ease
+  .root.active
+    &, & + .chord-type, & + .on-chord, & + .chord-type + .on-chord
+      > span
+        padding-top: 2px
+        padding-bottom: 2px
+        background-color: #ffa
+        border-bottom: 2px solid #f88
+
+  // parse error
   .parse-error
     @include parse-error
-  .chord-type:first-child, span:not(.root):not(.space) + .chord-type
+  .chord-type:first-child, span:not(.root) + .chord-type
     @include parse-error
-  .on-chord:first-child, span:not(.root):not(.space):not(.chord-type) + .on-chord
+  .on-chord:first-child, span:not(.root):not(.chord-type) + .on-chord
     @include parse-error
   .public-DraftStyleDefault-block
     > span

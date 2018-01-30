@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import Tone, { Transport, Master, Sampler, MonoSynth, Part } from "tone"
 
-import Button                from "../../commons/Button"
-import { beats }             from "../../../constants/beats"
-import * as instruments      from "../../../constants/instruments"
-import * as utils            from "../../../utils"
+import Button           from "../../commons/Button"
+import { beats }        from "../../../constants/beats"
+import * as instruments from "../../../constants/instruments"
+import * as utils       from "../../../utils"
+import * as decorator   from "../../../decorators/scoreEditorDecorator"
 import { window, navigator, AudioContext }      from "../../../utils/browser-dependencies"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../../constants"
 
@@ -73,19 +74,22 @@ export default class SoundControl extends Component {
   setClick = () => new MonoSynth(instruments.click).toMaster()
   setInstrumentSchedule = (score) => {
     const triggerInstrument = (time, value) => {
-      const { notes } = value
+      const { notes, index } = value
       const { currentNotes } = this.state
 
       if (notes[0] !== RESUME_NOTE) {
-        this.releaseNotes(currentNotes)
+        this.releaseNotes(currentNotes, index - 1)
         if (notes === "fin") {
           this.handleStop()
         } else if (notes[0] === STREAK_NOTE) {
-          this.attackNotes(currentNotes)
+          this.attackNotes(currentNotes, index)
         } else {
-          this.attackNotes(notes)
+          this.attackNotes(notes, index)
           this.setState({ currentNotes: notes })
         }
+      } else {
+        decorator.activateCurrentNotes(index)
+        decorator.deactivateCurrentNotes(index - 1)
       }
     }
     new Part(triggerInstrument, score).start()
@@ -109,8 +113,14 @@ export default class SoundControl extends Component {
   setBpm = (bpm) => { Transport.bpm.value = bpm }
   setVolume = (volume) => { Master.volume.value = volume - MAX_VOLUME }
 
-  attackNotes  = (notes) => notes.forEach(note => this.state.instrument.triggerAttack(note))
-  releaseNotes = (notes) => notes.forEach(note => this.state.instrument.triggerRelease(note))
+  attackNotes  = (notes, index) => {
+    notes.forEach(note => this.state.instrument.triggerAttack(note))
+    if (index > -1) decorator.activateCurrentNotes(index)
+  }
+  releaseNotes = (notes, index) => {
+    notes.forEach(note => this.state.instrument.triggerRelease(note))
+    if (index > -1) decorator.deactivateCurrentNotes(index)
+  }
 
   handleChangePlaying = (state) => this.props.handleSetState({ isPlaying: state }, false)
   handleStop = () => {
@@ -118,6 +128,7 @@ export default class SoundControl extends Component {
     Transport.stop()
     Transport.cancel()
     Transport.clear()
+    decorator.allDeactivateCurrentNotes()
     this.handleChangePlaying(false)
   }
   handleStart = () => {

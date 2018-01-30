@@ -2,13 +2,14 @@ import React, { Component }          from "react"
 import { EditorState, ContentState } from "draft-js"
 import classNames                    from "classnames"
 
-import Score          from "../../Score"
-import TitleControl   from "../../TitleControl"
-import UpdateControl  from "./UpdateControl"
-import scoreDecorator from "../../../decorators/scoreDecorator"
-import * as api       from "../../../api"
-import * as utils     from "../../../utils"
-import * as path      from "../../../utils/path"
+import Score                  from "../../Score"
+import TitleControl           from "../../TitleControl"
+import UpdateControl          from "./UpdateControl"
+import scoreDecorator         from "../../../decorators/scoreDecorator"
+import * as api               from "../../../api"
+import * as utils             from "../../../utils"
+import * as path              from "../../../utils/path"
+import * as localStorageState from "../../../utils/localStorageState"
 import { DEFAULT_BPM, DEFAULT_VOLUME, DEFAULT_INSTRUMENT_TYPE } from "../../../constants"
 
 export default class EditScore extends Component {
@@ -28,28 +29,41 @@ export default class EditScore extends Component {
     }
   }
   componentDidMount() {
+    const tempState = localStorageState.get("editScore")
+    if (tempState) {
+      this.setTempState(tempState)
+    } else {
+      const { token } = this.props.match.params
+      api.editScore(
+        { token },
+        (success) => {
+          const { score } = success.data
+          const contentState = ContentState.createFromText(score.content)
+          utils.setTitle(score.title, this.props.history)
+          this.setState({
+            loading:        false,
+            inputText:      score.content,
+            editorState:    EditorState.createWithContent(contentState, scoreDecorator),
+            title:          score.title,
+            enabledClick:   score.click,
+            bpm:            score.bpm,
+            beat:           score.beat,
+            status:         score.status,
+            instrumentType: score.instrument,
+            token:          score.token
+          })
+        },
+        () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
+      )
+    }
+  }
+  setTempState = (tempState) => {
     const { token } = this.props.match.params
-    api.editScore(
-      { token },
-      (success) => {
-        const { score } = success.data
-        const contentState = ContentState.createFromText(score.content)
-        utils.setTitle(score.title, this.props.history)
-        this.setState({
-          loading:        false,
-          inputText:      score.content,
-          editorState:    EditorState.createWithContent(contentState, scoreDecorator),
-          title:          score.title,
-          enabledClick:   score.click,
-          bpm:            score.bpm,
-          beat:           score.beat,
-          status:         score.status,
-          instrumentType: score.instrument,
-          token:          score.token
-        })
-      },
-      () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
-    )
+    const contentState = ContentState.createFromText(tempState.inputText)
+    const editorState  = EditorState.createWithContent(contentState, scoreDecorator)
+    this.setState(Object.assign({ loading: false, token, editorState }, tempState))
+    utils.setTitle(tempState.title, this.props.history)
+    localStorageState.remove("editScore")
   }
 
   setEditorState = (inputText) => {

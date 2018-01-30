@@ -1,7 +1,6 @@
 import { Note, Distance } from "tonal"
 import chordTranslator    from "chord-translator"
 import { beats }          from "../constants/beats"
-import * as regex         from "../constants/regex"
 import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE, STOP_NOTE_2 } from "../constants"
 
 const setBeatPositions = (length, selectedBeat) => {
@@ -61,26 +60,28 @@ export const scoreMaker = (text, selectedTime) => {
   const score = []
   const baseKey = 3
   let bar = 0
+  let notesIndex = 0
 
   text.forEach(line => {
     if (!line) return false
 
-    line.forEach(chords => {
+    line.forEach((chords) => {
       const beatPositions = setBeatPositions(chords.length, selectedTime)
       chords.forEach((chord, index) => {
         if (beatPositions.length <= index) return false
 
         const time = `${bar}:${beatPositions[index]}:0`
         const notes = () => {
-          if (chord[1] === STOP_NOTE_2) return []
-          switch (chord[1][0]) {
+          switch (chord[0]) {
             case STREAK_NOTE: return STREAK_NOTE
             case RESUME_NOTE: return RESUME_NOTE
             case STOP_NOTE:   return []
+            case STOP_NOTE_2: return []
             default:          return fixNotes(chord, baseKey)
           }
         }
-        return score.push({ time, notes: notes() })
+        notesIndex += 1
+        return score.push({ time, notes: notes(), index: notesIndex - 1 })
       })
       bar += 1
     })

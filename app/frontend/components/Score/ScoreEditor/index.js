@@ -1,10 +1,11 @@
 import React, { Component } from "react"
-import { Editor }           from "draft-js"
 import classNames           from "classnames"
-import { validateTypes }    from "./validateTypes"
-import { validator }        from "../../../validator"
-import FormWithValidate     from "../../../validator/FormWithValidate"
+import { Editor, Modifier, EditorState, ContentState } from "draft-js"
 
+import { validateTypes } from "./validateTypes"
+import { validator }     from "../../../validator"
+import FormWithValidate  from "../../../validator/FormWithValidate"
+import * as regex        from "../../../constants/regex"
 import { setCurrentScrollPosition, changeScrollPosition } from "./changeScrollPosition"
 
 export default class ScoreEditor extends Component {
@@ -42,9 +43,34 @@ export default class ScoreEditor extends Component {
     setCurrentScrollPosition()
     handleChangeEditorState(editorState)
   }
+  handleBeforeInput = (chars, editorState) => {
+    if (chars.match(regex.whiteSpaces)) {
+      const selectionState      = editorState.getSelection()
+      const anchorKey           = selectionState.getAnchorKey()
+      const currentContent      = editorState.getCurrentContent()
+      const currentContentBlock = currentContent.getBlockForKey(anchorKey)
+      const currentLineText     = currentContentBlock.getText()
+      const offset              = editorState.getSelection().getAnchorOffset()
+
+      if (currentLineText[0] !== "#" || offset === 0) return "handled"
+    }
+    return false
+  }
+  handlePastedText = (text, html, editorState) => {
+    const trimmedText = text.split("\n").map((line) => (
+      line[0] === "#" ? line : line.replace(regex.whiteSpaces, "")
+    )).join("\n")
+    const pastedBlocks    = ContentState.createFromText(trimmedText).blockMap
+    const currentContent  = editorState.getCurrentContent()
+    const selectionState  = editorState.getSelection()
+    const newContent      = Modifier.replaceWithFragment(currentContent, selectionState, pastedBlocks)
+    const newEditorState  = EditorState.push(editorState, newContent, trimmedText)
+    this.handleChange(newEditorState)
+    return true
+  }
   render() {
     const { errors, editorState, readOnly } = this.props
-    const placeholder = "D6(9) | Aadd9 | E | F#m7(11)"
+    const placeholder = "C | F | G7 | C ..."
     const textAreaClass = classNames("textarea", "score", { "read-only": readOnly })
     return (
       <FormWithValidate errorKey="content" target="score" errors={errors}>
@@ -55,6 +81,8 @@ export default class ScoreEditor extends Component {
             readOnly={readOnly}
             onBlur={this.handleTouch}
             onChange={this.handleChange}
+            handleBeforeInput={this.handleBeforeInput}
+            handlePastedText={this.handlePastedText}
           />
         </div>
       </FormWithValidate>

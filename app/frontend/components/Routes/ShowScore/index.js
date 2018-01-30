@@ -113,6 +113,7 @@ export default class ShowScore extends Component {
           <ScoreFooter
             token={token}
             history={history}
+            currentState={this.state}
             handleToggleDestroyModal={this.handleToggleDestroyModal}
           />
         )}

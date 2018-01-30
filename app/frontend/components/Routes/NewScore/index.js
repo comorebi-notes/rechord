@@ -20,6 +20,7 @@ export default class NewScore extends Component {
     let score = ""
     let inputText = ""
 
+    // 初めての訪問の場合はサンプルを表示
     if (Object.keys(currentUser).length === 0 && !localStorageState.isVisited()) {
       score     = sampleScore
       inputText = sampleScore

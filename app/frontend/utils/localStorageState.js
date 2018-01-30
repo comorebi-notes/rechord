@@ -3,29 +3,29 @@ import { localStorage } from "./browser-dependencies"
 const localStorageKey = "rechordState"
 const commonKey = "rechord"
 
-export const get = () => {
+export const get = (key) => {
   if (!localStorage) return false
 
-  const state = localStorage.getItem(localStorageKey)
+  const state = localStorage.getItem(key || localStorageKey)
   if (!state) return false
 
   return JSON.parse(state)
 }
 
-export const set = (state) => {
+export const set = (state, key) => {
   if (!localStorage) return false
 
   const { update, title, inputText, enabledClick, bpm, volume, beat, instrumentType, status } = state
   if (update) return false
 
-  return localStorage.setItem(localStorageKey, JSON.stringify({
+  return localStorage.setItem(key || localStorageKey, JSON.stringify({
     title, inputText, enabledClick, bpm, volume, beat, instrumentType, status
   }))
 }
 
-export const remove = () => {
+export const remove = (key) => {
   if (!localStorage) return false
-  return localStorage.removeItem(localStorageKey)
+  return localStorage.removeItem(key || localStorageKey)
 }
 
 export const visit = () => {

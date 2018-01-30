@@ -1,10 +1,11 @@
-import React, { Component }              from "react"
-import { Editor, Modifier, EditorState } from "draft-js"
-import classNames                        from "classnames"
-import { validateTypes }                 from "./validateTypes"
-import { validator }                     from "../../../validator"
-import FormWithValidate                  from "../../../validator/FormWithValidate"
-import * as regex                        from "../../../constants/regex"
+import React, { Component } from "react"
+import classNames           from "classnames"
+import { Editor, Modifier, EditorState, ContentState } from "draft-js"
+
+import { validateTypes } from "./validateTypes"
+import { validator }     from "../../../validator"
+import FormWithValidate  from "../../../validator/FormWithValidate"
+import * as regex        from "../../../constants/regex"
 import { setCurrentScrollPosition, changeScrollPosition } from "./changeScrollPosition"
 
 export default class ScoreEditor extends Component {
@@ -56,15 +57,15 @@ export default class ScoreEditor extends Component {
     return false
   }
   handlePastedText = (text, html, editorState) => {
-    const { handleChangeEditorState } = this.props
-    console.log(text)
-    const trimmedText = text.split("\n").map(line => (line[0] === "#" ? line : line.replace(regex.whiteSpaces, ""))).join("\n")
-    console.log(trimmedText)
-    const currentContent = editorState.getCurrentContent()
-    const selectionState = editorState.getSelection()
-    const insertText     = Modifier.replaceText(currentContent, selectionState, trimmedText)
-    const newEditorState = EditorState.push(editorState, insertText)
-    handleChangeEditorState(newEditorState)
+    const trimmedText = text.split("\n").map((line) => (
+      line[0] === "#" ? line : line.replace(regex.whiteSpaces, "")
+    )).join("\n")
+    const pastedBlocks    = ContentState.createFromText(trimmedText).blockMap
+    const currentContent  = editorState.getCurrentContent()
+    const selectionState  = editorState.getSelection()
+    const newContent      = Modifier.replaceWithFragment(currentContent, selectionState, pastedBlocks)
+    const newEditorState  = EditorState.push(editorState, newContent, trimmedText)
+    this.handleChange(newEditorState)
     return true
   }
   render() {

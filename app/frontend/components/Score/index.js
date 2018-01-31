@@ -8,6 +8,7 @@ import SetSampleButton   from "./SetSampleButton"
 import InstrumentControl from "./InstrumentControl"
 import BeatControl       from "./BeatControl"
 import BpmControl        from "./BpmControl"
+import CapoControl       from "./CapoControl"
 import ClickControl      from "./ClickControl"
 import VolumeControl     from "./VolumeControl"
 import SoundControl      from "./SoundControl"
@@ -40,7 +41,7 @@ export default class Score extends Component {
 
   render() {
     const {
-      hideLabel, inputText, editorState, instrumentType, beat, bpm, volume,
+      hideLabel, inputText, editorState, instrumentType, beat, bpm, capo, volume,
       enabledClick, isPlaying, handleSetState, setInputText, errors
     } = this.props
     const { score, isValid } = this.state
@@ -102,6 +103,10 @@ export default class Score extends Component {
                     bpm={bpm}
                     handleSetState={handleSetState}
                   />
+                  <CapoControl
+                    capo={capo}
+                    handleSetState={handleSetState}
+                  />
                   <ClickControl
                     enabledClick={enabledClick}
                     handleSetState={handleSetState}
@@ -112,6 +117,7 @@ export default class Score extends Component {
                 instrumentType={instrumentType}
                 beat={beat}
                 bpm={bpm}
+                capo={capo}
                 volume={volume}
                 enabledClick={enabledClick}
                 score={score}

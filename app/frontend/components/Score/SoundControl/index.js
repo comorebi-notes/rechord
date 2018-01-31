@@ -41,14 +41,14 @@ export default class SoundControl extends Component {
       this.onMount(() => this.setState({ hasLoaded: true }))
     }
   }
-  componentWillReceiveProps({ bpm, volume, instrumentType, enabledClick }) {
+  componentWillReceiveProps({ bpm, volume, enabledClick, instrumentType }) {
     if (bpm !== this.props.bpm) this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
-    if (!this.state.hasLoaded || instrumentType !== this.props.instrumentType) {
-      this.setLoaded(instrumentType, true)
-    }
     if (this.state.click && (enabledClick !== this.props.enabledClick)) {
       this.state.click.volume.value = enabledClick ? 0 : -100
+    }
+    if (!this.state.hasLoaded || instrumentType !== this.props.instrumentType) {
+      this.setLoaded(instrumentType, true)
     }
   }
   componentWillUnmount() {
@@ -76,20 +76,27 @@ export default class SoundControl extends Component {
     const triggerInstrument = (time, value) => {
       const { notes, index } = value
       const { currentNotes } = this.state
+      const capoNotes = utils.capotasto(notes, this.props.capo)
 
-      if (notes[0] !== RESUME_NOTE) {
-        this.releaseNotes(currentNotes, time, index - 1)
-        if (notes === "fin") {
-          this.handleStop()
-        } else if (notes[0] === STREAK_NOTE) {
-          this.attackNotes(currentNotes, time, index)
-        } else {
-          this.attackNotes(notes, time, index)
-          this.setState({ currentNotes: notes })
-        }
-      } else {
-        decorator.activateCurrentNotes(index)
-        decorator.deactivateCurrentNotes(index - 1)
+      switch (notes[0]) {
+        case RESUME_NOTE:
+          decorator.activateCurrentNotes(index)
+          decorator.deactivateCurrentNotes(index - 1)
+          break
+        case STREAK_NOTE:
+          this.releaseNotes(currentNotes, index - 1)
+          this.attackNotes(currentNotes, index)
+          break
+        case "f":
+          if (notes === "fin") {
+            this.releaseNotes(currentNotes, index - 1)
+            this.handleStop()
+          }
+          break
+        default:
+          this.releaseNotes(currentNotes, index - 1)
+          this.attackNotes(capoNotes, index)
+          this.setState({ currentNotes: capoNotes })
       }
     }
     new Part(triggerInstrument, score).start()
@@ -113,21 +120,21 @@ export default class SoundControl extends Component {
   setBpm = (bpm) => { Transport.bpm.value = bpm }
   setVolume = (volume) => { Master.volume.value = volume - MAX_VOLUME }
 
-  attackNotes  = (notes, time, index) => {
-    notes.forEach(note => this.state.instrument.triggerAttack(note, time))
+  attackNotes  = (notes, index) => {
+    notes.forEach(note => this.state.instrument.triggerAttack(note))
     if (index > -1) decorator.activateCurrentNotes(index)
   }
-  releaseNotes = (notes, time, index) => {
-    notes.forEach(note => this.state.instrument.triggerRelease(note, time))
+  releaseNotes = (notes, index) => {
+    if (notes) notes.forEach(note => this.state.instrument.triggerRelease(note))
     if (index > -1) decorator.deactivateCurrentNotes(index)
   }
 
   handleChangePlaying = (state) => this.props.handleSetState({ isPlaying: state }, false)
   handleStop = () => {
-    this.releaseNotes(this.state.currentNotes)
     Transport.stop()
     Transport.cancel()
     Transport.clear()
+    this.releaseNotes(this.state.currentNotes)
     decorator.allDeactivateCurrentNotes()
     this.handleChangePlaying(false)
   }

@@ -9,7 +9,7 @@ export default class ClickControl extends Component {
   render() {
     const { enabledClick } = this.props
     return (
-      <HorizontalField label="Click" customClass="click-control">
+      <HorizontalField label="click" customClass="click-control">
         <input
           type="checkbox"
           id="enabledClick"

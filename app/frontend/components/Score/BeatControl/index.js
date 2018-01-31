@@ -11,7 +11,7 @@ export default class BeatControl extends Component {
   render() {
     const { beat, disabled } = this.props
     return (
-      <HorizontalField label="Beat">
+      <HorizontalField label="beat">
         <SelectField customClass="beat-control">
           <select
             value={beat}

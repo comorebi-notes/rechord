@@ -78,13 +78,13 @@ export default class SoundControl extends Component {
       const { currentNotes } = this.state
 
       if (notes[0] !== RESUME_NOTE) {
-        this.releaseNotes(currentNotes, index - 1)
+        this.releaseNotes(currentNotes, time, index - 1)
         if (notes === "fin") {
           this.handleStop()
         } else if (notes[0] === STREAK_NOTE) {
-          this.attackNotes(currentNotes, index)
+          this.attackNotes(currentNotes, time, index)
         } else {
-          this.attackNotes(notes, index)
+          this.attackNotes(notes, time, index)
           this.setState({ currentNotes: notes })
         }
       } else {
@@ -113,12 +113,12 @@ export default class SoundControl extends Component {
   setBpm = (bpm) => { Transport.bpm.value = bpm }
   setVolume = (volume) => { Master.volume.value = volume - MAX_VOLUME }
 
-  attackNotes  = (notes, index) => {
-    notes.forEach(note => this.state.instrument.triggerAttack(note))
+  attackNotes  = (notes, time, index) => {
+    notes.forEach(note => this.state.instrument.triggerAttack(note, time))
     if (index > -1) decorator.activateCurrentNotes(index)
   }
-  releaseNotes = (notes, index) => {
-    notes.forEach(note => this.state.instrument.triggerRelease(note))
+  releaseNotes = (notes, time, index) => {
+    notes.forEach(note => this.state.instrument.triggerRelease(note, time))
     if (index > -1) decorator.deactivateCurrentNotes(index)
   }
 

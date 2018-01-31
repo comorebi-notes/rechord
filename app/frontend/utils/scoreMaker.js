@@ -4,18 +4,25 @@ import { beats }          from "../constants/beats"
 import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE, STOP_NOTE_2 } from "../constants"
 
 const setBeatPositions = (length, selectedBeat) => {
-  if (length === 1) return [0]
+  if (length === 1) return [[0, 0]]
 
   const beat = beats[selectedBeat][0]
   const beatPositions = []
 
   if (beat / length >= 2) {
+    const timing = parseInt(beat / length, 10)
     for (let i = 0; i < beat; i += 1) {
-      if (i % length === 0) beatPositions.push(i)
+      if (i % timing === 0) beatPositions.push([i, 0])
+    }
+  } else if (length > beat) {
+    for (let i = 0; i < beat; i += 1) {
+      for (let j = 0; j < 2; j += 1) {
+        beatPositions.push([i, j * 2])
+      }
     }
   } else {
     for (let i = 0; i < beat; i += 1) {
-      beatPositions.push(i)
+      beatPositions.push([i, 0])
     }
   }
   return beatPositions
@@ -68,9 +75,10 @@ export const scoreMaker = (text, selectedTime) => {
     line.forEach((chords) => {
       const beatPositions = setBeatPositions(chords.length, selectedTime)
       chords.forEach((chord, index) => {
-        if (beatPositions.length <= index) return false
+        if (beatPositions.length <= index) return score.push({ notes: false })
 
-        const time = `${bar}:${beatPositions[index]}:0`
+        const [beat, sixteenth] = beatPositions[index]
+        const time = `${bar}:${beat}:${sixteenth}`
         const notes = () => {
           switch (chord[0]) {
             case STREAK_NOTE: return STREAK_NOTE

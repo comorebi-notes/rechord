@@ -1,10 +1,8 @@
 import { Note, Distance } from "tonal"
 import moji               from "moji"
 import * as regex         from "../constants/regex"
-import * as utils         from "../utils/"
 import { document }       from "../utils/browser-dependencies"
 
-// Chord.tokenize では9thコードが変換できないため自前で実装
 const tokenize = (_name) => {
   let name = _name
   name = name.replace(/[＃♯]/g,  "#")

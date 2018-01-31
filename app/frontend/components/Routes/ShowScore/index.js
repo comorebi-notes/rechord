@@ -22,6 +22,7 @@ export default class ShowScore extends Component {
       editorState:    EditorState.createEmpty(),
       isPlaying:      false,
       capo:           0,
+      loop:           false,
       volume:         DEFAULT_VOLUME,
       bpm:            DEFAULT_BPM,
       instrumentType: DEFAULT_INSTRUMENT_TYPE,
@@ -49,6 +50,7 @@ export default class ShowScore extends Component {
           bpm:            score.bpm,
           beat:           score.beat,
           capo:           score.capo,
+          loop:           score.loop,
           status:         score.status,
           instrumentType: score.instrument,
           token:          score.token,
@@ -79,7 +81,7 @@ export default class ShowScore extends Component {
 
   render() {
     const {
-      loading, inputText, scoreId, title, editorState, beat, bpm, capo, volume, status, instrumentType,
+      loading, inputText, scoreId, title, editorState, beat, bpm, capo, volume, loop, status, instrumentType,
       isPlaying, enabledClick, author, viewsCount, user, token, favs, createdAt, updatedAt, destroyModal
     } = this.state
     const { history } = this.props
@@ -106,6 +108,7 @@ export default class ShowScore extends Component {
           beat={beat}
           bpm={bpm}
           capo={capo}
+          loop={loop}
           volume={volume}
           enabledClick={enabledClick}
           isPlaying={isPlaying}

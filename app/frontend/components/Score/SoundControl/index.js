@@ -41,9 +41,10 @@ export default class SoundControl extends Component {
       this.onMount(() => this.setState({ hasLoaded: true }))
     }
   }
-  componentWillReceiveProps({ bpm, volume, enabledClick, instrumentType }) {
+  componentWillReceiveProps({ bpm, volume, loop, enabledClick, instrumentType }) {
     if (bpm !== this.props.bpm) this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
+    if (loop !== this.props.loop) Transport.loop = loop
     if (this.state.click && (enabledClick !== this.props.enabledClick)) {
       this.state.click.volume.value = enabledClick ? 0 : -100
     }
@@ -152,8 +153,7 @@ export default class SoundControl extends Component {
     this.handleChangePlaying(true)
     this.setClickSchedule(score)
     this.setInstrumentSchedule(score)
-    Transport.loopEnd = `${score.length - 1}:0:0`
-    Transport.loop = true
+    Transport.loopEnd = score[score.length - 1].time
     Transport.start("+0.25")
   }
 

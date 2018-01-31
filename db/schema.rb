@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20180131060629) do
     t.integer "favs_count", default: 0, null: false
     t.integer "views_count", default: 0
     t.integer "capo", default: 0
+    t.boolean "loop", default: false
     t.index ["user_id"], name: "index_scores_on_user_id"
   end
 

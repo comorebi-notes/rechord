@@ -10,6 +10,7 @@ import BeatControl       from "./BeatControl"
 import BpmControl        from "./BpmControl"
 import CapoControl       from "./CapoControl"
 import ClickControl      from "./ClickControl"
+import LoopControl       from "./LoopControl"
 import VolumeControl     from "./VolumeControl"
 import SoundControl      from "./SoundControl"
 import { validate }      from "./validate"
@@ -37,8 +38,8 @@ export default class Score extends Component {
 
   render() {
     const {
-      hideLabel, inputText, editorState, instrumentType, beat, bpm, capo, volume,
-      enabledClick, isPlaying, handleSetState, setInputText, errors
+      hideLabel, inputText, editorState, beat, bpm, capo, volume, loop,
+      instrumentType, enabledClick, isPlaying, handleSetState, setInputText, errors
     } = this.props
     const { score, isValid } = this.state
 
@@ -107,6 +108,10 @@ export default class Score extends Component {
                     enabledClick={enabledClick}
                     handleSetState={handleSetState}
                   />
+                  <LoopControl
+                    loop={loop}
+                    handleSetState={handleSetState}
+                  />
                 </div>
               </div>
               <SoundControl
@@ -114,6 +119,7 @@ export default class Score extends Component {
                 beat={beat}
                 bpm={bpm}
                 capo={capo}
+                loop={loop}
                 volume={volume}
                 enabledClick={enabledClick}
                 score={score}

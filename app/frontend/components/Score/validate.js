@@ -1,5 +1,5 @@
 export const validate = (score) => {
-  if (score.length === 1) return false
+  if (!score || score.length === 1) return false
 
   let hasError = false
 

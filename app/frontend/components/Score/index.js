@@ -25,13 +25,9 @@ export default class Score extends Component {
     if (inputText !== this.props.inputText || beat !== this.props.beat) {
       const parsedText = decorator.parseChordProgression(inputText)
       const score = beat && parsedText && scoreMaker(parsedText, beat)
-      this.setState({ score })
-
-      if (score) {
-        const isValid = validate(score)
-        this.setState({ isValid })
-        this.props.handleSetState({ isValid })
-      }
+      const isValid = validate(score)
+      this.setState({ score, isValid })
+      this.props.handleSetState({ isValid })
     }
   }
   handleChangeEditorState = (editorState) => {

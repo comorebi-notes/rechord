@@ -99,7 +99,9 @@ export default class SoundControl extends Component {
           this.setState({ currentNotes: capoNotes })
       }
     }
-    new Part(triggerInstrument, score).start()
+    const part = new Part(triggerInstrument, score)
+    part.loop = false
+    part.start()
   }
   setClickSchedule = (score) => {
     const { beat, enabledClick } = this.props
@@ -107,15 +109,18 @@ export default class SoundControl extends Component {
     this.setState({ click })
     click.volume.value = enabledClick ? 0 : -100
 
+    // const schedule = []
+    // for (let i = 0; i < beats[beat][0]; i += 1) schedule.push(`0:${i}:0`)
+    // const part = new Part(triggerClick, schedule)
+    // part.loop = true
+    // part.start()
+
     const triggerClick = (time) => click.triggerAttackRelease("A6", "32n", time, 0.1)
-    const setSchedule = () => {
-      for (let bar = 0; bar <= utils.barLength(score); bar += 1) {
-        for (let currentBeat = 0; currentBeat < beats[beat][0]; currentBeat += 1) {
-          Transport.schedule(triggerClick, `${bar}:${currentBeat}:0`)
-        }
+    for (let bar = 0; bar <= utils.barLength(score); bar += 1) {
+      for (let currentBeat = 0; currentBeat < beats[beat][0]; currentBeat += 1) {
+        Transport.schedule(triggerClick, `${bar}:${currentBeat}:0`)
       }
     }
-    setSchedule(score)
   }
   setBpm = (bpm) => { Transport.bpm.value = bpm }
   setVolume = (volume) => { Master.volume.value = volume - MAX_VOLUME }
@@ -143,9 +148,9 @@ export default class SoundControl extends Component {
 
     Transport.timeSignature = beats[beat]
     this.handleStop()
-    this.setInstrumentSchedule(score)
-    this.setClickSchedule(score)
     this.handleChangePlaying(true)
+    this.setClickSchedule(score)
+    this.setInstrumentSchedule(score)
     Transport.start("+0.25")
   }
 

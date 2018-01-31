@@ -20,11 +20,11 @@ export default class SoundControl extends Component {
     this.setVolume(props.volume)
     this.setInstrument(props.instrumentType)
     this.state = {
-      instrument:  this.setInstrument(props.instrumentType),
-      click:       this.setClick(),
+      instrument:   this.setInstrument(props.instrumentType),
+      click:        this.setClick(),
       currentNotes: [],
-      loading:     true,
-      hasLoaded:   false
+      loading:      true,
+      hasLoaded:    false
     }
   }
 
@@ -78,6 +78,7 @@ export default class SoundControl extends Component {
       const { currentNotes } = this.state
       const capoNotes = utils.transpose(notes, this.props.capo)
 
+      if (index === 0) decorator.allDeactivateCurrentNotes()
       switch (notes[0]) {
         case RESUME_NOTE:
           decorator.activateCurrentNotes(index)
@@ -151,6 +152,8 @@ export default class SoundControl extends Component {
     this.handleChangePlaying(true)
     this.setClickSchedule(score)
     this.setInstrumentSchedule(score)
+    Transport.loopEnd = `${score.length - 1}:0:0`
+    Transport.loop = true
     Transport.start("+0.25")
   }
 

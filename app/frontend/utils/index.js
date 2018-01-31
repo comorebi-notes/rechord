@@ -54,7 +54,7 @@ export const barLength = (score) => (
   parseInt(score[score.length - 2].time.split(":")[0], 10) // fin の直前の小節
 )
 
-export const capotasto = (notes, capo = 0) => {
+export const transpose = (notes, capo = 0) => {
   if (Array.isArray(notes)) {
     return notes.map(note => Note.fromMidi(Note.midi(note) + Number(capo)))
   } else {

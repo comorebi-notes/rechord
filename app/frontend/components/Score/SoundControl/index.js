@@ -76,7 +76,7 @@ export default class SoundControl extends Component {
     const triggerInstrument = (time, value) => {
       const { notes, index } = value
       const { currentNotes } = this.state
-      const capoNotes = utils.capotasto(notes, this.props.capo)
+      const capoNotes = utils.transpose(notes, this.props.capo)
 
       switch (notes[0]) {
         case RESUME_NOTE:

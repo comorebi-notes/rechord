@@ -1,8 +1,8 @@
-const signature        = "[#♯＃b♭ｂ]{0,2}"
-const scales           = "[CDEFGAB]"
-const note             = `${scales}${signature}`
-const onChordSeparator = "(\\/|／|on)"
-const chordTypes       = "(?![#♯b♭])(?:(?!on)[Ma-z0-9()（）,\\-+#♯＃b♭ｂ△ΔΦφø])+"
+export const signature        = "[#♯＃b♭ｂ]{0,2}"
+export const scales           = "[CDEFGAB]"
+export const note             = `${scales}${signature}`
+export const onChordSeparator = "(\\/|／|on)"
+export const chordTypes       = "(?![#♯b♭])(?:(?!(on|l))[Ma-z0-9()（）,\\-+#♯＃b♭ｂ△ΔΦφø])+"
 
 export const rootChord   = new RegExp(`(${note})|%|=|_|N\\.C\\.`, "g")
 export const onChord     = new RegExp(`${onChordSeparator}${note}`, "g")

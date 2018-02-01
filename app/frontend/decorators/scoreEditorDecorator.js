@@ -3,7 +3,6 @@ import moji               from "moji"
 import * as regex         from "../constants/regex"
 import { document }       from "../utils/browser-dependencies"
 
-// Chord.tokenize では9thコードが変換できないため自前で実装
 const tokenize = (_name) => {
   let name = _name
   name = name.replace(/[＃♯]/g,  "#")
@@ -42,18 +41,20 @@ export const parseChordProgression = (text) => {
 
 export const keyChange = (progression, operation) => {
   const newProgression = []
+  const interval = operation === "up" ? "2m" : "-2m"
   const lines = progression.split(/\n/)
-  lines.forEach(line => {
+  lines.forEach(_line => {
+    let line = moji(_line).convert("ZE", "HE").toString()
     if (/\n|#/.test(line[0])) {
-      newProgression.push(line)
+      newProgression.push(_line)
     } else {
-      const notesRegExp = /(^|\||\n)? *(C#|Db|D#|Eb|F#|Gb|G#|Ab|A#|Bb|C|D|E|F|G|A|B)/g
-      const transposeNote = (note, p1, p2) => {
-        const interval = operation === "up" ? "2m" : "-2m"
-        const newNote = Note.simplify(Distance.transpose(p2, interval), false)
-        return note.replace(p2, `___${newNote}`)
-      }
-      newProgression.push(line.replace(notesRegExp, transposeNote).replace(/___/g, ""))
+      line = line.replace(/[＃♯]/g,  "#")
+      line = line.replace(/[♭ｂ]/g, "b")
+      const notesRegExp = new RegExp(`${regex.note}`, "g")
+      const transposeNote = (note) => (
+        Note.simplify(Distance.transpose(note, interval), false)
+      )
+      newProgression.push(line.replace(notesRegExp, transposeNote))
     }
   })
   return newProgression.join("\n")

@@ -49,7 +49,7 @@ class CreateControl extends Component {
           {userId && <br />}
           <div className="save-control">
             <button
-              className="button is-primary is-medium"
+              className="button is-primary is-medium animate-button"
               onClick={this.handleClick}
               disabled={loading || !isValid}
             >

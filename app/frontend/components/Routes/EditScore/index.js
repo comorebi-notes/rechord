@@ -20,6 +20,8 @@ export default class EditScore extends Component {
       loading:        true,
       editorState:    EditorState.createEmpty(),
       isPlaying:      false,
+      capo:           0,
+      loop:           false,
       volume:         DEFAULT_VOLUME,
       bpm:            DEFAULT_BPM,
       instrumentType: DEFAULT_INSTRUMENT_TYPE,
@@ -48,6 +50,8 @@ export default class EditScore extends Component {
             enabledClick:   score.click,
             bpm:            score.bpm,
             beat:           score.beat,
+            capo:           score.capo,
+            loop:           score.loop,
             status:         score.status,
             instrumentType: score.instrument,
             token:          score.token
@@ -80,7 +84,7 @@ export default class EditScore extends Component {
 
   render() {
     const {
-      loading, errors, inputText, title, editorState, beat, bpm, volume,
+      loading, errors, inputText, title, editorState, beat, bpm, capo, volume, loop,
       instrumentType, isPlaying, enabledClick, status, userId, token, isValid
     } = this.state
     return (
@@ -96,6 +100,8 @@ export default class EditScore extends Component {
           instrumentType={instrumentType}
           beat={beat}
           bpm={bpm}
+          capo={capo}
+          loop={loop}
           volume={volume}
           enabledClick={enabledClick}
           isPlaying={isPlaying}
@@ -109,6 +115,8 @@ export default class EditScore extends Component {
           instrument={instrumentType}
           beat={beat}
           bpm={bpm}
+          capo={capo}
+          loop={loop}
           click={enabledClick}
           status={status}
           userId={userId}

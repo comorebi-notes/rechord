@@ -13,18 +13,22 @@ export default class SoundControl extends Component {
   constructor(props) {
     super(props)
 
+    // reset Tone.js
+    Transport.stop()
+    Transport.cancel()
+    Transport.clear()
     Tone.context.close()
-    Tone.context = new AudioContext() // reset Tone.js
+    Tone.context = new AudioContext()
 
     this.setBpm(props.bpm)
     this.setVolume(props.volume)
     this.setInstrument(props.instrumentType)
     this.state = {
-      instrument:  this.setInstrument(props.instrumentType),
-      click:       this.setClick(),
+      instrument:   this.setInstrument(props.instrumentType),
+      click:        this.setClick(),
       currentNotes: [],
-      loading:     true,
-      hasLoaded:   false
+      loading:      true,
+      hasLoaded:    false
     }
   }
 
@@ -41,14 +45,15 @@ export default class SoundControl extends Component {
       this.onMount(() => this.setState({ hasLoaded: true }))
     }
   }
-  componentWillReceiveProps({ bpm, volume, instrumentType, enabledClick }) {
+  componentWillReceiveProps({ bpm, volume, loop, enabledClick, instrumentType }) {
     if (bpm !== this.props.bpm) this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
-    if (!this.state.hasLoaded || instrumentType !== this.props.instrumentType) {
-      this.setLoaded(instrumentType, true)
-    }
+    if (loop !== this.props.loop) Transport.loop = loop
     if (this.state.click && (enabledClick !== this.props.enabledClick)) {
       this.state.click.volume.value = enabledClick ? 0 : -100
+    }
+    if (!this.state.hasLoaded || instrumentType !== this.props.instrumentType) {
+      this.setLoaded(instrumentType, true)
     }
   }
   componentWillUnmount() {
@@ -76,23 +81,33 @@ export default class SoundControl extends Component {
     const triggerInstrument = (time, value) => {
       const { notes, index } = value
       const { currentNotes } = this.state
+      const capoNotes = utils.transpose(notes, this.props.capo)
 
-      if (notes[0] !== RESUME_NOTE) {
-        this.releaseNotes(currentNotes, index - 1)
-        if (notes === "fin") {
-          this.handleStop()
-        } else if (notes[0] === STREAK_NOTE) {
+      if (index === 0) decorator.allDeactivateCurrentNotes()
+      switch (notes[0]) {
+        case RESUME_NOTE:
+          decorator.activateCurrentNotes(index)
+          decorator.deactivateCurrentNotes(index - 1)
+          break
+        case STREAK_NOTE:
+          this.releaseNotes(currentNotes, index - 1)
           this.attackNotes(currentNotes, index)
-        } else {
-          this.attackNotes(notes, index)
-          this.setState({ currentNotes: notes })
-        }
-      } else {
-        decorator.activateCurrentNotes(index)
-        decorator.deactivateCurrentNotes(index - 1)
+          break
+        case "f":
+          if (notes === "fin") {
+            this.releaseNotes(currentNotes, index - 1)
+            this.handleStop()
+          }
+          break
+        default:
+          this.releaseNotes(currentNotes, index - 1)
+          this.attackNotes(capoNotes, index)
+          this.setState({ currentNotes: capoNotes })
       }
     }
-    new Part(triggerInstrument, score).start()
+    const part = new Part(triggerInstrument, score)
+    part.loop = false
+    part.start()
   }
   setClickSchedule = (score) => {
     const { beat, enabledClick } = this.props
@@ -100,15 +115,18 @@ export default class SoundControl extends Component {
     this.setState({ click })
     click.volume.value = enabledClick ? 0 : -100
 
+    // const schedule = []
+    // for (let i = 0; i < beats[beat][0]; i += 1) schedule.push(`0:${i}:0`)
+    // const part = new Part(triggerClick, schedule)
+    // part.loop = true
+    // part.start()
+
     const triggerClick = (time) => click.triggerAttackRelease("A6", "32n", time, 0.1)
-    const setSchedule = () => {
-      for (let bar = 0; bar <= utils.barLength(score); bar += 1) {
-        for (let currentBeat = 0; currentBeat < beats[beat][0]; currentBeat += 1) {
-          Transport.schedule(triggerClick, `${bar}:${currentBeat}:0`)
-        }
+    for (let bar = 0; bar <= utils.barLength(score); bar += 1) {
+      for (let currentBeat = 0; currentBeat < beats[beat][0]; currentBeat += 1) {
+        Transport.schedule(triggerClick, `${bar}:${currentBeat}:0`)
       }
     }
-    setSchedule(score)
   }
   setBpm = (bpm) => { Transport.bpm.value = bpm }
   setVolume = (volume) => { Master.volume.value = volume - MAX_VOLUME }
@@ -118,16 +136,16 @@ export default class SoundControl extends Component {
     if (index > -1) decorator.activateCurrentNotes(index)
   }
   releaseNotes = (notes, index) => {
-    notes.forEach(note => this.state.instrument.triggerRelease(note))
+    if (notes) notes.forEach(note => this.state.instrument.triggerRelease(note))
     if (index > -1) decorator.deactivateCurrentNotes(index)
   }
 
   handleChangePlaying = (state) => this.props.handleSetState({ isPlaying: state }, false)
   handleStop = () => {
-    this.releaseNotes(this.state.currentNotes)
     Transport.stop()
     Transport.cancel()
     Transport.clear()
+    this.releaseNotes(this.state.currentNotes)
     decorator.allDeactivateCurrentNotes()
     this.handleChangePlaying(false)
   }
@@ -136,9 +154,10 @@ export default class SoundControl extends Component {
 
     Transport.timeSignature = beats[beat]
     this.handleStop()
-    this.setInstrumentSchedule(score)
-    this.setClickSchedule(score)
     this.handleChangePlaying(true)
+    this.setClickSchedule(score)
+    this.setInstrumentSchedule(score)
+    Transport.loopEnd = score[score.length - 1].time
     Transport.start("+0.25")
   }
 
@@ -156,6 +175,7 @@ export default class SoundControl extends Component {
               size="medium"
               icon="stop"
               text="stop"
+              customClass="animate-button"
               disabled={!isPlaying}
             />
           ) : (
@@ -165,6 +185,7 @@ export default class SoundControl extends Component {
               size="medium"
               icon={loading ? "circle-o-notch fa-spin" : "play"}
               text={loading ? "loading..." : "play"}
+              customClass="animate-button"
               disabled={cannotPlay}
             />
           )}

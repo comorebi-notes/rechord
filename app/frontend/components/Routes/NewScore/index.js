@@ -37,6 +37,8 @@ export default class NewScore extends Component {
       enabledClick:   false,
       bpm:            DEFAULT_BPM,
       beat:           DEFAULT_BEAT,
+      capo:           0,
+      loop:           false,
       instrumentType: DEFAULT_INSTRUMENT_TYPE,
       status:         "published",
       userId:         currentUser.id,
@@ -69,7 +71,7 @@ export default class NewScore extends Component {
 
   render() {
     const {
-      inputText, title, editorState, beat, bpm, volume, instrumentType,
+      inputText, title, editorState, beat, bpm, capo, loop, volume, instrumentType,
       isPlaying, enabledClick, status, userId, token, modal, restoreState,
       errors, isValid
     } = this.state
@@ -101,6 +103,8 @@ export default class NewScore extends Component {
           instrumentType={instrumentType}
           beat={beat}
           bpm={bpm}
+          capo={capo}
+          loop={loop}
           volume={volume}
           enabledClick={enabledClick}
           isPlaying={isPlaying}
@@ -114,6 +118,8 @@ export default class NewScore extends Component {
           instrument={instrumentType}
           beat={beat}
           bpm={bpm}
+          capo={capo}
+          loop={loop}
           click={enabledClick}
           status={status}
           userId={userId}

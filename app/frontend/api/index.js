@@ -10,9 +10,9 @@ const request = (method, url, params, onSuccess, onError) => {
 
 // ======== Scores ========
 const getScoreParams = (params) => {
-  const { title, content, instrument, beat, bpm, click, status, userId } = params
+  const { title, content, instrument, beat, bpm, capo, loop, click, status, userId } = params
   return {
-    score: { title, content, instrument, beat, bpm, click, status, user_id: userId }
+    score: { title, content, instrument, beat, bpm, capo, loop, click, status, user_id: userId }
   }
 }
 

@@ -1,4 +1,5 @@
-import * as br from "./browser-dependencies"
+import { Note } from "tonal"
+import * as br  from "./browser-dependencies"
 
 export const zeroPadding = (num, length) => {
   const zeros = Array(length + 1).join('0')
@@ -52,6 +53,14 @@ export const valueInRange = (value, min, max) => {
 export const barLength = (score) => (
   parseInt(score[score.length - 2].time.split(":")[0], 10) // fin の直前の小節
 )
+
+export const transpose = (notes, capo = 0) => {
+  if (Array.isArray(notes)) {
+    return notes.map(note => Note.fromMidi(Note.midi(note) + Number(capo)))
+  } else {
+    return Note.fromMidi(Note.midi(notes) + Number(capo))
+  }
+}
 
 export const protocol = () => (/^https:/.test(br.location.href) ? "https" : "http")
 export const sharedUrl = (url) => `${protocol()}://${br.location.host}/${url}`

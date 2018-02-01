@@ -1,5 +1,6 @@
-export const validate = (score) => {
-  if (score.length === 1) return false
+export const validate = (score, bpm) => {
+  if (!score || score.length === 1) return false
+  if (!bpm || Number(bpm) === 0) return false
 
   let hasError = false
 

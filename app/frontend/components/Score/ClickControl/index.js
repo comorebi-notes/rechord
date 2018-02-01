@@ -9,12 +9,12 @@ export default class ClickControl extends Component {
   render() {
     const { enabledClick } = this.props
     return (
-      <HorizontalField label="click" customClass="click-control">
+      <HorizontalField customClass="click-control">
         <input
           type="checkbox"
           id="enabledClick"
           name="enabledClick"
-          className="switch is-rounded is-info is-medium"
+          className="switch is-rounded is-info is-large"
           checked={enabledClick || false}
           onChange={this.handleToggleClick}
         />

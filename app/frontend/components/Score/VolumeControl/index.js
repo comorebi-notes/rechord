@@ -20,6 +20,7 @@ export default class VolumeControl extends Component {
           max={MAX_VOLUME}
           isFullwidth
           value={volume}
+          size="medium"
           onChange={this.handleChangeVolume}
         />
         <span className="icon">

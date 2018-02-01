@@ -9,12 +9,12 @@ export default class LoopControl extends Component {
   render() {
     const { loop } = this.props
     return (
-      <HorizontalField label="loop" customClass="loop-control">
+      <HorizontalField customClass="loop-control">
         <input
           type="checkbox"
           id="loop"
           name="loop"
-          className="switch is-rounded is-info is-medium"
+          className="switch is-rounded is-info is-large"
           checked={loop || false}
           onChange={this.handleToggleLoop}
         />

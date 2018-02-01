@@ -62,7 +62,7 @@ export default class Score extends Component {
               />
             </div>
 
-            <div className="column control-ui">
+            <div className="column score-controls">
               <div className="columns">
                 <div className="column editor-control">
                   <UndoControl
@@ -104,14 +104,6 @@ export default class Score extends Component {
                     capo={capo}
                     handleSetState={handleSetState}
                   />
-                  <ClickControl
-                    enabledClick={enabledClick}
-                    handleSetState={handleSetState}
-                  />
-                  <LoopControl
-                    loop={loop}
-                    handleSetState={handleSetState}
-                  />
                 </div>
               </div>
               <SoundControl
@@ -127,6 +119,20 @@ export default class Score extends Component {
                 isPlaying={isPlaying}
                 handleSetState={handleSetState}
               />
+              <div className="columns play-control">
+                <div className="column">
+                  <ClickControl
+                    enabledClick={enabledClick}
+                    handleSetState={handleSetState}
+                  />
+                </div>
+                <div className="column">
+                  <LoopControl
+                    loop={loop}
+                    handleSetState={handleSetState}
+                  />
+                </div>
+              </div>
               <VolumeControl
                 volume={volume}
                 handleSetState={handleSetState}

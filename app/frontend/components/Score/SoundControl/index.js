@@ -13,8 +13,12 @@ export default class SoundControl extends Component {
   constructor(props) {
     super(props)
 
+    // reset Tone.js
+    Transport.stop()
+    Transport.cancel()
+    Transport.clear()
     Tone.context.close()
-    Tone.context = new AudioContext() // reset Tone.js
+    Tone.context = new AudioContext()
 
     this.setBpm(props.bpm)
     this.setVolume(props.volume)

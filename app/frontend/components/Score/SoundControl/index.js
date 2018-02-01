@@ -171,6 +171,7 @@ export default class SoundControl extends Component {
               size="medium"
               icon="stop"
               text="stop"
+              customClass="animate-button"
               disabled={!isPlaying}
             />
           ) : (
@@ -180,6 +181,7 @@ export default class SoundControl extends Component {
               size="medium"
               icon={loading ? "circle-o-notch fa-spin" : "play"}
               text={loading ? "loading..." : "play"}
+              customClass="animate-button"
               disabled={cannotPlay}
             />
           )}

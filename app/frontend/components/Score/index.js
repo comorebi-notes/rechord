@@ -22,11 +22,17 @@ export default class Score extends Component {
     super()
     this.state = { score: false }
   }
-  componentWillReceiveProps({ inputText, beat }) {
+  componentWillReceiveProps({ inputText, beat, bpm }) {
+    if (bpm !== this.props.bpm) {
+      const { score } = this.state
+      const isValid = validate(score, bpm)
+      this.setState({ score, isValid })
+      this.props.handleSetState({ isValid })
+    }
     if (inputText !== this.props.inputText || beat !== this.props.beat) {
       const parsedText = decorator.parseChordProgression(inputText)
       const score = beat && parsedText && scoreMaker(parsedText, beat)
-      const isValid = validate(score)
+      const isValid = validate(score, this.props.bpm)
       this.setState({ score, isValid })
       this.props.handleSetState({ isValid })
     }

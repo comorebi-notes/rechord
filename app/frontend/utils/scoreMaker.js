@@ -14,10 +14,16 @@ const setBeatPositions = (length, selectedBeat) => {
     for (let i = 0; i < beat; i += 1) {
       if (i % timing === 0) beatPositions.push([i, 0])
     }
-  } else if (length > beat) {
+  } else if (length > beat && length <= beat * 2) {
     for (let i = 0; i < beat; i += 1) {
       for (let j = 0; j < 2; j += 1) {
         beatPositions.push([i, j * 2])
+      }
+    }
+  } else if (length > beat * 2) {
+    for (let i = 0; i < beat; i += 1) {
+      for (let j = 0; j < 4; j += 1) {
+        beatPositions.push([i, j])
       }
     }
   } else {

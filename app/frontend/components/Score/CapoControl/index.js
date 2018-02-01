@@ -8,6 +8,10 @@ export default class CapoControl extends Component {
   handleChangeCapo = (e) => {
     this.props.handleSetState({ capo: utils.valueInRange(e.target.value, MIN_CAPO, MAX_CAPO) })
   }
+  handleBlur = () => {
+    const { capo } = this.props
+    if (!capo) this.props.handleSetState({ capo: 0 })
+  }
   render() {
     const { capo } = this.props
     return (
@@ -18,6 +22,7 @@ export default class CapoControl extends Component {
           max={MAX_CAPO}
           className="input"
           value={capo}
+          onBlur={this.handleBlur}
           onChange={this.handleChangeCapo}
         />
       </HorizontalField>

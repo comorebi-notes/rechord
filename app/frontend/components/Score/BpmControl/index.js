@@ -8,6 +8,10 @@ export default class BpmControl extends Component {
   handleChangeBpm = (e) => {
     this.props.handleSetState({ bpm: utils.valueInRange(e.target.value, MIN_BPM, MAX_BPM) })
   }
+  handleBlur = () => {
+    const { bpm } = this.props
+    if (!bpm) this.props.handleSetState({ bpm: 0 })
+  }
   render() {
     const { bpm } = this.props
     return (
@@ -18,6 +22,7 @@ export default class BpmControl extends Component {
           max={MAX_BPM}
           className="input"
           value={bpm}
+          onBlur={this.handleBlur}
           onChange={this.handleChangeBpm}
         />
       </HorizontalField>

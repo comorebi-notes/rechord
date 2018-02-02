@@ -9,27 +9,37 @@ const setBeatPositions = (length, selectedBeat) => {
   const beat = beats[selectedBeat][0]
   const beatPositions = []
 
-  if (beat / length >= 2) {
-    const timing = parseInt(beat / length, 10)
-    for (let i = 0; i < beat; i += 1) {
-      if (i % timing === 0) beatPositions.push([i, 0])
-    }
-  } else if (length > beat && length <= beat * 2) {
-    for (let i = 0; i < beat; i += 1) {
-      for (let j = 0; j < 2; j += 1) {
-        beatPositions.push([i, j * 2])
+  // 例: 4/4 の場合
+  switch (true) {
+    // コード数が 1〜2
+    case beat / length >= 2: {
+      const timing = parseInt(beat / length, 10)
+      for (let i = 0; i < beat; i += 1) {
+        if (i % timing === 0) beatPositions.push([i, 0])
       }
+      break
     }
-  } else if (length > beat * 2) {
-    for (let i = 0; i < beat; i += 1) {
-      for (let j = 0; j < 4; j += 1) {
-        beatPositions.push([i, j])
+    // コード数が 5〜8
+    case length > beat && length <= beat * 2:
+      for (let i = 0; i < beat; i += 1) {
+        for (let j = 0; j < 2; j += 1) {
+          beatPositions.push([i, j * 2])
+        }
       }
-    }
-  } else {
-    for (let i = 0; i < beat; i += 1) {
-      beatPositions.push([i, 0])
-    }
+      break
+    // コード数が 9〜16
+    case length > beat * 2:
+      for (let i = 0; i < beat; i += 1) {
+        for (let j = 0; j < 4; j += 1) {
+          beatPositions.push([i, j])
+        }
+      }
+      break
+    // コード数が 3〜4
+    default:
+      for (let i = 0; i < beat; i += 1) {
+        beatPositions.push([i, 0])
+      }
   }
   return beatPositions
 }

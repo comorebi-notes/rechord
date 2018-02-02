@@ -11,7 +11,7 @@ const setBeatPositions = (length, selectedBeat) => {
 
   // 例: 4/4 の場合
   switch (true) {
-    // コード数が 1〜2
+    // コード数が 2 (均等に配置)
     case beat / length >= 2: {
       const timing = parseInt(beat / length, 10)
       for (let i = 0; i < beat; i += 1) {
@@ -19,7 +19,7 @@ const setBeatPositions = (length, selectedBeat) => {
       }
       break
     }
-    // コード数が 5〜8
+    // コード数が 5〜8 (8分音符)
     case length > beat && length <= beat * 2:
       for (let i = 0; i < beat; i += 1) {
         for (let j = 0; j < 2; j += 1) {
@@ -27,7 +27,7 @@ const setBeatPositions = (length, selectedBeat) => {
         }
       }
       break
-    // コード数が 9〜16
+    // コード数が 9〜16 (16分音符)
     case length > beat * 2:
       for (let i = 0; i < beat; i += 1) {
         for (let j = 0; j < 4; j += 1) {
@@ -35,7 +35,7 @@ const setBeatPositions = (length, selectedBeat) => {
         }
       }
       break
-    // コード数が 3〜4
+    // コード数が 3〜4 (4分音符)
     default:
       for (let i = 0; i < beat; i += 1) {
         beatPositions.push([i, 0])

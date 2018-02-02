@@ -9,6 +9,9 @@ import * as decorator   from "../../../decorators/scoreEditorDecorator"
 import { window, navigator, AudioContext }      from "../../../utils/browser-dependencies"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../../constants"
 
+// const LATENCY_HINT = 0.28
+// const UPDATE_INTERVAL = 0.02
+
 export default class SoundControl extends Component {
   constructor(props) {
     super(props)
@@ -19,6 +22,8 @@ export default class SoundControl extends Component {
     Transport.clear()
     Tone.context.close()
     Tone.context = new AudioContext()
+    // Tone.context.latencyHint = LATENCY_HINT
+    // Tone.context.updateInterval = UPDATE_INTERVAL
 
     this.setBpm(props.bpm)
     this.setVolume(props.volume)
@@ -87,21 +92,20 @@ export default class SoundControl extends Component {
       switch (notes[0]) {
         case RESUME_NOTE:
           decorator.activateCurrentNotes(index)
-          decorator.deactivateCurrentNotes(index - 1)
           break
         case STREAK_NOTE:
-          this.releaseNotes(currentNotes, index - 1)
-          this.attackNotes(currentNotes, index)
+          this.releaseNotes(currentNotes, time)
+          this.attackNotes(currentNotes, time, index)
           break
         case "f":
           if (notes === "fin") {
-            this.releaseNotes(currentNotes, index - 1)
+            this.releaseNotes(currentNotes, time)
             this.handleStop()
           }
           break
         default:
-          this.releaseNotes(currentNotes, index - 1)
-          this.attackNotes(capoNotes, index)
+          this.releaseNotes(currentNotes, time)
+          this.attackNotes(capoNotes, time, index)
           this.setState({ currentNotes: capoNotes })
       }
     }
@@ -131,13 +135,12 @@ export default class SoundControl extends Component {
   setBpm = (bpm) => { Transport.bpm.value = bpm }
   setVolume = (volume) => { Master.volume.value = volume - MAX_VOLUME }
 
-  attackNotes  = (notes, index) => {
-    notes.forEach(note => this.state.instrument.triggerAttack(note))
+  attackNotes  = (notes, time, index) => {
+    notes.forEach(note => this.state.instrument.triggerAttack(note, time))
     if (index > -1) decorator.activateCurrentNotes(index)
   }
-  releaseNotes = (notes, index) => {
-    if (notes) notes.forEach(note => this.state.instrument.triggerRelease(note))
-    if (index > -1) decorator.deactivateCurrentNotes(index)
+  releaseNotes = (notes, time) => {
+    if (notes) notes.forEach(note => this.state.instrument.triggerRelease(note, time))
   }
 
   handleChangePlaying = (state) => this.props.handleSetState({ isPlaying: state }, false)
@@ -158,7 +161,7 @@ export default class SoundControl extends Component {
     this.setClickSchedule(score)
     this.setInstrumentSchedule(score)
     Transport.loopEnd = score[score.length - 1].time
-    Transport.start("+0.25")
+    Transport.start("+0.3")
   }
 
   render() {

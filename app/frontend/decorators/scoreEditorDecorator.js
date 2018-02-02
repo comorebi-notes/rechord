@@ -64,12 +64,9 @@ const elements = document.getElementsByClassName("root")
 const activeClassName = "active"
 
 export const activateCurrentNotes = (index) => {
-  const element = elements[index]
-  const targetClassName  = element.className
-  const targetClassNames = targetClassName.split(" ")
-
-  if (!targetClassNames.find((className) => className === activeClassName)) {
-    element.className += ` ${activeClassName}`
+  elements[index].className += ` ${activeClassName}`
+  if (index > 0) {
+    elements[index - 1].className = elements[index - 1].className.replace("active", "")
   }
 }
 

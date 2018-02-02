@@ -1,5 +1,6 @@
 import { Note, Distance } from "tonal"
 import chordTranslator    from "chord-translator"
+import { times }          from "../utils"
 import { beats }          from "../constants/beats"
 import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE, STOP_NOTE_2 } from "../constants"
 
@@ -14,32 +15,25 @@ const setBeatPositions = (length, selectedBeat) => {
     // コード数が 2 (均等に配置)
     case beat / length >= 2: {
       const timing = parseInt(beat / length, 10)
-      for (let i = 0; i < beat; i += 1) {
-        if (i % timing === 0) beatPositions.push([i, 0])
-      }
+      times(beat)(i => (
+        (i % timing === 0) && beatPositions.push([i, 0])
+      ))
       break
     }
     // コード数が 5〜8 (8分音符)
     case length > beat && length <= beat * 2:
-      for (let i = 0; i < beat; i += 1) {
-        for (let j = 0; j < 2; j += 1) {
-          beatPositions.push([i, j * 2])
-        }
-      }
+      times(beat)(i => (
+        times(2)(j => beatPositions.push([i, j * 2]))
+      ))
       break
     // コード数が 9〜16 (16分音符)
     case length > beat * 2:
-      for (let i = 0; i < beat; i += 1) {
-        for (let j = 0; j < 4; j += 1) {
-          beatPositions.push([i, j])
-        }
-      }
+      times(beat)(i => (
+        times(4)(j => beatPositions.push([i, j]))
+      ))
       break
     // コード数が 3〜4 (4分音符)
-    default:
-      for (let i = 0; i < beat; i += 1) {
-        beatPositions.push([i, 0])
-      }
+    default: times(beat)(i => beatPositions.push([i, 0]))
   }
   return beatPositions
 }

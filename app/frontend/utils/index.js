@@ -44,6 +44,11 @@ export const addCommas = (source) => {
   return integer + decimal
 }
 
+export const times = (number) => (func) => {
+  Array.from(Array(number), (_, index) => func(index))
+  return null
+}
+
 export const valueInRange = (value, min, max) => {
   if (value < min) return min
   if (max < value) return max

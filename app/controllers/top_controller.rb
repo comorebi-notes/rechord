@@ -24,8 +24,8 @@ class TopController < ApplicationController
   end
 
   def check_browser_support
-    ua = request.user_agent.downcase
-    if (ua.include?("msie") && ua.exclude?("opera")) || ua.include?("trident/7")
+    ua = request.user_agent&.downcase
+    if ua.present? && ((ua.include?("msie") && ua.exclude?("opera")) || ua.include?("trident/7"))
       redirect_to controller: :top, action: :not_supported
     end
   end

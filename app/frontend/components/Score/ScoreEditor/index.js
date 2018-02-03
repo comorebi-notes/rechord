@@ -79,10 +79,10 @@ export default class ScoreEditor extends Component {
             editorState={editorState}
             placeholder={placeholder}
             readOnly={readOnly}
-            onBlur={this.handleTouch}
-            onChange={this.handleChange}
-            handleBeforeInput={this.handleBeforeInput}
-            handlePastedText={this.handlePastedText}
+            onBlur={!readOnly && this.handleTouch}
+            onChange={!readOnly && this.handleChange}
+            handleBeforeInput={!readOnly && this.handleBeforeInput}
+            handlePastedText={!readOnly && this.handlePastedText}
           />
         </div>
       </FormWithValidate>

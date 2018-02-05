@@ -30,6 +30,7 @@ class ScoresController < ApplicationController
 
   def create
     score = Score.new(score_params)
+    score.remote_ip = request.remote_ip
     if score.save
       render json: score
     else
@@ -38,6 +39,7 @@ class ScoresController < ApplicationController
   end
 
   def update
+    @score.remote_ip = request.remote_ip
     if @score.update(score_params)
       render json: @score
     else

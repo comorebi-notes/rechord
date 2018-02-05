@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131060629) do
+ActiveRecord::Schema.define(version: 20180205144032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20180131060629) do
     t.integer "views_count", default: 0
     t.integer "capo", default: 0
     t.boolean "loop", default: false
+    t.string "remote_ip"
     t.index ["user_id"], name: "index_scores_on_user_id"
   end
 

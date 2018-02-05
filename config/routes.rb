@@ -31,6 +31,10 @@ Rails.application.routes.draw do
 
   resources :favs, only: [:index, :create, :destroy], constraints: OnlyAjaxRequest.new
 
+  scope format: true, constraints: { format: /jpg|png|gif/ } do
+    get "/*anything", to: proc { [404, {}, [""]] }
+  end
+
   get "not_supported" => "top#not_supported"
   get "*path" => "top#index"
   root "top#index"

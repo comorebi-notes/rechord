@@ -74,6 +74,7 @@ RailsAdmin.config do |config|
       field :instrument
       field :beat
       field :click
+      field :remote_ip
     end
   end
 end

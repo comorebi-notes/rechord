@@ -40,7 +40,7 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.default_items_per_page = 200
+  config.default_items_per_page = 20
 
   config.model "User" do
     list do

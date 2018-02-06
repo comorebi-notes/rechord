@@ -58,7 +58,7 @@ class User < ApplicationRecord
           name:        SecureRandom.urlsafe_base64(8),
           screen_name: auth[:info][:name],
           icon:        auth[:info][:image],
-          site:        auth[:info][:urls][:google],
+          site:        auth[:info][:urls]&.fetch(:google),
           email:       auth[:info][:email]
         }
       when "tumblr"

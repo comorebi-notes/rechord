@@ -7,11 +7,18 @@ import * as path            from "../../../../utils/path"
 import * as utils           from "../../../../utils"
 
 class CreateControl extends Component {
-  constructor() {
-    super()
-    this.state = { loading: false }
+  constructor(props) {
+    super(props)
+    this.state = { loading: false, modal: false }
   }
   handleClick = () => {
+    if (!this.props.userId) {
+      this.setState({ modal: true })
+    } else {
+      this.createScore()
+    }
+  }
+  createScore = () => {
     const { userId, handleSetState, handleResetLocalStorage, history } = this.props
     this.setState({ loading: true })
     api.createScore(

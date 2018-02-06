@@ -129,7 +129,7 @@ export default class NewScore extends Component {
           handleResetLocalStorage={this.handleResetLocalStorage}
         />
         <ShareModal
-          label="saved, and let's share!"
+          label="saved!"
           token={token}
           title={title}
           isActive={modal}

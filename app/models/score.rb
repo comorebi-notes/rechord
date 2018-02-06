@@ -18,9 +18,16 @@ class Score < ApplicationRecord
     deleted:   2
   }
   enum instrument: {
-    Piano:   0,
-    Guitar:  1,
-    Strings: 2
+    "A.Piano":   0,
+    "E.Piano":   3,
+    "A.Guitar1": 1,
+    "A.Guitar2": 4,
+    "E.Guitar1": 5,
+    "E.Guitar2": 6,
+    "E.Guitar3": 7,
+    Strings:     2,
+    Accordion:   8,
+    Choir:       9
   }
   enum beat: {
     "2/4": 0,

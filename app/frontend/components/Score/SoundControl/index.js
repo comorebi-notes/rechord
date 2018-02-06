@@ -33,7 +33,11 @@ export default class SoundControl extends Component {
       click:        this.setClick(),
       currentNotes: [],
       loading:      true,
-      hasLoaded:    false
+      hasLoaded:    false,
+      effects: {
+        "E.Guitar2": new Tone.Distortion(0.2).toMaster(),
+        "E.Guitar3": new Tone.Distortion(0.2).toMaster()
+      }
     }
   }
 
@@ -78,8 +82,13 @@ export default class SoundControl extends Component {
   )
   setInstrument = (type, setLoading = true) => {
     if (setLoading && this.state && this.state.loading === false) this.setState({ loading: true })
-    const onLoad = () => this.setState({ loading: false })
-    return new Sampler(...instruments.types(onLoad)[type]).toMaster()
+    const onLoad = () => {
+      const effect = this.state.effects[type]
+      if (effect) this.state.instrument.connect(effect)
+      this.setState({ loading: false })
+    }
+    const sampler = new Sampler(...instruments.types(onLoad)[type]).toMaster()
+    return sampler
   }
   setClick = () => new MonoSynth(instruments.click).toMaster()
   setInstrumentSchedule = (score) => {

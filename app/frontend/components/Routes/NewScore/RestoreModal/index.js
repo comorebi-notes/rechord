@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import Modal                from "../../../commons/modal"
+import ModalCard            from "../../../commons/ModalCard"
 
 export default class RestoreModal extends Component {
   handleClick = () => {
@@ -12,7 +12,7 @@ export default class RestoreModal extends Component {
   render() {
     const { restoreState } = this.props
     return (
-      <Modal
+      <ModalCard
         isActive={restoreState}
         title="Restore ?"
         icon="info-circle"
@@ -22,7 +22,7 @@ export default class RestoreModal extends Component {
       >
         前回作業したデータが残っています。<br />
         復元しますか？
-      </Modal>
+      </ModalCard>
     )
   }
 }

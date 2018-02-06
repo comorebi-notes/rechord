@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import classNames           from "classnames"
+import ModalCard            from "../../../commons/ModalCard"
 import * as api             from "../../../../api"
 import * as path            from "../../../../utils/path"
 
@@ -15,34 +15,19 @@ export default class DestroyScoreModal extends Component {
   hideModal = () => this.props.handleToggleDestroyModal()
   render() {
     const { active } = this.props
-    const modalClass = classNames("modal", { "is-active": active })
     return (
-      <div className={modalClass}>
-        <div className="modal-background" role="presentation" onClick={this.hideModal} />
-        <div className="modal-card">
-          <header className="modal-card-head">
-            <p className="modal-card-title">
-              <span className="icon">
-                <i className="fa fa-exclamation-triangle" />
-              </span>
-              <span>Caution</span>
-            </p>
-            <button className="delete" onClick={this.hideModal} />
-          </header>
-          <section className="modal-card-body">
-            本当にスコアを削除しますか？
-          </section>
-          <footer className="modal-card-foot right">
-            <button className="button is-danger" onClick={this.handleDestroyScore}>
-              Yes
-            </button>
-            <button className="button" onClick={this.hideModal}>
-              No
-            </button>
-          </footer>
-        </div>
-        <button className="modal-close is-large" onClick={this.hideModal} />
-      </div>
+      <ModalCard
+        isActive={active}
+        title="Caution"
+        icon="exclamation-triangle"
+        hasButtons
+        buttonColor="danger"
+        handleClick={this.handleDestroyScore}
+        hideModal={this.hideModal}
+      >
+        一度削除したスコアは復元できません。<br />
+        本当にスコアを削除しますか？
+      </ModalCard>
     )
   }
 }

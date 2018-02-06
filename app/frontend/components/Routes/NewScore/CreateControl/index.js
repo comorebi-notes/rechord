@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { withRouter }       from "react-router-dom"
 import StatusControl        from "../../../StatusControl"
 import TwitterTL            from "../../../commons/TwitterTL"
+import ModalCard            from "../../../commons/ModalCard"
 import * as api             from "../../../../api"
 import * as path            from "../../../../utils/path"
 import * as utils           from "../../../../utils"
@@ -9,11 +10,18 @@ import * as utils           from "../../../../utils"
 class CreateControl extends Component {
   constructor() {
     super()
-    this.state = { loading: false }
+    this.state = { loading: false, modal: false }
   }
   handleClick = () => {
+    if (!this.props.userId) {
+      this.setState({ modal: true })
+    } else {
+      this.createScore()
+    }
+  }
+  createScore = () => {
     const { userId, handleSetState, handleResetLocalStorage, history } = this.props
-    this.setState({ loading: true })
+    this.setState({ loading: true, modal: false })
     api.createScore(
       this.props,
       (success) => {
@@ -32,54 +40,58 @@ class CreateControl extends Component {
       }
     )
   }
+  hideConfirmModal = () => this.setState({ modal: false })
   render() {
     const { userId, status, handleSetState, isValid } = this.props
-    const { loading } = this.state
+    const { loading, modal } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
     const buttonLabel = userId ? "save" : "save & share"
     return (
-      <div className="score-footer">
-        <div className="has-status-control">
-          {userId && (
-            <StatusControl
-              status={status}
-              handleSetState={handleSetState}
-            />
-          )}
-          {userId && <br />}
-          <div className="save-control">
-            <button
-              className="button is-primary is-medium animate-button"
-              onClick={this.handleClick}
-              disabled={loading || !isValid}
-            >
-              <span className="icon">
-                <i className={iconClass} />
-              </span>
-              <span>{buttonLabel}</span>
-            </button>
+      <div>
+        <div className="score-footer">
+          <div className="has-status-control">
+            {userId && (
+              <StatusControl
+                status={status}
+                handleSetState={handleSetState}
+              />
+            )}
+            {userId && <br />}
+            <div className="save-control">
+              <button
+                className="button is-primary is-medium animate-button"
+                onClick={this.handleClick}
+                disabled={loading || !isValid}
+              >
+                <span className="icon">
+                  <i className={iconClass} />
+                </span>
+                <span>{buttonLabel}</span>
+              </button>
+            </div>
           </div>
+          {!userId && (
+            <div>
+              <hr style={{ margin: "3rem 0" }} />
+              <div className="box twitter-tl">
+                <TwitterTL />
+              </div>
+            </div>
+          )}
         </div>
 
-        {!userId && (
-          <div>
-            <div className="notification is-size-7">
-              <span className="icon">
-                <i className="fa fa-warning" />
-              </span>
-              ログインしていない場合、保存後のデータは編集できませんのでご注意ください。
-            </div>
-          </div>
-        )}
-
-        {!userId && (
-          <div>
-            <hr style={{ margin: "3rem 0" }} />
-            <div className="box twitter-tl">
-              <TwitterTL />
-            </div>
-          </div>
-        )}
+        <ModalCard
+          isActive={modal}
+          title="Confirm"
+          icon="info-circle"
+          hasButtons
+          handleClick={this.createScore}
+          hideModal={this.hideConfirmModal}
+        >
+          現在ログインしていません。<br />
+          ログインしていない状態で保存した場合、あとから編集や削除はできません。<br />
+          本当に保存しますか？
+        </ModalCard>
       </div>
     )
   }

@@ -43,12 +43,13 @@ export default class EditUser extends Component {
   handleInputTwitter    = (e) => this.handleChangeWithValidate("twitter",    e.target.value)
   handleBlurName = (e) => {
     this.handleTouch("name")
-    if (e.target.value === this.props.user.name) return this.setState({ validName: true })
-    if (!e.target.value) return this.setState({ validName: false })
+    const name = e.target.value
+    if (name === this.props.user.name) return this.setState({ validName: true })
+    if (!name || !(/^[a-z0-9._-]*$/).test(name)) return this.setState({ validName: false })
 
     this.setState({ loading: true })
     return api.validUserName(
-      { name: e.target.value },
+      { name },
       () => this.setState({ loading: false, validName: true }),
       (error) => (
         this.setState({ loading: false, validName: false, errors: utils.setApiErrors(error.response.data) })

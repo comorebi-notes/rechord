@@ -8,8 +8,8 @@ import * as path            from "../../../../utils/path"
 import * as utils           from "../../../../utils"
 
 class CreateControl extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = { loading: false, modal: false }
   }
   handleClick = () => {
@@ -88,9 +88,9 @@ class CreateControl extends Component {
           handleClick={this.createScore}
           hideModal={this.hideConfirmModal}
         >
-          現在あなたはログインしていません。<br />
-          ログインしていない状態で保存すると、あとから編集や削除は出来ません。<br />
-          保存しますか？
+          現在ログインしていません。<br />
+          ログインしていない状態で保存した場合、あとから編集や削除はできません。<br />
+          本当に保存しますか？
         </ModalCard>
       </div>
     )

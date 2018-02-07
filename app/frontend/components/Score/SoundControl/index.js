@@ -87,8 +87,9 @@ export default class SoundControl extends Component {
       if (effect) this.state.instrument.connect(effect)
       this.setState({ loading: false })
     }
-    const instrumentType = instruments.types(onLoad)[type] || instruments.types(onLoad)[DEFAULT_INSTRUMENT_TYPE]
-    const sampler = new Sampler(...instrumentType).toMaster()
+    const paramsBuilder = instruments.types(onLoad)
+    const params = paramsBuilder[type] || paramsBuilder[DEFAULT_INSTRUMENT_TYPE]
+    const sampler = new Sampler(...params).toMaster()
     return sampler
   }
   setClick = () => new MonoSynth(instruments.click).toMaster()

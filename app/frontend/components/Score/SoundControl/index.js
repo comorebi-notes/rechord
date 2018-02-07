@@ -6,8 +6,8 @@ import { beats }        from "../../../constants/beats"
 import * as instruments from "../../../constants/instruments"
 import * as utils       from "../../../utils"
 import * as decorator   from "../../../decorators/scoreEditorDecorator"
-import { window, navigator, AudioContext }      from "../../../utils/browser-dependencies"
-import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../../constants"
+import { window, navigator, AudioContext } from "../../../utils/browser-dependencies"
+import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE, DEFAULT_INSTRUMENT_TYPE } from "../../../constants"
 
 // const LATENCY_HINT = 0.28
 // const UPDATE_INTERVAL = 0.02
@@ -87,7 +87,8 @@ export default class SoundControl extends Component {
       if (effect) this.state.instrument.connect(effect)
       this.setState({ loading: false })
     }
-    const sampler = new Sampler(...instruments.types(onLoad)[type]).toMaster()
+    const instrumentType = instruments.types(onLoad)[type] || instruments.types(onLoad)[DEFAULT_INSTRUMENT_TYPE]
+    const sampler = new Sampler(...instrumentType).toMaster()
     return sampler
   }
   setClick = () => new MonoSynth(instruments.click).toMaster()

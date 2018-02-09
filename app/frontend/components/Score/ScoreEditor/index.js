@@ -6,6 +6,7 @@ import { validateTypes } from "./validateTypes"
 import { validator }     from "../../../validator"
 import FormWithValidate  from "../../../validator/FormWithValidate"
 import * as regex        from "../../../constants/regex"
+import * as draftjsUtils from "../../../utils/draftjsUtils"
 import { setCurrentScrollPosition, changeScrollPosition } from "./changeScrollPosition"
 
 export default class ScoreEditor extends Component {
@@ -42,6 +43,10 @@ export default class ScoreEditor extends Component {
     const { handleChangeEditorState } = this.props
     setCurrentScrollPosition()
     handleChangeEditorState(editorState)
+
+    const selectionState = editorState.getSelection()
+    const currentContent = editorState.getCurrentContent()
+    console.log(draftjsUtils.getSelectedText(currentContent, selectionState))
   }
   handleBeforeInput = (chars, editorState) => {
     if (chars.match(regex.whiteSpaces)) {

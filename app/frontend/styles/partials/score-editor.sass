@@ -9,7 +9,7 @@
   background-color: inherit
   padding: 0
 @mixin unclassed-span
-  &:not(.root):not(.on-chord):not(.separator):not(.chord-type):not(.comment):not(.start-marker):not(.end-marker)
+  &:not(.root):not(.on-chord):not(.separator):not(.chord-type):not(.comment):not(.marker)
     @content
 
 .score
@@ -44,13 +44,20 @@
     font-weight: normal
     line-height: 2.4
     color: #888
-  .start-marker, .end-marker
+  .marker
     display: block
-    font-size: .9em
+    font-size: .8em
     font-weight: bold
     color: #888
     background-color: #eee
     padding: .2em .5em
+    &.start
+      margin: .4em 0 .2em
+    &.end
+      margin: .2em 0 .4em
+  .comment, .marker
+    > span > span
+      font-family: monospace
   .root
     line-height: 1.8
     font-size: 1.3em

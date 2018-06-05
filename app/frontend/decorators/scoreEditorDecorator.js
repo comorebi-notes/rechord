@@ -26,10 +26,12 @@ export const parseChordProgression = (text) => {
     .replace(regex.rootChord,   " $&")
     .replace(regex.joinOnChord, "$1$2")
     .split("\n")
-    .filter(line => line[0] !== "#")
+    .filter(line => regex.comment.test(line[0]))
     .map(line => line.split(regex.separator))
     .map(line => (
-      line[0][0] === "\n" ? line : (
+      regex.newLineTop.test(line[0][0]) || regex.commentLineTop.test(line[0][0]) ? (
+        line
+      ) : (
         line
           .map(chords => chords.trim())
           .filter(chords => chords !== "")

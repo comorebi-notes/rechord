@@ -55,12 +55,12 @@ const commentComponent = (props) => (
   </span>
 )
 const startMarkerComponent = (props) => (
-  <span className="start-marker">
+  <span className="marker start">
     {props.children}
   </span>
 )
 const endMarkerComponent = (props) => (
-  <span className="end-marker">
+  <span className="marker end">
     {props.children}
   </span>
 )

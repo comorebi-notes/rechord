@@ -14,4 +14,7 @@ export const comment     = /^[#♯].*$/g
 export const startMarker = /^<.*$/g
 export const endMarker   = /^>.*$/g
 
+export const newLineTop     = /\n/
+export const commentLineTop = /[#♯<>]/
+
 export const joinOnChord = new RegExp(`${onChordSeparator} (${note})`, "g")

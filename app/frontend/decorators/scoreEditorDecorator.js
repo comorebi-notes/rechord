@@ -26,19 +26,22 @@ export const parseChordProgression = (text) => {
     .replace(regex.rootChord,   " $&")
     .replace(regex.joinOnChord, "$1$2")
     .split("\n")
-    .filter(line => regex.comment.test(line[0]))
+    .filter(line => line[0] !== "#")
     .map(line => line.split(regex.separator))
-    .map(line => (
-      regex.newLineTop.test(line[0][0]) || regex.commentLineTop.test(line[0][0]) ? (
-        line
-      ) : (
-        line
-          .map(chords => chords.trim())
-          .filter(chords => chords !== "")
-          .map(chords => chords.split(regex.whiteSpaces))
-          .map(chords => chords.map(chord => tokenize(chord)))
-      )
-    ))
+    .map(line => {
+      switch (true) {
+        case line[0][0] === "\n":
+          return line
+        case regex.markerLineTop.test(line[0][0]):
+          return [line.map(markerLine => tokenize(markerLine))]
+        default:
+          return line
+            .map(chords => chords.trim())
+            .filter(chords => chords !== "")
+            .map(chords => chords.split(regex.whiteSpaces))
+            .map(chords => chords.map(chord => tokenize(chord)))
+      }
+    })
 }
 
 export const keyChange = (progression, operation) => {

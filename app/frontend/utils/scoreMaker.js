@@ -2,7 +2,7 @@ import { Note, Distance } from "tonal"
 import chordTranslator    from "chord-translator"
 import { times }          from "../utils"
 import { beats }          from "../constants/beats"
-import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE, STOP_NOTE_2 } from "../constants"
+import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE, STOP_NOTE_2, START_MARKER, END_MARKER } from "../constants"
 
 const setBeatPositions = (length, selectedBeat) => {
   if (length === 1) return [[0, 0]]
@@ -74,38 +74,53 @@ const fixNotes = (chord, baseKey) => {
 }
 
 export const scoreMaker = (text, selectedTime) => {
-  const score = []
   const baseKey = 3
+  let score = []
   let bar = 0
   let notesIndex = 0
+  let endOfScore = false
 
   text.forEach(line => {
     if (!line) return false
 
     line.forEach((chords) => {
-      const beatPositions = setBeatPositions(chords.length, selectedTime)
-      chords.forEach((chord, index) => {
-        if (beatPositions.length <= index) return score.push({ notes: false })
+      if (endOfScore) return false
+      switch (true) {
+        case chords[0][0] === START_MARKER:
+          bar = 0
+          score = []
+          return false
+        case chords[0][0] === END_MARKER:
+          score.push({ time: `${bar}:0:0`, notes: END_MARKER })
+          endOfScore = true
+          return false
+        default: {
+          const beatPositions = setBeatPositions(chords.length, selectedTime)
+          chords.forEach((chord, index) => {
+            if (beatPositions.length <= index) return score.push({ notes: false })
 
-        const [beat, sixteenth] = beatPositions[index]
-        const time = `${bar}:${beat}:${sixteenth}`
-        const notes = () => {
-          switch (chord[0]) {
-            case STREAK_NOTE: return STREAK_NOTE
-            case RESUME_NOTE: return RESUME_NOTE
-            case STOP_NOTE:   return []
-            case STOP_NOTE_2: return []
-            default:          return fixNotes(chord, baseKey)
-          }
+            const [beat, sixteenth] = beatPositions[index]
+            const time = `${bar}:${beat}:${sixteenth}`
+            const notes = () => {
+              if (chord[0].length > 0) notesIndex += 1
+              switch (chord[0]) {
+                case STREAK_NOTE:  return STREAK_NOTE
+                case RESUME_NOTE:  return RESUME_NOTE
+                case STOP_NOTE:    return []
+                case STOP_NOTE_2:  return []
+                default:           return fixNotes(chord, baseKey)
+              }
+            }
+            return score.push({ time, notes: notes(), index: notesIndex - 1 })
+          })
+          bar += 1
+          return true
         }
-        notesIndex += 1
-        return score.push({ time, notes: notes(), index: notesIndex - 1 })
-      })
-      bar += 1
+      }
     })
     return true
   })
-  score.push({ time: `${bar}:0:0`, notes: "fin" })
+  if (!endOfScore) score.push({ time: `${bar}:0:0`, notes: END_MARKER })
   return score
 }
 

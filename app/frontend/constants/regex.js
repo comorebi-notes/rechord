@@ -11,5 +11,7 @@ export const chord       = new RegExp(`^((${note}(${chordTypes})?(${onChordSepar
 export const separator   = /[|｜lｌ]/g
 export const whiteSpaces = /[ 　]+/g
 export const comment     = /^[#♯].*$/g
+export const startMarker = /^<.*$/g
+export const endMarker   = /^>.*$/g
 
 export const joinOnChord = new RegExp(`${onChordSeparator} (${note})`, "g")

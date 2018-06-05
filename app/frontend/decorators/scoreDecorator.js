@@ -54,6 +54,16 @@ const commentComponent = (props) => (
     {props.children}
   </span>
 )
+const startMarkerComponent = (props) => (
+  <span className="start-marker">
+    {props.children}
+  </span>
+)
+const endMarkerComponent = (props) => (
+  <span className="end-marker">
+    {props.children}
+  </span>
+)
 const separatorComponent = (props) => (
   <span className="separator">
     {props.children}
@@ -84,11 +94,13 @@ const chordTypeComponent = (props) => (
 
 const ScoreDecorator = new CompositeDecorator([
   baseDecorator(constantRegex.comment,     commentComponent),
+  baseDecorator(constantRegex.startMarker, startMarkerComponent),
+  baseDecorator(constantRegex.endMarker,   endMarkerComponent),
   baseDecorator(constantRegex.separator,   separatorComponent),
   baseDecorator(constantRegex.onChord,     onChordComponent),
   baseDecorator(constantRegex.rootChord,   rootChordComponent),
   baseDecorator(constantRegex.whiteSpaces, whiteSpacesComponent),
-  baseDecorator(constantRegex.chordType,   chordTypeComponent)
+  baseDecorator(constantRegex.chordType,   chordTypeComponent),
 ])
 
 export default ScoreDecorator

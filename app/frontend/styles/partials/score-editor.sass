@@ -47,14 +47,16 @@
   .marker
     display: block
     font-size: .8em
-    font-weight: bold
+    font-weight: normal
     color: #888
     background-color: #eee
     padding: .2em .5em
     &.start
-      margin: .4em 0 .2em
+      margin: .8em 0 .2em
+      border-bottom: 1px dashed #bbb
     &.end
-      margin: .2em 0 .4em
+      margin: .4em 0 .8em
+      border-top: 1px dashed #bbb
   .comment, .marker
     > span > span
       font-family: monospace

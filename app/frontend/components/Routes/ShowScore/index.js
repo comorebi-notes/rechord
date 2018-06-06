@@ -36,7 +36,7 @@ export default class ShowScore extends Component {
       (success) => {
         const { score, author } = success.data
         const scoreContent = score.content.split("\n").map(line => (
-          line[0] === "#" ? line : line.replace(regex.whiteSpaces, "")
+          regex.commentLineTop.test(line[0]) ? line : line.replace(regex.whiteSpaces, "")
         )).join("\n")
         const contentState = ContentState.createFromText(scoreContent)
         utils.setTitle(score.title, this.props.history)

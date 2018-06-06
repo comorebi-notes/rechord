@@ -32,8 +32,8 @@ export const parseChordProgression = (text) => {
       switch (true) {
         case line[0][0] === "\n":
           return line
-        case regex.markerLineTop.test(line[0][0]):
-          return [line.map(markerLine => tokenize(markerLine))]
+        case regex.markerLineTop.test(line[0].trim()[0]):
+          return [line.map(markerLine => tokenize(markerLine.trim()[0]))]
         default:
           return line
             .map(chords => chords.trim())

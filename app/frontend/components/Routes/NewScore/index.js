@@ -79,7 +79,7 @@ export default class NewScore extends Component {
       <div>
         {!userId && (
           <article className="message is-primary">
-            <div className="message-body has-icon">
+            <div className="message-body bordered has-icon">
               <span className="icon is-large">
                 <i className="fa fa-envira fa-2x" />
               </span>

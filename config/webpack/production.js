@@ -1,7 +1,7 @@
 const environment = require('./environment')
 const webpack     = require('webpack')
 
-environment.plugins.set(
+environment.plugins.append(
   "UglifyJs",
   new webpack.optimize.UglifyJsPlugin({
     parallel:   true,

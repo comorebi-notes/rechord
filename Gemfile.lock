@@ -463,6 +463,23 @@ GEM
       json (>= 1.8)
       nokogiri (~> 1.5)
       trollop (~> 2.1)
+    redis (4.0.1)
+    redis-actionpack (5.0.2)
+      actionpack (>= 4.0, < 6)
+      redis-rack (>= 1, < 3)
+      redis-store (>= 1.1.0, < 2)
+    redis-activesupport (5.0.4)
+      activesupport (>= 3, < 6)
+      redis-store (>= 1.3, < 2)
+    redis-rack (2.0.4)
+      rack (>= 1.5, < 3)
+      redis-store (>= 1.2, < 2)
+    redis-rails (5.0.2)
+      redis-actionpack (>= 5.0, < 6)
+      redis-activesupport (>= 5.0, < 6)
+      redis-store (>= 1.2, < 2)
+    redis-store (1.5.0)
+      redis (>= 2.2, < 5)
     ref (2.0.0)
     remotipart (1.4.2)
     responders (2.4.0)
@@ -611,6 +628,8 @@ DEPENDENCIES
   rails_admin (~> 1.2)
   rails_admin-i18n
   ransack
+  redis
+  redis-rails
   rmagick
   sass-rails (~> 5.0)
   selenium-webdriver

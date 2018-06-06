@@ -28,15 +28,20 @@ export const parseChordProgression = (text) => {
     .split("\n")
     .filter(line => line[0] !== "#")
     .map(line => line.split(regex.separator))
-    .map(line => (
-      line[0][0] === "\n" ? line : (
-        line
-          .map(chords => chords.trim())
-          .filter(chords => chords !== "")
-          .map(chords => chords.split(regex.whiteSpaces))
-          .map(chords => chords.map(chord => tokenize(chord)))
-      )
-    ))
+    .map(line => {
+      switch (true) {
+        case line[0][0] === "\n":
+          return line
+        case regex.markerLineTop.test(line[0][0]):
+          return [line.map(markerLine => tokenize(markerLine))]
+        default:
+          return line
+            .map(chords => chords.trim())
+            .filter(chords => chords !== "")
+            .map(chords => chords.split(regex.whiteSpaces))
+            .map(chords => chords.map(chord => tokenize(chord)))
+      }
+    })
 }
 
 export const keyChange = (progression, operation) => {

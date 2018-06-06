@@ -6,6 +6,7 @@ import { validateTypes } from "./validateTypes"
 import { validator }     from "../../../validator"
 import FormWithValidate  from "../../../validator/FormWithValidate"
 import * as regex        from "../../../constants/regex"
+// import * as draftjsUtils from "../../../utils/draftjsUtils"
 import { setCurrentScrollPosition, changeScrollPosition } from "./changeScrollPosition"
 
 export default class ScoreEditor extends Component {
@@ -52,13 +53,13 @@ export default class ScoreEditor extends Component {
       const currentLineText     = currentContentBlock.getText()
       const offset              = editorState.getSelection().getAnchorOffset()
 
-      if (currentLineText[0] !== "#" || offset === 0) return "handled"
+      if (!regex.commentLineTop.test(currentLineText[0]) || offset === 0) return "handled"
     }
     return false
   }
   handlePastedText = (text, html, editorState) => {
     const trimmedText = text.split("\n").map((line) => (
-      line[0] === "#" ? line : line.replace(regex.whiteSpaces, "")
+      regex.commentLineTop.test(line[0]) ? line : line.replace(regex.whiteSpaces, "")
     )).join("\n")
     const pastedBlocks    = ContentState.createFromText(trimmedText).blockMap
     const currentContent  = editorState.getCurrentContent()

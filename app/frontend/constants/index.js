@@ -2,6 +2,8 @@ export const STREAK_NOTE             = "%"
 export const RESUME_NOTE             = "="
 export const STOP_NOTE               = "_"
 export const STOP_NOTE_2             = "N.C."
+export const START_MARKER            = "<"
+export const END_MARKER              = ">"
 export const MIN_BPM                 = 0
 export const MAX_BPM                 = 999
 export const MIN_CAPO                = 0

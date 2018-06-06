@@ -6,8 +6,8 @@ import { beats }        from "../../../constants/beats"
 import * as instruments from "../../../constants/instruments"
 import * as utils       from "../../../utils"
 import * as decorator   from "../../../decorators/scoreEditorDecorator"
-import { window, navigator, AudioContext }      from "../../../utils/browser-dependencies"
-import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE } from "../../../constants"
+import { window, navigator, AudioContext }                  from "../../../utils/browser-dependencies"
+import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE, END_MARKER } from "../../../constants"
 
 // const LATENCY_HINT = 0.28
 // const UPDATE_INTERVAL = 0.02
@@ -51,9 +51,9 @@ export default class SoundControl extends Component {
     }
   }
   componentWillReceiveProps({ bpm, volume, loop, enabledClick, instrumentType }) {
-    if (bpm !== this.props.bpm) this.setBpm(bpm)
+    if (bpm    !== this.props.bpm)    this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
-    if (loop !== this.props.loop) Transport.loop = loop
+    if (loop   !== this.props.loop)   Transport.loop = loop
     if (this.state.click && (enabledClick !== this.props.enabledClick)) {
       this.state.click.volume.value = enabledClick ? 0 : -100
     }
@@ -88,7 +88,7 @@ export default class SoundControl extends Component {
       const { currentNotes } = this.state
       const capoNotes = utils.transpose(notes, this.props.capo)
 
-      if (index === 0) decorator.allDeactivateCurrentNotes()
+      if (value.time === "0:0:0") decorator.allDeactivateCurrentNotes()
       switch (notes[0]) {
         case RESUME_NOTE:
           decorator.activateCurrentNotes(index)
@@ -97,11 +97,9 @@ export default class SoundControl extends Component {
           this.releaseNotes(currentNotes, time)
           this.attackNotes(currentNotes, time, index)
           break
-        case "f":
-          if (notes === "fin") {
-            this.releaseNotes(currentNotes, time)
-            this.handleStop()
-          }
+        case END_MARKER:
+          this.releaseNotes(currentNotes, time)
+          this.handleStop()
           break
         default:
           this.releaseNotes(currentNotes, time)

@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import Tone, { Transport, Master, Sampler, MonoSynth, Part } from "tone"
+import StartAudioContext from "startaudiocontext"
 
 import Button           from "../../commons/Button"
 import { beats }        from "../../../constants/beats"
@@ -22,6 +23,8 @@ export default class SoundControl extends Component {
     Transport.clear()
     Tone.context.close()
     Tone.context = new AudioContext()
+    StartAudioContext(Tone.context) // https://github.com/Tonejs/Tone.js/issues/341
+
     // Tone.context.latencyHint = LATENCY_HINT
     // Tone.context.updateInterval = UPDATE_INTERVAL
 

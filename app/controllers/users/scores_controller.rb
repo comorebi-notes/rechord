@@ -1,10 +1,11 @@
 class Users::ScoresController < ApplicationController
+  include SearchParams
+
   def index
     user = User.find_by(name: params[:user_name])
     return unless user
 
-    owner = params[:user_name] == current_user&.name
-    scores = user.scores_list(params, owner)
+    scores = user.scores_list(users_scores_list_params)
     total_count = scores.count
     scores = scores.page(params[:page] || 1)
 

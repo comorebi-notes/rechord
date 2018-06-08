@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
+  include SearchParams
+
   before_action :set_user, only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy]
 
   def index
-    users = User.list(params)
+    users = User.list(users_list_params)
     total_count = users.count
     users = users.page(params[:page] || 1)
 

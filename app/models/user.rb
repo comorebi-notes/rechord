@@ -18,15 +18,11 @@ class User < ApplicationRecord
   validates :twitter,     length: { maximum: 16 }
   validate  :limit_icon_file_size, if: :has_icon?
 
-  scope :list, -> (_params) {
-    params = set_list_params(_params)
-
+  scope :list, -> (params) {
     users = self
     users = users.where.not(scores_count: 0) unless params[:options][:no_scores]
     users = users.order(params[:sort] => params[:order])
-    if params[:words].present?
-      users = users.ransack(name_or_screen_name_or_profile_cont_all: params[:words]).result
-    end
+    users = users.ransack(name_or_screen_name_or_profile_cont_all: params[:words]).result if params[:words].present?
     users
   }
 
@@ -93,18 +89,6 @@ class User < ApplicationRecord
         end
       end
     end
-
-    def set_list_params(params)
-      words = params[:word]&.split(" ")
-      sort  = params[:sort].present? ? params[:sort] : "id"
-      order = sort.slice!(/(asc|desc)$/) || "desc"
-
-      options = {}
-      options[:no_scores] = params[:no_scores] == "true"
-      sort.gsub!(/_$/, "")
-
-      { words: words, sort: sort, order: order, options: options }
-    end
   end
 
   def has_icon?
@@ -126,19 +110,15 @@ class User < ApplicationRecord
     Score.all_published(id)
   end
 
-  def favs_list(_params)
-    params = self.class.set_list_params(_params)
-
+  def favs_list(params)
     scores = fav_scores.where(status: :published)
     scores = scores.order(params[:sort] => params[:order])
     scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
     scores
   end
 
-  def scores_list(_params, owner = false)
-    params = self.class.set_list_params(_params)
-
-    scores = owner ? editable_scores : published_scores
+  def scores_list(params)
+    scores = params[:owner] ? editable_scores : published_scores
     scores = scores.order(params[:sort] => params[:order])
     scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
     scores

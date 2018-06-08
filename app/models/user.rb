@@ -30,48 +30,7 @@ class User < ApplicationRecord
     def find_or_create_from_auth(auth)
       provider = auth[:provider]
       uid      = auth[:uid]
-
-      case provider
-      when "twitter"
-        params = {
-          name:        auth[:info][:nickname],
-          screen_name: auth[:info][:name],
-          profile:     auth[:info][:description],
-          icon:        auth[:info][:image],
-          site:        auth[:info][:urls][:Website],
-          twitter:     auth[:info][:nickname]
-        }
-      when "facebook"
-        params = {
-          name:        SecureRandom.urlsafe_base64(8),
-          screen_name: auth[:info][:name],
-          icon:        auth[:info][:image],
-          site:        auth[:extra][:raw_info][:link],
-          email:       auth[:info][:email]
-        }
-      when "google_oauth2"
-        params = {
-          name:        SecureRandom.urlsafe_base64(8),
-          screen_name: auth[:info][:name],
-          icon:        auth[:info][:image],
-          site:        auth[:info][:urls]&.fetch(:google),
-          email:       auth[:info][:email]
-        }
-      when "tumblr"
-        params = {
-          name:        auth[:info][:nickname],
-          screen_name: auth[:info][:name],
-          icon:        auth[:info][:avatar]
-        }
-      when "github"
-        params = {
-          name:        auth[:info][:nickname],
-          screen_name: auth[:info][:nickname],
-          icon:        auth[:info][:image],
-          site:        auth[:info][:urls][:GitHub],
-          email:       auth[:info][:email]
-        }
-      end
+      params   = OauthProviderFormatter.params_for_create_user(auth)
 
       loop do
         params[:name].downcase!

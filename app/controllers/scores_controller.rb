@@ -73,7 +73,7 @@ class ScoresController < ApplicationController
 
   def sort_option
     option = params[:sort]&.gsub(/_(asc|desc)$/, "")
-    sort_options = %w(title views_count favs_count)
+    sort_options = %w(updated_at title views_count favs_count)
 
     sort_options.include?(option) ? option : "id"
   end

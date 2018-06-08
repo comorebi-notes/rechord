@@ -1,6 +1,7 @@
 export const sortOptions = (type) => {
   const scoresOptions = [
     { value: "",            label: "新着順" },
+    { value: "updated_at",  label: "更新順" },
     { value: "title_asc",   label: "タイトル(昇順)" },
     { value: "title_desc",  label: "タイトル(降順)" },
     { value: "views_count", label: "閲覧回数順" },
@@ -8,6 +9,7 @@ export const sortOptions = (type) => {
   ]
   const usersOptions = [
     { value: "",                 label: "新着順" },
+    { value: "updated_at",       label: "更新順" },
     { value: "screen_name_asc",  label: "名前(昇順)" },
     { value: "screen_name_desc", label: "名前(降順)" },
     { value: "scores_count",     label: "スコア数順" }

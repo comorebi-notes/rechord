@@ -5,7 +5,7 @@ class ScoresController < ApplicationController
   before_action :impression, only: [:show]
 
   def index
-    scores = Score.list(params)
+    scores = Score.list(list_params)
     total_count = scores.count
     scores = scores.page(params[:page] || 1)
 
@@ -61,6 +61,21 @@ class ScoresController < ApplicationController
     params.require(:score).permit(
       :title, :content, :instrument, :beat, :bpm, :capo, :click, :loop, :status, :user_id
     )
+  end
+
+  def list_params
+    words = params[:word]&.split(" ")
+    order = params[:sort]&.slice(/(asc|desc)$/) || "desc"
+    options = { guest: params[:guest] == "true" }
+
+    { words: words, sort: sort_option, order: order, options: options }
+  end
+
+  def sort_option
+    option = params[:sort]&.gsub(/_(asc|desc)$/, "")
+    sort_options = %w(title views_count favs_count)
+
+    sort_options.include?(option) ? option : "id"
   end
 
   def browsable?

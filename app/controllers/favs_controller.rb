@@ -1,6 +1,8 @@
 class FavsController < ApplicationController
+  include SearchParams
+
   def index
-    scores = current_user.favs_list(params)
+    scores = current_user.favs_list(users_favs_list_params)
     total_count = scores.count
     scores = scores.page(params[:page] || 1)
 

@@ -19,13 +19,14 @@ export default class FlashMessage extends PureComponent {
     const notificationClass = classNames("notification", {
       "is-success": (type === "success" || type === "notice"),
       "is-warning": type === "warning",
-      "is-danger":  type === "error"
+      "is-danger":  (type === "error" || type === "alert")
     })
     const icon = {
       success: "fa-check-circle",
       notice:  "fa-check-circle",
       warning: "fa-exclamation-circle",
-      error:   "fa-exclamation-triangle"
+      error:   "fa-exclamation-triangle",
+      alert:   "fa-exclamation-triangle"
     }
     const iconClass = classNames("fa", "fa-lg", icon[type])
     return (

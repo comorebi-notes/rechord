@@ -1,11 +1,13 @@
 class ScoresController < ApplicationController
+  include SearchParams
+
   before_action :set_score,  only: [:show, :edit, :update, :destroy]
   before_action :browsable?, only: [:show]
   before_action :editable?,  only: [:edit, :update, :destroy]
   before_action :impression, only: [:show]
 
   def index
-    scores = Score.list(params)
+    scores = Score.list(scores_list_params)
     total_count = scores.count
     scores = scores.page(params[:page] || 1)
 

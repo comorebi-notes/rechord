@@ -18,15 +18,11 @@ class User < ApplicationRecord
   validates :twitter,     length: { maximum: 16 }
   validate  :limit_icon_file_size, if: :has_icon?
 
-  scope :list, -> (_params) {
-    params = set_list_params(_params)
-
+  scope :list, -> (params) {
     users = self
     users = users.where.not(scores_count: 0) unless params[:options][:no_scores]
     users = users.order(params[:sort] => params[:order])
-    if params[:words].present?
-      users = users.ransack(name_or_screen_name_or_profile_cont_all: params[:words]).result
-    end
+    users = users.ransack(name_or_screen_name_or_profile_cont_all: params[:words]).result if params[:words].present?
     users
   }
 
@@ -34,48 +30,7 @@ class User < ApplicationRecord
     def find_or_create_from_auth(auth)
       provider = auth[:provider]
       uid      = auth[:uid]
-
-      case provider
-      when "twitter"
-        params = {
-          name:        auth[:info][:nickname],
-          screen_name: auth[:info][:name],
-          profile:     auth[:info][:description],
-          icon:        auth[:info][:image],
-          site:        auth[:info][:urls][:Website],
-          twitter:     auth[:info][:nickname]
-        }
-      when "facebook"
-        params = {
-          name:        SecureRandom.urlsafe_base64(8),
-          screen_name: auth[:info][:name],
-          icon:        auth[:info][:image],
-          site:        auth[:extra][:raw_info][:link],
-          email:       auth[:info][:email]
-        }
-      when "google_oauth2"
-        params = {
-          name:        SecureRandom.urlsafe_base64(8),
-          screen_name: auth[:info][:name],
-          icon:        auth[:info][:image],
-          site:        auth[:info][:urls]&.fetch(:google),
-          email:       auth[:info][:email]
-        }
-      when "tumblr"
-        params = {
-          name:        auth[:info][:nickname],
-          screen_name: auth[:info][:name],
-          icon:        auth[:info][:avatar]
-        }
-      when "github"
-        params = {
-          name:        auth[:info][:nickname],
-          screen_name: auth[:info][:nickname],
-          icon:        auth[:info][:image],
-          site:        auth[:info][:urls][:GitHub],
-          email:       auth[:info][:email]
-        }
-      end
+      params   = OauthProviderFormatter.params_for_create_user(auth)
 
       loop do
         params[:name].downcase!
@@ -92,18 +47,6 @@ class User < ApplicationRecord
           end
         end
       end
-    end
-
-    def set_list_params(params)
-      words = params[:word]&.split(" ")
-      sort  = params[:sort].present? ? params[:sort] : "id"
-      order = sort.slice!(/(asc|desc)$/) || "desc"
-
-      options = {}
-      options[:no_scores] = params[:no_scores] == "true"
-      sort.gsub!(/_$/, "")
-
-      { words: words, sort: sort, order: order, options: options }
     end
   end
 
@@ -126,19 +69,15 @@ class User < ApplicationRecord
     Score.all_published(id)
   end
 
-  def favs_list(_params)
-    params = self.class.set_list_params(_params)
-
+  def favs_list(params)
     scores = fav_scores.where(status: :published)
     scores = scores.order(params[:sort] => params[:order])
     scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
     scores
   end
 
-  def scores_list(_params, owner = false)
-    params = self.class.set_list_params(_params)
-
-    scores = owner ? editable_scores : published_scores
+  def scores_list(params)
+    scores = params[:owner] ? editable_scores : published_scores
     scores = scores.order(params[:sort] => params[:order])
     scores = scores.ransack(title_cont_all: params[:words]).result if params[:words].present?
     scores

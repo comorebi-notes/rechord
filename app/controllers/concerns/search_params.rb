@@ -2,7 +2,7 @@ module SearchParams
   extend ActiveSupport::Concern
 
   def scores_list_params
-    {  words: words, sort: scores_list_sort_option, order: order, options: scores_list_options }
+    { words: words, sort: scores_list_sort_option, order: order, options: scores_list_options }
   end  
 
   def users_list_params

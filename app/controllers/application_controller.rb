@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_user!
-    session[:user_return_to] = env["PATH_INFO"]
+    session[:user_return_to] = request.path_info
     redirect_to root_path unless user_signed_in?
   end
 

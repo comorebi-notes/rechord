@@ -1,6 +1,8 @@
 class FavsController < ApplicationController
   include SearchParams
 
+  before_action :authenticate_user!
+
   def index
     scores = current_user.favs_list(users_favs_list_params)
     total_count = scores.count

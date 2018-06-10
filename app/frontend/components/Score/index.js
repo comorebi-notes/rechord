@@ -13,6 +13,7 @@ import ClickControl      from "./ClickControl"
 import LoopControl       from "./LoopControl"
 import VolumeControl     from "./VolumeControl"
 import SoundControl      from "./SoundControl"
+import ErrorBoundary     from "../commons/ErrorBoundary"
 import { validate }      from "./validate"
 import { scoreMaker }    from "../../utils/scoreMaker"
 import * as decorator    from "../../decorators/scoreEditorDecorator"
@@ -112,19 +113,21 @@ export default class Score extends Component {
                   />
                 </div>
               </div>
-              <SoundControl
-                instrumentType={instrumentType}
-                beat={beat}
-                bpm={bpm}
-                capo={capo}
-                loop={loop}
-                volume={volume}
-                enabledClick={enabledClick}
-                score={score}
-                isValid={isValid}
-                isPlaying={isPlaying}
-                handleSetState={handleSetState}
-              />
+              <ErrorBoundary>
+                <SoundControl
+                  instrumentType={instrumentType}
+                  beat={beat}
+                  bpm={bpm}
+                  capo={capo}
+                  loop={loop}
+                  volume={volume}
+                  enabledClick={enabledClick}
+                  score={score}
+                  isValid={isValid}
+                  isPlaying={isPlaying}
+                  handleSetState={handleSetState}
+                />
+              </ErrorBoundary>
               <div className="columns play-control">
                 <div className="column">
                   <ClickControl

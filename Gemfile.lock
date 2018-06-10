@@ -103,6 +103,9 @@ GEM
     dotenv-rails (2.4.0)
       dotenv (= 2.4.0)
       railties (>= 3.2, < 6.0)
+    dropbox_api (0.1.10)
+      faraday (~> 0.9, ~> 0.8)
+      oauth2 (~> 1.1)
     erubi (1.7.1)
     excon (0.62.0)
     execjs (2.7.0)
@@ -620,6 +623,7 @@ DEPENDENCIES
   counter_culture (~> 1.8)
   devise
   dotenv-rails
+  dropbox_api
   fog
   font-awesome-rails
   friendly_id

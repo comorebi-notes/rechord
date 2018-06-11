@@ -20,7 +20,7 @@ namespace :backup do
   def detele_olds_by_local(generation_number = 7)
     files = Dir.glob("#{local_backup_path}*")
     files.select! { |file| file_name_pattern(local_backup_path) === file }
-    targets = files.sort.slice(generation_number..-1)
+    targets = files.sort.reverse.slice(generation_number..-1)
 
     targets.each { |target| File.delete(target) } if targets.present?
   end
@@ -29,7 +29,7 @@ namespace :backup do
     client = initialize_dropbox_client
     files = client.list_folder(ENV["BACKUP_FILES_PATH"]).entries.map(&:name)
     files.select! { |file| file_name_pattern === file }
-    targets = files.sort.slice(generation_number..-1)
+    targets = files.sort.reverse.slice(generation_number..-1)
 
     if targets.present?
       targets.each do |target|

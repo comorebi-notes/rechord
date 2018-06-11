@@ -13,8 +13,8 @@ module SearchParams
     users_list_params
   end
 
-  def users_scores_list_params
-    users_list_params.merge(
+  def user_scores_list_params
+    scores_list_params.merge(
       owner: params[:user_name] == current_user&.name
     )
   end

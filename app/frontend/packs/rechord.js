@@ -1,4 +1,4 @@
-import "babel-polyfill"
+import "babel-polyfill" // for GoogleBot (Chrome 41)
 
 import React        from "react"
 import ReactDOM     from "react-dom"

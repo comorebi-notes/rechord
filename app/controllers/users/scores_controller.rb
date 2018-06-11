@@ -5,7 +5,7 @@ class Users::ScoresController < ApplicationController
     user = User.find_by(name: params[:user_name])
     return unless user
 
-    scores = user.scores_list(users_scores_list_params)
+    scores = user.scores_list(user_scores_list_params)
     total_count = scores.count
     scores = scores.page(params[:page] || 1)
 

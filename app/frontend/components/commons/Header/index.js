@@ -19,10 +19,11 @@ export default class Header extends PureComponent {
   handleToggleModal  = () => this.setState({ modal:  !this.state.modal })
   render() {
     const { burger, modal } = this.state
-    const { currentUser: { name, icon } } = this.props
+    const { currentUser: { name, icon }, pathname } = this.props
     const userPath = path.user.show(name)
     const burgerClass = classNames("navbar-burger", "burger", { "is-active": burger })
     const navMenuClass = classNames("navbar-menu", { "is-active": burger })
+    const navbarItemClass = (targetPath) => classNames("navbar-item", { "is-active": pathname === targetPath })
 
     return (
       <nav className="navbar is-primary" aria-label="main navigation">
@@ -41,16 +42,20 @@ export default class Header extends PureComponent {
 
           <div className={navMenuClass}>
             <div className="navbar-start">
-              <Link to={path.about} className="navbar-item">
-                about
+              <Link to={path.about} className={navbarItemClass(path.about)}>
+                About
               </Link>
               <span className="navbar-item">
                 <span style={{ opacity: 0.5 }}>FAQ</span>
               </span>
+              <Link to={path.changelog} className={navbarItemClass(path.changelog)}>
+                Changelog
+              </Link>
             </div>
+
             <div className="navbar-end">
               {name ? (
-                <Link to={userPath} className="navbar-item current-user">
+                <Link to={userPath} className={`${navbarItemClass(userPath)} current-user`}>
                   <span>
                     @{name}
                   </span>
@@ -67,7 +72,7 @@ export default class Header extends PureComponent {
                         <span className="icon">
                           <i className="fa fa-sign-in" />
                         </span>
-                        <span>login or register</span>
+                        <span>Login / Register</span>
                       </button>
                     </div>
                   </div>

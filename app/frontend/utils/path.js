@@ -6,10 +6,11 @@ export const current = location.href
 export const back    = () => history.back()
 export const forward = () => history.forward()
 
-export const root   = "/"
-export const logout = "/users/logout"
-export const about  = "/about"
-export const terms  = "/terms"
+export const root      = "/"
+export const logout    = "/users/logout"
+export const about     = "/about"
+export const terms     = "/terms"
+export const changelog = "/changelog"
 
 // view と api で path が異なるため注意
 export const score = {
@@ -64,7 +65,7 @@ export const search = (_query, path) => {
   })
   const queryStrings = qs.stringify(queries)
   const query = queryStrings ? `?${queryStrings}` : ""
-  const targetPath = path ? path : location.pathname
+  const targetPath = path || location.pathname
   return `${targetPath}${query}`
 }
 

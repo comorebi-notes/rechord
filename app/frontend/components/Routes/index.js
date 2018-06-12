@@ -11,6 +11,7 @@ import ShowScore     from "./ShowScore"
 import User          from "./User"
 import About         from "./About"
 import Terms         from "./Terms"
+import Changelog     from "./Changelog"
 import ScoresList    from "./ScoresList"
 import UsersList     from "./UsersList"
 import FavsList      from "./FavsList"
@@ -67,6 +68,7 @@ class Container extends Component {
           <RouteWithStateContainer path={path.root}                 component={NewScore} exact />
           <RouteWithState          path={path.about}                component={About} exact />
           <RouteWithStateContainer path={path.terms}                component={Terms} exact />
+          <RouteWithState          path={path.changelog}            component={Changelog} exact />
           <RouteWithStateContainer path={path.score.index()}        component={ScoresList} exact />
           <RouteWithStateContainer path={path.user.index()}         component={UsersList} exact />
           <RouteWithStateContainer path={path.fav.index()}          component={FavsList} exact />

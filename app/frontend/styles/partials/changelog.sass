@@ -1,0 +1,23 @@
+.changelog
+  .columns.version
+    .column
+      padding-top: 1rem
+      padding-bottom: 2rem
+      &:first-child
+        text-align: right
+        border-right: 1px solid #dbdbdb
+        padding-right: 2em
+        .title, .subtitle
+          color: #666
+        .subtitle
+          margin-top: -.8em
+          font-size: 1em
+            font-weight: normal
+        @media screen and (max-width: $tablet - 1px)
+          text-align: left
+          border-right: none
+          padding-right: 0
+          padding-bottom: 0
+      &:last-child
+        > ul:first-child
+          margin-top: .2em

@@ -7,7 +7,7 @@ export default class Changelog extends PureComponent {
     return (
       <div className="content changelog">
         <h1 className="title is-3">更新履歴</h1>
-        {releases.reverse().map(release => (
+        {releases.slice().reverse().map(release => (
           <Version version={release.version} updated_at={release.updated_at} key={release.version}>
             {release.content}
           </Version>

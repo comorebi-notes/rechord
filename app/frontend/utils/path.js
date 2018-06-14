@@ -12,6 +12,8 @@ export const about     = "/about"
 export const terms     = "/terms"
 export const changelog = "/changelog"
 
+export const status = (query) => `/status?${query}`
+
 // view と api で path が異なるため注意
 export const score = {
   show:      (token) => `/${token}`,

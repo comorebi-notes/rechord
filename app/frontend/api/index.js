@@ -8,6 +8,10 @@ const request = (method, url, params, onSuccess, onError) => {
     .catch(error => onError && onError(error))
 }
 
+export const getStatus = (params, onSuccess, onError) => (
+  request("get", path.status(params.query), null, onSuccess, onError)
+)
+
 // ======== Scores ========
 const getScoreParams = (params) => {
   const { title, content, instrument, beat, bpm, capo, loop, click, status, userId } = params

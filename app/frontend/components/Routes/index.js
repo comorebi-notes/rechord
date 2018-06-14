@@ -1,5 +1,6 @@
 import React, { Component }          from "react"
 import { withRouter, Route, Switch } from "react-router-dom"
+import * as qs                       from "qs"
 
 import Header        from "../commons/Header"
 import TabBar        from "../commons/TabBar"
@@ -16,33 +17,44 @@ import ScoresList    from "./ScoresList"
 import UsersList     from "./UsersList"
 import FavsList      from "./FavsList"
 import * as path     from "../../utils/path"
+import * as api      from "../../api"
 import { window }    from "../../utils/browser-dependencies"
 
 class Container extends Component {
   constructor(props) {
     super(props)
-    const { location, flash } = props
+    const { currentUser, location, flash } = props
     location.state = flash.length > 0 ? { flash: flash[0] } : {}
+    this.state = { currentUser, loading: false }
   }
   componentWillReceiveProps({ location }) {
     if (location.pathname !== this.props.location.pathname) {
       window.scrollTo(0, 0)
     }
+    this.handleTransition()
+  }
+  handleTransition = () => {
+    const params = {
+      current_version: "v1.0.0",
+      current_user_id: this.state.currentUser.id
+    }
+    this.setState({ loading: true })
+    api.getStatus(
+      { query: qs.stringify(params) },
+      (success) => {
+        const { currentUser, isPermitted, notification } = success.data
+        this.setState({ loading: false })
+      },
+      () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
+    )
   }
   render() {
-    const { currentUser, location } = this.props
+    const { location } = this.props
+    const { currentUser } = this.state
     const { state } = location
     const showFlashMessage = state && state.flash
 
     const params = { currentUser }
-    const SectionContainer = ({ children }) => (
-      <section className="section">
-        {showFlashMessage && <FlashMessage flash={state.flash} />}
-        <div className="container">
-          {children}
-        </div>
-      </section>
-    )
     const RouteWithState = ({ component: Children, ...routeParams }) => (
       <Route
         {...routeParams}
@@ -50,9 +62,14 @@ class Container extends Component {
       />
     )
     const RouteWithStateContainer = (props) => (
-      <SectionContainer>
-        <RouteWithState {...props} />
-      </SectionContainer>
+      <section className="section">
+        {showFlashMessage && <FlashMessage flash={state.flash} />}
+        <div className="container">
+          {!this.state.loading && (
+            <RouteWithState {...props} />
+          )}
+        </div>
+      </section>
     )
 
     const hideTabBar = location.pathname !== path.about

@@ -11,8 +11,7 @@ export const logout    = "/users/logout"
 export const about     = "/about"
 export const terms     = "/terms"
 export const changelog = "/changelog"
-
-export const status = (query) => `/status?${query}`
+export const status    = "/status"
 
 // view と api で path が異なるため注意
 export const score = {

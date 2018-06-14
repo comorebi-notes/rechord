@@ -2,23 +2,24 @@ import React, { Component }          from "react"
 import { withRouter, Route, Switch } from "react-router-dom"
 import * as qs                       from "qs"
 
-import Header        from "../commons/Header"
-import TabBar        from "../commons/TabBar"
-import Footer        from "../commons/Footer"
-import FlashMessage  from "../commons/FlashMessage"
-import NewScore      from "./NewScore"
-import EditScore     from "./EditScore"
-import ShowScore     from "./ShowScore"
-import User          from "./User"
-import About         from "./About"
-import Terms         from "./Terms"
-import Changelog     from "./Changelog"
-import ScoresList    from "./ScoresList"
-import UsersList     from "./UsersList"
-import FavsList      from "./FavsList"
-import * as path     from "../../utils/path"
-import * as api      from "../../api"
-import { window }    from "../../utils/browser-dependencies"
+import Header                 from "../commons/Header"
+import TabBar                 from "../commons/TabBar"
+import Footer                 from "../commons/Footer"
+import FlashMessage           from "../commons/FlashMessage"
+import NewScore               from "./NewScore"
+import EditScore              from "./EditScore"
+import ShowScore              from "./ShowScore"
+import User                   from "./User"
+import About                  from "./About"
+import Terms                  from "./Terms"
+import Changelog              from "./Changelog"
+import ScoresList             from "./ScoresList"
+import UsersList              from "./UsersList"
+import FavsList               from "./FavsList"
+import * as localStorageState from "../../utils/localStorageState"
+import * as path              from "../../utils/path"
+import * as api               from "../../api"
+import { window }             from "../../utils/browser-dependencies"
 
 class Container extends Component {
   constructor(props) {
@@ -34,27 +35,32 @@ class Container extends Component {
     this.handleTransition()
   }
   handleTransition = () => {
-    const params = {
-      current_version: "v1.0.0",
-      current_user_id: this.state.currentUser.id
-    }
+    const { history } = this.props
+    const localVersion = localStorageState.getCurrentVersion()
+
     this.setState({ loading: true })
     api.getStatus(
-      { query: qs.stringify(params) },
+      null,
       (success) => {
-        const { currentUser, isPermitted, notification } = success.data
-        this.setState({ loading: false })
+        const { currentUser, currentVersion, isPermitted, notification } = success.data
+        this.setState({ loading: false, currentUser })
+        if (currentVersion !== localVersion) {
+          localStorageState.setCurrentVersion(currentVersion)
+          if (localVersion) window.location.reload() // 更新があった場合はブラウザをリロード
+        }
       },
-      () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
+      () => history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
   render() {
     const { location } = this.props
     const { currentUser } = this.state
     const { state } = location
-    const showFlashMessage = state && state.flash
 
+    const showFlashMessage = state && state.flash
+    const hideTabBar = location.pathname !== path.about
     const params = { currentUser }
+
     const RouteWithState = ({ component: Children, ...routeParams }) => (
       <Route
         {...routeParams}
@@ -71,8 +77,6 @@ class Container extends Component {
         </div>
       </section>
     )
-
-    const hideTabBar = location.pathname !== path.about
 
     return (
       <div className="main-content">

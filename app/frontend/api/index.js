@@ -9,7 +9,7 @@ const request = (method, url, params, onSuccess, onError) => {
 }
 
 export const getStatus = (params, onSuccess, onError) => (
-  request("get", path.status(params.query), null, onSuccess, onError)
+  request("get", path.status, null, onSuccess, onError)
 )
 
 // ======== Scores ========

@@ -8,7 +8,7 @@ const request = (method, url, params, onSuccess, onError) => {
     .catch(error => onError && onError(error))
 }
 
-export const getStatus = (params, onSuccess, onError) => (
+export const getStatus = (onSuccess, onError) => (
   request("get", path.status, null, onSuccess, onError)
 )
 

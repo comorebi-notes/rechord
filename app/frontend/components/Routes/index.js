@@ -1,11 +1,12 @@
 import React, { Component }          from "react"
 import { withRouter, Route, Switch } from "react-router-dom"
-import * as qs                       from "qs"
 
 import Header                 from "../commons/Header"
 import TabBar                 from "../commons/TabBar"
 import Footer                 from "../commons/Footer"
 import FlashMessage           from "../commons/FlashMessage"
+import Notification           from "../commons/Notification"
+import NewVersionNotification from "../commons/NewVersionNotification"
 import NewScore               from "./NewScore"
 import EditScore              from "./EditScore"
 import ShowScore              from "./ShowScore"
@@ -16,7 +17,6 @@ import Changelog              from "./Changelog"
 import ScoresList             from "./ScoresList"
 import UsersList              from "./UsersList"
 import FavsList               from "./FavsList"
-import * as localStorageState from "../../utils/localStorageState"
 import * as path              from "../../utils/path"
 import * as api               from "../../api"
 import { window }             from "../../utils/browser-dependencies"
@@ -26,35 +26,40 @@ class Container extends Component {
     super(props)
     const { currentUser, location, flash } = props
     location.state = flash.length > 0 ? { flash: flash[0] } : {}
-    this.state = { currentUser, loading: false }
+    this.state = { currentUser, loading: true }
+  }
+  componentDidMount() {
+    this.handleFirstAccess()
   }
   componentWillReceiveProps({ location }) {
-    if (location.pathname !== this.props.location.pathname) {
-      window.scrollTo(0, 0)
-    }
+    if (location.pathname !== this.props.location.pathname) window.scrollTo(0, 0)
     this.handleTransition()
+  }
+  handleFirstAccess = () => {
+    const { history } = this.props
+    api.getStatus(
+      (success) => {
+        const { currentVersion, notification } = success.data
+        this.setState({ loading: false, currentVersion, notification })
+      },
+      () => history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
+    )
   }
   handleTransition = () => {
     const { history } = this.props
-    const localVersion = localStorageState.getCurrentVersion()
-
     this.setState({ loading: true })
     api.getStatus(
-      null,
       (success) => {
-        const { currentUser, currentVersion, isPermitted, notification } = success.data
-        this.setState({ loading: false, currentUser })
-        if (currentVersion !== localVersion) {
-          localStorageState.setCurrentVersion(currentVersion)
-          if (localVersion) window.location.reload() // 更新があった場合はブラウザをリロード
-        }
+        const { currentUser, currentVersion, notification } = success.data
+        if (currentVersion !== this.state.currentVersion) window.location.reload() // 更新があればブラウザをリロード
+        this.setState({ loading: false, currentUser, notification })
       },
       () => history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
   render() {
     const { location } = this.props
-    const { currentUser } = this.state
+    const { currentUser, currentVersion, notification } = this.state
     const { state } = location
 
     const showFlashMessage = state && state.flash
@@ -99,6 +104,8 @@ class Container extends Component {
         </Switch>
 
         <Footer />
+        <Notification notification={notification} />
+        <NewVersionNotification currentVersion={currentVersion} />
       </div>
     )
   }

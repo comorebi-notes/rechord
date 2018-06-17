@@ -31,11 +31,10 @@ export default class Rechord extends Component {
     this.state = { history }
   }
   render() {
-    const { currentUser, flash } = window.data
     const { history } = this.state
     return (
       <Router history={history}>
-        <Routes currentUser={currentUser} flash={flash} />
+        <Routes data={window.data} />
       </Router>
     )
   }

@@ -24,26 +24,13 @@ import { window }             from "../../utils/browser-dependencies"
 class Container extends Component {
   constructor(props) {
     super(props)
-    const { currentUser, location, flash } = props
+    const { location, data: { currentUser, currentVersion, flash, notification } } = props
     location.state = flash.length > 0 ? { flash: flash[0] } : {}
-    this.state = { currentUser, loading: true }
-  }
-  componentDidMount() {
-    this.handleFirstAccess()
+    this.state = { loading: false, currentUser, currentVersion, notification }
   }
   componentWillReceiveProps({ location }) {
     if (location.pathname !== this.props.location.pathname) window.scrollTo(0, 0)
     this.handleTransition()
-  }
-  handleFirstAccess = () => {
-    const { history } = this.props
-    api.getStatus(
-      (success) => {
-        const { currentVersion, notification } = success.data
-        this.setState({ loading: false, currentVersion, notification })
-      },
-      () => history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
-    )
   }
   handleTransition = () => {
     const { history } = this.props

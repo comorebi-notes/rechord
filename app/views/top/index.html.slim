@@ -6,7 +6,9 @@
 
 javascript:
   var data = {
-    currentUser: #{raw current_user&.to_json || {}},
-    flash:       #{raw flash&.to_json || []},
-    uaId:        #{raw (ENV["UA_ID"] || "")&.to_json}
+    currentUser:    #{raw current_user&.to_json || {}},
+    currentVersion: #{raw Rails.configuration.preference["version"].to_json},
+    notification:   #{raw @notification&.to_json || {}},
+    flash:          #{raw flash&.to_json || []},
+    uaId:           #{raw (ENV["UA_ID"] || "")&.to_json}
   }

@@ -25,9 +25,9 @@ import { window }             from "../../utils/browser-dependencies"
 class Container extends Component {
   constructor(props) {
     super(props)
-    const { location, data: { currentUser, currentVersion, flash, notification } } = props
+    const { location, data: { currentUser, currentVersion, flash, notifications } } = props
     location.state = flash.length > 0 ? { flash: flash[0] } : {}
-    this.state = { loading: false, currentUser, currentVersion, notification }
+    this.state = { loading: false, currentUser, currentVersion, notifications }
   }
   componentWillReceiveProps({ location }) {
     if (location.pathname !== this.props.location.pathname) window.scrollTo(0, 0)
@@ -38,16 +38,16 @@ class Container extends Component {
     this.setState({ loading: true })
     api.getStatus(
       (success) => {
-        const { currentUser, currentVersion, notification } = success.data
+        const { currentUser, currentVersion, notifications } = success.data
         if (currentVersion !== this.state.currentVersion) window.location.reload() // 更新があればブラウザをリロード
-        this.setState({ loading: false, currentUser, notification })
+        this.setState({ loading: false, currentUser, notifications })
       },
       () => history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
   render() {
     const { location } = this.props
-    const { loading, currentUser, currentVersion, notification } = this.state
+    const { loading, currentUser, currentVersion, notifications } = this.state
     const { state } = location
 
     const containerClass = classNames("container", { "loading-wrapper": loading })
@@ -62,7 +62,7 @@ class Container extends Component {
       />
     )
     const RouteWithStateContainer = (props) => (
-      <section className="section root">
+      <section className="section root-section">
         {showFlashMessage && <FlashMessage flash={state.flash} />}
         <div className={containerClass}>
           {!loading && (
@@ -93,7 +93,7 @@ class Container extends Component {
         </Switch>
 
         <Footer />
-        <Notification notification={notification} />
+        <Notification notifications={notifications} />
         <NewVersionNotification currentVersion={currentVersion} />
       </div>
     )

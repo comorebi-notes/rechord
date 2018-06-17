@@ -2,7 +2,11 @@ class StatusesController < ApplicationController
   def show
     render json: {
       currentUser:    current_user || {},
-      currentVersion: Rails.configuration.preference["version"]
+      currentVersion: Rails.configuration.preference["version"],
+      notifications: [
+        title:   "title",
+        content: "content"
+      ]
     }
   end
 

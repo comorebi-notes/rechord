@@ -2,24 +2,35 @@ import React, { PureComponent } from "react"
 import classNames               from "classnames"
 import { Link  }                from "react-router-dom"
 import LoginModal               from "../LoginModal"
+import Notification             from "../Notification"
+import NotificationIcon         from "../Notification/NotificationIcon"
 import * as path                from "../../../utils/path"
 import * as utils               from "../../../utils"
 
 export default class Header extends PureComponent {
   constructor() {
     super()
-    this.state = { burger: false, modal: false }
+    this.state = {
+      burger: false,
+      isActiveLoginModal: false,
+      isActiveNotification: false
+    }
   }
   componentWillReceiveProps({ pathname }) {
     if (pathname !== this.props.pathname) {
       this.setState({ burger: false })
     }
   }
-  handleToggleBurger = () => this.setState({ burger: !this.state.burger })
-  handleToggleModal  = () => this.setState({ modal:  !this.state.modal })
+  handleToggleBurger       = () => this.setState({ burger: !this.state.burger })
+  handleToggleLoginModal   = () => this.setState({ isActiveLoginModal: !this.state.isActiveLoginModal })
+  handleToggleNotification = () => this.setState({ isActiveNotification: !this.state.isActiveNotification })
+  handleClearNotification  = () => {
+    this.handleToggleNotification()
+    this.props.handleClearNotification()
+  }
   render() {
-    const { burger, modal } = this.state
-    const { currentUser: { name, icon }, pathname } = this.props
+    const { burger, isActiveLoginModal, isActiveNotification } = this.state
+    const { currentUser: { name, icon }, pathname, notifications } = this.props
     const userPath = path.user.show(name)
     const burgerClass = classNames("navbar-burger", "burger", { "is-active": burger })
     const navMenuClass = classNames("navbar-menu", { "is-active": burger })
@@ -54,6 +65,12 @@ export default class Header extends PureComponent {
             </div>
 
             <div className="navbar-end">
+              {name && (
+                <NotificationIcon
+                  notifications={notifications}
+                  handleToggleNotification={this.handleToggleNotification}
+                />
+              )}
               {name ? (
                 <Link to={userPath} className={`${navbarItemClass(userPath)} current-user`}>
                   <span>
@@ -67,7 +84,7 @@ export default class Header extends PureComponent {
                     <div className="control">
                       <button
                         className="button is-primary is-inverted login-button"
-                        onClick={this.handleToggleModal}
+                        onClick={this.handleToggleLoginModal}
                       >
                         <span className="icon">
                           <i className="fa fa-sign-in" />
@@ -80,7 +97,12 @@ export default class Header extends PureComponent {
               )}
             </div>
 
-            {!name && <LoginModal active={modal} hideModal={this.handleToggleModal} />}
+            {!name && <LoginModal active={isActiveLoginModal} hideModal={this.handleToggleLoginModal} />}
+            <Notification
+              notifications={notifications}
+              active={isActiveNotification}
+              handleClearNotification={this.handleClearNotification}
+            />
           </div>
         </div>
       </nav>

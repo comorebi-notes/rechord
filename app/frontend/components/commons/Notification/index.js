@@ -1,18 +1,10 @@
 import React, { Component } from "react"
-import ModalCard            from "./ModalCard"
+import ModalCard            from "../ModalCard"
 
 export default class Notification extends Component {
-  constructor() {
-    super()
-    this.state = { active: false }
-  }
-  componentWillReceiveProps({ notifications }) {
-    this.setState({ active: notifications.length > 0 })
-  }
-  hideModal = () => this.setState({ active: false })
+  handleClearNotification = () => this.props.handleClearNotification()
   render() {
-    const { notifications } = this.props
-    const { active } = this.state
+    const { notifications, active } = this.props
     return (
       <ModalCard
         isActive={active}
@@ -21,8 +13,8 @@ export default class Notification extends Component {
         hasButtons
         yesButtonOnly
         yesButtonLabel="OK"
-        handleClick={this.hideModal}
-        hideModal={this.hideModal}
+        handleClick={this.handleClearNotification}
+        hideModal={this.handleClearNotification}
       >
         {notifications.map(notification => (
           <div key={notification.title}>

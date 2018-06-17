@@ -1,5 +1,6 @@
 import React, { Component }          from "react"
 import { withRouter, Route, Switch } from "react-router-dom"
+import classNames                    from "classnames"
 
 import Header                 from "../commons/Header"
 import TabBar                 from "../commons/TabBar"
@@ -46,9 +47,10 @@ class Container extends Component {
   }
   render() {
     const { location } = this.props
-    const { currentUser, currentVersion, notification } = this.state
+    const { loading, currentUser, currentVersion, notification } = this.state
     const { state } = location
 
+    const containerClass = classNames("container", { "loading-wrapper": loading })
     const showFlashMessage = state && state.flash
     const hideTabBar = location.pathname !== path.about
     const params = { currentUser }
@@ -60,10 +62,10 @@ class Container extends Component {
       />
     )
     const RouteWithStateContainer = (props) => (
-      <section className="section">
+      <section className="section root">
         {showFlashMessage && <FlashMessage flash={state.flash} />}
-        <div className="container">
-          {!this.state.loading && (
+        <div className={containerClass}>
+          {!loading && (
             <RouteWithState {...props} />
           )}
         </div>

@@ -8,29 +8,29 @@ import * as path                from "../../../utils/path"
 import * as utils               from "../../../utils"
 
 export default class Header extends PureComponent {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    const { notifications } = props
     this.state = {
       burger: false,
       isActiveLoginModal: false,
-      isActiveNotification: false
+      isActiveNotification: false,
+      notifications
     }
   }
-  componentWillReceiveProps({ pathname }) {
-    if (pathname !== this.props.pathname) {
-      this.setState({ burger: false })
-    }
+  componentWillReceiveProps({ pathname, notifications }) {
+    if (pathname !== this.props.pathname) this.setState({ burger: false })
+    if (notifications !== this.state.notifications) this.setState({ notifications })
   }
   handleToggleBurger       = () => this.setState({ burger: !this.state.burger })
   handleToggleLoginModal   = () => this.setState({ isActiveLoginModal: !this.state.isActiveLoginModal })
   handleToggleNotification = () => this.setState({ isActiveNotification: !this.state.isActiveNotification })
-  handleClearNotification  = () => {
-    this.handleToggleNotification()
-    this.props.handleClearNotification()
-  }
+  handleClearNotification  = () => (
+    this.setState({ isActiveNotification: false, notifications: [] })
+  )
   render() {
-    const { burger, isActiveLoginModal, isActiveNotification } = this.state
-    const { currentUser: { name, icon }, pathname, notifications } = this.props
+    const { burger, isActiveLoginModal, isActiveNotification, notifications } = this.state
+    const { currentUser: { name, icon }, pathname } = this.props
     const userPath = path.user.show(name)
     const burgerClass = classNames("navbar-burger", "burger", { "is-active": burger })
     const navMenuClass = classNames("navbar-menu", { "is-active": burger })
@@ -67,6 +67,7 @@ export default class Header extends PureComponent {
             <div className="navbar-end">
               {name && (
                 <NotificationIcon
+                  isActiveNotification
                   notifications={notifications}
                   handleToggleNotification={this.handleToggleNotification}
                 />
@@ -100,7 +101,8 @@ export default class Header extends PureComponent {
             {!name && <LoginModal active={isActiveLoginModal} hideModal={this.handleToggleLoginModal} />}
             <Notification
               notifications={notifications}
-              active={isActiveNotification}
+              isActive={isActiveNotification}
+              handleToggleNotification={this.handleToggleNotification}
               handleClearNotification={this.handleClearNotification}
             />
           </div>

@@ -2,19 +2,18 @@ import React, { Component } from "react"
 import ModalCard            from "../ModalCard"
 
 export default class Notification extends Component {
-  handleClearNotification = () => this.props.handleClearNotification()
   render() {
-    const { notifications, active } = this.props
+    const { notifications, isActive, handleToggleNotification, handleClearNotification } = this.props
     return (
       <ModalCard
-        isActive={active}
+        isActive={isActive}
         title="お知らせ"
         icon="info-circle"
         hasButtons
         yesButtonOnly
-        yesButtonLabel="OK"
-        handleClick={this.handleClearNotification}
-        hideModal={this.handleClearNotification}
+        yesButtonLabel="すべて既読にする"
+        handleClick={handleClearNotification}
+        hideModal={handleToggleNotification}
       >
         {notifications.map(notification => (
           <div key={notification.title}>

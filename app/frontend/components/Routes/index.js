@@ -43,10 +43,9 @@ class Container extends Component {
       () => history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
     )
   }
-  handleClearNotification = () => this.setState({ notifications: [] })
   render() {
     const { location } = this.props
-    const { loading, currentUser, currentVersion, notifications } = this.state
+    const { loading, currentUser, notifications } = this.state
     const { state } = location
 
     const containerClass = classNames("container", { "loading-wrapper": loading })
@@ -73,12 +72,7 @@ class Container extends Component {
 
     return (
       <div className="main-content">
-        <Header
-          currentUser={currentUser}
-          pathname={location.pathname}
-          notifications={notifications}
-          handleClearNotification={this.handleClearNotification}
-        />
+        <Header currentUser={currentUser} pathname={location.pathname} notifications={notifications} />
         {hideTabBar && (
           <TabBar currentUser={currentUser} currentPath={location.pathname} location={location} />
         )}

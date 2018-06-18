@@ -6,7 +6,6 @@ import Header                 from "../commons/Header"
 import TabBar                 from "../commons/TabBar"
 import Footer                 from "../commons/Footer"
 import FlashMessage           from "../commons/FlashMessage"
-import NewVersionNotification from "../commons/NewVersionNotification"
 import NewScore               from "./NewScore"
 import EditScore              from "./EditScore"
 import ShowScore              from "./ShowScore"
@@ -98,7 +97,6 @@ class Container extends Component {
         </Switch>
 
         <Footer />
-        <NewVersionNotification currentVersion={currentVersion} />
       </div>
     )
   }

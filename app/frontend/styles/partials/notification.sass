@@ -1,38 +1,43 @@
-.icon.notification-icon
-  width: 1.5rem
-  .fa-layers
-    display: inline-block
-    position: relative
-    height: 1em
-    left: -.2em
-    text-align: center
-    vertical-align: -.125em
-    .fa
-      position: absolute
-      top: 0
-      right: 0
-      left: 0
-      bottom: 0
-      margin: auto
-    .fa-layers-counter
+.notification-icon
+  .icon
+    width: 1.5rem
+    .fa-layers
       display: inline-block
-      box-sizing: border-box
-      max-width: 5em
-      min-width: 1.5em
-      height: 1.5em
-      line-height: 1
-      position: absolute
-      top: -0.75em
-      left: .65em
-      font-weight: bold
-      padding: .25em
-      border-radius: 1em
+      position: relative
+      height: 1em
+      left: -.2em
       text-align: center
-      background-color: $danger
-      color: #fff
-      overflow: hidden
-      text-overflow: ellipsis
-      -webkit-transform: scale(.8)
-      transform: scale(.8)
-      -webkit-transform-origin: top right
-      transform-origin: top right
+      vertical-align: -.125em
+      .fa
+        position: absolute
+        top: 0
+        right: 0
+        left: 0
+        bottom: 0
+        margin: auto
+      .fa-layers-counter
+        display: inline-block
+        box-sizing: border-box
+        max-width: 5em
+        min-width: 1.5em
+        height: 1.5em
+        line-height: 1
+        position: absolute
+        top: -0.75em
+        left: .65em
+        font-weight: bold
+        padding: .25em
+        border-radius: 1em
+        text-align: center
+        background-color: $danger
+        color: #fff
+        overflow: hidden
+        text-overflow: ellipsis
+        -webkit-transform: scale(.8)
+        transform: scale(.8)
+        -webkit-transform-origin: top right
+        transform-origin: top right
+  &.is-only-mobile
+    position: absolute
+    top: 1px
+    right: 3.25rem

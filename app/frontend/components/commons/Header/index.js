@@ -25,9 +25,8 @@ export default class Header extends PureComponent {
   handleToggleBurger       = () => this.setState({ burger: !this.state.burger })
   handleToggleLoginModal   = () => this.setState({ isActiveLoginModal: !this.state.isActiveLoginModal })
   handleToggleNotification = () => this.setState({ isActiveNotification: !this.state.isActiveNotification })
-  handleClearNotification  = () => (
-    this.setState({ isActiveNotification: false, notifications: [] })
-  )
+  handleClearNotification  = () => this.setState({ isActiveNotification: false, notifications: [] })
+
   render() {
     const { burger, isActiveLoginModal, isActiveNotification, notifications } = this.state
     const { currentUser: { name, icon }, pathname } = this.props
@@ -35,6 +34,14 @@ export default class Header extends PureComponent {
     const burgerClass = classNames("navbar-burger", "burger", { "is-active": burger })
     const navMenuClass = classNames("navbar-menu", { "is-active": burger })
     const navbarItemClass = (targetPath) => classNames("navbar-item", { "is-active": pathname === targetPath })
+    const notificationIcon = (customClass) => name && (
+      <NotificationIcon
+        isActiveNotification
+        customClass={customClass}
+        notifications={notifications}
+        handleToggleNotification={this.handleToggleNotification}
+      />
+    )
 
     return (
       <nav className="navbar is-primary" aria-label="main navigation">
@@ -46,6 +53,7 @@ export default class Header extends PureComponent {
                 <span>rechord</span>
               </h1>
             </Link>
+            {notificationIcon("is-only-mobile")}
             <div className={burgerClass} onClick={this.handleToggleBurger} role="presentation">
               <span /><span /><span />
             </div>
@@ -65,13 +73,7 @@ export default class Header extends PureComponent {
             </div>
 
             <div className="navbar-end">
-              {name && (
-                <NotificationIcon
-                  isActiveNotification
-                  notifications={notifications}
-                  handleToggleNotification={this.handleToggleNotification}
-                />
-              )}
+              {notificationIcon("is-hidden-mobile")}
               {name ? (
                 <Link to={userPath} className={`${navbarItemClass(userPath)} current-user`}>
                   <span>
@@ -97,16 +99,15 @@ export default class Header extends PureComponent {
                 </div>
               )}
             </div>
-
-            {!name && <LoginModal active={isActiveLoginModal} hideModal={this.handleToggleLoginModal} />}
-            <Notification
-              notifications={notifications}
-              isActive={isActiveNotification}
-              handleToggleNotification={this.handleToggleNotification}
-              handleClearNotification={this.handleClearNotification}
-            />
           </div>
         </div>
+        {!name && <LoginModal active={isActiveLoginModal} hideModal={this.handleToggleLoginModal} />}
+        <Notification
+          notifications={notifications}
+          isActive={isActiveNotification}
+          handleToggleNotification={this.handleToggleNotification}
+          handleClearNotification={this.handleClearNotification}
+        />
       </nav>
     )
   }

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include SearchParams
 
-  before_action :set_user, only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy]
+  before_action :set_user, only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy, :read]
 
   def index
     users = User.list(users_list_params)
@@ -72,6 +72,15 @@ class UsersController < ApplicationController
       head :ok
     else
       render json: @user.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def read
+    @user.last_read_at = Time.now
+    if @user.save
+      head :ok
+    else
+      render json: @user.errors.details, status: :unprocessable_entity
     end
   end
 

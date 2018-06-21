@@ -9,7 +9,7 @@ class Notification < ApplicationRecord
     return if user.blank?
 
     notifications = where(user_id: [user_id, nil])
-    notifications.where("updated_at > ?", user.last_read_at) if user.last_read_at.present?
+    notifications = notifications.where("updated_at > ?", user.last_read_at) if user.last_read_at.present?
     notifications
   }
 

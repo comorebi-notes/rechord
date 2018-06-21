@@ -71,6 +71,9 @@ export const users = (params, onSuccess, onError) => (
 export const userScores = (params, onSuccess, onError) => (
   request("get", path.user.api.scores(params.userName, params.query), null, onSuccess, onError)
 )
+export const read = (params, onSuccess, onError) => (
+  request("put", path.user.api.read(params.name), null, onSuccess, onError)
+)
 
 // ======== Favs ========
 const getFavParams = (params) => {

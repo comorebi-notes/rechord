@@ -5,7 +5,7 @@ export default class Version extends PureComponent {
     const { version, updated_at, children } = this.props
     return (
       <div className="columns version">
-        <div className="column is-one-third">
+        <div className="column is-one-quarter">
           <h2 className="title is-2">
             {version}
           </h2>

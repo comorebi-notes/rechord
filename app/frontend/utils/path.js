@@ -38,7 +38,8 @@ export const user = {
   index:      ()      => "/users",
   api: {
     index:    (query)           => `/users?${query}`,
-    scores:   (userName, query) => `/users/${userName}/scores?${query}`
+    scores:   (userName, query) => `/users/${userName}/scores?${query}`,
+    read:     (userName)        => `/users/${userName}/read`
   }
 }
 

@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     post   :valid_name
     put    :update_icon
     delete :remove_icon
+    put    :read
     resources :scores, only: [:index], controller: "users/scores"
   end
 

@@ -3,10 +3,7 @@ class StatusesController < ApplicationController
     render json: {
       currentUser:    current_user || {},
       currentVersion: Rails.configuration.preference["version"],
-      notifications: [
-        title:   "title",
-        content: "content"
-      ]
+      notifications:  Notification.list_for_user(current_user&.id)
     }
   end
 

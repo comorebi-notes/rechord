@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205144032) do
+ActiveRecord::Schema.define(version: 2018_06_20_083642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,17 @@ ActiveRecord::Schema.define(version: 20180205144032) do
     t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.json "params"
+    t.integer "template", default: 0
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "scores", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
@@ -84,6 +95,7 @@ ActiveRecord::Schema.define(version: 20180205144032) do
     t.string "email"
     t.string "twitter"
     t.integer "scores_count", default: 0
+    t.datetime "last_read_at"
     t.index ["name"], name: "index_users_on_name"
   end
 

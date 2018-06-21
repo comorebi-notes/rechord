@@ -19,9 +19,9 @@ export default class Header extends PureComponent {
       notifications
     }
   }
-  componentWillReceiveProps({ pathname, notifications }) {
+  componentWillReceiveProps({ pathname, notifications, loading }) {
     if (pathname !== this.props.pathname) this.setState({ burger: false })
-    if (notifications !== this.state.notifications) this.setState({ notifications })
+    if (!loading && notifications !== this.state.notifications) this.setState({ notifications })
   }
   handleToggleBurger       = () => this.setState({ burger: !this.state.burger })
   handleToggleLoginModal   = () => this.setState({ isActiveLoginModal: !this.state.isActiveLoginModal })

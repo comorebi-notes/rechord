@@ -50,7 +50,7 @@ class Container extends Component {
 
     const containerClass = classNames("container", { "loading-wrapper": loading })
     const showFlashMessage = state && state.flash
-    const hideTabBar = location.pathname !== path.about
+    const hideTabBar = location.pathname === path.about
     const params = { currentUser }
 
     const RouteWithState = ({ component: Children, ...routeParams }) => (
@@ -72,8 +72,13 @@ class Container extends Component {
 
     return (
       <div className="main-content">
-        <Header currentUser={currentUser} pathname={location.pathname} notifications={notifications} />
-        {hideTabBar && (
+        <Header
+          currentUser={currentUser}
+          pathname={location.pathname}
+          notifications={notifications}
+          loading={loading}
+        />
+        {!hideTabBar && (
           <TabBar currentUser={currentUser} currentPath={location.pathname} location={location} />
         )}
 

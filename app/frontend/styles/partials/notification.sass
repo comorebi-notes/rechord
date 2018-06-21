@@ -1,3 +1,30 @@
+.notification.content
+  time
+    font-size: .9em
+    color: #888
+    margin-bottom: .8em
+    & + p
+      margin-top: .2em
+  h3
+    margin-top: .3em
+    margin-bottom: .4em
+  ul
+    margin-top: .8em
+  a
+    color: $link
+  strong
+    margin: 0 .2em
+    &:first-child
+      margin-left: 0
+    &:last-child
+      margin-right: 0
+  .loading-wrapper
+    min-height: 50px
+    &:before
+      content: none
+    &:after
+      top: calc(50% - .5em)
+
 .notification-icon
   .icon
     width: 1.5rem

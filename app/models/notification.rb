@@ -10,7 +10,7 @@ class Notification < ApplicationRecord
 
     notifications = where(user_id: [user_id, nil])
     notifications = notifications.where("updated_at > ?", user.last_read_at) if user.last_read_at.present?
-    notifications
+    notifications.order(updated_at: :desc).limit(20)
   }
 
   enum template: {

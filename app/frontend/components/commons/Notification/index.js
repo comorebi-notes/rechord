@@ -1,9 +1,20 @@
 import React, { Component } from "react"
+import ReleaseNotification  from "./ReleaseNotification"
+import FavNotification      from "./FavNotification"
+import DefaultNotification  from "./DefaultNotification"
 import ModalCard            from "../ModalCard"
 
 export default class Notification extends Component {
   render() {
     const { notifications, isActive, handleToggleNotification, handleClearNotification } = this.props
+    const notificationTemplate = (notification) => {
+      const params = { data: notification, key: notification.title, handleToggleNotification }
+      switch (notification.template) {
+        case "version": return <ReleaseNotification {...params} />
+        case "fav":     return <FavNotification {...params} />
+        default:        return <DefaultNotification {...params} />
+      }
+    }
     return (
       <ModalCard
         isActive={isActive}
@@ -15,12 +26,7 @@ export default class Notification extends Component {
         handleClick={handleClearNotification}
         hideModal={handleToggleNotification}
       >
-        {notifications.map(notification => (
-          <div key={notification.title}>
-            <h2>{notification.title}</h2>
-            <div>{notification.content}</div>
-          </div>
-        ))}
+        {isActive && notifications.map(notification => notificationTemplate(notification))}
       </ModalCard>
     )
   }

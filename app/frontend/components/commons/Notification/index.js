@@ -8,9 +8,9 @@ export default class Notification extends Component {
   render() {
     const { notifications, isActive, handleToggleNotification, handleClearNotification } = this.props
     const notificationTemplate = (notification) => {
-      const params = { data: notification, key: notification.title, handleToggleNotification }
+      const params = { data: notification, key: notification.id, handleToggleNotification }
       switch (notification.template) {
-        case "version": return <ReleaseNotification {...params} />
+        case "release": return <ReleaseNotification {...params} />
         case "fav":     return <FavNotification {...params} />
         default:        return <DefaultNotification {...params} />
       }

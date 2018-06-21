@@ -1,5 +1,5 @@
 class Notification < ApplicationRecord
-  validates :title,   length: { maximum: 128 }
+  validates :title,   length: { maximum: 128 }, uniqueness: true
   validates :content, length: { maximum: 2048 }
 
   scope :list_for_user, -> (user_id) {
@@ -15,7 +15,7 @@ class Notification < ApplicationRecord
 
   enum template: {
     default: 0,
-    version: 1,
+    release: 1,
     fav:     2
   }
 end

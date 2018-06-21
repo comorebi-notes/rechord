@@ -7,25 +7,28 @@ import * as utils           from "../../../utils"
 export default class FavNotification extends Component {
   constructor() {
     super()
-    this.state = { score: null }
+    this.state = { score: null, loading: true }
   }
   componentDidMount() {
     const deletedScore = { title: "削除済のスコア" }
     api.showScore(
-      { token: this.props.data.params.score },
+      { token: this.props.data.title },
       ({ data: { score } }) => {
-        this.setState({ score: score.status === "deleted" ? deletedScore : score })
+        this.setState({ score: score.status === "deleted" ? deletedScore : score, loading: false })
       },
-      () => this.setState({ score: deletedScore })
+      () => this.setState({ score: deletedScore, loading: false })
     )
   }
   render() {
-    const { score } = this.state
-    const { data: { params: { count }, updated_at: updatedAt }, handleToggleNotification } = this.props
-    return (
+    const { score, loading } = this.state
+    const { data: { updated_at: updatedAt }, handleToggleNotification } = this.props
+    const isActive = loading || (score && score.favs_count > 0)
+    return isActive && (
       <div className="content notification fav">
         <time>{utils.humanDateTime(updatedAt, true)} </time>
-        {score ? (
+        {loading ? (
+          <div className="loading-wrapper" />
+        ) : (
           <p>
             <strong>
               {score.token ? (
@@ -34,12 +37,10 @@ export default class FavNotification extends Component {
                 <span>{score.title}</span>
               )}
             </strong>
-            <span>が合計</span>
-            <strong>{count}回</strong>
+            <span>が通算</span>
+            <strong>{score.favs_count}回</strong>
             <span>いいねをされました。</span>
           </p>
-        ) : (
-          <div className="loading-wrapper" />
         )}
       </div>
     )

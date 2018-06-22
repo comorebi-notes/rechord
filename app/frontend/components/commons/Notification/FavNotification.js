@@ -30,6 +30,9 @@ export default class FavNotification extends Component {
           <div className="loading-wrapper" />
         ) : (
           <p>
+            <span className="icon has-text-danger">
+              <i className="fa fa-heart" />
+            </span>
             <strong>
               {score.token ? (
                 <Link to={path.score.show(score.token)} onClick={handleToggleNotification}>{score.title}</Link>

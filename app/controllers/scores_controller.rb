@@ -50,11 +50,19 @@ class ScoresController < ApplicationController
   end
 
   def destroy
-    if @score.deleted!
-      head :ok
-    else
-      render json: @score.errors.full_messages, status: :unprocessable_entity
+    ActiveRecord::Base.transaction do
+      notification = Notification.find_by(title: @score.token)
+      notification.destroy! if notification.present?
+
+      if @score.deleted!
+        head :ok
+      else
+        render json: @score.errors.full_messages, status: :unprocessable_entity
+      end
     end
+  rescue => e
+    Rails.logger.error e.message
+    render json: e.message, status: :internal_server_error
   end
 
   private

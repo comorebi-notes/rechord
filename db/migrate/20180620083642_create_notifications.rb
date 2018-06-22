@@ -10,6 +10,6 @@ class CreateNotifications < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_column :users, :last_read_at, :timestamp
+    add_column :users, :last_read_at, :timestamp, default: -> { "NOW()" }
   end
 end

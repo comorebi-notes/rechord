@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2018_06_20_083642) do
     t.string "email"
     t.string "twitter"
     t.integer "scores_count", default: 0
-    t.datetime "last_read_at"
+    t.datetime "last_read_at", default: -> { "now()" }
     t.index ["name"], name: "index_users_on_name"
   end
 

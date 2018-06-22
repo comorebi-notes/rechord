@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   include SearchParams
 
-  before_action :set_user, only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy, :read]
+  before_action :set_user,      only: [:show, :valid_name, :update, :update_icon, :remove_icon, :destroy, :read]
+  before_action :authenticate!, only: [:update, :update_icon, :remove_icon, :destroy, :read]
 
   def index
     users = User.list(users_list_params)
@@ -96,5 +97,11 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.friendly.find_by(name: (params[:name] || params[:user_name]).downcase)
+  end
+
+  def authenticate!
+    if @user.id != current_user.id
+      render json: "現在ログイン中のユーザは、この操作に対する権限がありません。", status: :unprocessable_entity
+    end
   end
 end

@@ -42,23 +42,12 @@ class FavsController < ApplicationController
   end
 
   def destroy
-    ActiveRecord::Base.transaction do
-      fav = Fav.find(params[:id])
-      score = fav.score
-
-      if score.favs_count == 1
-        notification = Notification.find_by(title: score.token)
-        notification.destroy! if notification.present?
-      end
-
-      if fav.destroy!
-        head :ok
-      else
-        render json: fav.errors.full_messages, status: :unprocessable_entity
-      end
+    fav = Fav.find(params[:id])
+    if fav.destroy
+      head :ok
+    else
+      render json: fav.errors.full_messages, status: :unprocessable_entity
     end
-  rescue => e
-    render json: e.message, status: :internal_server_error
   end
 
   private

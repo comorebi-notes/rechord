@@ -11,9 +11,6 @@ class Fav < ApplicationRecord
   private
 
   def destroy_notification_if_zero_fav
-    if score.favs_count == 1
-      notification = Notification.find_by(title: score.token)
-      notification.destroy if notification.present?
-    end
+    Notification.destroy_if_exist(title: score.token) if score.favs_count == 1
   end
 end

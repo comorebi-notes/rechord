@@ -18,4 +18,21 @@ class Notification < ApplicationRecord
     release: 1,
     fav:     2
   }
+
+  class << self
+    def create_or_update_by_fav(fav)
+      notification = find_by(title: fav.score.token)
+      if notification.present?
+        notification.touch # updated_at だけ更新
+      else
+        notification = new(template: :fav, title: fav.score.token, user_id: fav.score.user_id)
+      end
+      notification.save!
+    end
+
+    def destroy_if_exist(params)
+      notification = find_by(params)
+      notification.destroy! if notification.present?
+    end
+  end
 end

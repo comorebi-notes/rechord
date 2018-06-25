@@ -94,8 +94,8 @@ export default class ScoreHeader extends Component {
               </span>
               <span>{viewsCount ? utils.addCommas(viewsCount) : 0}</span>
             </div>
-            <span className="separator">|</span>
 
+            <span className="separator">|</span>
             <div className={classNames("fav", { active: myFavId })}>
               <span
                 className={classNames("icon", { "can-click": user.id })}
@@ -106,14 +106,18 @@ export default class ScoreHeader extends Component {
               </span>
               <span>{favsCount ? utils.addCommas(favsCount) : 0}</span>
             </div>
-            <span className="separator">|</span>
 
-            <button className="button is-white" onClick={this.handleToggleModal}>
-              <span className="icon">
-                <i className="fa fa-share-alt" />
-              </span>
-              <span>share</span>
-            </button>
+            {!isClosed && (
+              <span className="separator">|</span>
+            )}
+            {!isClosed && (
+              <button className="button has-text-link" onClick={this.handleToggleModal}>
+                <span className="icon has-text-link">
+                  <i className="fa fa-share-alt" />
+                </span>
+                <span>Share</span>
+              </button>
+            )}
           </div>
         </div>
 

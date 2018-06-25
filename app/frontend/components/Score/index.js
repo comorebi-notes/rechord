@@ -19,9 +19,13 @@ import { scoreMaker }    from "../../utils/scoreMaker"
 import * as decorator    from "../../decorators/scoreEditorDecorator"
 
 export default class Score extends Component {
-  constructor() {
-    super()
-    this.state = { score: false }
+  constructor(props) {
+    super(props)
+    const { beat, inputText, bpm } = props
+    const parsedText = decorator.parseChordProgression(inputText)
+    const score      = beat && parsedText && scoreMaker(parsedText, beat)
+    const isValid    = score && validate(score, bpm)
+    this.state = { score, isValid }
   }
   componentWillReceiveProps({ inputText, beat, bpm }) {
     if (bpm !== this.props.bpm) {

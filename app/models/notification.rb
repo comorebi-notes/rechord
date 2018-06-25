@@ -25,9 +25,8 @@ class Notification < ApplicationRecord
       if notification.present?
         notification.touch # updated_at だけ更新
       else
-        notification = new(template: :fav, title: fav.score.token, user_id: fav.score.user_id)
+        notification = create(template: :fav, title: fav.score.token, user_id: fav.score.user_id)
       end
-      notification.save!
     end
 
     def destroy_if_exist(params)

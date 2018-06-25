@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     get "/users/logout", to: "devise/sessions#destroy", as: :destroy_user_session
   end
 
+  resource :status, only: [:show], constraints: OnlyAjaxRequest.new
+
   resources :scores, {
     only: [:index, :show, :edit, :update, :create, :destroy],
     param: :token,
@@ -26,6 +28,7 @@ Rails.application.routes.draw do
     post   :valid_name
     put    :update_icon
     delete :remove_icon
+    put    :read
     resources :scores, only: [:index], controller: "users/scores"
   end
 

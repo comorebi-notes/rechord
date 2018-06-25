@@ -1,10 +1,11 @@
 class ScoresController < ApplicationController
   include SearchParams
 
-  before_action :set_score,  only: [:show, :edit, :update, :destroy]
-  before_action :browsable?, only: [:show]
-  before_action :editable?,  only: [:edit, :update, :destroy]
-  before_action :impression, only: [:show]
+  before_action :set_score,     only: [:show, :edit, :update, :destroy]
+  before_action :authenticate!, only: [:edit, :update, :destroy]
+  before_action :browsable?,    only: [:show]
+  before_action :editable?,     only: [:edit, :update, :destroy]
+  before_action :impression,    only: [:show]
 
   def index
     scores = Score.list(scores_list_params)
@@ -51,6 +52,7 @@ class ScoresController < ApplicationController
 
   def destroy
     if @score.deleted!
+      Notification.destroy_if_exist(title: @score.token)
       head :ok
     else
       render json: @score.errors.full_messages, status: :unprocessable_entity
@@ -65,17 +67,23 @@ class ScoresController < ApplicationController
     )
   end
 
+  def set_score
+    @score = Score.friendly.find_by(token: params[:token])
+    head :not_found unless @score
+  end
+
+  def authenticate!
+    if @score.user_id != current_user.id
+      render json: "現在ログイン中のユーザは、この操作に対する権限がありません。", status: :unprocessable_entity
+    end
+  end
+
   def browsable?
     head :not_found unless @score.browsable?(current_user&.id)
   end
 
   def editable?
     head :forbidden unless @score.owner?(current_user&.id)
-  end
-
-  def set_score
-    @score = Score.friendly.find_by(token: params[:token])
-    head :not_found unless @score
   end
 
   def impression

@@ -18,7 +18,8 @@ class FavsController < ApplicationController
 
   def create
     fav = Fav.new(fav_params)
-    if fav.save!
+    if fav.save
+      Notification.create_or_update_by_fav(fav) if current_user&.id != fav.score.user_id
       render json: fav
     else
       render json: fav.errors.full_messages, status: :unprocessable_entity

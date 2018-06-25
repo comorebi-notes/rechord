@@ -8,9 +8,11 @@
 @import "partials/tabbar.sass"
 @import "partials/footer.sass"
 @import "partials/login.sass"
+@import "partials/notification.sass"
 @import "partials/shared-buttons.sass"
 @import "partials/about.sass"
 @import "partials/terms.sass"
+@import "partials/changelog.sass"
 @import "partials/search.sass"
 @import "partials/score-editor.sass"
 @import "partials/score-controls.sass"
@@ -56,6 +58,11 @@
 section.section
   padding-top: 2rem
   margin-bottom: 1em
+
+@media screen and (min-width: $tablet)
+  .section.root-section
+    display: flex
+    flex-direction: column
 
 @media screen and (max-width: $tablet - 1px)
   .twitter-tl

@@ -8,6 +8,10 @@ const request = (method, url, params, onSuccess, onError) => {
     .catch(error => onError && onError(error))
 }
 
+export const getStatus = (onSuccess, onError) => (
+  request("get", path.status, null, onSuccess, onError)
+)
+
 // ======== Scores ========
 const getScoreParams = (params) => {
   const { title, content, instrument, beat, bpm, capo, loop, click, status, userId } = params
@@ -66,6 +70,9 @@ export const users = (params, onSuccess, onError) => (
 )
 export const userScores = (params, onSuccess, onError) => (
   request("get", path.user.api.scores(params.userName, params.query), null, onSuccess, onError)
+)
+export const read = (params, onSuccess, onError) => (
+  request("put", path.user.api.read(params.name), null, onSuccess, onError)
 )
 
 // ======== Favs ========

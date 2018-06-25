@@ -1,22 +1,16 @@
 import React, { PureComponent } from "react"
 import { Link }                 from "react-router-dom"
 import classNames               from "classnames"
-import LoginModal               from "../../LoginModal"
 import * as path                from "../../../../utils/path"
 
 export default class TabItems extends PureComponent {
-  constructor() {
-    super()
-    this.state = { modal: false }
-  }
-  handleToggleModal = () => this.setState({ modal: !this.state.modal })
   render () {
-    const { currentUser, currentPath } = this.props
-    const { modal } = this.state
+    const { currentUser, currentPath, handleToggleModal } = this.props
     const isActive = (targetPath) => {
       if (targetPath === currentPath) return true
       switch (true) {
-        case (/^\/(scores|[a-zA-Z0-9-_]{11}).*/).test(currentPath): return targetPath === path.score.index()
+        case (/^\/(scores|[a-zA-Z0-9-_]{11}).*/).test(currentPath):
+          return targetPath === path.score.index()
         case (/^\/users.*/).test(currentPath):
           return currentPath !== path.user.show(currentUser.name) && targetPath === path.user.index()
         default: return false
@@ -56,22 +50,19 @@ export default class TabItems extends PureComponent {
         label:      "my page",
         icon:       "user-circle-o",
         targetPath: path.user.show(currentUser.name),
-        onClick:    !currentUser.name && this.handleToggleModal
+        onClick:    !currentUser.name && handleToggleModal
       },
       {
         label:      "my favs",
         icon:       "heart",
         targetPath: path.fav.index(),
-        onClick:    !currentUser.name && this.handleToggleModal
+        onClick:    !currentUser.name && handleToggleModal
       }
     ]
     return (
-      <div>
-        <ul>
-          {tabItems.map(item => tabItemComponent(item))}
-        </ul>
-        {!currentUser.name && <LoginModal active={modal} hideModal={this.handleToggleModal} />}
-      </div>
+      <ul>
+        {tabItems.map(item => tabItemComponent(item))}
+      </ul>
     )
   }
 }

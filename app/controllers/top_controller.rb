@@ -1,5 +1,6 @@
 class TopController < ApplicationController
   before_action :set_title
+  before_action :set_notifications
   before_action :check_browser_support, only: [:index]
 
   def index
@@ -21,6 +22,10 @@ class TopController < ApplicationController
         @title = score&.title
       end
     end
+  end
+
+  def set_notifications
+    @notifications = Notification.list_for_user(current_user&.id)
   end
 
   def check_browser_support

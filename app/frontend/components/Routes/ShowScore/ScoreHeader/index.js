@@ -49,7 +49,7 @@ export default class ScoreHeader extends Component {
     const { modal, favsCount, myFavId } = this.state
     const existAuthor = author && Object.keys(author).length > 0
     const authorPath = existAuthor && path.user.show(author.name)
-    const isClosed = status === "closed"
+    const isClosed = status !== "published"
     return (
       <div>
         <div className="score-header">
@@ -107,17 +107,13 @@ export default class ScoreHeader extends Component {
               <span>{favsCount ? utils.addCommas(favsCount) : 0}</span>
             </div>
 
-            {!isClosed && (
-              <span className="separator">|</span>
-            )}
-            {!isClosed && (
-              <button className="button has-text-link" onClick={this.handleToggleModal}>
-                <span className="icon has-text-link">
-                  <i className="fa fa-share-alt" />
-                </span>
-                <span>Share</span>
-              </button>
-            )}
+            <span className="separator">|</span>
+            <button className="button has-text-link" onClick={this.handleToggleModal} disabled={isClosed}>
+              <span className="icon has-text-link">
+                <i className="fa fa-share-alt" />
+              </span>
+              <span>Share</span>
+            </button>
           </div>
         </div>
 

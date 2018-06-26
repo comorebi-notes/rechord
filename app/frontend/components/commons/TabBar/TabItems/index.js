@@ -16,44 +16,40 @@ export default class TabItems extends PureComponent {
         default: return false
       }
     }
+    const tabItemBase = (label, icon) => (
+      <div>
+        <span className="icon">
+          <i className={classNames("fa", `fa-${icon}`)} />
+        </span>
+        <span className="tab-label">
+          {label}
+        </span>
+      </div>
+    )
     const tabItemComponent = ({ label, icon, targetPath, onClick }) => (
       <li
         className={classNames({ "is-active": isActive(targetPath) })}
         key={label}
       >
         {onClick ? (
-          <a role="presentation" onClick={onClick}>
-            <span className="icon">
-              <i className={classNames("fa", `fa-${icon}`)} />
-            </span>
-            <span className="tab-label">
-              {label}
-            </span>
-          </a>
+          <a onClick={onClick}>{tabItemBase(label, icon)}</a>
         ) : (
-          <Link to={targetPath}>
-            <span className="icon">
-              <i className={classNames("fa", `fa-${icon}`)} />
-            </span>
-            <span className="tab-label">
-              {label}
-            </span>
-          </Link>
+          <Link to={targetPath}>{tabItemBase(label, icon)}</Link>
         )}
       </li>
     )
     const tabItems = [
-      { label: "new score", icon: "file-o",  targetPath: path.root },
-      { label: "scores",    icon: "files-o", targetPath: path.score.index() },
-      { label: "users",     icon: "users",   targetPath: path.user.index() },
+      { label: "New Score", icon: "file-o",  targetPath: path.root },
+      { label: "Scores",    icon: "files-o", targetPath: path.score.index() },
+      { label: "Users",     icon: "users",   targetPath: path.user.index() },
       {
-        label:      "my page",
+        label:      "My Page",
         icon:       "user-circle-o",
         targetPath: path.user.show(currentUser.name),
         onClick:    !currentUser.name && handleToggleModal
       },
       {
-        label:      "my favs",
+        label:      "My Fav",
         icon:       "heart",
         targetPath: path.fav.index(),
         onClick:    !currentUser.name && handleToggleModal

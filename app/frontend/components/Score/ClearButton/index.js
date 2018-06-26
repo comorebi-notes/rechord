@@ -12,7 +12,7 @@ export default class ClearButton extends Component {
         <Button
           onClick={this.handleClearText}
           icon="trash"
-          text="clear"
+          text="Clear"
           disabled={disabled}
         />
       </Field>

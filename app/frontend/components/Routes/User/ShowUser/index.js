@@ -12,7 +12,7 @@ export default class ShowUser extends PureComponent {
         <div className="content">
           {site && (
             <p className="url">
-              <a href={site} target="_blank">
+              <a href={site} target="_blank" rel="noopener noreferrer">
                 <span className="icon">
                   <i className="fa fa-home fa-lg" />
                 </span>
@@ -22,7 +22,7 @@ export default class ShowUser extends PureComponent {
           )}
           {twitter && (
             <p className="url">
-              <a href={path.twitter(twitter)} target="_blank">
+              <a href={path.twitter(twitter)} target="_blank" rel="noopener noreferrer">
                 <span className="icon">
                   <i className="fa fa-twitter fa-lg" />
                 </span>
@@ -42,7 +42,7 @@ export default class ShowUser extends PureComponent {
                   <span className="icon">
                     <i className="fa fa-pencil-square-o" />
                   </span>
-                  <span>edit profile</span>
+                  <span>Edit Profile</span>
                 </button>
               </p>
               <p>
@@ -50,7 +50,7 @@ export default class ShowUser extends PureComponent {
                   <span className="icon">
                     <i className="fa fa-sign-out" />
                   </span>
-                  <span>logout</span>
+                  <span>Logout</span>
                 </a>
               </p>
             </div>

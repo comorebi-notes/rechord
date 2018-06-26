@@ -7,7 +7,7 @@ export default class NotificationIcon extends Component {
     const navbarItemClass = classNames("navbar-item", "notification-icon", { [customClass]: customClass })
 
     return notifications.length > 0 ? (
-      <a className={navbarItemClass} onClick={handleToggleNotification} role="presentation">
+      <a className={navbarItemClass} onClick={handleToggleNotification}>
         <span className="icon is-medium">
           <span className="fa-layers fa-fw">
             <i className="fa fa-bell fa-lg" />

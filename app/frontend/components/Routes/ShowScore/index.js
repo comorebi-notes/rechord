@@ -33,8 +33,7 @@ export default class ShowScore extends Component {
     const { token } = this.props.match.params
     api.showScore(
       { token },
-      (success) => {
-        const { score, author } = success.data
+      ({ data: { score, author } }) => {
         const scoreContent = score.content.split("\n").map(line => (
           regex.commentLineTop.test(line[0]) ? line : line.replace(regex.whiteSpaces, "")
         )).join("\n")

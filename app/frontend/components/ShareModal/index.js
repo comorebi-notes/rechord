@@ -20,14 +20,14 @@ export default class ShareModal extends Component {
     const modalClass = classNames("modal", { "is-active": isActive })
     return (
       <div className={modalClass}>
-        <div className="modal-background" role="presentation" onClick={this.hideModal} />
+        <div className="modal-background" onClick={this.hideModal} />
         <div className="modal-content">
           <div className="box">
             <h1 className="has-text-centered title is-4">
               {label}
             </h1>
             <h2 className="has-text-centered title is-5 shared-url">
-              <a href={sharedUrl} target="_blank">
+              <a href={sharedUrl} target="_blank" rel="noopener noreferrer">
                 {sharedUrl}
               </a>
               {showCopyButton && (
@@ -39,7 +39,7 @@ export default class ShareModal extends Component {
                   <span className="icon">
                     <i className="fa fa-copy" />
                   </span>
-                  <span>copy</span>
+                  <span>Copy</span>
                 </button>
               )}
             </h2>

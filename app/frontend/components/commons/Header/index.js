@@ -51,7 +51,6 @@ export default class Header extends PureComponent {
         handleToggleNotification={this.handleToggleNotification}
       />
     )
-
     return (
       <div>
         <nav className="navbar is-primary" aria-label="main navigation">
@@ -64,7 +63,7 @@ export default class Header extends PureComponent {
                 </h1>
               </Link>
               {notificationIcon("is-only-mobile")}
-              <div className={burgerClass} onClick={this.handleToggleBurger} role="presentation">
+              <div className={burgerClass} onClick={this.handleToggleBurger}>
                 <span /><span /><span />
               </div>
             </div>

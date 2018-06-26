@@ -16,7 +16,7 @@ export default class ScoreFooter extends Component {
               <span className="icon">
                 <i className="fa fa-edit" />
               </span>
-              <span>edit</span>
+              <span>Edit</span>
             </Link>
           </p>
           <p className="control">
@@ -24,7 +24,7 @@ export default class ScoreFooter extends Component {
               <span className="icon">
                 <i className="fa fa-ban" />
               </span>
-              <span>delete</span>
+              <span>Delete</span>
             </button>
           </p>
         </div>

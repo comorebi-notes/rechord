@@ -60,8 +60,7 @@ export default class EditUser extends Component {
     this.setState({ loading: true })
     api.updateUser(
       { originalName: this.props.user.name, ...this.state },
-      (success) => {
-        const { name } = success.data
+      ({ data: { name } }) => {
         window.location.href = path.user.show(name)
       },
       (error) => (
@@ -134,7 +133,7 @@ export default class EditUser extends Component {
               </div>
             </div>
 
-            <Field label="screen name">
+            <Field label="Screen name">
               <FormWithValidate errorKey="screenName" target="user" errors={errors}>
                 <input
                   type="input"
@@ -146,7 +145,7 @@ export default class EditUser extends Component {
               </FormWithValidate>
             </Field>
 
-            <Field label="profile">
+            <Field label="Profile">
               <FormWithValidate errorKey="profile" target="user" errors={errors}>
                 <textarea
                   className="textarea"
@@ -157,7 +156,7 @@ export default class EditUser extends Component {
               </FormWithValidate>
             </Field>
 
-            <Field label="site url">
+            <Field label="URL">
               <FormWithValidate errorKey="site" target="user" errors={errors}>
                 <input
                   type="input"
@@ -169,7 +168,7 @@ export default class EditUser extends Component {
               </FormWithValidate>
             </Field>
 
-            <Field label="twitter">
+            <Field label="Twitter">
               <FormWithValidate errorKey="twitter" target="user" errors={errors}>
                 <input
                   type="input"
@@ -191,7 +190,7 @@ export default class EditUser extends Component {
               <span className="icon">
                 <i className={updateIconClass} />
               </span>
-              <span>update profile</span>
+              <span>Update Profile</span>
             </button>
           </p>
           <p>
@@ -203,7 +202,7 @@ export default class EditUser extends Component {
               <span className="icon">
                 <i className="fa fa-undo" />
               </span>
-              <span>cancel</span>
+              <span>Cancel</span>
             </button>
           </p>
           <p style={{ marginTop: "2em" }}>
@@ -215,7 +214,7 @@ export default class EditUser extends Component {
               <span className="icon">
                 <i className="fa fa-ban" />
               </span>
-              <span>delete</span>
+              <span>Delete User</span>
             </button>
           </p>
         </div>

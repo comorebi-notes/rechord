@@ -13,7 +13,7 @@ export default class SetSampleButton extends Component {
         <Button
           onClick={this.handleSetSample}
           icon="tasks"
-          text="sample"
+          text="Sample"
           disabled={disabled}
         />
       </Field>

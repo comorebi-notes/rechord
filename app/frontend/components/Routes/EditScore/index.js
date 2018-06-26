@@ -38,8 +38,7 @@ export default class EditScore extends Component {
       const { token } = this.props.match.params
       api.editScore(
         { token },
-        (success) => {
-          const { score } = success.data
+        ({ data: { score } }) => {
           const contentState = ContentState.createFromText(score.content)
           utils.setTitle(score.title, this.props.history)
           this.setState({

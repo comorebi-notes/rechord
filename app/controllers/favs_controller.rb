@@ -1,7 +1,7 @@
 class FavsController < ApplicationController
   include SearchParams
 
-  before_action :authenticate_user!
+  before_action :authenticate!
 
   def index
     scores = current_user.favs_list(users_favs_list_params)
@@ -39,5 +39,11 @@ class FavsController < ApplicationController
 
   def fav_params
     params.require(:fav).permit(:user_id, :score_id)
+  end
+
+  def authenticate!
+    unless user_signed_in?
+      render json: "現在ログイン中のユーザは、この操作に対する権限がありません。", status: :unprocessable_entity
+    end
   end
 end

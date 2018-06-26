@@ -22,8 +22,7 @@ export default class User extends Component {
     const { name } = this.props.match.params
     api.showUser(
       { name },
-      (success) => {
-        const user = success.data
+      ({ data: user }) => {
         utils.setTitle(`${user.screen_name} のマイページ`, this.props.history)
         this.setState({ loading: false, user })
       },
@@ -53,7 +52,7 @@ export default class User extends Component {
           </div>
           <div className="column scores">
             <h1 className="title is-4">
-              scores
+              Scores
               {isOwn && (
                 <Link to={path.root}>
                   <span className="icon">

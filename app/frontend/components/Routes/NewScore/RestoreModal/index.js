@@ -11,10 +11,11 @@ export default class RestoreModal extends Component {
   hideModal = () => this.props.handleResetLocalStorage()
   render() {
     const { restoreState } = this.props
+    const isActive = restoreState && restoreState.inputText.length > 0
     return (
       <ModalCard
-        isActive={restoreState}
-        title="Restore ?"
+        isActive={isActive}
+        title="復元"
         icon="info-circle"
         hasButtons
         handleClick={this.handleClick}

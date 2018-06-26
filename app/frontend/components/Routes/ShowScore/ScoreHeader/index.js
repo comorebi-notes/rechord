@@ -1,18 +1,17 @@
 import React, { Component } from "react"
-import { Link }                 from "react-router-dom"
-import classNames               from "classnames"
-import ShareModal               from "../../../ShareModal"
-import * as api                 from "../../../../api"
-import * as path                from "../../../../utils/path"
-import * as utils               from "../../../../utils"
+import classNames           from "classnames"
+import Author               from "./Author"
+import ShareModal           from "../../../ShareModal"
+import * as api             from "../../../../api"
+import * as utils           from "../../../../utils"
 
 export default class ScoreHeader extends Component {
   constructor() {
     super()
     this.state = {
-      modal:     false,
-      favsCount: 0,
-      myFavId:   false
+      isActiveModal: false,
+      favsCount:     0,
+      myFavId:       false
     }
   }
   componentWillReceiveProps = ({ favs }) => {
@@ -35,20 +34,15 @@ export default class ScoreHeader extends Component {
     } else {
       api.fav(
         { userId: user.id, scoreId },
-        (success) => {
-          const { data: fav } = success
-          this.setState({ favsCount: favsCount + 1, myFavId: fav.id })
-        }
+        ({ data: fav }) => this.setState({ favsCount: favsCount + 1, myFavId: fav.id })
       )
     }
     return true
   }
-  handleToggleModal = () => this.setState({ modal: !this.state.modal })
+  handleToggleModal = () => this.setState({ isActiveModal: !this.state.isActiveModal })
   render() {
     const { author, title, token, status, user, viewsCount, createdAt, updatedAt } = this.props
-    const { modal, favsCount, myFavId } = this.state
-    const existAuthor = author && Object.keys(author).length > 0
-    const authorPath = existAuthor && path.user.show(author.name)
+    const { isActiveModal, favsCount, myFavId } = this.state
     const isClosed = status !== "published"
     return (
       <div>
@@ -62,30 +56,7 @@ export default class ScoreHeader extends Component {
             )}
           </h1>
 
-          <div className="author">
-            <figure className="image is-40x40">
-              <img src={utils.iconUrl(author && author.icon, "thumb")} className="user-icon" alt="guest user" />
-            </figure>
-            <div>
-              <p>
-                {existAuthor ? (
-                  <Link to={authorPath}>
-                    <strong>{author.screen_name}</strong>
-                  </Link>
-                ) : (
-                  <strong>guest user</strong>
-                )}
-              </p>
-              <time className="created-at">
-                {utils.humanDateTime(createdAt, true)} 投稿
-              </time>
-              {createdAt !== updatedAt && (
-                <time className="updated-at">
-                  {utils.humanDateTime(updatedAt, true)} 更新
-                </time>
-              )}
-            </div>
-          </div>
+          <Author author={author} createdAt={createdAt} updatedAt={updatedAt} />
 
           <div className="others">
             <div className="counter">
@@ -121,7 +92,7 @@ export default class ScoreHeader extends Component {
           label="share!"
           token={token}
           title={title}
-          isActive={modal}
+          isActive={isActiveModal}
           handleSetState={(newState) => this.setState(newState)}
         />
       </div>

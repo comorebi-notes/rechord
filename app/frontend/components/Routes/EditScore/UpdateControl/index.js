@@ -15,10 +15,9 @@ class UpdateControl extends Component {
     this.setState({ loading: true })
     api.updateScore(
       this.props,
-      (success) => {
-        const { token } = success.data
+      ({ data: { token } }) => (
         history.push(path.score.show(token), { flash: ["success", "スコアが更新されました。"] })
-      },
+      ),
       (error) => {
         this.setState({ loading: false })
         handleSetState({ errors: utils.setApiErrors(error.response.data) })
@@ -46,7 +45,7 @@ class UpdateControl extends Component {
               <span className="icon">
                 <i className="fa fa-undo" />
               </span>
-              <span>cancel</span>
+              <span>Cancel</span>
             </Link>
           </div>
           <div className="control">
@@ -58,7 +57,7 @@ class UpdateControl extends Component {
               <span className="icon">
                 <i className={iconClass} />
               </span>
-              <span>update</span>
+              <span>Update</span>
             </button>
           </div>
         </div>

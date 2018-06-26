@@ -27,10 +27,8 @@ export default class CardsList extends Component {
   handleSearch = (type, query) => (
     api[type](
       { query: qs.stringify(query), userName: this.props.userName },
-      (success) => {
-        const { result, total_count: totalCount, current_page: currentPage, total_pages: totalPages } = success.data
+      ({ data: { result, total_count: totalCount, current_page: currentPage, total_pages: totalPages } }) => {
         this.setState({ result, totalCount, currentPage, totalPages, loading: false })
-
         const { label } = this.props
         if (label) {
           const { query: { word } } = this.state

@@ -75,7 +75,7 @@ export default class Icon extends Component {
                       <i className="fa fa-upload" />
                     </span>
                     <span className="file-label">
-                      upload icon
+                      Upload Icon
                     </span>
                   </span>
                 </label>
@@ -88,7 +88,7 @@ export default class Icon extends Component {
                 <span className="icon">
                   <i className="fa fa-trash fa-lg" />
                 </span>
-                <span>remove icon</span>
+                <span>Remove Icon</span>
               </button>
             </div>
           </FormWithValidate>

@@ -24,8 +24,7 @@ class CreateControl extends Component {
     this.setState({ loading: true, modal: false })
     api.createScore(
       this.props,
-      (success) => {
-        const { token } = success.data
+      ({ data: { token } }) => {
         if (handleResetLocalStorage) handleResetLocalStorage()
         if (!userId) {
           handleSetState({ token, modal: true, errors: utils.setApiErrors() })

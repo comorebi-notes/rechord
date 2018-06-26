@@ -60,8 +60,7 @@ export default class EditUser extends Component {
     this.setState({ loading: true })
     api.updateUser(
       { originalName: this.props.user.name, ...this.state },
-      (success) => {
-        const { name } = success.data
+      ({ data: { name } }) => {
         window.location.href = path.user.show(name)
       },
       (error) => (
@@ -191,7 +190,7 @@ export default class EditUser extends Component {
               <span className="icon">
                 <i className={updateIconClass} />
               </span>
-              <span>update profile</span>
+              <span>Update Profile</span>
             </button>
           </p>
           <p>
@@ -203,7 +202,7 @@ export default class EditUser extends Component {
               <span className="icon">
                 <i className="fa fa-undo" />
               </span>
-              <span>cancel</span>
+              <span>Cancel</span>
             </button>
           </p>
           <p style={{ marginTop: "2em" }}>
@@ -215,7 +214,7 @@ export default class EditUser extends Component {
               <span className="icon">
                 <i className="fa fa-ban" />
               </span>
-              <span>delete</span>
+              <span>Delete</span>
             </button>
           </p>
         </div>

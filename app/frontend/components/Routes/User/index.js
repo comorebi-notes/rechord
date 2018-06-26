@@ -53,7 +53,7 @@ export default class User extends Component {
           </div>
           <div className="column scores">
             <h1 className="title is-4">
-              scores
+              Scores
               {isOwn && (
                 <Link to={path.root}>
                   <span className="icon">

@@ -35,8 +35,7 @@ class Container extends Component {
     const { history } = this.props
     this.setState({ loading: true })
     api.getStatus(
-      (success) => {
-        const { currentUser, currentVersion, notifications } = success.data
+      ({ data: { currentUser, currentVersion, notifications } }) => {
         if (currentVersion !== this.state.currentVersion) window.location.reload() // 更新があればブラウザをリロード
         this.setState({ loading: false, currentUser, notifications })
       },

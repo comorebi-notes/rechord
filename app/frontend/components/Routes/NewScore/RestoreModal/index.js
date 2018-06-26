@@ -15,7 +15,7 @@ export default class RestoreModal extends Component {
     return (
       <ModalCard
         isActive={isActive}
-        title="Restore ?"
+        title="復元"
         icon="info-circle"
         hasButtons
         handleClick={this.handleClick}

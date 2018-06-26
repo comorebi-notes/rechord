@@ -8,11 +8,7 @@ import * as utils           from "../../../../utils"
 export default class ScoreHeader extends Component {
   constructor() {
     super()
-    this.state = {
-      isActiveModal: false,
-      favsCount:     0,
-      myFavId:       false
-    }
+    this.state = { modal: false, favsCount: 0, myFavId: false }
   }
   componentWillReceiveProps = ({ favs }) => {
     if (favs && !this.props.favs) {
@@ -39,10 +35,10 @@ export default class ScoreHeader extends Component {
     }
     return true
   }
-  handleToggleModal = () => this.setState({ isActiveModal: !this.state.isActiveModal })
+  handleToggleModal = () => this.setState({ modal: !this.state.modal })
   render() {
     const { author, title, token, status, user, viewsCount, createdAt, updatedAt } = this.props
-    const { isActiveModal, favsCount, myFavId } = this.state
+    const { modal, favsCount, myFavId } = this.state
     const isClosed = status !== "published"
     return (
       <div>
@@ -85,10 +81,10 @@ export default class ScoreHeader extends Component {
         </div>
 
         <ShareModal
-          label="share!"
+          label="Let's share!"
           token={token}
           title={title}
-          isActive={isActiveModal}
+          isActive={modal}
           handleSetState={(newState) => this.setState(newState)}
         />
       </div>

@@ -44,7 +44,7 @@ class CreateControl extends Component {
     const { userId, status, handleSetState, isValid } = this.props
     const { loading, modal } = this.state
     const iconClass = loading ? "fa fa-circle-o-notch fa-spin" : "fa fa-save"
-    const buttonLabel = userId ? "save" : "save & share"
+    const buttonLabel = userId ? "Save" : "Save & Share"
     return (
       <div>
         <div className="score-footer">
@@ -81,7 +81,7 @@ class CreateControl extends Component {
 
         <ModalCard
           isActive={modal}
-          title="Confirm"
+          title="確認"
           icon="info-circle"
           hasButtons
           handleClick={this.createScore}

@@ -32,7 +32,7 @@ export default class LoginModal extends Component {
         <div className="modal-content">
           <div className="box">
             <h1 className="has-text-centered title is-4">
-              login or register
+              Login / Register
             </h1>
             {services.map(renderButton)}
             <p className="is-size-7" style={{ marginBottom: ".8em" }}>

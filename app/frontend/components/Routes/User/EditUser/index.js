@@ -133,7 +133,7 @@ export default class EditUser extends Component {
               </div>
             </div>
 
-            <Field label="screen name">
+            <Field label="Screen name">
               <FormWithValidate errorKey="screenName" target="user" errors={errors}>
                 <input
                   type="input"
@@ -145,7 +145,7 @@ export default class EditUser extends Component {
               </FormWithValidate>
             </Field>
 
-            <Field label="profile">
+            <Field label="Profile">
               <FormWithValidate errorKey="profile" target="user" errors={errors}>
                 <textarea
                   className="textarea"
@@ -156,7 +156,7 @@ export default class EditUser extends Component {
               </FormWithValidate>
             </Field>
 
-            <Field label="site url">
+            <Field label="URL">
               <FormWithValidate errorKey="site" target="user" errors={errors}>
                 <input
                   type="input"
@@ -168,7 +168,7 @@ export default class EditUser extends Component {
               </FormWithValidate>
             </Field>
 
-            <Field label="twitter">
+            <Field label="Twitter">
               <FormWithValidate errorKey="twitter" target="user" errors={errors}>
                 <input
                   type="input"
@@ -214,7 +214,7 @@ export default class EditUser extends Component {
               <span className="icon">
                 <i className="fa fa-ban" />
               </span>
-              <span>Delete</span>
+              <span>Delete User</span>
             </button>
           </p>
         </div>

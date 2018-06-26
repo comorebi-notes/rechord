@@ -39,7 +39,7 @@ export default class ShareModal extends Component {
                   <span className="icon">
                     <i className="fa fa-copy" />
                   </span>
-                  <span>copy</span>
+                  <span>Copy</span>
                 </button>
               )}
             </h2>

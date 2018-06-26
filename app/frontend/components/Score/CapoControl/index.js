@@ -15,7 +15,7 @@ export default class CapoControl extends Component {
   render() {
     const { capo } = this.props
     return (
-      <HorizontalField label="capo">
+      <HorizontalField label="Capo">
         <input
           type="number"
           min={MIN_CAPO}

@@ -180,7 +180,7 @@ export default class SoundControl extends Component {
               color="danger"
               size="medium"
               icon="stop"
-              text="stop"
+              text="STOP"
               customClass="animate-button"
               disabled={!isPlaying}
             />

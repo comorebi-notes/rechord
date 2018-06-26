@@ -18,7 +18,7 @@ export default class DestroyScoreModal extends Component {
     return (
       <ModalCard
         isActive={active}
-        title="Caution"
+        title="注意"
         icon="exclamation-triangle"
         hasButtons
         buttonColor="danger"

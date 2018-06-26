@@ -11,7 +11,7 @@ export default class About extends PureComponent {
     super()
     this.state = { modal: false }
   }
-  componentDidMount = () => utils.setTitle("about", this.props.history)
+  componentDidMount = () => utils.setTitle("About", this.props.history)
   handleToggleModal = () => this.setState({ modal: !this.state.modal })
   render() {
     const { modal } = this.state
@@ -22,8 +22,8 @@ export default class About extends PureComponent {
             <div className="container has-text-centered">
               <h1 className="title">
                 <img src="assets/images/logo_white.png" alt="rechord" width="180" />
-                easy to play, <br className="is-hidden-tablet" />
-                easy to share !
+                Easy to Play, <br className="is-hidden-tablet" />
+                Easy to Share !
               </h1>
               <h2 className="subtitle is-6">
                 rechord は実際に演奏もできる<br className="is-hidden-tablet" />
@@ -32,13 +32,13 @@ export default class About extends PureComponent {
               <div className="hero-buttons">
                 <LinkButton
                   to={path.root}
-                  text="create score"
+                  text="Create Score"
                   icon="play"
                   color="info"
                   size="medium"
                 />
                 <Button
-                  text="login / register"
+                  text="Login / Register"
                   color="primary"
                   size="medium"
                   icon="sign-in"

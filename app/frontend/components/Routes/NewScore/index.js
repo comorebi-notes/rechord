@@ -84,7 +84,7 @@ export default class NewScore extends Component {
                 <i className="fa fa-envira fa-2x" />
               </span>
               <p className="is-size-7">
-                <strong>easy to play, easy to share !</strong><br />
+                <strong>Easy to Play, Easy to Share !</strong><br />
                 rechord は、テキスト入力するだけで実際に演奏もできるコード進行共有サービスです。<br />
                 自由に入力し、自由に鳴らし、自由に共有してみてください。
               </p>

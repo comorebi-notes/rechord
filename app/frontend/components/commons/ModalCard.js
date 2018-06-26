@@ -13,7 +13,7 @@ export default class ModalCard extends Component {
 
     return (
       <div className={modalClass}>
-        <div className="modal-background" role="presentation" onClick={hideModal} />
+        <div className="modal-background" onClick={hideModal} />
         <div className="modal-card">
           {title && (
             <header className="modal-card-head">

@@ -28,7 +28,7 @@ export default class LoginModal extends Component {
     ]
     return (
       <div className={modalClass}>
-        <div className="modal-background" role="presentation" onClick={hideModal} />
+        <div className="modal-background" onClick={hideModal} />
         <div className="modal-content">
           <div className="box">
             <h1 className="has-text-centered title is-4">

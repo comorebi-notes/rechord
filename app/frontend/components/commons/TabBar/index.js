@@ -34,7 +34,7 @@ class TabBar extends PureComponent {
             <TabItems currentUser={currentUser} currentPath={currentPath} handleToggleModal={this.handleToggleModal} />
             <div className="field is-hidden-mobile">
               <div className="control has-icons-left">
-                <span className="icon is-left can-click" role="presentation" onClick={this.handleSearch}>
+                <span className="icon is-left can-click" onClick={this.handleSearch}>
                   <i className="fa fa-search fa-lg" />
                 </span>
                 <input

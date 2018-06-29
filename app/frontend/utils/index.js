@@ -1,5 +1,6 @@
-import { Note } from "tonal"
-import * as br  from "./browser-dependencies"
+import { Note }             from "tonal"
+import * as br              from "./browser-dependencies"
+import * as metaDescription from "./metaDescription"
 
 export const zeroPadding = (num, length) => {
   const zeros = Array(length + 1).join('0')
@@ -74,8 +75,9 @@ export const generateTitle = (baseTitle) => {
   const defaultTitle = "rechord - 演奏もできるコード進行共有サービス"
   return baseTitle ? `${baseTitle} | ${defaultTitle}` : defaultTitle
 }
-export const setTitle = (title, history) => {
+export const setMeta = (title, description, history) => {
   br.document.title = generateTitle(title)
+  metaDescription.set(description)
   history.pushPageView()
 }
 

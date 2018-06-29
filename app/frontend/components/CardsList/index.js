@@ -7,7 +7,7 @@ import ScoresResult         from "./ScoresResult"
 import UsersResult          from "./UsersResult"
 import Pagination           from "../commons/Pagination"
 import * as utils           from "./cardsListUtils"
-import { setTitle }         from "../../utils"
+import { setMeta }          from "../../utils"
 import { history }          from "../../utils/browser-dependencies"
 import * as api             from "../../api"
 import * as path            from "../../utils/path"
@@ -33,7 +33,7 @@ export default class CardsList extends Component {
         if (label) {
           const { query: { word } } = this.state
           const title = word ? `検索: ${word}` : `${label}一覧`
-          setTitle(title, this.props.history)
+          setMeta(title, "", this.props.history)
         }
       },
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })

@@ -2,7 +2,7 @@ import React, { PureComponent } from "react"
 import * as utils               from "../../../utils"
 
 export default class Terms extends PureComponent {
-  componentDidMount = () => utils.setTitle("利用規約", this.props.history)
+  componentDidMount = () => utils.setMeta("利用規約", "", this.props.history)
   render() {
     return (
       <div className="content terms">

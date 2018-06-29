@@ -4,7 +4,7 @@ import releases                 from "../../../constants/releases"
 import * as utils               from "../../../utils"
 
 export default class Changelog extends PureComponent {
-  componentDidMount = () => utils.setTitle("更新履歴", this.props.history)
+  componentDidMount = () => utils.setMeta("更新履歴", "", this.props.history)
   render() {
     return (
       <div className="content changelog">

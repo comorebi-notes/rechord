@@ -175,6 +175,7 @@ const releases = [
       <ul>
         <li>お知らせ通知機能を実装</li>
         <li>更新履歴ページ (Changelog) を追加</li>
+        <li>スコアのページが Google 検索に表示されるよう改善</li>
         <li>各種ラベルの先頭を大文字に変更</li>
         <li>Share ボタンのレイアウトを調整</li>
         <li>Private に設定されているスコアは、Share ボタンが押せないように変更</li>

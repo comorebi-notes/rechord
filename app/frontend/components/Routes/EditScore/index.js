@@ -40,7 +40,7 @@ export default class EditScore extends Component {
         { token },
         ({ data: { score } }) => {
           const contentState = ContentState.createFromText(score.content)
-          utils.setTitle(score.title, this.props.history)
+          utils.setMeta(score.title, "", this.props.history)
           this.setState({
             loading:        false,
             inputText:      score.content,
@@ -65,7 +65,7 @@ export default class EditScore extends Component {
     const contentState = ContentState.createFromText(tempState.inputText)
     const editorState  = EditorState.createWithContent(contentState, scoreDecorator)
     this.setState(Object.assign({ loading: false, token, editorState }, tempState))
-    utils.setTitle(tempState.title, this.props.history)
+    utils.setMeta(tempState.title, "", this.props.history)
     localStorageState.remove("editScore")
   }
 

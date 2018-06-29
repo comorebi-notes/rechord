@@ -11,7 +11,7 @@ export default class About extends PureComponent {
     super()
     this.state = { modal: false }
   }
-  componentDidMount = () => utils.setTitle("About", this.props.history)
+  componentDidMount = () => utils.setMeta("About", "", this.props.history)
   handleToggleModal = () => this.setState({ modal: !this.state.modal })
   render() {
     const { modal } = this.state

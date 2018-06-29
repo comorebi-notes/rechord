@@ -47,7 +47,7 @@ export default class NewScore extends Component {
       isValid:        false
     }
   }
-  componentDidMount = () => utils.setTitle("", this.props.history)
+  componentDidMount = () => utils.setMeta("", "", this.props.history)
 
   setEditorState = (inputText) => {
     const contentState = ContentState.createFromText(inputText)

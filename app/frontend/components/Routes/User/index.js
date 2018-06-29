@@ -23,7 +23,7 @@ export default class User extends Component {
     api.showUser(
       { name },
       ({ data: user }) => {
-        utils.setTitle(`${user.screen_name} のマイページ`, this.props.history)
+        utils.setMeta(`${user.screen_name} のマイページ`, user.profile, this.props.history)
         this.setState({ loading: false, user })
       },
       () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })

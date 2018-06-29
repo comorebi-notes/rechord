@@ -38,7 +38,7 @@ export default class ShowScore extends Component {
           regex.commentLineTop.test(line[0]) ? line : line.replace(regex.whiteSpaces, "")
         )).join("\n")
         const contentState = ContentState.createFromText(scoreContent)
-        utils.setTitle(score.title, this.props.history)
+        utils.setMeta(score.title, score.content, this.props.history)
         this.setState({
           loading:        false,
           inputText:      scoreContent,

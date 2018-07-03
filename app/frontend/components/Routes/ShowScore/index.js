@@ -60,7 +60,10 @@ export default class ShowScore extends Component {
           author
         })
       },
-      () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
+      () => {
+        const message = "読み込みに失敗しました。スコアが存在しないか、非公開に設定されている可能性があります。"
+        this.props.history.push(path.root, { flash: ["error", message] })
+      }
     )
   }
 

@@ -170,7 +170,7 @@ const releases = [
     )
   }, {
     version:    "v1.0.10",
-    updated_at: "2018/6/29",
+    updated_at: "2018/7/3",
     content: (
       <ul>
         <li>お知らせ通知機能を実装</li>

@@ -56,6 +56,7 @@ jobs:
           name: Database setup
           command: bin/rails db:schema:load --trace
 
-  # 
-  #     # run tests!
-  #     - run: yarn test
+      # test
+      - run:
+          name: check lint
+          command: yarn lint

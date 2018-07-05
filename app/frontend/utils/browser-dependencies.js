@@ -1,3 +1,5 @@
+/* eslint-disable strict, no-undef, no-restricted-globals */
+
 "use strict"
 
 const Window       = window
@@ -22,3 +24,5 @@ const LocalStorage = localStorage || {
   removeItem: () => false
 }
 export { LocalStorage as localStorage }
+
+/* eslint-enable */

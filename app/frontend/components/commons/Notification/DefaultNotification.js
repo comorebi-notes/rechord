@@ -8,7 +8,9 @@ export default class DefaultNotification extends PureComponent {
       <div className="content notification">
         <time>{utils.humanDateTime(updatedAt, true)} </time>
         <h3>{title}</h3>
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <div
+          dangerouslySetInnerHTML={{ __html: content }} // eslint-disable-line
+        />
       </div>
     )
   }

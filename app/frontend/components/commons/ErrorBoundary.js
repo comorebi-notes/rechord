@@ -5,7 +5,7 @@ export default class ErrorBoundary extends Component {
     super()
     this.state = { hasError: false }
   }
-  componentDidCatch = (error) => console.log(error)
+  componentDidCatch = (error) => console.log(error) // eslint-disable-line
   render () {
     const { hasError } = this.state
     const { children } = this.props

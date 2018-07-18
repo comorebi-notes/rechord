@@ -16,6 +16,7 @@ import Changelog    from "./Changelog"
 import ScoresList   from "./ScoresList"
 import UsersList    from "./UsersList"
 import FavsList     from "./FavsList"
+import * as utils   from "../../utils"
 import * as path    from "../../utils/path"
 import * as api     from "../../api"
 import { window }   from "../../utils/browser-dependencies"
@@ -39,7 +40,7 @@ class Container extends Component {
         if (currentVersion !== this.state.currentVersion) window.location.reload() // 更新があればブラウザをリロード
         this.setState({ loading: false, currentUser, notifications })
       },
-      () => history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
+      (errors) => history.push(path.root, utils.setFlashError(errors))
     )
   }
   render() {

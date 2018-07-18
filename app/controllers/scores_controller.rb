@@ -73,7 +73,10 @@ class ScoresController < ApplicationController
   end
 
   def authenticate!
-    if @score.user_id != current_user.id
+    case
+    when !user_signed_in?
+      render json: "この操作に対する権限がありません。ログインしてください。", status: :unprocessable_entity
+    when @score.user_id != current_user.id
       render json: "現在ログイン中のユーザは、この操作に対する権限がありません。", status: :unprocessable_entity
     end
   end

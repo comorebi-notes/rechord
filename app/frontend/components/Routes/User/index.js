@@ -26,7 +26,7 @@ export default class User extends Component {
         utils.setMeta(`${user.screen_name} のマイページ`, user.profile, this.props.history)
         this.setState({ loading: false, user })
       },
-      () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
+      (errors) => this.props.history.push(path.root, utils.setFlashError(errors))
     )
   }
   handleToggleEdit = () => this.setState({ edit: !this.state.edit })

@@ -6,8 +6,8 @@ import OptionCheckbox       from "./OptionCheckbox"
 import ScoresResult         from "./ScoresResult"
 import UsersResult          from "./UsersResult"
 import Pagination           from "../commons/Pagination"
-import * as utils           from "./cardsListUtils"
-import { setMeta }          from "../../utils"
+import * as cardsListUtils  from "./cardsListUtils"
+import * as utils           from "../../utils"
 import { history }          from "../../utils/browser-dependencies"
 import * as api             from "../../api"
 import * as path            from "../../utils/path"
@@ -18,7 +18,7 @@ export default class CardsList extends Component {
     const { type, location } = props
     const query = qs.parse(location.search.substr(1))
     this.state = {
-      query:   utils.setDefault(query, type),
+      query:   cardsListUtils.setDefault(query, type),
       result:  [],
       loading: true
     }
@@ -33,10 +33,10 @@ export default class CardsList extends Component {
         if (label) {
           const { query: { word } } = this.state
           const title = word ? `検索: ${word}` : `${label}一覧`
-          setMeta(title, "", this.props.history)
+          utils.setMeta(title, "", this.props.history)
         }
       },
-      () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
+      (errors) => this.props.history.push(path.root, utils.setFlashError(errors))
     )
   )
   handlePush = (type, query) => {

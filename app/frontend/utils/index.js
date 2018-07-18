@@ -110,6 +110,14 @@ export const setApiErrors = (apiErrors) => {
   return errors
 }
 
+export const setFlashError = ({ response: { status, data } }) => {
+  let errorMessage = "予期しないエラーが発生しました。読み込みに失敗しました。"
+  if (Number(status / 100) === 4 && data) {
+    errorMessage = data
+  }
+  return { flash: ["error", errorMessage] }
+}
+
 export const iconUrl = (icon, size) => {
   if (icon && icon.url) {
     return size === "thumb" ? icon.thumb.url : icon.url

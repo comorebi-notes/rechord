@@ -64,6 +64,11 @@ section.section
     display: flex
     flex-direction: column
 
-@media screen and (max-width: $tablet - 1px)
+@media screen and (max-width: $mobile - 1)
+  .section.root-section
+    .container
+      width: 100%
+
+@media screen and (max-width: $tablet - 1)
   .twitter-tl
     width: auto

@@ -7,8 +7,20 @@ export default class StatusControl extends Component {
   render() {
     const { status } = this.props
     const radioParams = [
-      { label: "Public",  value: "published" },
-      { label: "Private", value: "closed" }
+      {
+        label: "Public",
+        description: <p>保存されたスコアは誰でも閲覧可能になります。</p>,
+        value: "published"
+      }, {
+        label: "Private",
+        description: (
+          <p>
+            保存されたスコアはあなた以外には見えません。<br />
+            検索にも表示されません。
+          </p>
+        ),
+        value: "closed"
+      }
     ]
     const renderRadioComponent = (param) => (
       <span className="has-checkradio" key={param.value}>
@@ -24,10 +36,14 @@ export default class StatusControl extends Component {
         <label htmlFor={param.value}>{param.label}</label>
       </span>
     )
+    const currentParam = radioParams.find(param => param.value === status) || {}
     return (
       <div className="field status-control">
         <div className="control radio-buttons">
           {radioParams.map(renderRadioComponent)}
+        </div>
+        <div className="current-status-description">
+          {currentParam.description}
         </div>
       </div>
     )

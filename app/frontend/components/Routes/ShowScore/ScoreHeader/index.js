@@ -43,13 +43,18 @@ export default class ScoreHeader extends Component {
     return (
       <div>
         <div className="score-header">
+          {isClosed && (
+            <div className="notification">
+              <p className="private-description">
+                <span className="icon is-medium">
+                  <i className="fa fa-lock fa-lg" />
+                </span>
+                <span>このスコアは非公開です。あなた以外には見えません。</span>
+              </p>
+            </div>
+          )}
           <h1 className="title">
             {title}
-            {isClosed && (
-              <span className="icon is-small">
-                <i className="fa fa-lock" />
-              </span>
-            )}
           </h1>
 
           <Author author={author} createdAt={createdAt} updatedAt={updatedAt} />

@@ -15,8 +15,8 @@ export default class StatusControl extends Component {
         label: "Private",
         description: (
           <p>
-            保存されたスコアはあなた以外には見えません。<br />
-            検索にも表示されません。
+            保存されたスコアは非公開になります。<br />
+            あなた以外には見えず、検索にも表示されません。
           </p>
         ),
         value: "closed"

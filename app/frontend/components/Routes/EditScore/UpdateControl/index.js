@@ -35,7 +35,7 @@ class UpdateControl extends Component {
           status={status}
           handleSetState={handleSetState}
         />
-        <div className="field is-grouped" style={{ marginTop: ".7em" }}>
+        <div className="field is-grouped">
           <div className="control">
             <Link
               to={showPath}

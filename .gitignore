@@ -22,6 +22,9 @@
 /public/packs
 /public/packs-test
 /public/uploads
+/public/assets/*
+!/public/assets/images
+!/public/assets/audios
 
 .byebug_history
 

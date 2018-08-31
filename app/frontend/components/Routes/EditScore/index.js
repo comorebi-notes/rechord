@@ -56,7 +56,7 @@ export default class EditScore extends Component {
             token:          score.token
           })
         },
-        () => this.props.history.push(path.root, { flash: ["error", "読み込みに失敗しました。"] })
+        (errors) => this.props.history.push(path.root, utils.setFlashError(errors))
       )
     }
   }

@@ -24,6 +24,12 @@
       .navbar-item:last-child
         margin-right: -1rem
 
+@media screen and (max-width: $mobile - 1)
+  .navbar
+    .navbar-brand
+      .title-logo
+        margin-left: 0
+
 @media screen and (max-width: $desktop - 1)
   .navbar
     .button.is-primary.login-button
@@ -31,9 +37,6 @@
       background-color: $primary
       border-color: transparent
       color: #fff
-    .navbar-brand
-      .title-logo
-        margin-left: 0
     .navbar-menu
       &.is-active
         position: absolute

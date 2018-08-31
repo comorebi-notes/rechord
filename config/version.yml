@@ -1,5 +1,5 @@
 default: &default
-  version: v1.0.10
+  version: v1.0.11
 
 development:
   <<: *default

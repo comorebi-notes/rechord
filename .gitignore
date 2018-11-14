@@ -10,6 +10,7 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
+/data/*
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -32,6 +33,8 @@
 .rspec
 .DS_Store
 tags
+/.idea
+/.localdocker/postgres/*
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

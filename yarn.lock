@@ -87,7 +87,7 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@rails/webpacker@^3.0.2":
+"@rails/webpacker@^3.5.5":
   version "3.5.5"
   resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-3.5.5.tgz#8911c66bcefc8bc6b91270e92f0d39e3c2d43116"
   integrity sha512-R9kglLb/R9mMqf2BW91XJHYc0q00qAO67vfrbV52ifTSywPOixEka/7oU3cb6671u1ajd74kuGAsCSnBtdVHJg==
@@ -1694,12 +1694,12 @@ chokidar@^2.0.0, chokidar@^2.0.2:
     fsevents "^1.2.2"
 
 chord-translator@^0.1.0:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/chord-translator/-/chord-translator-0.1.5.tgz#fac3efe6b85d7b382df2cf8a365fa2b160613b26"
-  integrity sha1-+sPv5rhdezgt8s+KNl+isWBhOyY=
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/chord-translator/-/chord-translator-0.1.6.tgz#31f43d6513ce69d2e23b7f647d446000624c241c"
+  integrity sha512-uKIgx3q7pffDSNO0ggucJQzzb6NVonTAKdN/odwHBZgZh4cN1x0iahGq3RhmhYAm97PCxCTh2zEv5lx7NFp+Jg==
   dependencies:
     moji "^0.5.1"
-    tonal "^1.1.0"
+    tonal "^2.1.2"
 
 chownr@^1.0.1, chownr@^1.1.1:
   version "1.1.1"
@@ -7365,14 +7365,14 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
 
-tonal-array@^1.1.4, tonal-array@^2.1.2:
+tonal-array@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/tonal-array/-/tonal-array-2.1.2.tgz#50db7e09b94de4c59f4be414ac6d83d3612c0873"
   integrity sha512-itFzicmDy4/ZsrrC2OSqQHNFJAgDCUOqtlSa1H3s4EeUSZFShZfdDGGiHuWaOt2Ybhf30a4zNkeHplBbzU4pKQ==
   dependencies:
     tonal-note "^2.1.2"
 
-tonal-chord@^1.1.4:
+tonal-chord@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/tonal-chord/-/tonal-chord-2.1.2.tgz#331fcb9e6b995fcd7b76dd1f46a8b82a578d0f48"
   integrity sha512-TglYj3JBZgJBz/mIA34PtQENrsw9nFU3PDM69h2y6KAv2vbQ44097kxzHqkMg9+IS/HGksgUC7xW6L52jECt2w==
@@ -7382,7 +7382,7 @@ tonal-chord@^1.1.4:
     tonal-note "^2.1.2"
     tonal-pcset "^2.1.2"
 
-tonal-dictionary@^1.1.4, tonal-dictionary@^2.1.2:
+tonal-dictionary@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/tonal-dictionary/-/tonal-dictionary-2.1.2.tgz#4a72eb3d561a331580ad3019eb42dc0b6610b3db"
   integrity sha512-aBxLx0ues6ekFFQsfD2s2VL+YCOD1Szls2Ne+j2mQyTWsPKE18PiDUZ4YA0Ytr7TeefgduINQRil26jFhsG7QQ==
@@ -7391,7 +7391,7 @@ tonal-dictionary@^1.1.4, tonal-dictionary@^2.1.2:
     tonal-note "^2.1.2"
     tonal-pcset "^2.1.2"
 
-tonal-distance@^1.1.4, tonal-distance@^2.1.2:
+tonal-distance@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/tonal-distance/-/tonal-distance-2.1.2.tgz#a53b21d61a588ec31cf081e6acd06b0ac2d317e1"
   integrity sha512-0AeogWBIoQMcoW+zEgPHSHfwsLJ/sksYoEaCDYQBNSvYXXtVyMxAM+FSmyP3CEZV/2oirAN7TFRTmc8ORA9f3Q==
@@ -7399,12 +7399,12 @@ tonal-distance@^1.1.4, tonal-distance@^2.1.2:
     tonal-interval "^2.1.2"
     tonal-note "^2.1.2"
 
-tonal-interval@^1.1.4, tonal-interval@^2.1.2:
+tonal-interval@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/tonal-interval/-/tonal-interval-2.1.2.tgz#620ef64e302ef193bd2a9368142c2132c0b8ed16"
   integrity sha512-qSVezmPdwim+2QmEfjLGFWMB0pAk55ppWP9siTGd3Wby1TNxkKTuVXE8dzZBzEvbhZDs8bblz3kPmtPNNe9Xrg==
 
-tonal-key@^1.1.4:
+tonal-key@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/tonal-key/-/tonal-key-2.1.2.tgz#51f7c0c931c0d6be26e7ade9f3954fa2161778ec"
   integrity sha512-m7K/9RK5c9xhL4QLKVi8uKesrYOrhOKn0ifYHXEWWxZ+QA8p5HOUiIf+TMFEmiij9BYnuVz9hBhzl5ESOEsdMg==
@@ -7413,12 +7413,12 @@ tonal-key@^1.1.4:
     tonal-distance "^2.1.2"
     tonal-note "^2.1.2"
 
-tonal-note@^1.1.4, tonal-note@^2.1.2:
+tonal-note@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/tonal-note/-/tonal-note-2.1.2.tgz#8fdddb775168e918931a74a256e7810c730ebcac"
   integrity sha512-PP/h5+j4O1b1X3Gk++yJLE6yABRrksxt2CpqYMitdNhn+Hgd5UfMwlZALNVaZZTGGwksKaHn1h61rY+Ab/HCaQ==
 
-tonal-pcset@^1.1.4, tonal-pcset@^2.1.2:
+tonal-pcset@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/tonal-pcset/-/tonal-pcset-2.1.2.tgz#c6b33b3016b08bcdc36dd7772208ecaecc47b449"
   integrity sha512-UkDzCCtoNE1NSerbt3PUtroz2lf4lPbFgrkaveKBDqqxTu6F1oaukpoehHES4s5+rKY7UzanV8Kr4lfVlrZzCA==
@@ -7427,7 +7427,7 @@ tonal-pcset@^1.1.4, tonal-pcset@^2.1.2:
     tonal-interval "^2.1.2"
     tonal-note "^2.1.2"
 
-tonal-scale@^1.1.4:
+tonal-scale@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/tonal-scale/-/tonal-scale-2.1.2.tgz#b352e34c63187543753447cd32aaa57df2c711a6"
   integrity sha512-8OOwz3legz8xGgBWelXxidE7ZOuZNrSf/xmxbwh41K/8gnL8BIueMPXXkdN0y9yplAhnajc8k+YzO1ynxG86sw==
@@ -7438,25 +7438,25 @@ tonal-scale@^1.1.4:
     tonal-note "^2.1.2"
     tonal-pcset "^2.1.2"
 
-tonal@^1.1.0:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/tonal/-/tonal-1.1.5.tgz#b526e02a9a2470eea343153cc128c579e3d68fa0"
-  integrity sha512-8fabHfmK5Z0spHE8X4HNICbEGj3PLiBl5LpCbYgku0J4LHRF3Xx1BWlk5GPfTzXDhsf0eKIbEz+oFnPLAErj3A==
+tonal@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/tonal/-/tonal-2.1.2.tgz#7168ec683d40dd36004527f9e9a632fabab1f23a"
+  integrity sha512-CPtqcnb0p0ZtCn9VaxnEno2FSkmP85CnYqzX8le3QXmj8tpbOeNVbvw6gegPpj8wIkz9LlFV6duKZx+BNEnC7w==
   dependencies:
-    tonal-array "^1.1.4"
-    tonal-chord "^1.1.4"
-    tonal-dictionary "^1.1.4"
-    tonal-distance "^1.1.4"
-    tonal-interval "^1.1.4"
-    tonal-key "^1.1.4"
-    tonal-note "^1.1.4"
-    tonal-pcset "^1.1.4"
-    tonal-scale "^1.1.4"
+    tonal-array "^2.1.2"
+    tonal-chord "^2.1.2"
+    tonal-dictionary "^2.1.2"
+    tonal-distance "^2.1.2"
+    tonal-interval "^2.1.2"
+    tonal-key "^2.1.2"
+    tonal-note "^2.1.2"
+    tonal-pcset "^2.1.2"
+    tonal-scale "^2.1.2"
 
-tone@^0.11.11:
-  version "0.11.12"
-  resolved "https://registry.yarnpkg.com/tone/-/tone-0.11.12.tgz#cb042dcad55d7965a66bbdb665ca1a8853442be2"
-  integrity sha512-6N10zWEPpev2254vomUtvA8MZ1C5RXb7Pt6lEsxzmLE/j1pIiZ08ny2YjoKN+BCjvOQk2AKAjxhQs2klfof02A==
+tone@^0.12.80:
+  version "0.12.80"
+  resolved "https://registry.yarnpkg.com/tone/-/tone-0.12.80.tgz#9a40fca603d02e189251db772ef6c7bf082e6c28"
+  integrity sha512-xCriTn1may1ZzfYYwxXW8pNj0W1XScc21ZLSd/itoTa3s0vMO1LlN23UYvHwUduL45xuY+Rw/e87LmqP3mW43Q==
 
 tough-cookie@~2.4.3:
   version "2.4.3"

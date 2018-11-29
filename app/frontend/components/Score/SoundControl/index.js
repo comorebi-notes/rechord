@@ -21,8 +21,8 @@ export default class SoundControl extends Component {
     Transport.stop()
     Transport.cancel()
     Transport.clear()
-    if (Tone.context.close) { // Google Crawler 対策
-      Tone.context.close()
+    if (Tone.context.dispose) { // Google Crawler 対策
+      Tone.context.dispose()
       Tone.context = new AudioContext()
       StartAudioContext(Tone.context) // https://github.com/Tonejs/Tone.js/issues/341
     }

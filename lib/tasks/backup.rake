@@ -9,14 +9,14 @@ namespace :backup do
 
   def create_backup_file
     `mkdir -p #{local_backup_path}`
-    `#{ENV["PG_DUMP_PATH"]}pg_dump -Ft -U #{ENV["DB_USER_NAME"]} -w #{ENV["DB_NAME"]} | gzip -c > #{local_backup_file_path}`
+    `#{ENV["PG_DUMP_PATH"]}pg_dump -Ft -U #{ENV["RAILS_DATABASE_USERNAME"]} -w #{ENV["RAILS_DATABASE"]} | gzip -c > #{local_backup_file_path}`
   end
 
   def send_to_dropbox
     client = initialize_dropbox_client
     client.upload("#{ENV["BACKUP_FILES_PATH"]}#{file_name}", IO.read(local_backup_file_path))
   end
-  
+
   def detele_olds_by_local(generation_number = 7)
     files = Dir.glob("#{local_backup_path}*")
     files.select! { |file| file_name_pattern(local_backup_path) === file }

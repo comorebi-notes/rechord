@@ -1,7 +1,7 @@
 Rails.application.configure do
   config.middleware.use ActionDispatch::Session::RedisStore, {
     servers: {
-      host: 'localhost',
+      host: '127.0.0.1',
       port: 6379,
       db: 0,
       namespace: 'sessions'

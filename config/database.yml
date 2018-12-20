@@ -14,6 +14,9 @@ development:
 production:
   <<: *default
 
+staging:
+  <<: *default
+
 test:
   <<: *default
   database: <%= ENV['RAILS_DATABASE_TEST'] %>

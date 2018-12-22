@@ -43,8 +43,8 @@ gem 'omniauth-github'
 
 # Management
 gem 'cancancan'
-gem 'rails_admin', '~> 1.4'
-gem 'rails_admin-i18n'
+# gem 'rails_admin', '~> 1.4'
+# gem 'rails_admin-i18n'
 gem 'newrelic_rpm'
 
 # Upload

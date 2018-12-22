@@ -1,4 +1,4 @@
-<img src="https://rechord.cc/assets/images/logo.png" width="180px" alt="rechord"/>
+<img src="https://rechord.cc/images/logo.png" width="180px" alt="rechord"/>
 
 [https://rechord.cc](https://rechord.cc)
 

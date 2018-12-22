@@ -31,7 +31,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push(
   'tmp/pids',
   'tmp/cache',
   'tmp/sockets',
-  'vendor/assets',
+  'vendor/bundle',
   'public/system',
   'public/uploads'
 )

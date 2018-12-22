@@ -58,7 +58,7 @@ export default class Header extends PureComponent {
             <div className="navbar-brand">
               <Link to="/" className="navbar-item title-logo">
                 <h1 className="title is-4">
-                  <img src="/assets/images/logo_white.png" alt="rechord" />
+                  <img src="/images/logo_white.png" alt="rechord" />
                   <span>rechord</span>
                 </h1>
               </Link>

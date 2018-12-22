@@ -8,7 +8,7 @@ export const types = (onload) => {
     }, {
       attack: attack || 0,
       release: release || 0.5,
-      baseUrl: `/assets/audios/${name}/`,
+      baseUrl: `/audios/${name}/`,
       onload
     }]
   )

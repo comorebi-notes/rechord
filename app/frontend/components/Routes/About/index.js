@@ -21,7 +21,7 @@ export default class About extends PureComponent {
           <div className="hero-body background-rechord">
             <div className="container has-text-centered">
               <h1 className="title">
-                <img src="assets/images/logo_white.png" alt="rechord" width="180" />
+                <img src="images/logo_white.png" alt="rechord" width="180" />
                 Easy to Play, <br className="is-hidden-tablet" />
                 Easy to Share !
               </h1>
@@ -87,7 +87,7 @@ export default class About extends PureComponent {
             <article className="media">
               <div className="media-left">
                 <figure className="image is-64x64">
-                  <img src="/assets/images/icon_kero.jpg" alt="ケロ" className="user-icon" />
+                  <img src="/images/icon_kero.jpg" alt="ケロ" className="user-icon" />
                 </figure>
               </div>
               <div className="media-content">

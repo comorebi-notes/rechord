@@ -9,6 +9,7 @@ set :ssh_options, {
   user:          fetch(:user),
   keys:          %w(~/.ssh/rechord_cloudgarage_rsa)
 }
+set :keep_releases, 5
 
 set :deploy_to,               "/var/www/#{fetch(:application)}"
 set :deploy_via,              :remote_cache

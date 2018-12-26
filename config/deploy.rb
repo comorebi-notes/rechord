@@ -25,7 +25,7 @@ set :puma_error_log,          "#{release_path}/log/puma.access.log"
 set :puma_preload_app,        true
 set :puma_worker_timeout,     nil
 set :puma_init_active_record, true
-set :rbenv_ruby, '2.5.3'
+set :rbenv_ruby, '2.6.0'
 set :linked_dirs, fetch(:linked_dirs, []).push(
   'log',
   'tmp/pids',

@@ -59,6 +59,6 @@ namespace :backup do
   end
 
   def file_name_pattern(path = "")
-    /^#{path}#{ENV["DB_NAME"]}_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}_dump.gz$/
+    /^#{path}#{ENV["RAILS_DATABASE"]}_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}_dump.gz$/
   end
 end

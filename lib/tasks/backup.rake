@@ -1,5 +1,5 @@
 namespace :backup do
-  desc "daily backup"
+  desc 'daily backup'
   task daily: :environment do
     create_backup_file
     send_to_dropbox
@@ -9,7 +9,7 @@ namespace :backup do
 
   def create_backup_file
     `mkdir -p #{local_backup_path}`
-    `#{ENV["PG_DUMP_PATH"]}pg_dump -Ft -U #{ENV["RAILS_DATABASE_USERNAME"]} -w #{ENV["RAILS_DATABASE"]} | gzip -c > #{local_backup_file_path}`
+    `PGPASSWORD=#{ENV["DATABASE_PASSWORD"]} #{ENV["PG_DUMP_PATH"]}pg_dump -Ft -h #{ENV["DATABASE_HOST"]} -p #{ENV["DATABASE_PORT"]} -U #{ENV["DATABASE_USERNAME"]} -w #{ENV["DATABASE_NAME"]} | gzip -c > #{local_backup_file_path}`
   end
 
   def send_to_dropbox
@@ -42,12 +42,12 @@ namespace :backup do
   def file_name
     return @file_name if @file_name.present?
 
-    timestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
-    @file_name = "#{ENV["RAILS_DATABASE"]}_#{timestamp}_dump.gz"
+    timestamp = Time.now.strftime('%Y-%m-%d_%H-%M-%S')
+    @file_name = "#{ENV["DATABASE_NAME"]}_#{timestamp}_dump.gz"
   end
 
   def local_backup_path
-    "tmp/backup/"
+    'tmp/backup/'
   end
 
   def local_backup_file_path
@@ -59,6 +59,6 @@ namespace :backup do
   end
 
   def file_name_pattern(path = "")
-    /^#{path}#{ENV["RAILS_DATABASE"]}_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}_dump.gz$/
+    /^#{path}#{ENV["DATABASE_NAME"]}_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}_dump.gz$/
   end
 end

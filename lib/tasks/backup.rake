@@ -43,7 +43,7 @@ namespace :backup do
     return @file_name if @file_name.present?
 
     timestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
-    @file_name = "#{ENV["DB_NAME"]}_#{timestamp}_dump.gz"
+    @file_name = "#{ENV["RAILS_DATABASE"]}_#{timestamp}_dump.gz"
   end
 
   def local_backup_path

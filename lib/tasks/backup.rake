@@ -9,7 +9,7 @@ namespace :backup do
 
   def create_backup_file
     `mkdir -p #{local_backup_path}`
-    `PGPASSWORD=#{ENV["DATABASE_PASSWORD"]} #{ENV["PG_DUMP_PATH"]}pg_dump -Ft -h #{ENV["DATABASE_HOST"]} -p #{ENV["DATABASE_PORT"]} -U #{ENV["DATABASE_USERNAME"]} -w #{ENV["DATABASE_NAME"]} | gzip -c > #{local_backup_file_path}`
+    `PGPASSWORD=#{ENV["DATABASE_PASSWORD"]} #{ENV["PG_DUMP_PATH"]}pg_dump -U #{ENV["DATABASE_USERNAME"]} -h #{ENV["DATABASE_HOST"]} -p #{ENV["DATABASE_PORT"]} #{ENV["DATABASE_NAME"]} | gzip -c > #{local_backup_file_path}`
   end
 
   def send_to_dropbox
@@ -43,7 +43,7 @@ namespace :backup do
     return @file_name if @file_name.present?
 
     timestamp = Time.now.strftime('%Y-%m-%d_%H-%M-%S')
-    @file_name = "#{ENV["DATABASE_NAME"]}_#{timestamp}_dump.gz"
+    @file_name = "#{ENV["DATABASE_NAME"]}_#{timestamp}_dump.sql.gz"
   end
 
   def local_backup_path

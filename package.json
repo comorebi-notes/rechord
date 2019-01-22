@@ -22,7 +22,7 @@
     "react-twitter-widgets": "^1.7.1",
     "startaudiocontext": "^1.2.1",
     "tonal": "^2.1.2",
-    "tone": "^0.12.80",
+    "tone": "^0.11.11",
     "webpack": "^3.8.1"
   },
   "devDependencies": {

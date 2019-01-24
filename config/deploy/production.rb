@@ -61,6 +61,6 @@
 #   }
 
 server '203.104.205.33', user: 'deploy', roles: %w(app db web), primary: true
-set :stage, :staging
-set :rails_env, :staging
+set :stage, :production
+set :rails_env, :production
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call

@@ -37,6 +37,7 @@ class User < ApplicationRecord
         break unless User.find_by(name: params[:name])
         params[:name] = SecureRandom.urlsafe_base64(8)
       end
+      params[:screen_name] = params[:screen_name][0, 32]
 
       self.find_or_create_by(provider: provider, uid: uid) do |user|
         params.each do |key, value|

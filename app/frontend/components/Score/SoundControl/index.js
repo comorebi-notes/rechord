@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import Tone, { Transport, Master, Sampler, MonoSynth, Part } from "tone"
-import StartAudioContext from "startaudiocontext"
 
 import Button           from "../../commons/Button"
 import { beats }        from "../../../constants/beats"

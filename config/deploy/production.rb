@@ -59,3 +59,8 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+
+server '203.104.205.33', user: 'deploy', roles: %w(app db web), primary: true
+set :stage, :staging
+set :rails_env, :staging
+ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call

@@ -2,7 +2,6 @@ import React, { PureComponent } from "react"
 import LinkButton               from "../../commons/LinkButton"
 import Button                   from "../../commons/Button"
 import LoginModal               from "../../commons/LoginModal"
-import TwitterTL                from "../../commons/TwitterTL"
 import * as path                from "../../../utils/path"
 import * as utils               from "../../../utils"
 
@@ -63,13 +62,6 @@ export default class About extends PureComponent {
             </div>
           </div>
         </section>
-
-        <div className="container">
-          <div className="box twitter-tl">
-            <TwitterTL />
-          </div>
-          <hr style={{ margin: "3rem 0" }} />
-        </div>
 
         <div className="container" style={{ margin: "2em auto", padding: "0 2em" }}>
           <article className="message">

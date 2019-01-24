@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { withRouter }       from "react-router-dom"
 import StatusControl        from "../../../StatusControl"
-import TwitterTL            from "../../../commons/TwitterTL"
 import ModalCard            from "../../../commons/ModalCard"
 import * as api             from "../../../../api"
 import * as path            from "../../../../utils/path"
@@ -69,14 +68,6 @@ class CreateControl extends Component {
               </button>
             </div>
           </div>
-          {!userId && (
-            <div>
-              <hr style={{ margin: "3rem 0" }} />
-              <div className="box twitter-tl">
-                <TwitterTL />
-              </div>
-            </div>
-          )}
         </div>
 
         <ModalCard

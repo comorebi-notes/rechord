@@ -1,19 +1,23 @@
 default: &default
-  adapter: postgresql
+  adapter:  postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  pool:     <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout:  5000
+  database: <%= ENV['DATABASE_NAME'] %>
+  host:     <%= ENV['DATABASE_HOST'] %>
+  port:     <%= ENV['DATABASE_PORT'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 development:
   <<: *default
-  database: rechord_development
-
-test:
-  <<: *default
-  database: rechord_test
 
 production:
   <<: *default
-  database: rechord_production
-  username: rechord
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+
+staging:
+  <<: *default
+
+test:
+  <<: *default
+  database: <%= ENV['DATABASE_TEST'] %>

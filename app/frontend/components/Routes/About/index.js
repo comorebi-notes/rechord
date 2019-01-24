@@ -2,7 +2,6 @@ import React, { PureComponent } from "react"
 import LinkButton               from "../../commons/LinkButton"
 import Button                   from "../../commons/Button"
 import LoginModal               from "../../commons/LoginModal"
-import TwitterTL                from "../../commons/TwitterTL"
 import * as path                from "../../../utils/path"
 import * as utils               from "../../../utils"
 
@@ -21,7 +20,7 @@ export default class About extends PureComponent {
           <div className="hero-body background-rechord">
             <div className="container has-text-centered">
               <h1 className="title">
-                <img src="assets/images/logo_white.png" alt="rechord" width="180" />
+                <img src="images/logo_white.png" alt="rechord" width="180" />
                 Easy to Play, <br className="is-hidden-tablet" />
                 Easy to Share !
               </h1>
@@ -64,13 +63,6 @@ export default class About extends PureComponent {
           </div>
         </section>
 
-        <div className="container">
-          <div className="box twitter-tl">
-            <TwitterTL />
-          </div>
-          <hr style={{ margin: "3rem 0" }} />
-        </div>
-
         <div className="container" style={{ margin: "2em auto", padding: "0 2em" }}>
           <article className="message">
             <div className="message-body is-size-7">
@@ -87,7 +79,7 @@ export default class About extends PureComponent {
             <article className="media">
               <div className="media-left">
                 <figure className="image is-64x64">
-                  <img src="/assets/images/icon_kero.jpg" alt="ケロ" className="user-icon" />
+                  <img src="/images/icon_kero.jpg" alt="ケロ" className="user-icon" />
                 </figure>
               </div>
               <div className="media-content">

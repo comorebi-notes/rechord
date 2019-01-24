@@ -7,11 +7,13 @@ import { beats }        from "../../../constants/beats"
 import * as instruments from "../../../constants/instruments"
 import * as utils       from "../../../utils"
 import * as decorator   from "../../../decorators/scoreEditorDecorator"
-import { window, navigator, AudioContext }                  from "../../../utils/browser-dependencies"
+import { window, document, navigator, AudioContext }        from "../../../utils/browser-dependencies"
 import { MAX_VOLUME, STREAK_NOTE, RESUME_NOTE, END_MARKER } from "../../../constants"
 
 // const LATENCY_HINT = 0.28
 // const UPDATE_INTERVAL = 0.02
+
+const eventName = typeof document.ontouchend !== 'undefined' ? 'touchend' : 'mouseup'
 
 export default class SoundControl extends Component {
   constructor(props) {
@@ -24,8 +26,9 @@ export default class SoundControl extends Component {
     if (Tone.context.close) { // Google Crawler 対策
       Tone.context.close()
       Tone.context = new AudioContext()
-      StartAudioContext(Tone.context) // https://github.com/Tonejs/Tone.js/issues/341
     }
+    StartAudioContext(Tone.context) // https://github.com/Tonejs/Tone.js/issues/341
+    Tone.context.resume()
 
     // Tone.context.latencyHint = LATENCY_HINT
     // Tone.context.updateInterval = UPDATE_INTERVAL
@@ -42,19 +45,23 @@ export default class SoundControl extends Component {
     }
   }
 
-  // ===== iOS 対応の苦肉の策 =====
-  // iOS では必ずユーザ操作によって音源がロードされる必要がある。
-  // 初回スクロール時か props の初回変更時に、
-  // hasLoaded でなければ音源をロードし、スクロールのイベントリスナーを外す。
-  // https://qiita.com/yohei-qiita/items/78805185ab218468215e
   componentDidMount() {
+    // ===== iOS 対応の苦肉の策 =====
+    // iOS では必ずユーザ操作によって音源がロードされる必要がある。
+    // 初回スクロール時か props の初回変更時に、
+    // hasLoaded でなければ音源をロードし、スクロールのイベントリスナーを外す。
+    // https://qiita.com/yohei-qiita/items/78805185ab218468215e
     const isIOS = /[ (]iP/.test(navigator.userAgent)
     if (isIOS) {
       window.addEventListener("scroll", this.setInstrumentForIOS)
     } else {
       this.onMount(() => this.setState({ hasLoaded: true }))
     }
+
+    // ユーザイベントの後に AudioContext の resume が必要なため。
+    window.addEventListener(eventName, this.resumeAudioContext)
   }
+
   componentWillReceiveProps({ bpm, volume, loop, enabledClick, instrumentType }) {
     if (bpm    !== this.props.bpm)    this.setBpm(bpm)
     if (volume !== this.props.volume) this.setVolume(volume)
@@ -74,6 +81,10 @@ export default class SoundControl extends Component {
   setInstrumentForIOS = () => {
     if (!this.state.hasLoaded) this.setLoaded(this.props.instrumentType)
     window.removeEventListener("scroll", this.setInstrumentForIOS)
+  }
+  resumeAudioContext = () => {
+    Tone.context.resume()
+    window.removeEventListener(eventName, this.resumeAudioContext)
   }
   setLoaded = (instrumentType, setLoading = false) => (
     this.setState({

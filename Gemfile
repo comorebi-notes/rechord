@@ -43,8 +43,8 @@ gem 'omniauth-github'
 
 # Management
 gem 'cancancan'
-# gem 'rails_admin', '~> 1.4'
-# gem 'rails_admin-i18n'
+gem 'rails_admin', github: 'sferik/rails_admin', ref: '0939adf49c708fccf730023ac8cf0fdff34f9917'
+gem 'rails_admin-i18n'
 gem 'newrelic_rpm'
 
 # Upload

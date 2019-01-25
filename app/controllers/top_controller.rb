@@ -41,7 +41,7 @@ class TopController < ApplicationController
   end
 
   def check_maintenance
-    @maintenance_schedules = MaintenanceSchedule.where('start_time >= ?', Time.zone.now).where('end_time <= ?', Time.zone.now)
+    @maintenance_schedules = MaintenanceSchedule.active
     render :maintenance if @maintenance_schedules.present?
   end
 end

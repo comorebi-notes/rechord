@@ -6,6 +6,8 @@ class MaintenanceSchedule < ApplicationRecord
 
   validate :validate_times
 
+  scope :active, -> { where('start_time <= ?', Time.zone.now).where('end_time >= ?', Time.zone.now) }
+
   private
 
   def validate_times

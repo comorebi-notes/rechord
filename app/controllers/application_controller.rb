@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   before_action :no_cache
+  before_action :basic_authenticate if Rails.env.staging?
 
   private
 
@@ -20,6 +21,12 @@ class ApplicationController < ActionController::Base
       response.headers["Cache-Control"] = "no-cache, no-store"
       response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
       response.headers["Pragma"] = "no-cache"
+    end
+  end
+
+  def basic_authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username == ENV['BASIC_AUTHENTICATION_USERNAME'] && password == ENV['BASIC_AUTHENTICATION_PASSWORD']
     end
   end
 

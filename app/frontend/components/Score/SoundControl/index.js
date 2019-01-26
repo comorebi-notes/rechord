@@ -26,7 +26,6 @@ export default class SoundControl extends Component {
       Tone.context.close()
       Tone.context = new AudioContext()
     }
-    StartAudioContext(Tone.context) // https://github.com/Tonejs/Tone.js/issues/341
     Tone.context.resume()
 
     // Tone.context.latencyHint = LATENCY_HINT

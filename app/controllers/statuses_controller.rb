@@ -1,9 +1,10 @@
 class StatusesController < ApplicationController
   def show
     render json: {
-      currentUser:    current_user || {},
-      currentVersion: Rails.configuration.preference["version"],
-      notifications:  Notification.list_for_user(current_user&.id)
+      currentUser:          current_user || {},
+      currentVersion:       Rails.configuration.preference["version"],
+      notifications:        Notification.list_for_user(current_user&.id),
+      maintenanceSchedules: MaintenanceSchedule.active
     }
   end
 

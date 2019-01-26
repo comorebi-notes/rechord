@@ -36,8 +36,11 @@ class Container extends Component {
     const { history } = this.props
     this.setState({ loading: true })
     api.getStatus(
-      ({ data: { currentUser, currentVersion, notifications } }) => {
-        if (currentVersion !== this.state.currentVersion) window.location.reload() // 更新があればブラウザをリロード
+      ({ data: { currentUser, currentVersion, notifications, maintenanceSchedules } }) => {
+        // 更新かメンテナンス情報があればブラウザをリロード
+        if (currentVersion !== this.state.currentVersion || maintenanceSchedules.length > 0) {
+          window.location.reload()
+        }
         this.setState({ loading: false, currentUser, notifications })
       },
       (errors) => history.push(path.root, utils.setFlashError(errors))

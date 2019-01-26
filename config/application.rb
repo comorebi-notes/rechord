@@ -16,5 +16,8 @@ module Rechord
     # -- all .rb files in that directory are automatically loaded.
 
     config.preference = config_for(:version)
+
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone :local
   end
 end

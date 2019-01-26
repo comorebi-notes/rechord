@@ -14,7 +14,9 @@ namespace :backup do
 
   def send_to_dropbox
     client = initialize_dropbox_client
-    client.upload("#{ENV["BACKUP_FILES_PATH"]}#{file_name}", IO.read(local_backup_file_path))
+    File.open(local_backup_file_path) do |f|
+      client.upload_by_chunks "#{ENV["BACKUP_FILES_PATH"]}#{file_name}", f
+    end
   end
 
   def detele_olds_by_local(generation_number = 7)

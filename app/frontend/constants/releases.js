@@ -194,6 +194,26 @@ const releases = [
         <li>ゲストユーザのスコアをいいねすると全員に通知が行ってしまっていたので修正 </li>
       </ul>
     )
+  }, {
+    version:    "v1.1.0",
+    updated_at: "2019/1/27",
+    content: (
+      <ul>
+        <li>
+          <strong>
+            <a href="https://cloudgarage.jp/" target="_blank" rel="noopener noreferrer">CloudGarage</a>
+            様の
+            <a href="https://cloudgarage.jp/dap/" target="_blank" rel="noopener noreferrer">Dev Assist Program</a>
+            にて無償提供されるサーバへ移行が完了しました！
+          </strong>
+          <br />
+          これで以前より懸念だったサーバ費用の問題が解決するため、開発を継続することができます。
+        </li>
+        <li>開発環境周りを大幅に改善</li>
+        <li>Twitter のハッシュタグをタイムラインしていた箇所が、Twitter 側の仕様変更により使用不可になっていたため削除</li>
+        <li>Google 認証でアカウント作成した際、表示名が長すぎたらエラーになる問題を修正</li>
+      </ul>
+    )
   }
 ]
 

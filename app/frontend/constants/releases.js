@@ -214,6 +214,15 @@ const releases = [
         <li>Google 認証でアカウント作成した際、表示名が長すぎたらエラーになる問題を修正</li>
       </ul>
     )
+  }, {
+    version:    "v1.1.1",
+    updated_at: "2019/1/28",
+    content: (
+      <ul>
+        <li><code>&lt;|</code> と入力するとエラーになるバグを修正</li>
+        <li>タブレットでの表示を大幅に改善</li>
+      </ul>
+    )
   }
 ]
 

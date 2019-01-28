@@ -57,7 +57,14 @@ export default class Icon extends Component {
     const { user: { icon, screen_name }, isOwn } = this.props
     return (
       <div className={classNames({ "loading-wrapper": loading })}>
-        <figure className="image is-square">
+        <figure className="image is-square is-hidden-mobile">
+          <img
+            src={utils.iconUrl(icon)}
+            className="user-icon has-border"
+            alt={screen_name}
+          />
+        </figure>
+        <figure className="image is-128x128 is-hidden-tablet">
           <img
             src={utils.iconUrl(icon)}
             className="user-icon has-border"

@@ -261,7 +261,7 @@ Devise.setup do |config|
       secure_image_url: true,
       image_size:       "large"
     }
-  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"]
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"], skip_jwt: true
   config.omniauth :tumblr, ENV["TUMBLR_KEY"], ENV["TUMBLR_SECRET"]
   config.omniauth :github, ENV["GITHUB_KEY"], ENV["GITHUB_SECRET"], scope: "user,repo"
 

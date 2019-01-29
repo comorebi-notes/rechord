@@ -223,6 +223,14 @@ const releases = [
         <li>タブレットでの表示を大幅に改善</li>
       </ul>
     )
+  }, {
+    version:    "v1.1.2",
+    updated_at: "2019/1/29",
+    content: (
+      <ul>
+        <li>Google 認証でログインしようとするとエラーになっていたのを修正</li>
+      </ul>
+    )
   }
 ]
 

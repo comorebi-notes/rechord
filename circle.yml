@@ -60,3 +60,6 @@ jobs:
       - run:
           name: check lint
           command: yarn lint
+      - run:
+          name: jest
+          command: yarn test

@@ -23,7 +23,7 @@ export default class ModalCard extends Component {
                 </span>
                 <span>{title}</span>
               </p>
-              <button className="delete" onClick={hideModal} />
+              <button type="button" className="delete" onClick={hideModal} />
             </header>
           )}
           <section className="modal-card-body">
@@ -31,18 +31,18 @@ export default class ModalCard extends Component {
           </section>
           {hasButtons && (
             <footer className="modal-card-foot right">
-              <button className={buttonClass} onClick={handleClick}>
+              <button type="button" className={buttonClass} onClick={handleClick}>
                 {yesButtonLabel || "Yes"}
               </button>
               {!yesButtonOnly && (
-                <button className="button" onClick={hideModal}>
+                <button type="button" className="button" onClick={hideModal}>
                   {noButtonLabel || "No"}
                 </button>
               )}
             </footer>
           )}
         </div>
-        <button className="modal-close is-large" onClick={hideModal} />
+        <button type="button" className="modal-close is-large" onClick={hideModal} />
       </div>
     )
   }

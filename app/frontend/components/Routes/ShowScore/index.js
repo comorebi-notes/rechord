@@ -79,7 +79,7 @@ export default class ShowScore extends Component {
   }
 
   handleSetState = (newState) => this.setState(newState)
-  handleToggleDestroyModal = () => this.setState({ destroyModal: !this.state.destroyModal })
+  handleToggleDestroyModal = () => this.setState(prevState => ({ destroyModal: !prevState.destroyModal }))
 
   render() {
     const {

@@ -11,7 +11,7 @@ export default class Button extends PureComponent {
     })
     const iconClass = classNames("fa", { [`fa-${icon}`]: icon })
     return (
-      <button onClick={onClick} className={buttonClass} disabled={disabled}>
+      <button type="button" onClick={onClick} className={buttonClass} disabled={disabled}>
         {text && rightIcon && (
           <span>{text}</span>
         )}

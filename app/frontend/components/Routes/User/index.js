@@ -29,7 +29,7 @@ export default class User extends Component {
       (errors) => this.props.history.push(path.root, utils.setFlashError(errors))
     )
   }
-  handleToggleEdit = () => this.setState({ edit: !this.state.edit })
+  handleToggleEdit = () => this.setState(prevState => ({ edit: !prevState.edit }))
   render() {
     const { loading, user, edit } = this.state
     const { currentUser, history, location } = this.props

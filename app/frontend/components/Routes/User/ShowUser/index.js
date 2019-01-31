@@ -38,7 +38,7 @@ export default class ShowUser extends PureComponent {
           {isOwn && (
             <div>
               <p>
-                <button className="button is-primary wide-button" onClick={handleToggleEdit}>
+                <button type="button" className="button is-primary wide-button" onClick={handleToggleEdit}>
                   <span className="icon">
                     <i className="fa fa-pencil-square-o" />
                   </span>

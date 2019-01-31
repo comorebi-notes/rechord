@@ -23,9 +23,9 @@ export default class Header extends PureComponent {
     if (pathname !== this.props.pathname) this.setState({ burger: false })
     if (!loading && notifications !== this.state.notifications) this.setState({ notifications })
   }
-  handleToggleBurger       = () => this.setState({ burger: !this.state.burger })
-  handleToggleLoginModal   = () => this.setState({ isActiveLoginModal: !this.state.isActiveLoginModal })
-  handleToggleNotification = () => this.setState({ isActiveNotification: !this.state.isActiveNotification })
+  handleToggleBurger       = () => this.setState(prevState => ({ burger: !prevState.burger }))
+  handleToggleLoginModal   = () => this.setState(prevState => ({ isActiveLoginModal: !prevState.isActiveLoginModal }))
+  handleToggleNotification = () => this.setState(prevState => ({ isActiveNotification: !prevState.isActiveNotification }))
   handleClearNotification  = () => {
     const { currentUser: { name }, history } = this.props
     api.read(
@@ -95,6 +95,7 @@ export default class Header extends PureComponent {
                     <div className="field">
                       <div className="control">
                         <button
+                          type="button"
                           className="button is-primary is-inverted login-button"
                           onClick={this.handleToggleLoginModal}
                         >

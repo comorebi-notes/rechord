@@ -35,7 +35,7 @@ export default class ScoreHeader extends Component {
     }
     return true
   }
-  handleToggleModal = () => this.setState({ modal: !this.state.modal })
+  handleToggleModal = () => this.setState(prevState => ({ modal: !prevState.modal }))
   render() {
     const { author, title, token, status, user, viewsCount, createdAt, updatedAt } = this.props
     const { modal, favsCount, myFavId } = this.state
@@ -76,7 +76,7 @@ export default class ScoreHeader extends Component {
             </div>
 
             <span className="separator">|</span>
-            <button className="button has-text-link" onClick={this.handleToggleModal} disabled={isClosed}>
+            <button type="button" className="button has-text-link" onClick={this.handleToggleModal} disabled={isClosed}>
               <span className="icon has-text-link">
                 <i className="fa fa-share-alt" />
               </span>

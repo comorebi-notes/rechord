@@ -32,7 +32,7 @@ export default class FlashMessage extends PureComponent {
     return (
       <div className="container flash-message" style={flashStyle}>
         <div className={notificationClass}>
-          <button className="delete" onClick={this.handleDelete} />
+          <button type="button" className="delete" onClick={this.handleDelete} />
           <span className="icon is-medium" style={{ marginRight: ".5em" }}>
             <i className={iconClass} />
           </span>

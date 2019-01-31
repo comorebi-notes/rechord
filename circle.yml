@@ -28,33 +28,34 @@ jobs:
           command: bundle -v
       - restore_cache:
           keys:
-            - rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
-            - rails-demo-bundle-v2-
+            - rails-demo-bundle-v3-{{ checksum "Gemfile.lock" }}
       - run:
           name: Bundle Install
           command: bundle check || bundle install
       - save_cache:
-          key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: rails-demo-bundle-v3-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
       # yarn
       - restore_cache:
           keys:
-            - rails-demo-yarn-{{ checksum "yarn.lock" }}
-            - rails-demo-yarn-
+            - rails-demo-yarn-v2-{{ checksum "yarn.lock" }}
+            - rails-demo-yarn-v2-
       - run:
           name: yarn install
           command: curl -o- -L https://yarnpkg.com/install.sh; yarn install
       - save_cache:
-          key: rails-demo-yarn-{{ checksum "yarn.lock" }}
+          key: rails-demo-yarn-v2-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
 
       # database
       - run:
           name: Database setup
-          command: bin/rails db:schema:load --trace
+          command: |
+            bin/rails db:create
+            bin/rails db:structure:load
 
       # test
       - run:

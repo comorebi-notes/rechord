@@ -38,7 +38,7 @@
   },
   "scripts": {
     "lint": "eslint app/frontend --ext .js --ext .jsx",
-    "test": "jest --no-cache"
+    "test": "jest --no-cache ./spec/frontend"
   },
   "jest": {
     "testPathIgnorePatterns": [

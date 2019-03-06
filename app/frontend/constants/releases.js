@@ -231,6 +231,14 @@ const releases = [
         <li>Google 認証でログインしようとするとエラーになっていたのを修正</li>
       </ul>
     )
+  }, {
+    version:    "v1.1.3",
+    updated_at: "2019/3/7",
+    content: (
+      <ul>
+        <li>Google 認証の古い方式が使用不可になるため、方式を最新化</li>
+      </ul>
+    )
   }
 ]
 

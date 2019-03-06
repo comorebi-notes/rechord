@@ -34,7 +34,7 @@ export default class SharedButtons extends PureComponent {
           </FacebookShareButton>
         </span>
         <span className="icon shared-button">
-          <GooglePlusShareButton url={url} >
+          <GooglePlusShareButton url={url}>
             <ShareIcon icon="google-plus" color="#dd4b39" large={!asShow} />
           </GooglePlusShareButton>
         </span>

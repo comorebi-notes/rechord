@@ -43,7 +43,7 @@ export default class LoginModal extends Component {
             </p>
           </div>
         </div>
-        <button className="modal-close is-large" onClick={hideModal} />
+        <button type="button" className="modal-close is-large" onClick={hideModal} />
       </div>
     )
   }

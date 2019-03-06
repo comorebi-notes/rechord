@@ -8,7 +8,7 @@ export default class Pagination extends Component {
     const isShowPagination = currentPage && currentPage <= totalPages
     const pagenationLinkClass = (page) => classNames("pagination-link", { "is-current": page === currentPage })
     const renderPaginationLink = (page) => (
-      <a className={pagenationLinkClass(page)} onClick={() => handlePaginate(page)} >
+      <a className={pagenationLinkClass(page)} onClick={() => handlePaginate(page)}>
         {page}
       </a>
     )

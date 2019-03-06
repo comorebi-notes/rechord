@@ -68,10 +68,9 @@ export default class EditUser extends Component {
       )
     )
   }
-  handleToggleDestroyModal = () => this.setState({ destroyModal: !this.state.destroyModal })
+  handleToggleDestroyModal = () => this.setState(prevState => ({ destroyModal: !prevState.destroyModal }))
   handleTouch = (target) => {
-    const newTouchState = Object.assign({}, this.state.touch, { [target]: true })
-    this.setState({ touch: newTouchState })
+    this.setState(prevState => ({ touch: Object.assign({}, prevState.touch, { [target]: true }) }))
     this.validate(target, this.state[target])
   }
   validate = (target, value) => (
@@ -183,6 +182,7 @@ export default class EditUser extends Component {
 
           <p>
             <button
+              type="button"
               className="button wide-button is-primary"
               disabled={loading}
               onClick={this.handleUpdateUser}
@@ -195,6 +195,7 @@ export default class EditUser extends Component {
           </p>
           <p>
             <button
+              type="button"
               className="button wide-button"
               disabled={loading}
               onClick={handleToggleEdit}
@@ -207,6 +208,7 @@ export default class EditUser extends Component {
           </p>
           <p style={{ marginTop: "2em" }}>
             <button
+              type="button"
               className="button is-danger wide-button"
               disabled={loading}
               onClick={this.handleToggleDestroyModal}

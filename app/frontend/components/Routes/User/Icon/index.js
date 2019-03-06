@@ -88,6 +88,7 @@ export default class Icon extends Component {
                 </label>
               </div>
               <button
+                type="button"
                 className="button is-danger is-small"
                 onClick={this.handleRemoveIcon}
                 disabled={!icon || !icon.url}

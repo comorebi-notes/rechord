@@ -14,7 +14,7 @@ class TabBar extends PureComponent {
   handleInput       = (e) => this.setState({ queryWord: e.target.value })
   handleKeyDown     = (e) => e.keyCode === 13 && this.handleSearch()
   handleClear       = ()  => this.setState({ queryWord: "" })
-  handleToggleModal = ()  => this.setState({ isActiveModal: !this.state.isActiveModal })
+  handleToggleModal = ()  => this.setState(prevState => ({ isActiveModal: !prevState.isActiveModal }))
   handleSearch = () => {
     const { history } = this.props
     const { queryWord } = this.state

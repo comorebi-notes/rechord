@@ -47,7 +47,7 @@ export default class CardsList extends Component {
   }
 
   updateQuery = (params) => {
-    this.setState({ query: Object.assign({}, this.state.query, params) })
+    this.setState(prevState => ({ query: Object.assign({}, prevState.query, params) }))
   }
   handleInputWord = (e) => this.updateQuery({ word: e.target.value })
   handleChangeOption = (key, value) => {

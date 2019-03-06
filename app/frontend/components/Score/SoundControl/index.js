@@ -24,7 +24,7 @@ export default class SoundControl extends Component {
     Transport.clear()
     if (Tone.context.close) { // Google Crawler 対策
       Tone.context.close()
-      Tone.context = new AudioContext()
+      Tone.setContext(new AudioContext())
     }
     Tone.context.resume()
 

@@ -50,6 +50,7 @@ class UpdateControl extends Component {
           </div>
           <div className="control">
             <button
+              type="button"
               className="button is-primary is-medium animate-button"
               onClick={this.handleClick}
               disabled={loading || !isValid}

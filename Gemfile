@@ -13,7 +13,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'webpacker'
+gem 'webpacker', '~> 3.5.5'
 gem 'therubyracer', platforms: :ruby
 gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
@@ -87,6 +87,10 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano3-puma',   require: false
   gem 'capistrano-rbenv',   require: false
+
+  gem 'bcrypt', '~> 3.1.7'
+  gem 'bcrypt_pbkdf'
+  gem 'ed25519'
 end
 
 # for Heroku

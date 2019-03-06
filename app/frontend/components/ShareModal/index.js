@@ -32,6 +32,7 @@ export default class ShareModal extends Component {
               </a>
               {showCopyButton && (
                 <button
+                  type="button"
                   className="button is-small is-info"
                   style={{ verticalAlign: "middle" }}
                   onClick={this.handleCopy}
@@ -46,7 +47,7 @@ export default class ShareModal extends Component {
             <SharedButtons url={sharedUrl} title={title} />
           </div>
         </div>
-        <button className="modal-close is-large" onClick={this.hideModal} />
+        <button type="button" className="modal-close is-large" onClick={this.hideModal} />
       </div>
     )
   }

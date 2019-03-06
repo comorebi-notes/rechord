@@ -1,6 +1,6 @@
 import { Note, Distance } from "tonal"
 import chordTranslator    from "chord-translator"
-import { times }          from "../utils"
+import { times }          from "."
 import { beats }          from "../constants/beats"
 import { STREAK_NOTE, RESUME_NOTE, STOP_NOTE, STOP_NOTE_2, START_MARKER, END_MARKER } from "../constants"
 

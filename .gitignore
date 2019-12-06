@@ -33,7 +33,7 @@
 .DS_Store
 tags
 /.idea
-/.localdocker/postgres/*
+/.docker/postgres/*
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

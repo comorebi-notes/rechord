@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: postgres
     volumes:
-      - ./.localdocker/postgres/data:/var/lib/postgresql/data
+      - ./postgres/data:/var/lib/postgresql/data
   redis:
     image: redis:latest
     ports:

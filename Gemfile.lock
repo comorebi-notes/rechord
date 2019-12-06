@@ -649,11 +649,7 @@ GEM
     yard (0.9.18)
 
 PLATFORMS
-  java
   ruby
-  x64-mingw32
-  x86-mingw32
-  x86-mswin32
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)

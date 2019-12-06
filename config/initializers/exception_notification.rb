@@ -10,14 +10,14 @@ ExceptionNotification.configure do |config|
   # config.ignore_if do |exception, options|
   #   not Rails.env.production?
   # end
-  # config.ignore_if do |exception, options|
-  #   not Rails.env.production?
-  # end
+  config.ignore_if do |exception, options|
+    not Rails.env.production?
+  end
 
   # Notifiers =================================================================
 
   config.add_notifier :slack,
-                      webhook_url: 'https://hooks.slack.com/services/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',
+                      webhook_url: 'https://hooks.slack.com/services/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',
                       channel:     '#rechord_notification'
 
   # Email notifier sends notifications by email.

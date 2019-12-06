@@ -17,7 +17,7 @@ ExceptionNotification.configure do |config|
   # Notifiers =================================================================
 
   config.add_notifier :slack, {
-    webhook_url: "https://hooks.slack.com/services/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",
+    webhook_url: "https://hooks.slack.com/services/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",
     channel:     "#rechord_notification"
   }
 

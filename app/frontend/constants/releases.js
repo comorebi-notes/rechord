@@ -239,6 +239,15 @@ const releases = [
         <li>Google 認証の古い方式が使用不可になるため、方式を最新化</li>
       </ul>
     )
+  }, {
+    version:    "v1.1.4",
+    updated_at: "2019/12/8",
+    content: (
+      <ul>
+        <li>rechordが稼働するクラウドサービスを移行</li>
+        <li>日本語名のソート順が正しくなかった不具合を修正</li>
+      </ul>
+    )
   }
 ]
 

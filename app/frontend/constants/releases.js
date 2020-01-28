@@ -248,6 +248,14 @@ const releases = [
         <li>日本語名のソート順が正しくなかった不具合を修正</li>
       </ul>
     )
+  }, {
+    version:    "v1.1.5",
+    updated_at: "2020/1/28",
+    content: (
+      <ul>
+        <li>Facebook の API をバージョンアップ</li>
+      </ul>
+    )
   }
 ]
 

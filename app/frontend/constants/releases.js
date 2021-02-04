@@ -256,6 +256,14 @@ const releases = [
         <li>Facebook の API をバージョンアップ</li>
       </ul>
     )
+  }, {
+    version:    "v1.1.6",
+    updated_at: "2021/2/5",
+    content: (
+      <ul>
+        <li>サーバが起動できない問題を修正</li>
+      </ul>
+    )
   }
 ]
 

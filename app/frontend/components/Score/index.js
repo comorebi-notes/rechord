@@ -58,7 +58,7 @@ export default class Score extends Component {
     const url = URL.createObjectURL(new Blob([buffer], { type: 'audio/midi'}))
     const link = document.createElement('a')
     link.href = url
-    link.download = (title == "" ? 'rechord' : title) + '.midi'
+    link.download = `${title || 'rechord'}.mid`
     link.click()
 
     URL.revokeObjectURL(url)

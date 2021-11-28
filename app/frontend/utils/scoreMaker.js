@@ -38,6 +38,27 @@ const setBeatPositions = (length, selectedBeat) => {
   return beatPositions
 }
 
+const noteDuration = (length, selectedBeat) => {
+  if (length === 1) return '1'
+
+  const beat = beats[selectedBeat][0]
+
+  switch (true) {
+    // コード数が 2 (均等に配置)
+    case beat / length >= 2: {
+      return '2'
+    }
+    // コード数が 5〜8 (8分音符)
+    case length > beat && length <= beat * 2:
+      return '8'
+    // コード数が 9〜16 (16分音符)
+    case length > beat * 2:
+      return '16'
+    // コード数が 3〜4 (4分音符)
+    default: return '4'
+  }
+}
+
 const upOctave = (note) => Distance.transpose(note, "8M")
 const addNewRootToNotes = (notes, denominator, baseKey) => {
   const keyAdjuster = () => (
@@ -111,7 +132,12 @@ export const scoreMaker = (text, selectedTime) => {
                 default:           return fixNotes(chord, baseKey)
               }
             }
-            return score.push({ time, notes: notes(), index: notesIndex - 1 })
+            return score.push({
+              time,
+              duration: noteDuration(chords.length, selectedTime),
+              notes: notes(),
+              index: notesIndex - 1
+            })
           })
           bar += 1
           return true

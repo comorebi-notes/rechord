@@ -49,7 +49,8 @@ gem 'newrelic_rpm'
 
 # Upload
 gem 'carrierwave'
-gem 'fog', '= 2.1.0'
+gem 'fog-openstack'
+gem 'mime-types'
 gem 'rmagick'
 
 # Counter

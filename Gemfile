@@ -5,19 +5,19 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.6.5'
+ruby '3.2.1'
 
 # Core
-gem 'rails', '~> 5.2.2.1'
-gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.11'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'webpacker', '~> 3.5.5'
-gem 'therubyracer', platforms: :ruby
-gem 'jbuilder', '~> 2.5'
+gem 'rails', '6.1.7.3'
+gem 'pg'
+gem 'puma'
+gem 'sassc-rails'
+gem 'terser'
+gem 'webpacker'
+# gem 'mini_racer'
+gem 'jbuilder'
 # gem 'capistrano-rails', group: :development
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap'
 gem 'unicorn'
 gem 'dotenv-rails'
 
@@ -25,7 +25,7 @@ gem 'dotenv-rails'
 gem 'font-awesome-rails'
 gem 'rails-i18n'
 gem 'slim-rails'
-gem 'bulma-rails'
+gem 'bulma-rails', '0.7.4'
 
 # API
 gem 'friendly_id'
@@ -34,22 +34,23 @@ gem 'kaminari'
 
 # Authentication
 gem 'devise'
-gem 'omniauth'
-gem 'omniauth-twitter'
-gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-tumblr'
-gem 'omniauth-github'
+gem 'omniauth', '~> 1.9.0'
+gem 'omniauth-twitter', '~> 1.4.0'
+gem 'omniauth-facebook', '~> 6.0.0'
+gem 'omniauth-google-oauth2', '~> 0.6.0'
+gem 'omniauth-tumblr', '~> 1.2'
+gem 'omniauth-github', '~> 1.3.0'
 
 # Management
 gem 'cancancan'
-gem 'rails_admin', github: 'sferik/rails_admin', ref: '0939adf49c708fccf730023ac8cf0fdff34f9917'
+gem 'rails_admin'
 gem 'rails_admin-i18n'
 gem 'newrelic_rpm'
 
 # Upload
 gem 'carrierwave'
-gem 'fog'
+gem 'fog-openstack'
+gem 'mime-types'
 gem 'rmagick'
 
 # Counter
@@ -57,7 +58,7 @@ gem 'impressionist'
 gem 'counter_culture', '~> 1.8'
 
 # Session
-gem 'redis'
+gem 'redis', '~>4.8.1'
 gem 'redis-rails'
 
 # Backup
@@ -67,6 +68,8 @@ gem 'whenever', require: false
 # Notification
 gem 'exception_notification'
 gem 'slack-notifier'
+
+gem 'psych', '~> 3.1'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

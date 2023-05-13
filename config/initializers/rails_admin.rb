@@ -14,6 +14,7 @@ module RailsAdmin
 end
 
 RailsAdmin.config do |config|
+  config.asset_source = :webpacker
   # for Rails 5.2.0
   config.excluded_models = ["ActiveStorage::Blob", "ActiveStorage::Attachment"]
 
@@ -26,7 +27,7 @@ RailsAdmin.config do |config|
   config.current_user_method(&:current_user)
 
   # == Cancan ==
-  config.authorize_with :cancan
+  config.authorize_with :cancancan
   config.parent_controller = "ApplicationController"
 
   ## == Pundit ==

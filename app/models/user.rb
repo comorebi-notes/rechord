@@ -26,6 +26,10 @@ class User < ApplicationRecord
     users
   }
 
+  def self.ransackable_attributes(auth_object = nil) = %w[name screen_name profile]
+  def self.ransackable_associations(auth_object = nil) = %w[score]
+
+
   class << self
     def find_or_create_from_auth(auth)
       provider = auth[:provider]

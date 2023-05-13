@@ -1,7 +1,7 @@
-import React, { Component } from "react"
-import { Router }           from "react-router-dom"
-import createHistory        from "history/createBrowserHistory"
-import ReactGA              from "react-ga"
+import React, { Component }    from "react"
+import { Router }              from "react-router-dom"
+import { createBrowserHistory } from "history"
+import ReactGA                 from "react-ga"
 
 import Routes     from "./Routes"
 import { window } from "../utils/browser-dependencies"
@@ -10,7 +10,7 @@ export default class Rechord extends Component {
   constructor() {
     super()
     const { uaId } = window.data
-    const history = createHistory()
+    const history = createBrowserHistory()
     history.pushPageView = () => {}
 
     if (uaId.length > 0) {

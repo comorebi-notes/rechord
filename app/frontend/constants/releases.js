@@ -264,6 +264,20 @@ const releases = [
         <li>サーバが起動できない問題を修正</li>
       </ul>
     )
+  }, {
+    version:    "v2.0.0",
+    updated_at: "2023/5/14",
+    content: (
+      <ul>
+        <li>各種ライブラリをバージョンアップ (機能修正および機能追加の予定は現在のところありません)</li>
+        <li>
+          <a href="https://twitter.com/rechord_cc/status/1657358997119455233" target="_blank" rel="noopener noreferrer">
+            rechordの売却を検討中です。
+          </a>
+          ご興味のある方はご連絡ください。
+        </li>
+      </ul>
+    )
   }
 ]
 

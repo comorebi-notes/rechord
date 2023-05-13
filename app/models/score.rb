@@ -50,6 +50,8 @@ class Score < ApplicationRecord
     scores
   }
 
+  def self.ransackable_attributes(auth_object = nil) = %w[title]
+
   def owner?(id)
     user_id == id
   end

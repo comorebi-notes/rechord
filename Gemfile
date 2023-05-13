@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.6.5'
+ruby '2.7.7'
 
 # Core
 gem 'rails', '~> 5.2.2.1'
@@ -14,10 +14,10 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 3.5.5'
-gem 'therubyracer', platforms: :ruby
+# gem 'mini_racer'
 gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap'
 gem 'unicorn'
 gem 'dotenv-rails'
 
@@ -43,13 +43,13 @@ gem 'omniauth-github'
 
 # Management
 gem 'cancancan'
-gem 'rails_admin', github: 'sferik/rails_admin', ref: '0939adf49c708fccf730023ac8cf0fdff34f9917'
+gem 'rails_admin'
 gem 'rails_admin-i18n'
 gem 'newrelic_rpm'
 
 # Upload
 gem 'carrierwave'
-gem 'fog'
+gem 'fog', '= 2.1.0'
 gem 'rmagick'
 
 # Counter

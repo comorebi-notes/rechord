@@ -13,7 +13,7 @@ gem 'pg'
 gem 'puma'
 gem 'sassc-rails'
 gem 'uglifier'
-gem 'webpacker', '~> 3.5.5'
+gem 'webpacker'
 # gem 'mini_racer'
 gem 'jbuilder'
 # gem 'capistrano-rails', group: :development

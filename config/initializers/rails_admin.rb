@@ -14,6 +14,7 @@ module RailsAdmin
 end
 
 RailsAdmin.config do |config|
+  config.asset_source = :webpacker
   # for Rails 5.2.0
   config.excluded_models = ["ActiveStorage::Blob", "ActiveStorage::Attachment"]
 

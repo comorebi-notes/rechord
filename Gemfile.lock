@@ -384,6 +384,8 @@ GEM
       sprockets (>= 3.0.0)
     ssrf_filter (1.1.1)
     temple (0.10.0)
+    terser (1.1.15)
+      execjs (>= 0.3.0, < 3)
     thor (1.2.2)
     tilt (2.1.0)
     timeout (0.3.2)
@@ -393,8 +395,6 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -474,7 +474,7 @@ DEPENDENCIES
   slim-rails
   spring
   spring-watcher-listen (~> 2.0.0)
-  uglifier
+  terser
   unicorn
   web-console (>= 3.3.0)
   webpacker

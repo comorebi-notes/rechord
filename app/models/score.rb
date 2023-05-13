@@ -33,6 +33,8 @@ class Score < ApplicationRecord
 
   validates :title,   presence: true, length: { maximum: 40 }
   validates :content, presence: true, length: { maximum: 1024 }
+  validates :bpm, numericality: { greater_than: 0 }
+  validate :anti_attack
 
   before_create do
     self.token = SecureRandom.urlsafe_base64(8)
@@ -54,5 +56,14 @@ class Score < ApplicationRecord
 
   def browsable?(id)
     published? || owner?(id)
+  end
+
+  private def anti_attack
+    # 以下の荒らし投稿を取り急ぎ防ぐ
+    #   皆様への大切なお知らせ\n大変申し訳ございませんが、rechord.ccは下記のリンクに移動することとなりました。
+    #   今後ともrechord.ccをよろしくお願いします。
+    #   移動先URL: https://www.nekozouneko.net/
+    #   - by るんく
+    errors.add(:content, :taken) if content.include?('大切なお知らせ') || content.include?('nekozouneko')
   end
 end

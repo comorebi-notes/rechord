@@ -58,7 +58,7 @@ gem 'impressionist', git: 'https://github.com/charlotte-ruby/impressionist.git',
 gem 'counter_culture', '~> 1.8'
 
 # Session
-gem 'redis', '~>4.8.1'
+gem 'redis'
 gem 'redis-rails'
 
 # Backup

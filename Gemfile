@@ -57,10 +57,6 @@ gem 'rmagick'
 gem 'impressionist', git: 'https://github.com/charlotte-ruby/impressionist.git', ref: '46a582ff8cd3496da64f174b30b91f9d97e86643'
 gem 'counter_culture', '~> 1.8'
 
-# Session
-gem 'redis'
-gem 'redis-rails'
-
 # Backup
 gem 'dropbox_api'
 gem 'whenever', require: false

@@ -58,7 +58,7 @@ gem 'impressionist', git: 'https://github.com/charlotte-ruby/impressionist.git',
 gem 'counter_culture', '~> 1.8'
 
 # Session
-gem 'redis', '~>4.8.1'
+gem 'redis'
 gem 'redis-rails'
 
 # Backup
@@ -87,6 +87,7 @@ group :development do
   gem 'bcrypt', '~> 3.1.7'
   gem 'bcrypt_pbkdf'
   gem 'ed25519'
+  gem 'better_errors'
 
   # gem 'capistrano',         require: false
   # gem 'capistrano-rails',   require: false

@@ -87,6 +87,7 @@ group :development do
   gem 'bcrypt', '~> 3.1.7'
   gem 'bcrypt_pbkdf'
   gem 'ed25519'
+  gem 'better_errors'
 
   # gem 'capistrano',         require: false
   # gem 'capistrano-rails',   require: false

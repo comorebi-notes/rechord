@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     users = users.page(params[:page] || 1)
 
     render json: {
-      result:       users.as_json(methods: :scores_count),
+      result:       users.as_json(methods: :scores_count, except: %i[provider uid email last_read_at admin site created_at]),
       total_count:  total_count,
       current_page: users.current_page,
       total_pages:  users.total_pages
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: @user
+    render json: @user.as_json(except: %i[provider uid email last_read_at admin created_at])
   end
 
   def valid_name

@@ -10,7 +10,7 @@ class Users::ScoresController < ApplicationController
     scores = scores.page(params[:page] || 1)
 
     render json: {
-      result:       scores.as_json(include: :user),
+      result:       scores.as_json(include: :user, except: %i[remote_ip]),
       total_count:  total_count,
       current_page: scores.current_page,
       total_pages:  scores.total_pages
